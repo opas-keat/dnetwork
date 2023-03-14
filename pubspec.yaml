@@ -12,6 +12,7 @@ dependencies:
   intl: ^0.17.0
   dio: ^5.0.1
   get: 4.6.5
+  talker_flutter: ^2.2.1
   flutter: 
     sdk: flutter
 

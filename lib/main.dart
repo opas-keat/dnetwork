@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'app/routes/app_pages.dart';
+import 'app/shared/page_not_found.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,18 +19,18 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       defaultTransition: Transition.noTransition,
-      title: "PPSW DEALER",
+      title: "d-network",
       // localizationsDelegates: GlobalMaterialLocalizations.delegates,
       // supportedLocales: const [
       //   Locale('th', 'TH'),
       // ],
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
-      // unknownRoute: GetPage(
-      //   name: "/not-found",
-      //   page: () => const PageNotFound(),
-      //   transition: Transition.noTransition,
-      // ),
+      unknownRoute: GetPage(
+        name: "/not-found",
+        page: () => const PageNotFound(),
+        transition: Transition.noTransition,
+      ),
       theme: ThemeData(
         useMaterial3: false,
         textTheme: GoogleFonts.sarabunTextTheme(),

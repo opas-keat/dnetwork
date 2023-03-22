@@ -2,10 +2,10 @@ import 'package:get/get.dart';
 
 import '../../../../main.dart';
 
-class HomeController extends GetxController {
+class AdminController extends GetxController {
   @override
   void onInit() {
-    talker.info('HomeController is started');
+    talker.info('AdminController is started');
     super.onInit();
   }
 

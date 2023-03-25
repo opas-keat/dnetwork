@@ -207,7 +207,7 @@ class _ScreensExample extends StatelessWidget {
                     pageTitle,
                     style: theme.textTheme.headlineSmall,
                   ),
-                  const AdminView(),
+                  AdminView(),
                 ],
               ),
             );

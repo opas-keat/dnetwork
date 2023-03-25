@@ -1,6 +1,5 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:frontend/app/modules/home/controllers/home_controller.dart';
 import 'package:frontend/app/shared/constant.dart';
 
 import 'package:get/get.dart';
@@ -8,11 +7,12 @@ import 'package:sidebarx/sidebarx.dart';
 
 import '../../../../responsive.dart';
 import '../../../data/models/module.dart';
-import '../controllers/home_controller.dart';
+import '../../admin/controllers/admin_controller.dart';
+import '../../admin/views/admin_view.dart';
 
-class HomeView extends GetView<HomeController> {
+class HomeView extends StatelessWidget {
   HomeView({Key? key}) : super(key: key);
-
+  HomeController homeController = Get.find<HomeController>();
   final _controller = SidebarXController(selectedIndex: 0, extended: true);
   final _key = GlobalKey<ScaffoldState>();
   @override
@@ -22,7 +22,8 @@ class HomeView extends GetView<HomeController> {
       appBar: Responsive.isSmallScreen(context)
           ? AppBar(
               backgroundColor: primaryColor,
-              title: Text(getModuleByIndex(_controller.selectedIndex).nameTH),
+              title:
+                  Obx(() => Text(homeController.selectedModule.value.nameTH)),
               leading: IconButton(
                 onPressed: () {
                   // if (!Platform.isAndroid && !Platform.isIOS) {
@@ -44,9 +45,7 @@ class HomeView extends GetView<HomeController> {
             if (!Responsive.isSmallScreen(context))
               MainSidebar(controller: _controller),
             Expanded(
-              child: Center(
-                child: Container(),
-              ),
+              child: MainScreen(controller: _controller),
             ),
           ],
         ),
@@ -55,12 +54,47 @@ class HomeView extends GetView<HomeController> {
   }
 }
 
+class MainScreen extends StatelessWidget {
+  MainScreen({
+    Key? key,
+    required this.controller,
+  }) : super(key: key);
+  AdminController adminController = Get.put(AdminController());
+
+  final SidebarXController controller;
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            AnimatedBuilder(
+                animation: controller,
+                builder: (context, child) {
+                  final pageTitle =
+                      getModuleByIndex(controller.selectedIndex).nameTH;
+                  switch (controller.selectedIndex) {
+                    case 0:
+                      return Text(pageTitle);
+                    default:
+                      adminController.onInit();
+                      return AdminView();
+                  }
+                }),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class MainSidebar extends StatelessWidget {
-  const MainSidebar({
+  MainSidebar({
     Key? key,
     required SidebarXController controller,
   })  : _controller = controller,
         super(key: key);
+  HomeController homeController = Get.find<HomeController>();
   final SidebarXController _controller;
   @override
   Widget build(BuildContext context) {
@@ -94,12 +128,6 @@ class MainSidebar extends StatelessWidget {
               accentColor,
             ],
           ),
-          // boxShadow: [
-          //   BoxShadow(
-          //     color: Colors.black.withOpacity(0.28),
-          //     blurRadius: 30,
-          //   )
-          // ],
         ),
         iconTheme: IconThemeData(
           color: Colors.white.withOpacity(0.7),
@@ -129,48 +157,16 @@ class MainSidebar extends StatelessWidget {
       items: listModule
           .map(
             (module) => SidebarXItem(
-              icon: Icons.home,
+              icon: module.icon,
               label: module.nameTH,
               onTap: () {
-                debugPrint(module.nameEn);
+                // debugPrint(module.nameEn);
+                // homeController.title.value = module.nameTH;
+                homeController.selectedModule.value = module;
               },
             ),
           )
           .toList(),
-      // items: listModule.forEach((element) {
-      //   return SidebarXItem(
-      //     icon: Icons.home,
-      //     label: 'Home',
-      //     onTap: () {
-      //       debugPrint('Home');
-      //     },
-      //   );
-      // }),
-      // items: [
-      //   SidebarXItem(
-      //     icon: Icons.home,
-      //     label: 'Home',
-      //     onTap: () {
-      //       debugPrint('Home');
-      //     },
-      //   ),
-      //   const SidebarXItem(
-      //     icon: Icons.search,
-      //     label: 'Search',
-      //   ),
-      //   const SidebarXItem(
-      //     icon: Icons.people,
-      //     label: 'People',
-      //   ),
-      //   const SidebarXItem(
-      //     icon: Icons.favorite,
-      //     label: 'Favorites',
-      //   ),
-      //   const SidebarXItem(
-      //     iconWidget: FlutterLogo(size: 20),
-      //     label: 'Flutter',
-      //   ),
-      // ],
     );
   }
 }

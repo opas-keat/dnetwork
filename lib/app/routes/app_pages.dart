@@ -27,7 +27,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.ADMIN,
-      page: () => const AdminView(),
+      page: () => AdminView(),
       binding: AdminBinding(),
     ),
   ];

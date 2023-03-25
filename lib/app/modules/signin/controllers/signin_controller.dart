@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:get/get.dart';
 
 import '../../../../main.dart';
@@ -5,6 +7,7 @@ import '../../../../main.dart';
 class SigninController extends GetxController {
   final logTitle = "SigninController";
   var isObscure = true.obs;
+  var isLoading = true.obs;
 
   @override
   void onInit() {
@@ -22,8 +25,12 @@ class SigninController extends GetxController {
     super.onClose();
   }
 
-  void signIn({required String userName, required String password}) {
+  Future<bool> signIn({required String userName, required String password}) {
     talker.info('signIn');
     talker.debug('userName:$userName');
+    talker.debug('password:$password');
+    return Future.delayed(const Duration(seconds: 3), () {
+      return true;
+    });
   }
 }

@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../../responsive.dart';
+import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
+import '../controllers/signin_controller.dart';
 
 class SigninView extends StatelessWidget {
   SigninView({Key? key}) : super(key: key);
+  SigninController controller = Get.put(SigninController());
 
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
@@ -29,6 +33,7 @@ class SigninView extends StatelessWidget {
             child: Container(
               height: 650.0,
               decoration: const BoxDecoration(
+                color: scaffoldBackgroundColor,
                 borderRadius: BorderRadius.all(Radius.circular(defaultPadding)),
                 gradient: LinearGradient(
                   begin: Alignment.topRight,
@@ -180,8 +185,35 @@ class SigninView extends StatelessWidget {
                                   elevation: 5,
                                   padding:
                                       const EdgeInsets.all(defaultPadding)),
-                              onPressed: () {
-                                // controller.login();
+                              onPressed: () async {
+                                Get.dialog(
+                                  const Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
+                                  barrierDismissible: false,
+                                );
+                                final result = await controller.signIn(
+                                  userName: usernameController.text,
+                                  password: passwordController.text,
+                                );
+                                Get.back();
+                                result
+                                    ? Get.offAllNamed(Routes.HOME)
+                                    : Get.snackbar(
+                                        'Error',
+                                        'Error',
+                                        backgroundColor: accentColor,
+                                        snackPosition: SnackPosition.BOTTOM,
+                                        colorText: Colors.white,
+                                        icon: const Icon(
+                                          Icons.lock_person_outlined,
+                                          color: Colors.white,
+                                        ),
+                                        isDismissible: true,
+                                        margin: const EdgeInsets.all(
+                                          defaultPadding,
+                                        ),
+                                      );
                               },
                             ),
                           ),

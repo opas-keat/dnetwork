@@ -194,7 +194,7 @@ class _ScreensExample extends StatelessWidget {
             //     ),
             //   ),
             // );
-            return const HomeView();
+            return HomeView();
           default:
             // return Text(
             //   pageTitle,

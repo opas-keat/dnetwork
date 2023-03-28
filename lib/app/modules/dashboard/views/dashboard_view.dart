@@ -8,16 +8,10 @@ class DashboardView extends GetView<DashboardController> {
   const DashboardView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('DashboardView'),
-        centerTitle: true,
-      ),
-      body: const Center(
-        child: Text(
-          'DashboardView is working',
-          style: TextStyle(fontSize: 20),
-        ),
+    return Center(
+      child: Text(
+        'ภาพรวม',
+        style: TextStyle(fontSize: 20),
       ),
     );
   }

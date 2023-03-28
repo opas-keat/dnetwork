@@ -8,16 +8,10 @@ class CommissView extends GetView<CommissController> {
   const CommissView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('CommissView'),
-        centerTitle: true,
-      ),
-      body: const Center(
-        child: Text(
-          'CommissView is working',
-          style: TextStyle(fontSize: 20),
-        ),
+    return Center(
+      child: Text(
+        'กรรมการ',
+        style: TextStyle(fontSize: 20),
       ),
     );
   }

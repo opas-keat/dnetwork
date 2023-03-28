@@ -9,6 +9,12 @@ import '../../../../responsive.dart';
 import '../../../data/models/module.dart';
 import '../../admin/controllers/admin_controller.dart';
 import '../../admin/views/admin_view.dart';
+import '../../commiss/views/commiss_view.dart';
+import '../../dashboard/views/dashboard_view.dart';
+import '../../lectuter/views/lectuter_view.dart';
+import '../../setting/views/setting_view.dart';
+import '../../station/views/station_view.dart';
+import '../../villagehosty/views/villagehosty_view.dart';
 
 class HomeView extends StatelessWidget {
   HomeView({Key? key}) : super(key: key);
@@ -75,10 +81,20 @@ class MainScreen extends StatelessWidget {
                       getModuleByIndex(controller.selectedIndex).nameTH;
                   switch (controller.selectedIndex) {
                     case 0:
-                      return Text(pageTitle);
+                      return const DashboardView();
+                    case 1:
+                      return const StationView();
+                    case 2:
+                      return const CommissView();
+                    case 3:
+                      return const LectuterView();
+                    case 4:
+                      return const VillagehostyView();
+                    case 5:
+                      return const SettingView();
                     default:
                       adminController.onInit();
-                      return AdminView();
+                      return const DashboardView();
                   }
                 }),
           ],

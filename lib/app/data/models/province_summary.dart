@@ -1,0 +1,111 @@
+List listProvinceSummary = [
+  ProvinceSummary(
+    seal: "Seal_Bangkok.png",
+    name: "กรุงเทพมหานคร",
+    totalStation: 9999,
+    totalCommiss: 8888,
+    totalLectuter: 7777,
+    totalVillage: 6666,
+  ),
+  ProvinceSummary(
+    seal: "Seal_Chainat.png",
+    name: "นนทบุรี",
+    totalStation: 9999,
+    totalCommiss: 8888,
+    totalLectuter: 7777,
+    totalVillage: 6666,
+  ),
+  ProvinceSummary(
+    seal: "Seal_Chainat.png",
+    name: "ปทุมธานี",
+    totalStation: 9999,
+    totalCommiss: 8888,
+    totalLectuter: 7777,
+    totalVillage: 6666,
+  ),
+  ProvinceSummary(
+    seal: "Seal_Chainat.png",
+    name: "สมุทรปราการ",
+    totalStation: 9999,
+    totalCommiss: 8888,
+    totalLectuter: 7777,
+    totalVillage: 6666,
+  ),
+  ProvinceSummary(
+    seal: "Seal_Chainat.png",
+    name: "สมุทรสาคร",
+    totalStation: 9999,
+    totalCommiss: 8888,
+    totalLectuter: 7777,
+    totalVillage: 6666,
+  ),
+  ProvinceSummary(
+    seal: "Seal_Chainat.png",
+    name: "สมุทรสงคราม",
+    totalStation: 9999,
+    totalCommiss: 8888,
+    totalLectuter: 7777,
+    totalVillage: 6666,
+  ),
+  ProvinceSummary(
+    seal: "Seal_Chainat.png",
+    name: "นครปฐม",
+    totalStation: 9999,
+    totalCommiss: 8888,
+    totalLectuter: 7777,
+    totalVillage: 6666,
+  ),
+  ProvinceSummary(
+    seal: "Seal_Chainat.png",
+    name: "สุพรรณบุรี",
+    totalStation: 9999,
+    totalCommiss: 8888,
+    totalLectuter: 7777,
+    totalVillage: 6666,
+  ),
+  ProvinceSummary(
+    seal: "Seal_Chainat.png",
+    name: "กาญจนบุรี",
+    totalStation: 9999,
+    totalCommiss: 8888,
+    totalLectuter: 7777,
+    totalVillage: 6666,
+  ),
+  ProvinceSummary(
+    seal: "Seal_Chainat.png",
+    name: "ราชบุรี",
+    totalStation: 9999,
+    totalCommiss: 8888,
+    totalLectuter: 7777,
+    totalVillage: 6666,
+  ),
+  ProvinceSummary(
+    seal: "Seal_Chainat.png",
+    name: "เพชรบุรี",
+    totalStation: 9999,
+    totalCommiss: 8888,
+    totalLectuter: 7777,
+    totalVillage: 6666,
+  ),
+  ProvinceSummary(
+    seal: "Seal_Chainat.png",
+    name: "พระนครศรีอยุธยา",
+    totalStation: 9999,
+    totalCommiss: 8888,
+    totalLectuter: 7777,
+    totalVillage: 6666,
+  ),
+];
+
+class ProvinceSummary {
+  String? seal, name;
+  int? totalStation, totalCommiss, totalVillage, totalLectuter;
+  ProvinceSummary({
+    this.seal,
+    this.name,
+    this.totalStation,
+    this.totalCommiss,
+    this.totalVillage,
+    this.totalLectuter,
+  });
+}

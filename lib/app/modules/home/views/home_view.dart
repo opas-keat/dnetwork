@@ -47,6 +47,7 @@ class HomeView extends StatelessWidget {
           : null,
       body: SafeArea(
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (!Responsive.isSmallScreen(context))
               MainSidebar(controller: _controller),
@@ -71,35 +72,29 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            AnimatedBuilder(
-                animation: controller,
-                builder: (context, child) {
-                  final pageTitle =
-                      getModuleByIndex(controller.selectedIndex).nameTH;
-                  switch (controller.selectedIndex) {
-                    case 0:
-                      return const DashboardView();
-                    case 1:
-                      return const StationView();
-                    case 2:
-                      return const CommissView();
-                    case 3:
-                      return const LectuterView();
-                    case 4:
-                      return const VillagehostyView();
-                    case 5:
-                      return const SettingView();
-                    default:
-                      adminController.onInit();
-                      return const DashboardView();
-                  }
-                }),
-          ],
-        ),
-      ),
+      primary: false,
+      child: AnimatedBuilder(
+          animation: controller,
+          builder: (context, child) {
+            final pageTitle = getModuleByIndex(controller.selectedIndex).nameTH;
+            switch (controller.selectedIndex) {
+              case 0:
+                return DashboardView();
+              case 1:
+                return const StationView();
+              case 2:
+                return const CommissView();
+              case 3:
+                return const LectuterView();
+              case 4:
+                return const VillagehostyView();
+              case 5:
+                return const SettingView();
+              default:
+                adminController.onInit();
+                return DashboardView();
+            }
+          }),
     );
   }
 }

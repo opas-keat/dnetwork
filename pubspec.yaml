@@ -13,7 +13,8 @@ dependencies:
   dio: ^5.0.1
   get: 4.6.5
   talker_flutter: ^2.2.1
-  sidebarx: ^0.14.0
+  sidebarx: ^0.15.0
+  data_table_2: ^2.4.1
   flutter: 
     sdk: flutter
 

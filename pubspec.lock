@@ -81,6 +81,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.5"
+  data_table_2:
+    dependency: "direct main"
+    description:
+      name: data_table_2
+      sha256: f967a525ffd787c3117d40a9dcefcb80a143f68a4d4c724b1b6d72cebe249744
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.4.1"
   dio:
     dependency: "direct main"
     description:
@@ -356,10 +364,10 @@ packages:
     dependency: "direct main"
     description:
       name: sidebarx
-      sha256: "8f3c1acdb4cd85bd7e5ab3f5bd8b13f5d5beeb82950e52d31c403ffea701e8be"
+      sha256: "26a8392ceddb659c8f2c688beba6c04bcbf520b4d5decb143c5fd7253653081f"
       url: "https://pub.dev"
     source: hosted
-    version: "0.14.0"
+    version: "0.15.0"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -551,4 +559,4 @@ packages:
     version: "6.2.2"
 sdks:
   dart: ">=2.19.3 <3.0.0"
-  flutter: ">=3.7.0-0"
+  flutter: ">=3.7.0"

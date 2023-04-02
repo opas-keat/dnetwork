@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 import 'app/routes/app_pages.dart';
+import 'app/shared/constant.dart';
 import 'app/shared/page_not_found.dart';
 
 final talker = Talker(
@@ -60,6 +61,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: false,
         textTheme: GoogleFonts.sarabunTextTheme(),
+        scaffoldBackgroundColor: scaffoldBackgroundColor.withOpacity(0.7),
+        scrollbarTheme: ScrollbarThemeData(
+          thumbVisibility: MaterialStateProperty.all(true),
+          thumbColor: MaterialStateProperty.all<Color>(Colors.black26),
+        ),
         // primaryColor: primaryColor,
         // primaryColorDark: primaryLightColor,
         // colorScheme: ColorScheme.fromSwatch().copyWith(

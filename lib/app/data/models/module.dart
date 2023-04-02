@@ -44,6 +44,10 @@ Module getModuleByIndex(int index) {
   // return listModule.where((element) => element.id == index).first;
 }
 
+Module getModuleByNameEn(String nameEn) {
+  return listModule.where((element) => element.nameEn == nameEn).first;
+}
+
 class Module {
   int id;
   String nameTH;

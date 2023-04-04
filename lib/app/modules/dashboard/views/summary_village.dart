@@ -1,6 +1,7 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../responsive.dart';
 import '../../../data/models/province_summary.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/convert.dart';
@@ -39,12 +40,17 @@ class SummaryVillage extends StatelessWidget {
                 scrollController: _scrollController,
                 columnSpacing: defaultPadding,
                 // minWidth: 200,
-                columns: const [
-                  DataColumn2(
+                columns: [
+                  if (!Responsive.isSmallScreen(context))
+                    const DataColumn2(
+                      label: Text("ลำดับที่"),
+                      size: ColumnSize.S,
+                    ),
+                  const DataColumn2(
                     label: Text("จังหวัด"),
                     size: ColumnSize.L,
                   ),
-                  DataColumn2(
+                  const DataColumn2(
                     label: Text("จำนวน"),
                     size: ColumnSize.S,
                     numeric: true,
@@ -52,10 +58,28 @@ class SummaryVillage extends StatelessWidget {
                 ],
                 rows: List.generate(
                   listProvinceSummary.length,
-                  (index) => VillageDataRow(listProvinceSummary[index]),
+                  (index) => VillageDataRow(
+                      context, index, listProvinceSummary[index]),
                 ),
               ),
             ),
+          ),
+          const SizedBox(
+            height: defaultPadding,
+          ),
+          accentDivider,
+          const SizedBox(
+            height: defaultPadding,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            // crossAxisAlignment: CrossAxisAlignment.baseline,
+            children: [
+              TextButton(
+                child: const Text("ดูรายละเอียด"),
+                onPressed: () {},
+              ),
+            ],
           ),
         ],
       ),
@@ -63,9 +87,14 @@ class SummaryVillage extends StatelessWidget {
   }
 }
 
-DataRow VillageDataRow(ProvinceSummary provinceSummary) {
+DataRow VillageDataRow(
+    BuildContext context, int index, ProvinceSummary provinceSummary) {
   return DataRow(
     cells: [
+      if (!Responsive.isSmallScreen(context))
+        DataCell(Text(
+          formatterItem.format(index + 1),
+        )),
       DataCell(
         Row(
           children: [
@@ -74,10 +103,11 @@ DataRow VillageDataRow(ProvinceSummary provinceSummary) {
             //   height: 30,
             //   width: 30,
             // ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-              child: Text(provinceSummary.name!),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
+            //   child: Text(provinceSummary.name!),
+            // ),
+            Text(provinceSummary.name!),
           ],
         ),
       ),

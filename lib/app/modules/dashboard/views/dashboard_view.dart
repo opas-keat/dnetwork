@@ -13,7 +13,7 @@ import 'summary_info_card.dart';
 import 'summary_station.dart';
 
 class DashboardView extends GetView<DashboardController> {
-  DashboardView({Key? key}) : super(key: key);
+  const DashboardView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class DashboardView extends GetView<DashboardController> {
             ),
             // tablet: FileInfoCardGridView(),
             largeScreen: SummaryInfoCard(
-              childAspectRatio: 1.1,
+              childAspectRatio: 2.2,
             ),
           ),
           const SizedBox(

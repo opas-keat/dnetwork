@@ -49,7 +49,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.STATION,
-      page: () => const StationView(),
+      page: () => StationView(),
       binding: StationBinding(),
     ),
     GetPage(

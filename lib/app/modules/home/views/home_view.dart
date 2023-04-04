@@ -8,7 +8,6 @@ import 'package:sidebarx/sidebarx.dart';
 import '../../../../responsive.dart';
 import '../../../data/models/module.dart';
 import '../../admin/controllers/admin_controller.dart';
-import '../../admin/views/admin_view.dart';
 import '../../commiss/views/commiss_view.dart';
 import '../../dashboard/views/dashboard_view.dart';
 import '../../lectuter/views/lectuter_view.dart';
@@ -43,7 +42,77 @@ class HomeView extends StatelessWidget {
             )
           : null,
       drawer: Responsive.isSmallScreen(context)
-          ? MainSidebar(controller: _controller)
+          ? SidebarX(
+              controller: _controller,
+              theme: SidebarXTheme(
+                margin: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: primaryColor,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                hoverColor: scaffoldBackgroundColor,
+                textStyle: TextStyle(color: Colors.white.withOpacity(0.7)),
+                selectedTextStyle: const TextStyle(color: Colors.white),
+                itemTextPadding: const EdgeInsets.only(left: 30),
+                selectedItemTextPadding: const EdgeInsets.only(left: 30),
+                // itemDecoration: BoxDecoration(
+                //   borderRadius: BorderRadius.circular(10),
+                //   border: Border.all(color: canvasColor),
+                // ),
+                selectedItemDecoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    color: actionColor.withOpacity(0.37),
+                  ),
+                  gradient: const LinearGradient(
+                    begin: Alignment.topRight,
+                    end: Alignment.bottomLeft,
+                    colors: [
+                      primaryColor,
+                      accentColor,
+                    ],
+                  ),
+                ),
+                iconTheme: IconThemeData(
+                  color: Colors.white.withOpacity(0.7),
+                  size: 20,
+                ),
+                selectedIconTheme: const IconThemeData(
+                  color: Colors.white,
+                  size: 20,
+                ),
+              ),
+              extendedTheme: const SidebarXTheme(
+                width: 200,
+                decoration: BoxDecoration(
+                  color: primaryColor,
+                ),
+              ),
+              footerDivider: divider,
+              headerBuilder: (context, extended) {
+                return SizedBox(
+                  height: 100,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Image.network('assets/images/avatar.png'),
+                  ),
+                );
+              },
+              items: listModule
+                  .map(
+                    (module) => SidebarXItem(
+                      icon: module.icon,
+                      label: module.nameTH,
+                      onTap: () {
+                        // debugPrint(module.nameEn);
+                        // homeController.title.value = module.nameTH;
+                        homeController.selectedModule.value = module;
+                        _key.currentState?.closeDrawer();
+                      },
+                    ),
+                  )
+                  .toList(),
+            )
           : null,
       body: SafeArea(
         child: Row(
@@ -81,7 +150,7 @@ class MainScreen extends StatelessWidget {
               case 0:
                 return DashboardView();
               case 1:
-                return const StationView();
+                return StationView();
               case 2:
                 return const CommissView();
               case 3:

@@ -69,7 +69,7 @@ class CustomFlatButton extends StatelessWidget {
         child: Text(
           label,
           style: labelStyle ??
-              GoogleFonts.mulish(
+              GoogleFonts.sarabun(
                 fontSize: 18,
                 fontWeight: FontWeight.w800,
                 color: Theme.of(context).colorScheme.onPrimary,

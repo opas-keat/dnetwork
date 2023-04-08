@@ -33,7 +33,7 @@ List<Module> listModule = [
   ),
   Module(
     id: 6,
-    nameTH: "ตั้งค่า",
+    nameTH: "ตั้งค่าผู้ใช้งาน",
     nameEn: "setting",
     icon: Icons.settings,
   ),

@@ -12,7 +12,7 @@ import '../controllers/station_controller.dart';
 
 class StationView extends GetView<StationController> {
   StationView({Key? key}) : super(key: key);
-  ScrollController _scrollController = new ScrollController();
+  final ScrollController _scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -94,21 +94,40 @@ class StationView extends GetView<StationController> {
                     size: ColumnSize.S,
                   ),
                 const DataColumn2(
-                  label: Text("จังหวัด"),
+                  label: Text("ชื่อ"),
                   size: ColumnSize.L,
                 ),
                 const DataColumn2(
-                  label: Text("จำนวน"),
-                  size: ColumnSize.S,
+                  label: Text("ที่ตั้ง"),
+                  size: ColumnSize.L,
+                ),
+                if (!Responsive.isSmallScreen(context))
+                  const DataColumn2(
+                    label: Text("จังหวัด"),
+                    size: ColumnSize.M,
+                  ),
+                if (!Responsive.isSmallScreen(context))
+                  const DataColumn2(
+                    label: Text("อำเภอ"),
+                    size: ColumnSize.M,
+                  ),
+                if (!Responsive.isSmallScreen(context))
+                  const DataColumn2(
+                    label: Text("ตำบล"),
+                    size: ColumnSize.M,
+                  ),
+                const DataColumn2(
+                  label: Text("จำนวนกรรมการ"),
+                  size: ColumnSize.M,
                   numeric: true,
                 ),
               ],
-              // rows: [],
-              rows: List.generate(
-                listProvinceSummary.length,
-                (index) =>
-                    StationDataRow(context, index, listProvinceSummary[index]),
-              ),
+              rows: [],
+              // rows: List.generate(
+              //   listProvinceSummary.length,
+              //   (index) =>
+              //       StationDataRow(context, index, listProvinceSummary[index]),
+              // ),
             ),
           ),
         ],

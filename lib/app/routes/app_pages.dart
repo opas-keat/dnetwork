@@ -54,22 +54,22 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.COMMISS,
-      page: () => const CommissView(),
+      page: () => CommissView(),
       binding: CommissBinding(),
     ),
     GetPage(
       name: _Paths.LECTUTER,
-      page: () => const LectuterView(),
+      page: () => LectuterView(),
       binding: LectuterBinding(),
     ),
     GetPage(
       name: _Paths.VILLAGEHOSTY,
-      page: () => const VillagehostyView(),
+      page: () => VillagehostyView(),
       binding: VillagehostyBinding(),
     ),
     GetPage(
       name: _Paths.SETTING,
-      page: () => const SettingView(),
+      page: () => SettingView(),
       binding: SettingBinding(),
     ),
   ];

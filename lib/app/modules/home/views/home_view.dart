@@ -152,13 +152,13 @@ class MainScreen extends StatelessWidget {
               case 1:
                 return StationView();
               case 2:
-                return const CommissView();
+                return CommissView();
               case 3:
-                return const LectuterView();
+                return LectuterView();
               case 4:
-                return const VillagehostyView();
+                return VillagehostyView();
               case 5:
-                return const SettingView();
+                return SettingView();
               default:
                 adminController.onInit();
                 return DashboardView();

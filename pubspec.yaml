@@ -15,6 +15,7 @@ dependencies:
   talker_flutter: ^2.2.1
   sidebarx: ^0.15.0
   data_table_2: ^2.4.1
+  flutter_treeview: ^1.0.7+1
   flutter: 
     sdk: flutter
 

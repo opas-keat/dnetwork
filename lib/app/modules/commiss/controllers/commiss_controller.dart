@@ -1,12 +1,18 @@
 import 'package:get/get.dart';
 
-class CommissController extends GetxController {
-  //TODO: Implement CommissController
+import '../../../../main.dart';
+import '../../../shared/utils.dart';
 
-  final count = 0.obs;
+class CommissController extends GetxController {
+  final logTitle = "CommissController";
+  RxBool isLoading = true.obs;
+
   @override
   void onInit() {
     super.onInit();
+    isLoading.value = true;
+    update();
+    getCommiss();
   }
 
   @override
@@ -19,5 +25,12 @@ class CommissController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+  getCommiss() async {
+    talker.info('$logTitle:getCommiss:');
+    isLoading.value =
+        await Future.delayed(Duration(seconds: randomValue()), () {
+      return false;
+    });
+    update();
+  }
 }

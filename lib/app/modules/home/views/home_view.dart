@@ -8,11 +8,15 @@ import 'package:sidebarx/sidebarx.dart';
 import '../../../../responsive.dart';
 import '../../../data/models/module.dart';
 import '../../admin/controllers/admin_controller.dart';
+import '../../commiss/controllers/commiss_controller.dart';
 import '../../commiss/views/commiss_view.dart';
 import '../../dashboard/views/dashboard_view.dart';
+import '../../lectuter/controllers/lectuter_controller.dart';
 import '../../lectuter/views/lectuter_view.dart';
 import '../../setting/views/setting_view.dart';
+import '../../station/controllers/station_controller.dart';
 import '../../station/views/station_view.dart';
+import '../../villagehosty/controllers/villagehosty_controller.dart';
 import '../../villagehosty/views/villagehosty_view.dart';
 
 class HomeView extends StatelessWidget {
@@ -136,6 +140,10 @@ class MainScreen extends StatelessWidget {
     required this.controller,
   }) : super(key: key);
   AdminController adminController = Get.put(AdminController());
+  StationController stationController = Get.put(StationController());
+  CommissController commissController = Get.put(CommissController());
+  LectuterController lectuterController = Get.put(LectuterController());
+  VillagehostyController villageController = Get.put(VillagehostyController());
 
   final SidebarXController controller;
   @override
@@ -150,17 +158,21 @@ class MainScreen extends StatelessWidget {
               case 0:
                 return DashboardView();
               case 1:
+                stationController.onInit();
                 return StationView();
               case 2:
+                commissController.onInit();
                 return CommissView();
               case 3:
+                lectuterController.onInit();
                 return LectuterView();
               case 4:
+                villageController.onInit();
                 return VillagehostyView();
               case 5:
                 return SettingView();
               default:
-                adminController.onInit();
+                // adminController.onInit();
                 return DashboardView();
             }
           }),

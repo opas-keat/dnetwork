@@ -1,12 +1,18 @@
 import 'package:get/get.dart';
 
-class StationController extends GetxController {
-  //TODO: Implement StationController
+import '../../../../main.dart';
+import '../../../shared/utils.dart';
 
-  final count = 0.obs;
+class StationController extends GetxController {
+  final logTitle = "StationController";
+  RxBool isLoading = true.obs;
+
   @override
   void onInit() {
     super.onInit();
+    isLoading.value = true;
+    update();
+    getStation();
   }
 
   @override
@@ -19,5 +25,12 @@ class StationController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+  getStation() async {
+    talker.info('$logTitle:getStation:');
+    isLoading.value =
+        await Future.delayed(Duration(seconds: randomValue()), () {
+      return false;
+    });
+    update();
+  }
 }

@@ -1,12 +1,18 @@
 import 'package:get/get.dart';
 
-class VillagehostyController extends GetxController {
-  //TODO: Implement VillagehostyController
+import '../../../../main.dart';
+import '../../../shared/utils.dart';
 
-  final count = 0.obs;
+class VillagehostyController extends GetxController {
+  final logTitle = "VillagehostyController";
+  RxBool isLoading = true.obs;
+
   @override
   void onInit() {
     super.onInit();
+    isLoading.value = true;
+    update();
+    getVillage();
   }
 
   @override
@@ -19,5 +25,12 @@ class VillagehostyController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+  getVillage() async {
+    talker.info('$logTitle:getVillage:');
+    isLoading.value =
+        await Future.delayed(Duration(seconds: randomValue()), () {
+      return false;
+    });
+    update();
+  }
 }

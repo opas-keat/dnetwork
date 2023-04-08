@@ -1,12 +1,18 @@
 import 'package:get/get.dart';
 
-class LectuterController extends GetxController {
-  //TODO: Implement LectuterController
+import '../../../../main.dart';
+import '../../../shared/utils.dart';
 
-  final count = 0.obs;
+class LectuterController extends GetxController {
+  final logTitle = "LectuterController";
+  RxBool isLoading = true.obs;
+
   @override
   void onInit() {
     super.onInit();
+    isLoading.value = true;
+    update();
+    getLectuter();
   }
 
   @override
@@ -19,5 +25,12 @@ class LectuterController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+  getLectuter() async {
+    talker.info('$logTitle:getLectuter:');
+    isLoading.value =
+        await Future.delayed(Duration(seconds: randomValue()), () {
+      return false;
+    });
+    update();
+  }
 }

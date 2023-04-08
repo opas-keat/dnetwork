@@ -6,8 +6,8 @@ import 'package:get/get.dart';
 import '../../../../responsive.dart';
 import '../../../data/models/province_summary.dart';
 import '../../../shared/constant.dart';
-import '../../../shared/convert.dart';
 import '../../../shared/custom_flat_button.dart';
+import '../../../shared/utils.dart';
 import '../controllers/station_controller.dart';
 
 class StationView extends GetView<StationController> {

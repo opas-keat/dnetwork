@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/app/modules/dashboard/views/summary_lectuter.dart';
-import 'package:frontend/app/modules/dashboard/views/summary_village.dart';
 
 import 'package:get/get.dart';
 
@@ -10,10 +8,13 @@ import '../controllers/dashboard_controller.dart';
 import 'dashboard_header.dart';
 import 'summary_commiss.dart';
 import 'summary_info_card.dart';
+import 'summary_lectuter.dart';
 import 'summary_station.dart';
+import 'summary_village.dart';
 
-class DashboardView extends GetView<DashboardController> {
-  const DashboardView({Key? key}) : super(key: key);
+class DashboardView extends StatelessWidget {
+  DashboardView({Key? key}) : super(key: key);
+  DashboardController controller = Get.put(DashboardController());
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class DashboardView extends GetView<DashboardController> {
           const SizedBox(
             height: defaultPadding,
           ),
-          const Responsive(
+          Responsive(
             smallScreen: SummaryInfoCard(
               crossAxisCount: 2,
               childAspectRatio: 2.0,

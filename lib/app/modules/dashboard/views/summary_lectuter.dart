@@ -1,18 +1,21 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../../responsive.dart';
 import '../../../data/models/province_summary.dart';
 import '../../../shared/constant.dart';
-import '../../../shared/convert.dart';
+import '../../../shared/utils.dart';
+import '../controllers/dashboard_controller.dart';
 import 'dashboard_header.dart';
 
 class SummaryLectuter extends StatelessWidget {
   SummaryLectuter({
     Key? key,
   }) : super(key: key);
+  DashboardController controller = Get.find<DashboardController>();
 
-  ScrollController _scrollController = new ScrollController();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -20,69 +23,79 @@ class SummaryLectuter extends StatelessWidget {
       padding: const EdgeInsets.all(defaultPadding),
       height: 300,
       color: Colors.white70,
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              DashboardHeader(header: "วิทยากรประชาธิปไตย"),
-            ],
-          ),
-          const SizedBox(
-            height: defaultPadding,
-          ),
-          accentDivider,
-          Expanded(
-            child: SizedBox(
-              width: double.infinity,
-              child: DataTable2(
-                scrollController: _scrollController,
-                columnSpacing: defaultPadding,
-                // minWidth: 200,
-                columns: [
-                  if (!Responsive.isSmallScreen(context))
-                    const DataColumn2(
-                      label: Text("ลำดับที่"),
-                      size: ColumnSize.S,
-                    ),
-                  const DataColumn2(
-                    label: Text("จังหวัด"),
-                    size: ColumnSize.L,
-                  ),
-                  const DataColumn2(
-                    label: Text("จำนวน"),
-                    size: ColumnSize.S,
-                    numeric: true,
-                  ),
-                ],
-                rows: List.generate(
-                  listProvinceSummary.length,
-                  (index) => LectuterDataRow(
-                      context, index, listProvinceSummary[index]),
+      child: GetBuilder<DashboardController>(
+          init: controller,
+          builder: (controller) {
+            // loading
+            if (controller.isLoadingSummaryLectuter.value) {
+              return Center(
+                child: const CircularProgressIndicator().reactive(),
+              );
+            }
+            return Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    DashboardHeader(header: "วิทยากรประชาธิปไตย"),
+                  ],
                 ),
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: defaultPadding,
-          ),
-          accentDivider,
-          const SizedBox(
-            height: defaultPadding,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            // crossAxisAlignment: CrossAxisAlignment.baseline,
-            children: [
-              TextButton(
-                child: const Text("ดูรายละเอียด"),
-                onPressed: () {},
-              ),
-            ],
-          ),
-        ],
-      ),
+                const SizedBox(
+                  height: defaultPadding,
+                ),
+                accentDivider,
+                Expanded(
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: DataTable2(
+                      scrollController: _scrollController,
+                      columnSpacing: defaultPadding,
+                      // minWidth: 200,
+                      columns: [
+                        if (!Responsive.isSmallScreen(context))
+                          const DataColumn2(
+                            label: Text("ลำดับที่"),
+                            size: ColumnSize.S,
+                          ),
+                        const DataColumn2(
+                          label: Text("จังหวัด"),
+                          size: ColumnSize.L,
+                        ),
+                        const DataColumn2(
+                          label: Text("จำนวน"),
+                          size: ColumnSize.S,
+                          numeric: true,
+                        ),
+                      ],
+                      rows: List.generate(
+                        listProvinceSummary.length,
+                        (index) => LectuterDataRow(
+                            context, index, listProvinceSummary[index]),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: defaultPadding,
+                ),
+                accentDivider,
+                const SizedBox(
+                  height: defaultPadding,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  // crossAxisAlignment: CrossAxisAlignment.baseline,
+                  children: [
+                    TextButton(
+                      child: const Text("ดูรายละเอียด"),
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
+              ],
+            );
+          }),
     );
   }
 }

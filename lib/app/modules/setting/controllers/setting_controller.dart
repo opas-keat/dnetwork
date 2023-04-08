@@ -1,9 +1,12 @@
+import 'package:frontend/app/data/models/users.dart';
 import 'package:get/get.dart';
 
 class SettingController extends GetxController {
-  //TODO: Implement SettingController
+  final logTitle = "SettingController";
+  var isLoading = true.obs;
 
-  final count = 0.obs;
+  List provinceSettingList = listProvinceSetting;
+
   @override
   void onInit() {
     super.onInit();
@@ -18,6 +21,5 @@ class SettingController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
+  
 }

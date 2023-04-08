@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 
+import '../../../../main.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_flat_button.dart';
 import '../controllers/setting_controller.dart';
 
-class SettingView extends GetView<SettingController> {
+class SettingView extends StatelessWidget {
   SettingView({Key? key}) : super(key: key);
+  SettingController controller = Get.put(SettingController());
   // final ScrollController _scrollController = ScrollController();
-  final List<Item> _data = generateItems(8);
+  // final List<Item> _data = generateItems(8);
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -49,56 +50,61 @@ class SettingView extends GetView<SettingController> {
             ),
           ),
           const SizedBox(height: defaultPadding),
-          ExpansionPanelList(
-            expansionCallback: (int index, bool isExpanded) {
-              // setState(() {
-              _data[index].isExpanded = !isExpanded;
-              // });
-            },
-            children: _data.map<ExpansionPanel>((Item item) {
-              return ExpansionPanel(
-                headerBuilder: (BuildContext context, bool isExpanded) {
-                  return ListTile(
-                    title: Text(item.headerValue),
-                  );
+          Obx(() => ExpansionPanelList(
+                expansionCallback: (int index, bool isExpanded) {
+                  controller.provinceSettingList[index].isExpanded.value =
+                      !isExpanded;
                 },
-                body: ListTile(
-                    title: Text(item.expandedValue),
-                    subtitle: const Text(
-                        'To delete this panel, tap the trash can icon'),
-                    trailing: const Icon(Icons.delete),
-                    onTap: () {
-                      // setState(() {
-                      //   _data.removeWhere((Item currentItem) => item == currentItem);
-                      // });
-                    }),
-                isExpanded: item.isExpanded,
-              );
-            }).toList(),
-          ),
+                children:
+                    controller.provinceSettingList.map<ExpansionPanel>((ps) {
+                  return ExpansionPanel(
+                    headerBuilder: (BuildContext context, bool isExpanded) {
+                      return ListTile(
+                        title: Text(ps.name!),
+                      );
+                    },
+                    body: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: ps.users!.length,
+                      itemBuilder: (_, index) {
+                        return ListTile(
+                          title: Text(ps.users[index].name),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              IconButton(
+                                icon: const Icon(Icons.edit),
+                                tooltip: 'แก้ไข',
+                                onPressed: () {
+                                  talker.debug("edit: ${ps.users[index].name}");
+                                },
+                              ),
+                              const SizedBox(width: defaultPadding),
+                              IconButton(
+                                icon: const Icon(Icons.delete),
+                                tooltip: 'ลบ',
+                                onPressed: () {
+                                  talker
+                                      .debug("delete: ${ps.users[index].name}");
+                                },
+                              ),
+                            ],
+                          ),
+                          onTap: () {
+                            // setState(() {
+                            //   _data.removeWhere((Item currentItem) => item == currentItem);
+                            // });
+                          },
+                        );
+                      },
+                    ),
+                    isExpanded: ps.isExpanded!.value,
+                    canTapOnHeader: false,
+                  );
+                }).toList(),
+              )),
         ],
       ),
     );
   }
-}
-
-class Item {
-  Item({
-    required this.expandedValue,
-    required this.headerValue,
-    this.isExpanded = false,
-  });
-
-  String expandedValue;
-  String headerValue;
-  bool isExpanded;
-}
-
-List<Item> generateItems(int numberOfItems) {
-  return List<Item>.generate(numberOfItems, (int index) {
-    return Item(
-      headerValue: 'จังหวัด $index',
-      expandedValue: 'This is item number $index',
-    );
-  });
 }

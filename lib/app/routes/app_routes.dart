@@ -17,6 +17,7 @@ abstract class Routes {
   static const LIST_REPORT = _Paths.LIST_REPORT;
   static const ADD_STATION = _Paths.STATION + _Paths.ADD_STATION;
   static const ADD_COMMISS = _Paths.COMMISS + _Paths.ADD_COMMISS;
+  static const ADD_LECTUTER = _Paths.LECTUTER + _Paths.ADD_LECTUTER;
 }
 
 abstract class _Paths {
@@ -35,4 +36,5 @@ abstract class _Paths {
   static const LIST_REPORT = '/list-report';
   static const ADD_STATION = '/add-station';
   static const ADD_COMMISS = '/add-commiss';
+  static const ADD_LECTUTER = '/add-lectuter';
 }

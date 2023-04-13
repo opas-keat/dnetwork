@@ -10,6 +10,8 @@ import '../modules/dashboard/bindings/dashboard_binding.dart';
 import '../modules/dashboard/views/dashboard_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/lectuter/addLectuter/bindings/add_lectuter_binding.dart';
+import '../modules/lectuter/addLectuter/views/add_lectuter_view.dart';
 import '../modules/lectuter/bindings/lectuter_binding.dart';
 import '../modules/lectuter/views/lectuter_view.dart';
 import '../modules/list_report/bindings/list_report_binding.dart';
@@ -81,6 +83,13 @@ class AppPages {
       name: _Paths.LECTUTER,
       page: () => LectuterView(),
       binding: LectuterBinding(),
+      children: [
+        GetPage(
+          name: _Paths.ADD_LECTUTER,
+          page: () => AddLectuterView(),
+          binding: AddLectuterBinding(),
+        ),
+      ],
     ),
     GetPage(
       name: _Paths.VILLAGEHOSTY,

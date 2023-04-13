@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import '../../../../responsive.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_flat_button.dart';
+import '../addLectuter/views/add_lectuter_view.dart';
 import '../controllers/lectuter_controller.dart';
 
 class LectuterView extends StatelessWidget {
@@ -28,6 +29,9 @@ class LectuterView extends StatelessWidget {
                   child: const CircularProgressIndicator().reactive(),
                 ),
               );
+            }
+            if (!controller.isLoadingAdd.value) {
+              return AddLectuterView();
             }
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -74,7 +78,10 @@ class LectuterView extends StatelessWidget {
                         padding: const EdgeInsets.all(defaultPadding),
                         isWrapped: true,
                         label: 'เพิ่ม',
-                        onPressed: () {},
+                        onPressed: () {
+                          controller.isLoadingAdd.value = false;
+                          controller.update();
+                        },
                       ),
                       const SizedBox(width: defaultPadding),
                       CustomFlatButton(

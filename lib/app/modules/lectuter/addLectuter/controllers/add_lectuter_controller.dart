@@ -1,19 +1,22 @@
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
-import '../../../../main.dart';
-import '../../../shared/utils.dart';
+import '../../../../../main.dart';
+import '../../../../shared/utils.dart';
 
-class LectuterController extends GetxController {
-  final logTitle = "LectuterController";
+class AddLectuterController extends GetxController {
+  final logTitle = "AddLectuterController";
   RxBool isLoading = true.obs;
-  RxBool isLoadingAdd = true.obs;
+
+  Rx<String> filePath = ''.obs;
+  Rx<XFile> fileUpload = XFile('').obs;
 
   @override
   void onInit() {
     super.onInit();
     isLoading.value = true;
     update();
-    getLectuter();
+    getAddLectuter();
   }
 
   @override
@@ -26,8 +29,8 @@ class LectuterController extends GetxController {
     super.onClose();
   }
 
-  getLectuter() async {
-    talker.info('$logTitle:getLectuter:');
+  getAddLectuter() async {
+    talker.info('$logTitle:getAddLectuter:');
     isLoading.value =
         await Future.delayed(Duration(seconds: randomValue()), () {
       return false;

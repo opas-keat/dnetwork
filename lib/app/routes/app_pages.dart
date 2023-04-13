@@ -25,6 +25,8 @@ import '../modules/signin/views/signin_view.dart';
 import '../modules/station/addStation/views/add_station_view.dart';
 import '../modules/station/bindings/station_binding.dart';
 import '../modules/station/views/station_view.dart';
+import '../modules/villagehosty/addVillage/bindings/add_village_binding.dart';
+import '../modules/villagehosty/addVillage/views/add_village_view.dart';
 import '../modules/villagehosty/bindings/villagehosty_binding.dart';
 import '../modules/villagehosty/views/villagehosty_view.dart';
 
@@ -95,6 +97,13 @@ class AppPages {
       name: _Paths.VILLAGEHOSTY,
       page: () => VillagehostyView(),
       binding: VillagehostyBinding(),
+      children: [
+        GetPage(
+          name: _Paths.ADD_VILLAGE,
+          page: () => AddVillageView(),
+          binding: AddVillageBinding(),
+        ),
+      ],
     ),
     GetPage(
       name: _Paths.SETTING,

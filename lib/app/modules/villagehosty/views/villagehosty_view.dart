@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import '../../../../responsive.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_flat_button.dart';
+import '../addVillage/views/add_village_view.dart';
 import '../controllers/villagehosty_controller.dart';
 
 class VillagehostyView extends StatelessWidget {
@@ -28,6 +29,9 @@ class VillagehostyView extends StatelessWidget {
                   child: const CircularProgressIndicator().reactive(),
                 ),
               );
+            }
+            if (!controller.isLoadingAdd.value) {
+              return AddVillageView();
             }
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -74,7 +78,10 @@ class VillagehostyView extends StatelessWidget {
                         padding: const EdgeInsets.all(defaultPadding),
                         isWrapped: true,
                         label: 'เพิ่ม',
-                        onPressed: () {},
+                        onPressed: () {
+                          controller.isLoadingAdd.value = false;
+                          controller.update();
+                        },
                       ),
                       const SizedBox(width: defaultPadding),
                       CustomFlatButton(

@@ -13,6 +13,8 @@ abstract class Routes {
   static const LECTUTER = _Paths.LECTUTER;
   static const VILLAGEHOSTY = _Paths.VILLAGEHOSTY;
   static const SETTING = _Paths.SETTING;
+  static const REPORTPROBLEM = _Paths.REPORTPROBLEM;
+  static const LIST_REPORT = _Paths.LIST_REPORT;
 }
 
 abstract class _Paths {
@@ -27,4 +29,6 @@ abstract class _Paths {
   static const LECTUTER = '/lectuter';
   static const VILLAGEHOSTY = '/villagehosty';
   static const SETTING = '/setting';
+  static const REPORTPROBLEM = '/reportproblem';
+  static const LIST_REPORT = '/list-report';
 }

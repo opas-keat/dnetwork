@@ -37,6 +37,18 @@ List<Module> listModule = [
     nameEn: "setting",
     icon: Icons.settings,
   ),
+  Module(
+    id: 7,
+    nameTH: "แจ้งปัญหาการใช้งาน",
+    nameEn: "reportproblem",
+    icon: Icons.bug_report_sharp,
+  ),
+  Module(
+    id: 8,
+    nameTH: "รายการปัญหา",
+    nameEn: "listproblem",
+    icon: Icons.report_problem_sharp,
+  ),
 ];
 
 Module getModuleByIndex(int index) {

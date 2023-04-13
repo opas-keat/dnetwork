@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/app/modules/home/controllers/home_controller.dart';
+import 'package:frontend/app/modules/list_report/controllers/list_report_controller.dart';
+import 'package:frontend/app/modules/list_report/views/list_report_view.dart';
+import 'package:frontend/app/modules/report_problem/views/reportproblem_view.dart';
+import 'package:frontend/app/modules/setting/controllers/setting_controller.dart';
 import 'package:frontend/app/shared/constant.dart';
 
 import 'package:get/get.dart';
@@ -13,6 +17,7 @@ import '../../commiss/views/commiss_view.dart';
 import '../../dashboard/views/dashboard_view.dart';
 import '../../lectuter/controllers/lectuter_controller.dart';
 import '../../lectuter/views/lectuter_view.dart';
+import '../../report_problem/controllers/reportproblem_controller.dart';
 import '../../setting/views/setting_view.dart';
 import '../../station/controllers/station_controller.dart';
 import '../../station/views/station_view.dart';
@@ -144,6 +149,10 @@ class MainScreen extends StatelessWidget {
   CommissController commissController = Get.put(CommissController());
   LectuterController lectuterController = Get.put(LectuterController());
   VillagehostyController villageController = Get.put(VillagehostyController());
+  SettingController settingController = Get.put(SettingController());
+  ReportproblemController reportProblemController =
+      Get.put(ReportproblemController());
+  ListReportController listReportController = Get.put(ListReportController());
 
   final SidebarXController controller;
   @override
@@ -170,7 +179,14 @@ class MainScreen extends StatelessWidget {
                 villageController.onInit();
                 return VillagehostyView();
               case 5:
+                settingController.onInit();
                 return SettingView();
+              case 6:
+                reportProblemController.onInit();
+                return ReportproblemView();
+              case 7:
+                listReportController.onInit();
+                return ListReportView();
               default:
                 // adminController.onInit();
                 return DashboardView();

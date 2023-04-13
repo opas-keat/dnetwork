@@ -10,6 +10,10 @@ import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/lectuter/bindings/lectuter_binding.dart';
 import '../modules/lectuter/views/lectuter_view.dart';
+import '../modules/list_report/bindings/list_report_binding.dart';
+import '../modules/list_report/views/list_report_view.dart';
+import '../modules/report_problem/bindings/reportproblem_binding.dart';
+import '../modules/report_problem/views/reportproblem_view.dart';
 import '../modules/setting/bindings/setting_binding.dart';
 import '../modules/setting/views/setting_view.dart';
 import '../modules/signin/bindings/signin_binding.dart';
@@ -71,6 +75,16 @@ class AppPages {
       name: _Paths.SETTING,
       page: () => SettingView(),
       binding: SettingBinding(),
+    ),
+    GetPage(
+      name: _Paths.REPORTPROBLEM,
+      page: () => ReportproblemView(),
+      binding: ReportproblemBinding(),
+    ),
+    GetPage(
+      name: _Paths.LIST_REPORT,
+      page: () => ListReportView(),
+      binding: ListReportBinding(),
     ),
   ];
 }

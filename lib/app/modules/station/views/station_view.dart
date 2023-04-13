@@ -1,10 +1,12 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend/app/modules/station/addStation/views/add_station_view.dart';
 
 import 'package:get/get.dart';
 
 import '../../../../responsive.dart';
 import '../../../data/models/province_summary.dart';
+import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_flat_button.dart';
 import '../../../shared/utils.dart';
@@ -31,6 +33,9 @@ class StationView extends StatelessWidget {
                   child: const CircularProgressIndicator().reactive(),
                 ),
               );
+            }
+            if (!controller.isLoadingAddStation.value) {
+              return AddStationView();
             }
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,7 +82,11 @@ class StationView extends StatelessWidget {
                         padding: const EdgeInsets.all(defaultPadding),
                         isWrapped: true,
                         label: 'เพิ่ม',
-                        onPressed: () {},
+                        onPressed: () {
+                          // Get.toNamed(Routes.ADD_STATION);
+                          controller.isLoadingAddStation.value = false;
+                          controller.update();
+                        },
                       ),
                       const SizedBox(width: defaultPadding),
                       CustomFlatButton(

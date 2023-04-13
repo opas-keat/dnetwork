@@ -15,6 +15,7 @@ abstract class Routes {
   static const SETTING = _Paths.SETTING;
   static const REPORTPROBLEM = _Paths.REPORTPROBLEM;
   static const LIST_REPORT = _Paths.LIST_REPORT;
+  static const ADD_STATION = _Paths.STATION + _Paths.ADD_STATION;
 }
 
 abstract class _Paths {
@@ -31,4 +32,5 @@ abstract class _Paths {
   static const SETTING = '/setting';
   static const REPORTPROBLEM = '/reportproblem';
   static const LIST_REPORT = '/list-report';
+  static const ADD_STATION = '/add-station';
 }

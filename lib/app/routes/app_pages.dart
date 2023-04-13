@@ -18,6 +18,7 @@ import '../modules/setting/bindings/setting_binding.dart';
 import '../modules/setting/views/setting_view.dart';
 import '../modules/signin/bindings/signin_binding.dart';
 import '../modules/signin/views/signin_view.dart';
+import '../modules/station/addStation/views/add_station_view.dart';
 import '../modules/station/bindings/station_binding.dart';
 import '../modules/station/views/station_view.dart';
 import '../modules/villagehosty/bindings/villagehosty_binding.dart';
@@ -55,6 +56,12 @@ class AppPages {
       name: _Paths.STATION,
       page: () => StationView(),
       binding: StationBinding(),
+      children: [
+        GetPage(
+          name: _Paths.ADD_STATION,
+          page: () => AddStationView(),
+        ),
+      ],
     ),
     GetPage(
       name: _Paths.COMMISS,

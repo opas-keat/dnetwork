@@ -1,19 +1,22 @@
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
-import '../../../../main.dart';
-import '../../../shared/utils.dart';
+import '../../../../../main.dart';
+import '../../../../shared/utils.dart';
 
-class StationController extends GetxController {
-  final logTitle = "StationController";
+class AddStationController extends GetxController {
+  final logTitle = "AddStationController";
   RxBool isLoading = true.obs;
-  RxBool isLoadingAddStation = true.obs;
+
+  Rx<String> filePath = ''.obs;
+  Rx<XFile> fileUpload = XFile('').obs;
 
   @override
   void onInit() {
     super.onInit();
     isLoading.value = true;
     update();
-    getStation();
+    getAddStation();
   }
 
   @override
@@ -26,8 +29,8 @@ class StationController extends GetxController {
     super.onClose();
   }
 
-  getStation() async {
-    talker.info('$logTitle:getStation:');
+  getAddStation() async {
+    talker.info('$logTitle:getAddStation:');
     isLoading.value =
         await Future.delayed(Duration(seconds: randomValue()), () {
       return false;

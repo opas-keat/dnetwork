@@ -14,7 +14,7 @@ import 'summary_village.dart';
 
 class DashboardView extends StatelessWidget {
   DashboardView({Key? key}) : super(key: key);
-  DashboardController controller = Get.put(DashboardController());
+  DashboardController controller = Get.find<DashboardController>();
 
   @override
   Widget build(BuildContext context) {

@@ -60,6 +60,13 @@ Module getModuleByNameEn(String nameEn) {
   return listModule.where((element) => element.nameEn == nameEn).first;
 }
 
+final Map<String, String> optionModuleSelected = {
+  '2': 'ศส.ปชต.',
+  '3': 'กรรมการ',
+  '4': 'วิทยากรประชาธิปไตย',
+  '5': 'หมู่บ้านไม่ขายเสียง',
+};
+
 class Module {
   int id;
   String nameTH;

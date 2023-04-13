@@ -31,32 +31,6 @@ class AddStationView extends StatelessWidget {
               ),
             );
           }
-          // return Column(
-          //   mainAxisSize: MainAxisSize.min,
-          //   children: [
-          //     const SizedBox(height: defaultPadding * 2),
-          //     CustomText(
-          //       text: "รูปสถานที่",
-          //       size: 20,
-          //       color: Colors.black87.withOpacity(.9),
-          //     ),
-          //     const SizedBox(height: defaultPadding / 2),
-          //     TextFormField(
-          //       keyboardType: TextInputType.multiline,
-          //       maxLines: 4,
-          //       decoration: InputDecoration(
-          //         fillColor: Colors.white.withOpacity(.2),
-          //         filled: true,
-          //         border: OutlineInputBorder(
-          //           borderRadius: BorderRadius.circular(defaultPadding / 2),
-          //           borderSide:
-          //               const BorderSide(color: Colors.black87, width: 2),
-          //         ),
-          //         // hintText: 'Enter a search term',
-          //       ),
-          //     ),
-          //   ],
-          // );
           return Row(
             children: [
               Expanded(flex: 1, child: Container()),
@@ -74,21 +48,6 @@ class AddStationView extends StatelessWidget {
                       color: Colors.black87.withOpacity(.9),
                     ),
                     const SizedBox(height: defaultPadding / 2),
-                    // TextFormField(
-                    //   keyboardType: TextInputType.multiline,
-                    //   maxLines: 4,
-                    //   decoration: InputDecoration(
-                    //     fillColor: Colors.white.withOpacity(.2),
-                    //     filled: true,
-                    //     border: OutlineInputBorder(
-                    //       borderRadius:
-                    //           BorderRadius.circular(defaultPadding / 2),
-                    //       borderSide:
-                    //           const BorderSide(color: Colors.black87, width: 2),
-                    //     ),
-                    //     // hintText: 'Enter a search term',
-                    //   ),
-                    // ),
                     Center(
                       child: InkWell(
                         onTap: () async {

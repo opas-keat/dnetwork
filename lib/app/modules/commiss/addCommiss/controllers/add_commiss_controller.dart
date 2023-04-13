@@ -1,19 +1,22 @@
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
-import '../../../../main.dart';
-import '../../../shared/utils.dart';
+import '../../../../../main.dart';
+import '../../../../shared/utils.dart';
 
-class CommissController extends GetxController {
-  final logTitle = "CommissController";
+class AddCommissController extends GetxController {
+  final logTitle = "AddCommissController";
   RxBool isLoading = true.obs;
-  RxBool isLoadingAdd = true.obs;
+
+  Rx<String> filePath = ''.obs;
+  Rx<XFile> fileUpload = XFile('').obs;
 
   @override
   void onInit() {
     super.onInit();
     isLoading.value = true;
     update();
-    getCommiss();
+    getAddCommiss();
   }
 
   @override
@@ -26,8 +29,8 @@ class CommissController extends GetxController {
     super.onClose();
   }
 
-  getCommiss() async {
-    talker.info('$logTitle:getCommiss:');
+  getAddCommiss() async {
+    talker.info('$logTitle:getAddStation:');
     isLoading.value =
         await Future.delayed(Duration(seconds: randomValue()), () {
       return false;

@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 
 import '../modules/admin/bindings/admin_binding.dart';
 import '../modules/admin/views/admin_view.dart';
+import '../modules/commiss/addCommiss/bindings/add_commiss_binding.dart';
+import '../modules/commiss/addCommiss/views/add_commiss_view.dart';
 import '../modules/commiss/bindings/commiss_binding.dart';
 import '../modules/commiss/views/commiss_view.dart';
 import '../modules/dashboard/bindings/dashboard_binding.dart';
@@ -67,6 +69,13 @@ class AppPages {
       name: _Paths.COMMISS,
       page: () => CommissView(),
       binding: CommissBinding(),
+      children: [
+        GetPage(
+          name: _Paths.ADD_COMMISS,
+          page: () => AddCommissView(),
+          binding: AddCommissBinding(),
+        ),
+      ],
     ),
     GetPage(
       name: _Paths.LECTUTER,

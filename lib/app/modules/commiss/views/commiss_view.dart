@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import '../../../../responsive.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_flat_button.dart';
+import '../addCommiss/views/add_commiss_view.dart';
 import '../controllers/commiss_controller.dart';
 
 class CommissView extends GetView<CommissController> {
@@ -28,6 +29,9 @@ class CommissView extends GetView<CommissController> {
                   child: const CircularProgressIndicator().reactive(),
                 ),
               );
+            }
+            if (!controller.isLoadingAdd.value) {
+              return AddCommissView();
             }
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -74,7 +78,10 @@ class CommissView extends GetView<CommissController> {
                         padding: const EdgeInsets.all(defaultPadding),
                         isWrapped: true,
                         label: 'เพิ่ม',
-                        onPressed: () {},
+                        onPressed: () {
+                          controller.isLoadingAdd.value = false;
+                          controller.update();
+                        },
                       ),
                       const SizedBox(width: defaultPadding),
                       CustomFlatButton(

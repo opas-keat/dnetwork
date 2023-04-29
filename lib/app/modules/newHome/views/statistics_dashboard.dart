@@ -15,12 +15,13 @@ class StatisticsDashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(defaultPadding / 2),
-      height: 800,
+      height: MediaQuery.of(context).size.height,
       decoration: BoxDecoration(
         color: canvasColor,
         borderRadius: BorderRadius.circular(defaultPadding),
       ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             children: const [

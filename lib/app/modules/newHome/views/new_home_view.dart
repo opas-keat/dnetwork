@@ -85,7 +85,7 @@ class NewHomeView extends GetView<NewHomeController> {
                             child: StatisticsChart(),
                           ),
                         ],
-                      )
+                      ),
                     ],
                   ),
                 ),

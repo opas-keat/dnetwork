@@ -13,7 +13,7 @@ class CustomText extends StatelessWidget {
     Key? key,
     this.text = '',
     this.size = 16,
-    this.color = primaryColor,
+    this.color = Colors.black87,
     this.weight = FontWeight.normal,
   }) : super(key: key);
 
@@ -26,6 +26,8 @@ class CustomText extends StatelessWidget {
         color: color,
         fontWeight: weight,
       ),
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
     );
   }
 }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 List<Module> listModule = [
   Module(
     id: 1,
-    nameTH: "ภาพรวม",
+    nameTH: "หน้าจอหลัก",
     nameEn: "dashboard",
     icon: Icons.dashboard_sharp,
   ),
@@ -21,30 +21,54 @@ List<Module> listModule = [
   ),
   Module(
     id: 4,
+    nameTH: "สมาชิก",
+    nameEn: "member",
+    icon: Icons.account_box_sharp,
+  ),
+  Module(
+    id: 5,
+    nameTH: "เครือข่าย",
+    nameEn: "network",
+    icon: Icons.account_box_sharp,
+  ),
+  Module(
+    id: 6,
+    nameTH: "การฝึกอบรม",
+    nameEn: "training",
+    icon: Icons.laptop_sharp,
+  ),
+  Module(
+    id: 7,
+    nameTH: "งบประมาณ รายรับ-รายจ่าย",
+    nameEn: "budget",
+    icon: Icons.book_sharp,
+  ),
+  Module(
+    id: 8,
+    nameTH: "หมู่บ้าน วิถี ประชาธิปไตย",
+    nameEn: "villagehosty",
+    icon: Icons.holiday_village_sharp,
+  ),
+  Module(
+    id: 9,
     nameTH: "วิทยากรประชาธิปไตย",
     nameEn: "lectuter",
     icon: Icons.three_p_sharp,
   ),
   Module(
-    id: 5,
-    nameTH: "หมู่บ้านไม่ขายเสียง",
-    nameEn: "villagehosty",
-    icon: Icons.flag_sharp,
-  ),
-  Module(
-    id: 6,
+    id: 10,
     nameTH: "ตั้งค่าผู้ใช้งาน",
     nameEn: "setting",
     icon: Icons.settings,
   ),
   Module(
-    id: 7,
+    id: 11,
     nameTH: "แจ้งปัญหาการใช้งาน",
     nameEn: "reportproblem",
     icon: Icons.bug_report_sharp,
   ),
   Module(
-    id: 8,
+    id: 12,
     nameTH: "รายการปัญหา",
     nameEn: "listproblem",
     icon: Icons.report_problem_sharp,

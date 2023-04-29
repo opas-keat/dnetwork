@@ -19,6 +19,8 @@ abstract class Routes {
   static const ADD_COMMISS = _Paths.COMMISS + _Paths.ADD_COMMISS;
   static const ADD_LECTUTER = _Paths.LECTUTER + _Paths.ADD_LECTUTER;
   static const ADD_VILLAGE = _Paths.VILLAGEHOSTY + _Paths.ADD_VILLAGE;
+  static const NEW_HOME = _Paths.NEW_HOME;
+  static const ADD_DATA = _Paths.NEW_HOME + _Paths.ADD_DATA;
 }
 
 abstract class _Paths {
@@ -39,4 +41,6 @@ abstract class _Paths {
   static const ADD_COMMISS = '/add-commiss';
   static const ADD_LECTUTER = '/add-lectuter';
   static const ADD_VILLAGE = '/add-village';
+  static const NEW_HOME = '/new-home';
+  static const ADD_DATA = '/add-data';
 }

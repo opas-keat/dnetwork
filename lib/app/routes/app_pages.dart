@@ -16,6 +16,10 @@ import '../modules/lectuter/bindings/lectuter_binding.dart';
 import '../modules/lectuter/views/lectuter_view.dart';
 import '../modules/list_report/bindings/list_report_binding.dart';
 import '../modules/list_report/views/list_report_view.dart';
+import '../modules/newHome/addData/bindings/add_data_binding.dart';
+import '../modules/newHome/addData/views/add_data_view.dart';
+import '../modules/newHome/bindings/new_home_binding.dart';
+import '../modules/newHome/views/new_home_view.dart';
 import '../modules/report_problem/bindings/reportproblem_binding.dart';
 import '../modules/report_problem/views/reportproblem_view.dart';
 import '../modules/setting/bindings/setting_binding.dart';
@@ -35,7 +39,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.SIGNIN;
+  static const INITIAL = Routes.NEW_HOME;
 
   static final routes = [
     GetPage(
@@ -119,6 +123,18 @@ class AppPages {
       name: _Paths.LIST_REPORT,
       page: () => ListReportView(),
       binding: ListReportBinding(),
+    ),
+    GetPage(
+      name: _Paths.NEW_HOME,
+      page: () => const NewHomeView(),
+      binding: NewHomeBinding(),
+      children: [
+        GetPage(
+          name: _Paths.ADD_DATA,
+          page: () => const AddDataView(),
+          binding: AddDataBinding(),
+        ),
+      ],
     ),
   ];
 }

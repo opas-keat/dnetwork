@@ -58,24 +58,25 @@ class MyApp extends StatelessWidget {
         page: () => const PageNotFound(),
         transition: Transition.noTransition,
       ),
-      theme: ThemeData(
-        useMaterial3: false,
-        textTheme: GoogleFonts.sarabunTextTheme(),
-        scaffoldBackgroundColor: scaffoldBackgroundColor.withOpacity(0.7),
+      theme: ThemeData.light().copyWith(
+        scaffoldBackgroundColor: scaffoldBackgroundColor,
+        drawerTheme: const DrawerThemeData(
+            scrimColor: Colors.transparent, elevation: 0.5),
+        textTheme: GoogleFonts.sarabunTextTheme(Theme.of(context).textTheme)
+            .apply(bodyColor: Colors.black87),
+        canvasColor: canvasColor,
         scrollbarTheme: ScrollbarThemeData(
           thumbVisibility: MaterialStateProperty.all(true),
           thumbColor: MaterialStateProperty.all<Color>(Colors.black26),
         ),
-        // primaryColor: primaryColor,
-        // primaryColorDark: primaryLightColor,
-        // colorScheme: ColorScheme.fromSwatch().copyWith(
-        //   secondary: accentColor,
-        // ),
-        // appBarTheme: const AppBarTheme(
-        //   iconTheme: IconThemeData(color: Colors.black),
-        //   color: primaryColor,
-        // ),
       ),
     );
   }
 }
+
+
+// TextButton(
+//               onPressed: () => Get.toNamed('/new-home/add-data'),
+//               child: const Text("Go To Add"),
+//             )
+

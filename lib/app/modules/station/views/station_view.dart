@@ -1,5 +1,5 @@
+import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 
 import '../../../../responsive.dart';
@@ -9,6 +9,7 @@ import '../../../shared/custom_text.dart';
 import '../../../shared/header.dart';
 import '../../../shared/info_card.dart';
 import '../../../shared/main_drawer.dart';
+import '../../../shared/main_statistics.dart';
 import '../controllers/station_controller.dart';
 
 class StationView extends StatelessWidget {
@@ -48,7 +49,7 @@ class StationView extends StatelessWidget {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     const CustomText(
-                                      text: "กกต ส่วนกลาง",
+                                      text: "จังหวัด กรุงเทพมหานคร",
                                       weight: FontWeight.bold,
                                       size: 18,
                                     ),
@@ -92,9 +93,11 @@ class StationView extends StatelessWidget {
                                     listSummaryInfo: listStationSummaryInfo,
                                   ),
                                 ),
-                                // const SizedBox(height: defaultPadding),
-                                // StatisticsDashboard(),
-                                // Spacer(),
+                                const SizedBox(height: defaultPadding),
+                                // StatisticsStation(),
+                                MainStatistics(
+                                    header: "ข้อมูล ศส.ปชต.",
+                                    listColumn: listColumn),
                               ],
                             ),
                           ),
@@ -262,6 +265,23 @@ class StationView extends StatelessWidget {
   //   );
   // }
 }
+
+List<DataColumn> listColumn = [
+  const DataColumn2(
+    label: Text("ชื่อ ศส.ปชต."),
+    size: ColumnSize.S,
+  ),
+  const DataColumn2(
+    label: Text("จังหวัด/อำเภอ/ตำบล"),
+    size: ColumnSize.S,
+    numeric: true,
+  ),
+  const DataColumn2(
+    label: Text("จำนวนกรรมการ/สมาชิก"),
+    size: ColumnSize.S,
+    numeric: true,
+  ),
+];
 
 // DataRow StationDataRow(
 //     BuildContext context, int index, ProvinceSummary provinceSummary) {

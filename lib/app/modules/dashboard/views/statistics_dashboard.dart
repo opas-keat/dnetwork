@@ -38,51 +38,13 @@ class StatisticsDashboard extends StatelessWidget {
               width: double.infinity,
               child: DataTable2(
                 columnSpacing: defaultPadding,
-                columns: const [
-                  DataColumn2(
-                    label: Text(""),
-                    fixedWidth: 40,
-                  ),
-                  DataColumn2(
-                    label: Text("จังหวัด"),
-                    size: ColumnSize.S,
-                  ),
-                  DataColumn2(
-                    label: Text("ศส.ปชต."),
-                    size: ColumnSize.S,
-                    numeric: true,
-                  ),
-                  DataColumn2(
-                    label: Text("กรรมการ"),
-                    size: ColumnSize.S,
-                    numeric: true,
-                  ),
-                  DataColumn2(
-                    label: Text("สมาชิก"),
-                    size: ColumnSize.S,
-                    numeric: true,
-                  ),
-                  DataColumn2(
-                    label: Text("เครือข่าย"),
-                    size: ColumnSize.S,
-                    numeric: true,
-                  ),
-                  DataColumn2(
-                    label: Text("หมู่บ้าน..."),
-                    size: ColumnSize.S,
-                    numeric: true,
-                  ),
-                  DataColumn2(
-                    label: Text("วิทยากร..."),
-                    size: ColumnSize.S,
-                    numeric: true,
-                  ),
-                ],
-                rows: List.generate(
-                  listProvinceSummary.length,
-                  (index) => StationDataRow(
-                      context, index, listProvinceSummary[index]),
-                ),
+                columns: _createColumns(),
+                rows: [],
+                // rows: List.generate(
+                //   listProvinceSummary.length,
+                //   (index) => StationDataRow(
+                //       context, index, listProvinceSummary[index]),
+                // ),
               ),
             ),
           ),
@@ -90,6 +52,53 @@ class StatisticsDashboard extends StatelessWidget {
       ),
     );
   }
+}
+
+List<DataColumn> _createColumns() {
+  return [
+    const DataColumn2(
+      label: Text(""),
+      fixedWidth: 40,
+    ),
+    const DataColumn2(
+      label: Text("จังหวัด"),
+      size: ColumnSize.S,
+    ),
+    const DataColumn2(
+      label: Text("ศส.ปชต."),
+      size: ColumnSize.S,
+      numeric: true,
+    ),
+    const DataColumn2(
+      label: Text("กรรมการ"),
+      size: ColumnSize.S,
+      numeric: true,
+    ),
+    const DataColumn2(
+      label: Text("สมาชิก"),
+      size: ColumnSize.S,
+      numeric: true,
+    ),
+    const DataColumn2(
+      label: Text("เครือข่าย"),
+      size: ColumnSize.S,
+      numeric: true,
+    ),
+    const DataColumn2(
+      label: Text("หมู่บ้าน..."),
+      size: ColumnSize.S,
+      numeric: true,
+    ),
+    const DataColumn2(
+      label: Text("วิทยากร..."),
+      size: ColumnSize.S,
+      numeric: true,
+    ),
+  ];
+}
+
+List<DataRow> _createRows() {
+  return [];
 }
 
 DataRow StationDataRow(

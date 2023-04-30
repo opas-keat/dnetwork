@@ -1,4 +1,6 @@
+import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend/app/shared/main_statistics.dart';
 
 import 'package:get/get.dart';
 
@@ -35,7 +37,7 @@ class DashboardView extends StatelessWidget {
                   height: MediaQuery.of(context).size.height,
                   child: Column(
                     children: [
-                      const Header(moduleName: "Dashboard หน้าจอหลัก"),
+                      const Header(moduleName: "หน้าจอหลัก"),
                       const SizedBox(height: defaultPadding),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -81,7 +83,10 @@ class DashboardView extends StatelessWidget {
                                   ),
                                 ),
                                 const SizedBox(height: defaultPadding),
-                                StatisticsDashboard(),
+                                // StatisticsDashboard(),
+                                MainStatistics(
+                                    header: "ข้อมูลสถิติรายจังหวัด",
+                                    listColumn: listColumn),
                               ],
                             ),
                           ),
@@ -101,3 +106,87 @@ class DashboardView extends StatelessWidget {
     );
   }
 }
+
+List<DataColumn> listColumn = [
+  const DataColumn2(
+    label: Text(""),
+    fixedWidth: 40,
+  ),
+  const DataColumn2(
+    label: Text("จังหวัด"),
+    size: ColumnSize.S,
+  ),
+  const DataColumn2(
+    label: Text("ศส.ปชต."),
+    size: ColumnSize.S,
+    numeric: true,
+  ),
+  const DataColumn2(
+    label: Text("กรรมการ"),
+    size: ColumnSize.S,
+    numeric: true,
+  ),
+  const DataColumn2(
+    label: Text("สมาชิก"),
+    size: ColumnSize.S,
+    numeric: true,
+  ),
+  const DataColumn2(
+    label: Text("เครือข่าย"),
+    size: ColumnSize.S,
+    numeric: true,
+  ),
+  const DataColumn2(
+    label: Text("หมู่บ้าน..."),
+    size: ColumnSize.S,
+    numeric: true,
+  ),
+  const DataColumn2(
+    label: Text("วิทยากร..."),
+    size: ColumnSize.S,
+    numeric: true,
+  ),
+];
+
+// List<DataColumn> _createColumns() {
+//   return [
+//     const DataColumn2(
+//       label: Text(""),
+//       fixedWidth: 40,
+//     ),
+//     const DataColumn2(
+//       label: Text("จังหวัด"),
+//       size: ColumnSize.S,
+//     ),
+//     const DataColumn2(
+//       label: Text("ศส.ปชต."),
+//       size: ColumnSize.S,
+//       numeric: true,
+//     ),
+//     const DataColumn2(
+//       label: Text("กรรมการ"),
+//       size: ColumnSize.S,
+//       numeric: true,
+//     ),
+//     const DataColumn2(
+//       label: Text("สมาชิก"),
+//       size: ColumnSize.S,
+//       numeric: true,
+//     ),
+//     const DataColumn2(
+//       label: Text("เครือข่าย"),
+//       size: ColumnSize.S,
+//       numeric: true,
+//     ),
+//     const DataColumn2(
+//       label: Text("หมู่บ้าน..."),
+//       size: ColumnSize.S,
+//       numeric: true,
+//     ),
+//     const DataColumn2(
+//       label: Text("วิทยากร..."),
+//       size: ColumnSize.S,
+//       numeric: true,
+//     ),
+//   ];
+// }

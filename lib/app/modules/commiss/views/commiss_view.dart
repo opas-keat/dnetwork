@@ -11,6 +11,7 @@ import '../../../shared/custom_text.dart';
 import '../../../shared/header.dart';
 import '../../../shared/info_card.dart';
 import '../../../shared/main_drawer.dart';
+import '../../../shared/main_statistics.dart';
 import '../addCommiss/views/add_commiss_view.dart';
 import '../controllers/commiss_controller.dart';
 
@@ -51,7 +52,7 @@ class CommissView extends GetView<CommissController> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     const CustomText(
-                                      text: "กกต ส่วนกลาง",
+                                      text: "จังหวัด กรุงเทพมหานคร",
                                       weight: FontWeight.bold,
                                       size: 18,
                                     ),
@@ -95,9 +96,10 @@ class CommissView extends GetView<CommissController> {
                                     listSummaryInfo: listCommissSummaryInfo,
                                   ),
                                 ),
-                                // const SizedBox(height: defaultPadding),
-                                // StatisticsDashboard(),
-                                // Spacer(),
+                                const SizedBox(height: defaultPadding),
+                                MainStatistics(
+                                    header: "ข้อมูลกรรมการ ศส.ปชต.",
+                                    listColumn: listColumn),
                               ],
                             ),
                           ),
@@ -268,3 +270,30 @@ class CommissView extends GetView<CommissController> {
   //   );
   // }
 }
+
+List<DataColumn> listColumn = [
+  const DataColumn2(
+    label: Text("ชื่อ-นามสกุล"),
+    size: ColumnSize.S,
+  ),
+  const DataColumn2(
+    label: Text("ตำแหน่ง"),
+    size: ColumnSize.S,
+    numeric: true,
+  ),
+  const DataColumn2(
+    label: Text("ว/ด/ป/ แต่งตั้ง"),
+    size: ColumnSize.S,
+    numeric: true,
+  ),
+  const DataColumn2(
+    label: Text("สังกัด ศส.ปชต."),
+    size: ColumnSize.S,
+    numeric: true,
+  ),
+  const DataColumn2(
+    label: Text("จังหวัด/อำเภอ/ตำบล"),
+    size: ColumnSize.S,
+    numeric: true,
+  ),
+];

@@ -1,3 +1,4 @@
+import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -9,6 +10,7 @@ import '../../../shared/custom_text.dart';
 import '../../../shared/header.dart';
 import '../../../shared/info_card.dart';
 import '../../../shared/main_drawer.dart';
+import '../../../shared/main_statistics.dart';
 import '../controllers/villagehosty_controller.dart';
 
 class VillagehostyView extends StatelessWidget {
@@ -47,7 +49,7 @@ class VillagehostyView extends StatelessWidget {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     const CustomText(
-                                      text: "กกต ส่วนกลาง",
+                                      text: "จังหวัด กรุงเทพมหานคร",
                                       weight: FontWeight.bold,
                                       size: 18,
                                     ),
@@ -91,9 +93,11 @@ class VillagehostyView extends StatelessWidget {
                                     listSummaryInfo: listVillageSummaryInfo,
                                   ),
                                 ),
-                                // const SizedBox(height: defaultPadding),
-                                // StatisticsDashboard(),
-                                // Spacer(),
+                                const SizedBox(height: defaultPadding),
+                                MainStatistics(
+                                  header: "ข้อมูลหมู่บ้าน วิถี ประชาธิปไตย",
+                                  listColumn: listColumn,
+                                ),
                               ],
                             ),
                           ),
@@ -260,3 +264,25 @@ class VillagehostyView extends StatelessWidget {
   //   );
   // }
 }
+
+List<DataColumn> listColumn = [
+  const DataColumn2(
+    label: Text("ชื่อหมู่บ้าน"),
+    size: ColumnSize.S,
+  ),
+  const DataColumn2(
+    label: Text("หมู่ที่/บ้านเลขที่"),
+    size: ColumnSize.S,
+    numeric: true,
+  ),
+  const DataColumn2(
+    label: Text("จังหวัด/อำเภอ/ตำบล"),
+    size: ColumnSize.S,
+    numeric: true,
+  ),
+  const DataColumn2(
+    label: Text("จำนวนครัวเรือน"),
+    size: ColumnSize.S,
+    numeric: true,
+  ),
+];

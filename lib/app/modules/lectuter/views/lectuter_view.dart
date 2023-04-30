@@ -1,3 +1,4 @@
+import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -9,6 +10,7 @@ import '../../../shared/custom_text.dart';
 import '../../../shared/header.dart';
 import '../../../shared/info_card.dart';
 import '../../../shared/main_drawer.dart';
+import '../../../shared/main_statistics.dart';
 import '../controllers/lectuter_controller.dart';
 
 class LectuterView extends StatelessWidget {
@@ -47,7 +49,7 @@ class LectuterView extends StatelessWidget {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     const CustomText(
-                                      text: "กกต ส่วนกลาง",
+                                      text: "จังหวัด กรุงเทพมหานคร",
                                       weight: FontWeight.bold,
                                       size: 18,
                                     ),
@@ -91,9 +93,11 @@ class LectuterView extends StatelessWidget {
                                     listSummaryInfo: listLectuterSummaryInfo,
                                   ),
                                 ),
-                                // const SizedBox(height: defaultPadding),
-                                // StatisticsDashboard(),
-                                // Spacer(),
+                                const SizedBox(height: defaultPadding),
+                                MainStatistics(
+                                  header: "ข้อมูลวิทยากรประชาธิปไตย",
+                                  listColumn: listColumn,
+                                ),
                               ],
                             ),
                           ),
@@ -259,3 +263,25 @@ class LectuterView extends StatelessWidget {
   //   );
   // }
 }
+
+List<DataColumn> listColumn = [
+  const DataColumn2(
+    label: Text("ชื่อ-นามสกุล"),
+    size: ColumnSize.S,
+  ),
+  const DataColumn2(
+    label: Text("หน่วยงาน"),
+    size: ColumnSize.S,
+    numeric: true,
+  ),
+  const DataColumn2(
+    label: Text("สังกัดวิทยากร"),
+    size: ColumnSize.S,
+    numeric: true,
+  ),
+  const DataColumn2(
+    label: Text("จังหวัด"),
+    size: ColumnSize.S,
+    numeric: true,
+  ),
+];

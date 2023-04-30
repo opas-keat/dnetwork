@@ -54,26 +54,31 @@ class BudgetStatistics extends StatelessWidget {
 
 List<DataColumn> listColumn = [
   const DataColumn2(
-    label: Text("ชื่อ-นามสกุล"),
+    label: Text("วันที่รับงบประมาณ"),
     size: ColumnSize.S,
   ),
   const DataColumn2(
-    label: Text("ตำแหน่ง"),
-    size: ColumnSize.S,
-    numeric: true,
-  ),
-  const DataColumn2(
-    label: Text("ว/ด/ป/ แต่งตั้ง"),
+    label: Text("ประเภทงบประมาณ"),
     size: ColumnSize.S,
     numeric: true,
   ),
   const DataColumn2(
-    label: Text("สังกัด ศส.ปชต."),
+    label: Text("งบต้น"),
     size: ColumnSize.S,
     numeric: true,
   ),
   const DataColumn2(
-    label: Text("จังหวัด/อำเภอ/ตำบล"),
+    label: Text("ใช้งบไป"),
+    size: ColumnSize.S,
+    numeric: true,
+  ),
+  const DataColumn2(
+    label: Text("คงเหลือ"),
+    size: ColumnSize.S,
+    numeric: true,
+  ),
+  const DataColumn2(
+    label: Text("จังหวัด"),
     size: ColumnSize.S,
     numeric: true,
   ),

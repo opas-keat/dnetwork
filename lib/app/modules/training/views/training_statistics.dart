@@ -24,7 +24,7 @@ class TrainingStatistics extends StatelessWidget {
           Row(
             children: const [
               CustomText(
-                text: "ข้อมูลการฝึกอบรม ศส.ปชต.",
+                text: "ข้อมูลการฝึกอบรม",
                 weight: FontWeight.bold,
                 size: 16,
               ),
@@ -54,26 +54,26 @@ class TrainingStatistics extends StatelessWidget {
 
 List<DataColumn> listColumn = [
   const DataColumn2(
-    label: Text("ชื่อ-นามสกุล"),
+    label: Text("ชื่อโครงการฝึกอบรม"),
     size: ColumnSize.S,
   ),
   const DataColumn2(
-    label: Text("ตำแหน่ง"),
-    size: ColumnSize.S,
-    numeric: true,
-  ),
-  const DataColumn2(
-    label: Text("ว/ด/ป/ แต่งตั้ง"),
+    label: Text("ระหว่างวัน"),
     size: ColumnSize.S,
     numeric: true,
   ),
   const DataColumn2(
-    label: Text("สังกัด ศส.ปชต."),
+    label: Text("ประเภทการฝีกอบรม"),
     size: ColumnSize.S,
     numeric: true,
   ),
   const DataColumn2(
-    label: Text("จังหวัด/อำเภอ/ตำบล"),
+    label: Text("จังหวัด"),
+    size: ColumnSize.S,
+    numeric: true,
+  ),
+  const DataColumn2(
+    label: Text("จำนวนผู้ฝึกอบรม"),
     size: ColumnSize.S,
     numeric: true,
   ),

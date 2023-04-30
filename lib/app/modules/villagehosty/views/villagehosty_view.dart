@@ -12,6 +12,7 @@ import '../../../shared/info_card.dart';
 import '../../../shared/main_drawer.dart';
 import '../../../shared/main_statistics.dart';
 import '../controllers/villagehosty_controller.dart';
+import 'village_statistics.dart';
 
 class VillagehostyView extends StatelessWidget {
   VillagehostyView({Key? key}) : super(key: key);
@@ -94,10 +95,7 @@ class VillagehostyView extends StatelessWidget {
                                   ),
                                 ),
                                 const SizedBox(height: defaultPadding),
-                                MainStatistics(
-                                  header: "ข้อมูลหมู่บ้าน วิถี ประชาธิปไตย",
-                                  listColumn: listColumn,
-                                ),
+                                VillageStatistics(),
                               ],
                             ),
                           ),
@@ -264,25 +262,3 @@ class VillagehostyView extends StatelessWidget {
   //   );
   // }
 }
-
-List<DataColumn> listColumn = [
-  const DataColumn2(
-    label: Text("ชื่อหมู่บ้าน"),
-    size: ColumnSize.S,
-  ),
-  const DataColumn2(
-    label: Text("หมู่ที่/บ้านเลขที่"),
-    size: ColumnSize.S,
-    numeric: true,
-  ),
-  const DataColumn2(
-    label: Text("จังหวัด/อำเภอ/ตำบล"),
-    size: ColumnSize.S,
-    numeric: true,
-  ),
-  const DataColumn2(
-    label: Text("จำนวนครัวเรือน"),
-    size: ColumnSize.S,
-    numeric: true,
-  ),
-];

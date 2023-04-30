@@ -12,6 +12,7 @@ import '../../../shared/info_card.dart';
 import '../../../shared/main_drawer.dart';
 import '../../../shared/main_statistics.dart';
 import '../controllers/lectuter_controller.dart';
+import 'lectuter_statistics.dart';
 
 class LectuterView extends StatelessWidget {
   LectuterView({Key? key}) : super(key: key);
@@ -94,10 +95,7 @@ class LectuterView extends StatelessWidget {
                                   ),
                                 ),
                                 const SizedBox(height: defaultPadding),
-                                MainStatistics(
-                                  header: "ข้อมูลวิทยากรประชาธิปไตย",
-                                  listColumn: listColumn,
-                                ),
+                                LectuterStatistics(),
                               ],
                             ),
                           ),
@@ -263,25 +261,3 @@ class LectuterView extends StatelessWidget {
   //   );
   // }
 }
-
-List<DataColumn> listColumn = [
-  const DataColumn2(
-    label: Text("ชื่อ-นามสกุล"),
-    size: ColumnSize.S,
-  ),
-  const DataColumn2(
-    label: Text("หน่วยงาน"),
-    size: ColumnSize.S,
-    numeric: true,
-  ),
-  const DataColumn2(
-    label: Text("สังกัดวิทยากร"),
-    size: ColumnSize.S,
-    numeric: true,
-  ),
-  const DataColumn2(
-    label: Text("จังหวัด"),
-    size: ColumnSize.S,
-    numeric: true,
-  ),
-];

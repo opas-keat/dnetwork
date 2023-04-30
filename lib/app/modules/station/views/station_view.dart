@@ -1,4 +1,3 @@
-import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,8 +8,8 @@ import '../../../shared/custom_text.dart';
 import '../../../shared/header.dart';
 import '../../../shared/info_card.dart';
 import '../../../shared/main_drawer.dart';
-import '../../../shared/main_statistics.dart';
 import '../controllers/station_controller.dart';
+import 'station_statistics.dart';
 
 class StationView extends StatelessWidget {
   StationView({Key? key}) : super(key: key);
@@ -94,10 +93,7 @@ class StationView extends StatelessWidget {
                                   ),
                                 ),
                                 const SizedBox(height: defaultPadding),
-                                // StatisticsStation(),
-                                MainStatistics(
-                                    header: "ข้อมูล ศส.ปชต.",
-                                    listColumn: listColumn),
+                                StationStatistics(),
                               ],
                             ),
                           ),
@@ -266,22 +262,22 @@ class StationView extends StatelessWidget {
   // }
 }
 
-List<DataColumn> listColumn = [
-  const DataColumn2(
-    label: Text("ชื่อ ศส.ปชต."),
-    size: ColumnSize.S,
-  ),
-  const DataColumn2(
-    label: Text("จังหวัด/อำเภอ/ตำบล"),
-    size: ColumnSize.S,
-    numeric: true,
-  ),
-  const DataColumn2(
-    label: Text("จำนวนกรรมการ/สมาชิก"),
-    size: ColumnSize.S,
-    numeric: true,
-  ),
-];
+// List<DataColumn> listColumn = [
+//   const DataColumn2(
+//     label: Text("ชื่อ ศส.ปชต."),
+//     size: ColumnSize.S,
+//   ),
+//   const DataColumn2(
+//     label: Text("จังหวัด/อำเภอ/ตำบล"),
+//     size: ColumnSize.S,
+//     numeric: true,
+//   ),
+//   const DataColumn2(
+//     label: Text("จำนวนกรรมการ/สมาชิก"),
+//     size: ColumnSize.S,
+//     numeric: true,
+//   ),
+// ];
 
 // DataRow StationDataRow(
 //     BuildContext context, int index, ProvinceSummary provinceSummary) {

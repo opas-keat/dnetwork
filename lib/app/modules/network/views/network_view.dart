@@ -1,4 +1,3 @@
-import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -10,8 +9,8 @@ import '../../../shared/custom_text.dart';
 import '../../../shared/header.dart';
 import '../../../shared/info_card.dart';
 import '../../../shared/main_drawer.dart';
-import '../../../shared/main_statistics.dart';
 import '../controllers/network_controller.dart';
+import 'network_statistics.dart';
 
 class NetworkView extends GetView<NetworkController> {
   NetworkView({Key? key}) : super(key: key);
@@ -93,10 +92,7 @@ class NetworkView extends GetView<NetworkController> {
                                   ),
                                 ),
                                 const SizedBox(height: defaultPadding),
-                                MainStatistics(
-                                  header: "ข้อมูลเครือข่าย ศส.ปชต.",
-                                  listColumn: listColumn,
-                                ),
+                                NetworkStatistics(),
                               ],
                             ),
                           ),
@@ -120,30 +116,3 @@ class NetworkView extends GetView<NetworkController> {
     );
   }
 }
-
-List<DataColumn> listColumn = [
-  const DataColumn2(
-    label: Text("ชื่อ-นามสกุล"),
-    size: ColumnSize.S,
-  ),
-  const DataColumn2(
-    label: Text("ตำแหน่ง"),
-    size: ColumnSize.S,
-    numeric: true,
-  ),
-  const DataColumn2(
-    label: Text("ว/ด/ป/ แต่งตั้ง"),
-    size: ColumnSize.S,
-    numeric: true,
-  ),
-  const DataColumn2(
-    label: Text("สังกัด ศส.ปชต."),
-    size: ColumnSize.S,
-    numeric: true,
-  ),
-  const DataColumn2(
-    label: Text("จังหวัด/อำเภอ/ตำบล"),
-    size: ColumnSize.S,
-    numeric: true,
-  ),
-];

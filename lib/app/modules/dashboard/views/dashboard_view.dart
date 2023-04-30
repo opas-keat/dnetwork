@@ -13,7 +13,7 @@ import '../../../shared/info_card.dart';
 import '../../../shared/main_drawer.dart';
 import '../controllers/dashboard_controller.dart';
 import 'statistics_chart.dart';
-import 'statistics_dashboard.dart';
+import 'dashboard_statistics.dart';
 
 class DashboardView extends StatelessWidget {
   DashboardView({Key? key}) : super(key: key);
@@ -83,10 +83,11 @@ class DashboardView extends StatelessWidget {
                                   ),
                                 ),
                                 const SizedBox(height: defaultPadding),
-                                // StatisticsDashboard(),
-                                MainStatistics(
-                                    header: "ข้อมูลสถิติรายจังหวัด",
-                                    listColumn: listColumn),
+                                DashboardStatistics(),
+                                // MainStatistics(
+                                //   header: "ข้อมูลสถิติรายจังหวัด",
+                                //   listColumn: listColumn,
+                                // ),
                               ],
                             ),
                           ),
@@ -106,47 +107,6 @@ class DashboardView extends StatelessWidget {
     );
   }
 }
-
-List<DataColumn> listColumn = [
-  const DataColumn2(
-    label: Text(""),
-    fixedWidth: 40,
-  ),
-  const DataColumn2(
-    label: Text("จังหวัด"),
-    size: ColumnSize.S,
-  ),
-  const DataColumn2(
-    label: Text("ศส.ปชต."),
-    size: ColumnSize.S,
-    numeric: true,
-  ),
-  const DataColumn2(
-    label: Text("กรรมการ"),
-    size: ColumnSize.S,
-    numeric: true,
-  ),
-  const DataColumn2(
-    label: Text("สมาชิก"),
-    size: ColumnSize.S,
-    numeric: true,
-  ),
-  const DataColumn2(
-    label: Text("เครือข่าย"),
-    size: ColumnSize.S,
-    numeric: true,
-  ),
-  const DataColumn2(
-    label: Text("หมู่บ้าน..."),
-    size: ColumnSize.S,
-    numeric: true,
-  ),
-  const DataColumn2(
-    label: Text("วิทยากร..."),
-    size: ColumnSize.S,
-    numeric: true,
-  ),
-];
 
 // List<DataColumn> _createColumns() {
 //   return [

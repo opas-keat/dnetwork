@@ -1,4 +1,3 @@
-import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -6,14 +5,12 @@ import 'package:get/get.dart';
 import '../../../../responsive.dart';
 import '../../../data/models/summary_info.dart';
 import '../../../shared/constant.dart';
-import '../../../shared/custom_flat_button.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/header.dart';
 import '../../../shared/info_card.dart';
 import '../../../shared/main_drawer.dart';
-import '../../../shared/main_statistics.dart';
-import '../addCommiss/views/add_commiss_view.dart';
 import '../controllers/commiss_controller.dart';
+import 'commiss_statistics.dart';
 
 class CommissView extends GetView<CommissController> {
   CommissView({Key? key}) : super(key: key);
@@ -97,9 +94,7 @@ class CommissView extends GetView<CommissController> {
                                   ),
                                 ),
                                 const SizedBox(height: defaultPadding),
-                                MainStatistics(
-                                    header: "ข้อมูลกรรมการ ศส.ปชต.",
-                                    listColumn: listColumn),
+                                CommissStatistics(),
                               ],
                             ),
                           ),
@@ -270,30 +265,3 @@ class CommissView extends GetView<CommissController> {
   //   );
   // }
 }
-
-List<DataColumn> listColumn = [
-  const DataColumn2(
-    label: Text("ชื่อ-นามสกุล"),
-    size: ColumnSize.S,
-  ),
-  const DataColumn2(
-    label: Text("ตำแหน่ง"),
-    size: ColumnSize.S,
-    numeric: true,
-  ),
-  const DataColumn2(
-    label: Text("ว/ด/ป/ แต่งตั้ง"),
-    size: ColumnSize.S,
-    numeric: true,
-  ),
-  const DataColumn2(
-    label: Text("สังกัด ศส.ปชต."),
-    size: ColumnSize.S,
-    numeric: true,
-  ),
-  const DataColumn2(
-    label: Text("จังหวัด/อำเภอ/ตำบล"),
-    size: ColumnSize.S,
-    numeric: true,
-  ),
-];

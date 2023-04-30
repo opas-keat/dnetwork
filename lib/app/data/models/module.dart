@@ -1,77 +1,91 @@
 import 'package:flutter/material.dart';
 
+import '../../routes/app_pages.dart';
+
 List<Module> listModule = [
   Module(
     id: 1,
     nameTH: "หน้าจอหลัก",
     nameEn: "dashboard",
     icon: Icons.dashboard_sharp,
+    url: Routes.DASHBOARD,
   ),
   Module(
     id: 2,
     nameTH: "ศส.ปชต.",
     nameEn: "station",
     icon: Icons.account_balance_sharp,
+    url: Routes.STATION,
   ),
   Module(
     id: 3,
     nameTH: "กรรมการ",
     nameEn: "commiss",
     icon: Icons.account_box_sharp,
+    url: Routes.COMMISS,
   ),
   Module(
     id: 4,
     nameTH: "สมาชิก",
     nameEn: "member",
     icon: Icons.account_box_sharp,
+    url: Routes.DASHBOARD,
   ),
   Module(
     id: 5,
     nameTH: "เครือข่าย",
     nameEn: "network",
     icon: Icons.account_box_sharp,
+    url: Routes.DASHBOARD,
   ),
   Module(
     id: 6,
     nameTH: "การฝึกอบรม",
     nameEn: "training",
     icon: Icons.laptop_sharp,
+    url: Routes.DASHBOARD,
   ),
   Module(
     id: 7,
     nameTH: "งบประมาณ รายรับ-รายจ่าย",
     nameEn: "budget",
     icon: Icons.book_sharp,
+    url: Routes.DASHBOARD,
   ),
   Module(
     id: 8,
     nameTH: "หมู่บ้าน วิถี ประชาธิปไตย",
     nameEn: "villagehosty",
     icon: Icons.holiday_village_sharp,
+    url: Routes.VILLAGEHOSTY,
   ),
   Module(
     id: 9,
     nameTH: "วิทยากรประชาธิปไตย",
     nameEn: "lectuter",
     icon: Icons.three_p_sharp,
+    url: Routes.LECTUTER,
   ),
   Module(
     id: 10,
     nameTH: "ตั้งค่าผู้ใช้งาน",
     nameEn: "setting",
     icon: Icons.settings,
+    url: Routes.SETTING,
   ),
   Module(
     id: 11,
     nameTH: "แจ้งปัญหาการใช้งาน",
     nameEn: "reportproblem",
     icon: Icons.bug_report_sharp,
+    url: Routes.REPORTPROBLEM,
   ),
   Module(
     id: 12,
     nameTH: "รายการปัญหา",
     nameEn: "listproblem",
     icon: Icons.report_problem_sharp,
+    url: Routes.LIST_REPORT,
   ),
 ];
 
@@ -96,10 +110,12 @@ class Module {
   String nameTH;
   String nameEn;
   IconData icon;
+  String url;
   Module({
     required this.id,
     required this.nameTH,
     required this.nameEn,
     required this.icon,
+    required this.url,
   });
 }

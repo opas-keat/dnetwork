@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../main.dart';
 import '../data/models/module.dart';
@@ -9,8 +10,6 @@ class MainDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      // shadowColor: Colors.white,
-      // backgroundColor: Colors.white,
       child: Column(
         children: [
           DrawerHeader(
@@ -35,6 +34,7 @@ class MainDrawer extends StatelessWidget {
                         style: TextStyle(fontSize: 14)),
                     onTap: () {
                       talker.debug("edit: ${listModule[index].nameEn}");
+                      Get.toNamed(listModule[index].nameEn);
                     },
                   ),
                 );

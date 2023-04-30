@@ -13,6 +13,7 @@ class HomeController extends GetxController {
     nameTH: "ภาพรวม",
     nameEn: "dashboard",
     icon: Icons.dashboard_sharp,
+    url: "",
   ).obs;
   // RxString title = "".obs;
 

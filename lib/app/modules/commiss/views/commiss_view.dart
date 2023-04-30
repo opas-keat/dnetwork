@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../responsive.dart';
+import '../../../data/models/summary_chart.dart';
 import '../../../data/models/summary_info.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/header.dart';
 import '../../../shared/info_card.dart';
+import '../../../shared/main_chart.dart';
 import '../../../shared/main_drawer.dart';
 import '../controllers/commiss_controller.dart';
 import 'commiss_statistics.dart';
@@ -64,7 +66,10 @@ class CommissView extends GetView<CommissController> {
                                       icon: const Icon(
                                         Icons.insert_drive_file_sharp,
                                       ),
-                                      label: const Text('รายงาน'),
+                                      label: const CustomText(
+                                        text: "รายงาน",
+                                        color: Colors.white,
+                                      ),
                                     ),
                                     const SizedBox(width: defaultPadding / 2),
                                     ElevatedButton.icon(
@@ -77,7 +82,10 @@ class CommissView extends GetView<CommissController> {
                                       icon: const Icon(
                                         Icons.add_sharp,
                                       ),
-                                      label: const Text('เพิ่ม'),
+                                      label: const CustomText(
+                                        text: "เพิ่ม/แก้ไข",
+                                        color: Colors.white,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -100,9 +108,15 @@ class CommissView extends GetView<CommissController> {
                           ),
                           Expanded(
                             // child: StatisticsChart(),
-                            child: Container(
-                              color: Colors.amber,
-                              // height: 100,
+                            child: SizedBox(
+                              height: MediaQuery.of(context).size.height - 120,
+                              child: SingleChildScrollView(
+                                child: MainChart(
+                                  header: "สถิติข้อมูลกรรมกา ศส.ปชต.",
+                                  subHeader: "ตำแหน่งกรรมการ",
+                                  listSummaryChart: summaryCommissChart,
+                                ),
+                              ),
                             ),
                           ),
                         ],

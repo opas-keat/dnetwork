@@ -58,36 +58,64 @@ List<DataColumn> listColumn = [
     fixedWidth: 40,
   ),
   const DataColumn2(
-    label: Text("จังหวัด"),
+    // label: Text("จังหวัด"),
+    label: CustomText(
+      text: "จังหวัด",
+      size: 14,
+    ),
     size: ColumnSize.S,
   ),
   const DataColumn2(
-    label: Text("ศส.ปชต."),
-    size: ColumnSize.S,
-    numeric: true,
-  ),
-  const DataColumn2(
-    label: Text("กรรมการ"),
-    size: ColumnSize.S,
-    numeric: true,
-  ),
-  const DataColumn2(
-    label: Text("สมาชิก"),
+    // label: Text("ศส.ปชต."),
+    label: CustomText(
+      text: "ศส.ปชต.",
+      size: 14,
+    ),
     size: ColumnSize.S,
     numeric: true,
   ),
   const DataColumn2(
-    label: Text("เครือข่าย"),
+    // label: Text("กรรมการ"),
+    label: CustomText(
+      text: "กรรมการ",
+      size: 14,
+    ),
     size: ColumnSize.S,
     numeric: true,
   ),
   const DataColumn2(
-    label: Text("หมู่บ้าน..."),
+    // label: Text("สมาชิก"),
+    label: CustomText(
+      text: "สมาชิก",
+      size: 14,
+    ),
     size: ColumnSize.S,
     numeric: true,
   ),
   const DataColumn2(
-    label: Text("วิทยากร..."),
+    // label: Text("เครือข่าย"),
+    label: CustomText(
+      text: "เครือข่าย",
+      size: 14,
+    ),
+    size: ColumnSize.S,
+    numeric: true,
+  ),
+  const DataColumn2(
+    // label: Text("หมู่บ้าน..."),
+    label: CustomText(
+      text: "หมู่บ้าน วิถี ประชาธิปไตย",
+      size: 14,
+    ),
+    size: ColumnSize.S,
+    numeric: true,
+  ),
+  const DataColumn2(
+    // label: Text("วิทยากร..."),
+    label: CustomText(
+      text: "วิทยากรประชาธิปไตย",
+      size: 14,
+    ),
     size: ColumnSize.S,
     numeric: true,
   ),

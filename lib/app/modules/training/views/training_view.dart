@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../responsive.dart';
+import '../../../data/models/summary_chart.dart';
 import '../../../data/models/summary_info.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/header.dart';
 import '../../../shared/info_card.dart';
+import '../../../shared/main_chart.dart';
 import '../../../shared/main_drawer.dart';
 import '../controllers/training_controller.dart';
 import 'training_statistics.dart';
@@ -62,7 +64,10 @@ class TrainingView extends GetView<TrainingController> {
                                       icon: const Icon(
                                         Icons.insert_drive_file_sharp,
                                       ),
-                                      label: const Text('รายงาน'),
+                                      label: const CustomText(
+                                        text: "รายงาน",
+                                        color: Colors.white,
+                                      ),
                                     ),
                                     const SizedBox(width: defaultPadding / 2),
                                     ElevatedButton.icon(
@@ -75,7 +80,10 @@ class TrainingView extends GetView<TrainingController> {
                                       icon: const Icon(
                                         Icons.add_sharp,
                                       ),
-                                      label: const Text('เพิ่ม'),
+                                      label: const CustomText(
+                                        text: "เพิ่ม/แก้ไข",
+                                        color: Colors.white,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -97,10 +105,10 @@ class TrainingView extends GetView<TrainingController> {
                             ),
                           ),
                           Expanded(
-                            // child: StatisticsChart(),
-                            child: Container(
-                              color: Colors.amber,
-                              // height: 100,
+                            child: MainChart(
+                              header: "สถิติข้อมูลการอบรมของ ศส.ปชต.",
+                              subHeader: "ประเภทการอบรม",
+                              listSummaryChart: summaryTrainingChart,
                             ),
                           ),
                         ],

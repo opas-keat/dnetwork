@@ -252,7 +252,7 @@ class Chart extends StatelessWidget {
               sectionsSpace: 0,
               centerSpaceRadius: 70,
               startDegreeOffset: -90,
-              sections: paiChartSelectionDatas,
+              sections: pieChartSelectionDatas,
             ),
           ),
           Positioned.fill(
@@ -278,7 +278,7 @@ class Chart extends StatelessWidget {
   }
 }
 
-List<PieChartSectionData> paiChartSelectionDatas = [
+List<PieChartSectionData> pieChartSelectionDatas = [
   PieChartSectionData(
     color: primaryColor,
     value: 25,

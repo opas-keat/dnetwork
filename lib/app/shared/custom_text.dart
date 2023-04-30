@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'constant.dart';
-
 class CustomText extends StatelessWidget {
   final String? text;
   final double? size;
@@ -19,15 +17,18 @@ class CustomText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      text!.tr,
-      style: TextStyle(
-        fontSize: size,
-        color: color,
-        fontWeight: weight,
+    return Tooltip(
+      message: text!.tr,
+      child: Text(
+        text!.tr,
+        style: TextStyle(
+          fontSize: size,
+          color: color,
+          fontWeight: weight,
+        ),
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
       ),
-      maxLines: 1,
-      overflow: TextOverflow.ellipsis,
     );
   }
 }

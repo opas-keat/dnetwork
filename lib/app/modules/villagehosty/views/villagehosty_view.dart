@@ -1,16 +1,16 @@
-import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
 import '../../../../responsive.dart';
+import '../../../data/models/summary_chart.dart';
 import '../../../data/models/summary_info.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/header.dart';
 import '../../../shared/info_card.dart';
+import '../../../shared/main_chart.dart';
 import '../../../shared/main_drawer.dart';
-import '../../../shared/main_statistics.dart';
 import '../controllers/villagehosty_controller.dart';
 import 'village_statistics.dart';
 
@@ -65,7 +65,10 @@ class VillagehostyView extends StatelessWidget {
                                       icon: const Icon(
                                         Icons.insert_drive_file_sharp,
                                       ),
-                                      label: const Text('รายงาน'),
+                                      label: const CustomText(
+                                        text: "รายงาน",
+                                        color: Colors.white,
+                                      ),
                                     ),
                                     const SizedBox(width: defaultPadding / 2),
                                     ElevatedButton.icon(
@@ -78,7 +81,10 @@ class VillagehostyView extends StatelessWidget {
                                       icon: const Icon(
                                         Icons.add_sharp,
                                       ),
-                                      label: const Text('เพิ่ม'),
+                                      label: const CustomText(
+                                        text: "เพิ่ม/แก้ไข",
+                                        color: Colors.white,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -101,9 +107,10 @@ class VillagehostyView extends StatelessWidget {
                           ),
                           Expanded(
                             // child: StatisticsChart(),
-                            child: Container(
-                              color: Colors.amber,
-                              // height: 100,
+                            child: MainChart(
+                              header: "สถิติข้อมูลเครือข่าย ศส.ปชต.",
+                              subHeader: "ระดับจังหวัด",
+                              listSummaryChart: summaryVillageChart,
                             ),
                           ),
                         ],

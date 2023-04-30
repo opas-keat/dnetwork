@@ -1,18 +1,18 @@
-import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend/app/shared/main_statistics.dart';
 
 import 'package:get/get.dart';
 
 import '../../../../responsive.dart';
+import '../../../data/models/summary_chart.dart';
 import '../../../data/models/summary_info.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/header.dart';
 import '../../../shared/info_card.dart';
+import '../../../shared/main_chart.dart';
 import '../../../shared/main_drawer.dart';
 import '../controllers/dashboard_controller.dart';
-import 'statistics_chart.dart';
+// import 'statistics_chart.dart';
 import 'dashboard_statistics.dart';
 
 class DashboardView extends StatelessWidget {
@@ -66,7 +66,10 @@ class DashboardView extends StatelessWidget {
                                       icon: const Icon(
                                         Icons.insert_drive_file_sharp,
                                       ),
-                                      label: const Text('รายงาน'),
+                                      label: const CustomText(
+                                        text: "รายงาน",
+                                        color: Colors.white,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -84,15 +87,16 @@ class DashboardView extends StatelessWidget {
                                 ),
                                 const SizedBox(height: defaultPadding),
                                 DashboardStatistics(),
-                                // MainStatistics(
-                                //   header: "ข้อมูลสถิติรายจังหวัด",
-                                //   listColumn: listColumn,
-                                // ),
                               ],
                             ),
                           ),
                           Expanded(
-                            child: StatisticsChart(),
+                            // child: StatisticsChart(),
+                            child: MainChart(
+                              header: "สถิติข้อมูลการอบรมของ ศส.ปชต.",
+                              subHeader: "ประเภทการอบรม",
+                              listSummaryChart: summaryDashboardChart,
+                            ),
                           ),
                         ],
                       ),

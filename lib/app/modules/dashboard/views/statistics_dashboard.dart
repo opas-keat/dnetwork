@@ -15,7 +15,7 @@ class StatisticsDashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(defaultPadding / 2),
-      height: MediaQuery.of(context).size.height,
+      height: MediaQuery.of(context).size.height - 300,
       decoration: BoxDecoration(
         color: canvasColor,
         borderRadius: BorderRadius.circular(defaultPadding),

@@ -4,21 +4,26 @@ import 'constant.dart';
 import 'custom_text.dart';
 
 class Header extends StatelessWidget {
-  const Header({super.key});
+  const Header({
+    super.key,
+    this.moduleName = "",
+  });
+
+  final String moduleName;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: const [
+      children: [
         CustomText(
-          text: "Dashboard หน้าจอหลัก",
+          text: moduleName,
           weight: FontWeight.bold,
           size: 22,
         ),
-        Spacer(flex: 2),
-        Expanded(child: SearchField()),
-        ProfileCard(),
+        const Spacer(flex: 2),
+        const Expanded(child: SearchField()),
+        const ProfileCard(),
       ],
     );
   }

@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 
 import '../modules/admin/bindings/admin_binding.dart';
 import '../modules/admin/views/admin_view.dart';
+import '../modules/budget/bindings/budget_binding.dart';
+import '../modules/budget/views/budget_view.dart';
 import '../modules/commiss/addCommiss/bindings/add_commiss_binding.dart';
 import '../modules/commiss/addCommiss/views/add_commiss_view.dart';
 import '../modules/commiss/bindings/commiss_binding.dart';
@@ -16,6 +18,10 @@ import '../modules/lectuter/bindings/lectuter_binding.dart';
 import '../modules/lectuter/views/lectuter_view.dart';
 import '../modules/list_report/bindings/list_report_binding.dart';
 import '../modules/list_report/views/list_report_view.dart';
+import '../modules/member/bindings/member_binding.dart';
+import '../modules/member/views/member_view.dart';
+import '../modules/network/bindings/network_binding.dart';
+import '../modules/network/views/network_view.dart';
 import '../modules/newHome/addData/bindings/add_data_binding.dart';
 import '../modules/newHome/addData/views/add_data_view.dart';
 import '../modules/newHome/bindings/new_home_binding.dart';
@@ -29,6 +35,8 @@ import '../modules/signin/views/signin_view.dart';
 import '../modules/station/addStation/views/add_station_view.dart';
 import '../modules/station/bindings/station_binding.dart';
 import '../modules/station/views/station_view.dart';
+import '../modules/training/bindings/training_binding.dart';
+import '../modules/training/views/training_view.dart';
 import '../modules/villagehosty/addVillage/bindings/add_village_binding.dart';
 import '../modules/villagehosty/addVillage/views/add_village_view.dart';
 import '../modules/villagehosty/bindings/villagehosty_binding.dart';
@@ -135,6 +143,26 @@ class AppPages {
           binding: AddDataBinding(),
         ),
       ],
+    ),
+    GetPage(
+      name: _Paths.MEMBER,
+      page: () => MemberView(),
+      binding: MemberBinding(),
+    ),
+    GetPage(
+      name: _Paths.NETWORK,
+      page: () => NetworkView(),
+      binding: NetworkBinding(),
+    ),
+    GetPage(
+      name: _Paths.TRAINING,
+      page: () => TrainingView(),
+      binding: TrainingBinding(),
+    ),
+    GetPage(
+      name: _Paths.BUDGET,
+      page: () => BudgetView(),
+      binding: BudgetBinding(),
     ),
   ];
 }

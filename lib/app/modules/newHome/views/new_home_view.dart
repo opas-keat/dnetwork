@@ -12,7 +12,7 @@ import '../../../shared/main_drawer.dart';
 import '../../../shared/utils.dart';
 import '../controllers/new_home_controller.dart';
 import 'statistics_chart.dart';
-import 'statistics_dashboard.dart';
+import 'statistics_dashboard2.dart';
 
 class NewHomeView extends GetView<NewHomeController> {
   const NewHomeView({Key? key}) : super(key: key);
@@ -77,7 +77,7 @@ class NewHomeView extends GetView<NewHomeController> {
                                   ),
                                 ),
                                 const SizedBox(height: defaultPadding),
-                                StatisticsDashboard(),
+                                StatisticsDashboard2(),
                               ],
                             ),
                           ),

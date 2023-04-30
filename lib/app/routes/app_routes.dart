@@ -21,6 +21,10 @@ abstract class Routes {
   static const ADD_VILLAGE = _Paths.VILLAGEHOSTY + _Paths.ADD_VILLAGE;
   static const NEW_HOME = _Paths.NEW_HOME;
   static const ADD_DATA = _Paths.NEW_HOME + _Paths.ADD_DATA;
+  static const MEMBER = _Paths.MEMBER;
+  static const NETWORK = _Paths.NETWORK;
+  static const TRAINING = _Paths.TRAINING;
+  static const BUDGET = _Paths.BUDGET;
 }
 
 abstract class _Paths {
@@ -43,4 +47,8 @@ abstract class _Paths {
   static const ADD_VILLAGE = '/add-village';
   static const NEW_HOME = '/new-home';
   static const ADD_DATA = '/add-data';
+  static const MEMBER = '/member';
+  static const NETWORK = '/network';
+  static const TRAINING = '/training';
+  static const BUDGET = '/budget';
 }

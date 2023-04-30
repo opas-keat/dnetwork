@@ -34,7 +34,7 @@ class MainDrawer extends StatelessWidget {
                         style: TextStyle(fontSize: 14)),
                     onTap: () {
                       talker.debug("edit: ${listModule[index].nameEn}");
-                      Get.toNamed(listModule[index].nameEn);
+                      Get.toNamed(listModule[index].url);
                     },
                   ),
                 );

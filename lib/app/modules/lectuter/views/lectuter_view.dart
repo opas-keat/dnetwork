@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../../../responsive.dart';
+import '../../../data/models/summary_info.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/header.dart';
+import '../../../shared/info_card.dart';
 import '../../../shared/main_drawer.dart';
 import '../controllers/lectuter_controller.dart';
 
@@ -77,16 +80,17 @@ class LectuterView extends StatelessWidget {
                                   ],
                                 ),
                                 const SizedBox(height: defaultPadding),
-                                // Spacer(),
-                                // const Responsive(
-                                //   smallScreen: InfoCard(
-                                //     crossAxisCount: 2,
-                                //     childAspectRatio: 2.0,
-                                //   ),
-                                //   largeScreen: InfoCard(
-                                //     childAspectRatio: 2.2,
-                                //   ),
-                                // ),
+                                Responsive(
+                                  smallScreen: InfoCard(
+                                    crossAxisCount: 2,
+                                    childAspectRatio: 2.0,
+                                    listSummaryInfo: listLectuterSummaryInfo,
+                                  ),
+                                  largeScreen: InfoCard(
+                                    childAspectRatio: 2.2,
+                                    listSummaryInfo: listLectuterSummaryInfo,
+                                  ),
+                                ),
                                 // const SizedBox(height: defaultPadding),
                                 // StatisticsDashboard(),
                                 // Spacer(),

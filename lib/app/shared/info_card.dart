@@ -6,14 +6,16 @@ import 'constant.dart';
 import 'utils.dart';
 
 class InfoCard extends StatelessWidget {
-  const InfoCard({
+  InfoCard({
     super.key,
     this.crossAxisCount = 4,
     this.childAspectRatio = 1,
+    required this.listSummaryInfo,
   });
 
   final int crossAxisCount;
   final double childAspectRatio;
+  final List<SummaryInfo> listSummaryInfo;
 
   @override
   Widget build(BuildContext context) {

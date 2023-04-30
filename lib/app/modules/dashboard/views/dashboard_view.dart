@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../responsive.dart';
+import '../../../data/models/summary_info.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/header.dart';
@@ -68,13 +69,15 @@ class DashboardView extends StatelessWidget {
                                   ],
                                 ),
                                 const SizedBox(height: defaultPadding),
-                                const Responsive(
+                                Responsive(
                                   smallScreen: InfoCard(
                                     crossAxisCount: 2,
                                     childAspectRatio: 2.0,
+                                    listSummaryInfo: listDashboardSummaryInfo,
                                   ),
                                   largeScreen: InfoCard(
                                     childAspectRatio: 2.2,
+                                    listSummaryInfo: listDashboardSummaryInfo,
                                   ),
                                 ),
                                 const SizedBox(height: defaultPadding),

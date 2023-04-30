@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../responsive.dart';
+import '../../../data/models/summary_info.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_flat_button.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/header.dart';
+import '../../../shared/info_card.dart';
 import '../../../shared/main_drawer.dart';
 import '../addCommiss/views/add_commiss_view.dart';
 import '../controllers/commiss_controller.dart';
@@ -82,16 +84,17 @@ class CommissView extends GetView<CommissController> {
                                   ],
                                 ),
                                 const SizedBox(height: defaultPadding),
-                                // Spacer(),
-                                // const Responsive(
-                                //   smallScreen: InfoCard(
-                                //     crossAxisCount: 2,
-                                //     childAspectRatio: 2.0,
-                                //   ),
-                                //   largeScreen: InfoCard(
-                                //     childAspectRatio: 2.2,
-                                //   ),
-                                // ),
+                                Responsive(
+                                  smallScreen: InfoCard(
+                                    crossAxisCount: 2,
+                                    childAspectRatio: 2.0,
+                                    listSummaryInfo: listCommissSummaryInfo,
+                                  ),
+                                  largeScreen: InfoCard(
+                                    childAspectRatio: 2.2,
+                                    listSummaryInfo: listCommissSummaryInfo,
+                                  ),
+                                ),
                                 // const SizedBox(height: defaultPadding),
                                 // StatisticsDashboard(),
                                 // Spacer(),

@@ -1,8 +1,10 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 
+import '../../../data/models/station_statistics_data.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
+import '../../../shared/utils.dart';
 
 class StationStatistics extends StatelessWidget {
   StationStatistics({
@@ -37,12 +39,12 @@ class StationStatistics extends StatelessWidget {
               child: DataTable2(
                 columnSpacing: defaultPadding,
                 columns: listColumn,
-                rows: [],
-                // rows: List.generate(
-                //   listProvinceSummary.length,
-                //   (index) => StationDataRow(
-                //       context, index, listProvinceSummary[index]),
-                // ),
+                // rows: [],
+                rows: List.generate(
+                  listStationStatisticsData.length,
+                  (index) =>
+                      StationDataRow(index, listStationStatisticsData[index]),
+                ),
               ),
             ),
           ),
@@ -55,12 +57,11 @@ class StationStatistics extends StatelessWidget {
 List<DataColumn> listColumn = [
   const DataColumn2(
     label: Text("ชื่อ ศส.ปชต."),
-    size: ColumnSize.S,
+    size: ColumnSize.M,
   ),
   const DataColumn2(
     label: Text("จังหวัด/อำเภอ/ตำบล"),
     size: ColumnSize.S,
-    numeric: true,
   ),
   const DataColumn2(
     label: Text("จำนวนกรรมการ/สมาชิก"),
@@ -68,3 +69,49 @@ List<DataColumn> listColumn = [
     numeric: true,
   ),
 ];
+
+DataRow StationDataRow(int index, StationStatisticsData stationStatisticsData) {
+  return DataRow(
+    cells: [
+      // DataCell(Text(
+      //   formatterItem.format(index + 1),
+      // )),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              stationStatisticsData.name!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              stationStatisticsData.address!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              "${stationStatisticsData.totalCommiss}/${stationStatisticsData.totalMember}",
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+    ],
+  );
+}

@@ -1,8 +1,10 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 
+import '../../../data/models/province_summary.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
+import '../../../shared/utils.dart';
 
 class DashboardStatistics extends StatelessWidget {
   DashboardStatistics({
@@ -37,12 +39,12 @@ class DashboardStatistics extends StatelessWidget {
               child: DataTable2(
                 columnSpacing: defaultPadding,
                 columns: listColumn,
-                rows: [],
-                // rows: List.generate(
-                //   listProvinceSummary.length,
-                //   (index) => StationDataRow(
-                //       context, index, listProvinceSummary[index]),
-                // ),
+                // rows: [],
+                rows: List.generate(
+                  listProvinceSummary.length,
+                  (index) =>
+                      DashboardDataRow(index, listProvinceSummary[index]),
+                ),
               ),
             ),
           ),
@@ -58,7 +60,6 @@ List<DataColumn> listColumn = [
     fixedWidth: 40,
   ),
   const DataColumn2(
-    // label: Text("จังหวัด"),
     label: CustomText(
       text: "จังหวัด",
       size: 14,
@@ -66,7 +67,6 @@ List<DataColumn> listColumn = [
     size: ColumnSize.S,
   ),
   const DataColumn2(
-    // label: Text("ศส.ปชต."),
     label: CustomText(
       text: "ศส.ปชต.",
       size: 14,
@@ -75,7 +75,6 @@ List<DataColumn> listColumn = [
     numeric: true,
   ),
   const DataColumn2(
-    // label: Text("กรรมการ"),
     label: CustomText(
       text: "กรรมการ",
       size: 14,
@@ -84,7 +83,6 @@ List<DataColumn> listColumn = [
     numeric: true,
   ),
   const DataColumn2(
-    // label: Text("สมาชิก"),
     label: CustomText(
       text: "สมาชิก",
       size: 14,
@@ -93,7 +91,6 @@ List<DataColumn> listColumn = [
     numeric: true,
   ),
   const DataColumn2(
-    // label: Text("เครือข่าย"),
     label: CustomText(
       text: "เครือข่าย",
       size: 14,
@@ -102,7 +99,6 @@ List<DataColumn> listColumn = [
     numeric: true,
   ),
   const DataColumn2(
-    // label: Text("หมู่บ้าน..."),
     label: CustomText(
       text: "หมู่บ้าน วิถี ประชาธิปไตย",
       size: 14,
@@ -111,7 +107,6 @@ List<DataColumn> listColumn = [
     numeric: true,
   ),
   const DataColumn2(
-    // label: Text("วิทยากร..."),
     label: CustomText(
       text: "วิทยากรประชาธิปไตย",
       size: 14,
@@ -121,94 +116,44 @@ List<DataColumn> listColumn = [
   ),
 ];
 
-List<DataRow> listRow = [];
-
-// List<DataColumn> _createColumns() {
-//   return [
-//     const DataColumn2(
-//       label: Text(""),
-//       fixedWidth: 40,
-//     ),
-//     const DataColumn2(
-//       label: Text("จังหวัด"),
-//       size: ColumnSize.S,
-//     ),
-//     const DataColumn2(
-//       label: Text("ศส.ปชต."),
-//       size: ColumnSize.S,
-//       numeric: true,
-//     ),
-//     const DataColumn2(
-//       label: Text("กรรมการ"),
-//       size: ColumnSize.S,
-//       numeric: true,
-//     ),
-//     const DataColumn2(
-//       label: Text("สมาชิก"),
-//       size: ColumnSize.S,
-//       numeric: true,
-//     ),
-//     const DataColumn2(
-//       label: Text("เครือข่าย"),
-//       size: ColumnSize.S,
-//       numeric: true,
-//     ),
-//     const DataColumn2(
-//       label: Text("หมู่บ้าน..."),
-//       size: ColumnSize.S,
-//       numeric: true,
-//     ),
-//     const DataColumn2(
-//       label: Text("วิทยากร..."),
-//       size: ColumnSize.S,
-//       numeric: true,
-//     ),
-//   ];
-// }
-
-// List<DataRow> _createRows() {
-//   return [];
-// }
-
-// DataRow StationDataRow(
-//     BuildContext context, int index, ProvinceSummary provinceSummary) {
-//   return DataRow(
-//     cells: [
-//       // DataCell(Text(
-//       //   formatterItem.format(index + 1),
-//       // )),
-//       DataCell(
-//         Image.network(
-//           "assets/images/seal/${provinceSummary.seal!}",
-//           height: 38,
-//         ),
-//       ),
-//       DataCell(
-//         Row(
-//           children: [
-//             Text(provinceSummary.name!),
-//           ],
-//         ),
-//       ),
-//       DataCell(Text(
-//         formatterItem.format(provinceSummary.totalStation!),
-//       )),
-//       DataCell(Text(
-//         formatterItem.format(provinceSummary.totalCommiss!),
-//       )),
-//       DataCell(Text(
-//         formatterItem.format(provinceSummary.totalMember!),
-//       )),
-//       DataCell(Text(
-//         formatterItem.format(provinceSummary.totalNetwork!),
-//       )),
-//       DataCell(Text(
-//         formatterItem.format(provinceSummary.totalVillage!),
-//       )),
-//       DataCell(Text(
-//         formatterItem.format(provinceSummary.totalLectuter!),
-//       )),
-//       // DataCell(Text(fileInfo.size!)),
-//     ],
-//   );
-// }
+DataRow DashboardDataRow(int index, ProvinceSummary provinceSummary) {
+  return DataRow(
+    cells: [
+      // DataCell(Text(
+      //   formatterItem.format(index + 1),
+      // )),
+      DataCell(
+        Image.network(
+          "assets/images/seal/${provinceSummary.seal!}",
+          height: 38,
+        ),
+      ),
+      DataCell(
+        Row(
+          children: [
+            Text(provinceSummary.name!),
+          ],
+        ),
+      ),
+      DataCell(Text(
+        formatterItem.format(provinceSummary.totalStation!),
+      )),
+      DataCell(Text(
+        formatterItem.format(provinceSummary.totalCommiss!),
+      )),
+      DataCell(Text(
+        formatterItem.format(provinceSummary.totalMember!),
+      )),
+      DataCell(Text(
+        formatterItem.format(provinceSummary.totalNetwork!),
+      )),
+      DataCell(Text(
+        formatterItem.format(provinceSummary.totalVillage!),
+      )),
+      DataCell(Text(
+        formatterItem.format(provinceSummary.totalLectuter!),
+      )),
+      // DataCell(Text(fileInfo.size!)),
+    ],
+  );
+}

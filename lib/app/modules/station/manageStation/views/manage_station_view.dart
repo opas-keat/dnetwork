@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/app/modules/address/views/address_view.dart';
+import 'package:frontend/app/routes/app_pages.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -340,7 +341,9 @@ class ManageStationView extends StatelessWidget {
                             ),
                           ),
                           ElevatedButton.icon(
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.toNamed(Routes.STATION);
+                            },
                             style: ElevatedButton.styleFrom(
                               padding: const EdgeInsets.symmetric(
                                   vertical: defaultPadding,

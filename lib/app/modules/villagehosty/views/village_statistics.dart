@@ -1,8 +1,10 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 
+import '../../../data/models/village_statistics_data.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
+import '../../../shared/utils.dart';
 
 class VillageStatistics extends StatelessWidget {
   VillageStatistics({
@@ -37,12 +39,12 @@ class VillageStatistics extends StatelessWidget {
               child: DataTable2(
                 columnSpacing: defaultPadding,
                 columns: listColumn,
-                rows: [],
-                // rows: List.generate(
-                //   listProvinceSummary.length,
-                //   (index) => StationDataRow(
-                //       context, index, listProvinceSummary[index]),
-                // ),
+                // rows: [],
+                rows: List.generate(
+                  listVillageStatisticsData.length,
+                  (index) =>
+                      VillageDataRow(index, listVillageStatisticsData[index]),
+                ),
               ),
             ),
           ),
@@ -54,18 +56,20 @@ class VillageStatistics extends StatelessWidget {
 
 List<DataColumn> listColumn = [
   const DataColumn2(
+    label: Text(""),
+    fixedWidth: 10,
+  ),
+  const DataColumn2(
     label: Text("ชื่อหมู่บ้าน"),
     size: ColumnSize.S,
   ),
   const DataColumn2(
     label: Text("หมู่ที่/บ้านเลขที่"),
     size: ColumnSize.S,
-    numeric: true,
   ),
   const DataColumn2(
     label: Text("จังหวัด/อำเภอ/ตำบล"),
     size: ColumnSize.S,
-    numeric: true,
   ),
   const DataColumn2(
     label: Text("จำนวนครัวเรือน"),
@@ -73,3 +77,66 @@ List<DataColumn> listColumn = [
     numeric: true,
   ),
 ];
+
+DataRow VillageDataRow(int index, VillageStatisticsData villageStatisticsData) {
+  return DataRow(
+    cells: [
+      DataCell(
+        Text(
+          formatterItem.format(index + 1),
+          style: const TextStyle(
+            fontSize: 12,
+          ),
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              villageStatisticsData.name!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              villageStatisticsData.no!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              villageStatisticsData.address!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              formatterItem.format(villageStatisticsData.total),
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+    ],
+  );
+}

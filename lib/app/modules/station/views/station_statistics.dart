@@ -56,6 +56,10 @@ class StationStatistics extends StatelessWidget {
 
 List<DataColumn> listColumn = [
   const DataColumn2(
+    label: Text(""),
+    fixedWidth: 10,
+  ),
+  const DataColumn2(
     label: Text("ชื่อ ศส.ปชต."),
     size: ColumnSize.M,
   ),
@@ -73,9 +77,14 @@ List<DataColumn> listColumn = [
 DataRow StationDataRow(int index, StationStatisticsData stationStatisticsData) {
   return DataRow(
     cells: [
-      // DataCell(Text(
-      //   formatterItem.format(index + 1),
-      // )),
+      DataCell(
+        Text(
+          formatterItem.format(index + 1),
+          style: const TextStyle(
+            fontSize: 12,
+          ),
+        ),
+      ),
       DataCell(
         Wrap(
           children: [

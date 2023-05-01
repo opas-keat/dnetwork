@@ -1,8 +1,10 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 
+import '../../../data/models/training_statistics_data.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
+import '../../../shared/utils.dart';
 
 class TrainingStatistics extends StatelessWidget {
   TrainingStatistics({
@@ -37,12 +39,12 @@ class TrainingStatistics extends StatelessWidget {
               child: DataTable2(
                 columnSpacing: defaultPadding,
                 columns: listColumn,
-                rows: [],
-                // rows: List.generate(
-                //   listProvinceSummary.length,
-                //   (index) => StationDataRow(
-                //       context, index, listProvinceSummary[index]),
-                // ),
+                // rows: [],
+                rows: List.generate(
+                  listTrainingStatisticsData.length,
+                  (index) => TraingingDataRow(
+                      index, listTrainingStatisticsData[index]),
+                ),
               ),
             ),
           ),
@@ -54,23 +56,24 @@ class TrainingStatistics extends StatelessWidget {
 
 List<DataColumn> listColumn = [
   const DataColumn2(
+    label: Text(""),
+    fixedWidth: 10,
+  ),
+  const DataColumn2(
     label: Text("ชื่อโครงการฝึกอบรม"),
-    size: ColumnSize.S,
+    size: ColumnSize.L,
   ),
   const DataColumn2(
     label: Text("ระหว่างวัน"),
-    size: ColumnSize.S,
-    numeric: true,
+    size: ColumnSize.M,
   ),
   const DataColumn2(
     label: Text("ประเภทการฝีกอบรม"),
-    size: ColumnSize.S,
-    numeric: true,
+    size: ColumnSize.M,
   ),
   const DataColumn2(
     label: Text("จังหวัด"),
     size: ColumnSize.S,
-    numeric: true,
   ),
   const DataColumn2(
     label: Text("จำนวนผู้ฝึกอบรม"),
@@ -78,3 +81,75 @@ List<DataColumn> listColumn = [
     numeric: true,
   ),
 ];
+
+DataRow TraingingDataRow(
+    int index, TrainingStatisticsData trainingStatisticsData) {
+  return DataRow(
+    cells: [
+      DataCell(
+        Text(
+          formatterItem.format(index + 1),
+          style: const TextStyle(
+            fontSize: 12,
+          ),
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              trainingStatisticsData.name!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              trainingStatisticsData.date!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              trainingStatisticsData.type!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              trainingStatisticsData.province!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Text(
+          formatterItem.format(trainingStatisticsData.total),
+          style: const TextStyle(
+            fontSize: 12,
+          ),
+        ),
+      ),
+    ],
+  );
+}

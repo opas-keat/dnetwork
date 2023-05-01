@@ -1,8 +1,10 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 
+import '../../../data/models/budget_statistics_data.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
+import '../../../shared/utils.dart';
 
 class BudgetStatistics extends StatelessWidget {
   BudgetStatistics({
@@ -24,7 +26,8 @@ class BudgetStatistics extends StatelessWidget {
           Row(
             children: const [
               CustomText(
-                text: "ข้อมูลงบประมาณ รายรับ-รายจ่าย",
+                text:
+                    "ข้อมูลงบประมาณ รายรับ-รายจ่ายของสำนักพัฒนาเครือข่ายการเลือกตั้ง",
                 weight: FontWeight.bold,
                 size: 16,
               ),
@@ -37,12 +40,12 @@ class BudgetStatistics extends StatelessWidget {
               child: DataTable2(
                 columnSpacing: defaultPadding,
                 columns: listColumn,
-                rows: [],
-                // rows: List.generate(
-                //   listProvinceSummary.length,
-                //   (index) => StationDataRow(
-                //       context, index, listProvinceSummary[index]),
-                // ),
+                // rows: [],
+                rows: List.generate(
+                  listBudgetStatisticsData.length,
+                  (index) =>
+                      BudgetDataRow(index, listBudgetStatisticsData[index]),
+                ),
               ),
             ),
           ),
@@ -54,13 +57,20 @@ class BudgetStatistics extends StatelessWidget {
 
 List<DataColumn> listColumn = [
   const DataColumn2(
+    label: Text(""),
+    fixedWidth: 10,
+  ),
+  const DataColumn2(
     label: Text("วันที่รับงบประมาณ"),
     size: ColumnSize.S,
   ),
   const DataColumn2(
     label: Text("ประเภทงบประมาณ"),
+    size: ColumnSize.L,
+  ),
+  const DataColumn2(
+    label: Text("จังหวัด"),
     size: ColumnSize.S,
-    numeric: true,
   ),
   const DataColumn2(
     label: Text("งบต้น"),
@@ -77,9 +87,87 @@ List<DataColumn> listColumn = [
     size: ColumnSize.S,
     numeric: true,
   ),
-  const DataColumn2(
-    label: Text("จังหวัด"),
-    size: ColumnSize.S,
-    numeric: true,
-  ),
 ];
+
+DataRow BudgetDataRow(int index, BudgetStatisticsData budgetStatisticsData) {
+  return DataRow(
+    cells: [
+      DataCell(
+        Text(
+          formatterItem.format(index + 1),
+          style: const TextStyle(
+            fontSize: 12,
+          ),
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              budgetStatisticsData.date!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              budgetStatisticsData.type!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              budgetStatisticsData.province!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              formatterItem.format(budgetStatisticsData.budgetBegin),
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              formatterItem.format(budgetStatisticsData.budgetUsed),
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Text(
+          formatterItem.format(budgetStatisticsData.budgetRemain),
+          style: const TextStyle(
+            fontSize: 12,
+          ),
+        ),
+      ),
+    ],
+  );
+}

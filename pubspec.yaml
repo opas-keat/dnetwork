@@ -16,7 +16,7 @@ dependencies:
   sidebarx: ^0.15.0
   data_table_2: ^2.4.1
   # flutter_treeview: ^1.0.7+1
-  image_picker: ^0.8.7+2
+  image_picker: ^0.8.7+4
   fl_chart: ^0.62.0
   flutter: 
     sdk: flutter

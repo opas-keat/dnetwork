@@ -220,10 +220,10 @@ packages:
     dependency: "direct main"
     description:
       name: image_picker
-      sha256: "8b0efbf350ba4f2be1531d629396a994983d0c02f4a82a128aed84d954b90cfa"
+      sha256: "3da954c3b8906d82ecb50fd5e2b5401758f06d5678904eed6cbc06172283a263"
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.7+2"
+    version: "0.8.7+4"
   image_picker_android:
     dependency: transitive
     description:

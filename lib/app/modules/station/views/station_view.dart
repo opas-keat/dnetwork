@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/app/routes/app_pages.dart';
 import 'package:get/get.dart';
 
 import '../../../../responsive.dart';
@@ -72,12 +73,6 @@ class StationView extends StatelessWidget {
                                     ),
                                     const SizedBox(width: defaultPadding / 2),
                                     ElevatedButton.icon(
-                                      onPressed: () {},
-                                      style: ElevatedButton.styleFrom(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: defaultPadding,
-                                            horizontal: defaultPadding / 2),
-                                      ),
                                       icon: const Icon(
                                         Icons.add_sharp,
                                       ),
@@ -85,6 +80,14 @@ class StationView extends StatelessWidget {
                                         text: "เพิ่ม/แก้ไข",
                                         color: Colors.white,
                                       ),
+                                      style: ElevatedButton.styleFrom(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: defaultPadding,
+                                            horizontal: defaultPadding / 2),
+                                      ),
+                                      onPressed: () {
+                                        Get.toNamed(Routes.MANAGE_STATION);
+                                      },
                                     ),
                                   ],
                                 ),

@@ -4,8 +4,8 @@ import 'package:image_picker/image_picker.dart';
 import '../../../../../main.dart';
 import '../../../../shared/utils.dart';
 
-class AddVillageController extends GetxController {
-  final logTitle = "AddVillageController";
+class ManageStationController extends GetxController {
+  final logTitle = "ManageStationController";
   RxBool isLoading = true.obs;
 
   Rx<String> filePath = ''.obs;
@@ -13,9 +13,9 @@ class AddVillageController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    isLoading.value = true;
-    update();
-    getAddVillage();
+    // isLoading.value = true;
+    // update();
+    // getAddCommiss();
   }
 
   @override
@@ -28,12 +28,12 @@ class AddVillageController extends GetxController {
     super.onClose();
   }
 
-  getAddVillage() async {
-    talker.info('$logTitle:getAddVillage:');
-    isLoading.value =
-        await Future.delayed(Duration(seconds: randomValue()), () {
-      return false;
-    });
-    update();
-  }
+  // getAddCommiss() async {
+  //   talker.info('$logTitle:getAddStation:');
+  //   isLoading.value =
+  //       await Future.delayed(Duration(seconds: randomValue()), () {
+  //     return false;
+  //   });
+  //   update();
+  // }
 }

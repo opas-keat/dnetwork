@@ -15,16 +15,13 @@ abstract class Routes {
   static const SETTING = _Paths.SETTING;
   static const REPORTPROBLEM = _Paths.REPORTPROBLEM;
   static const LIST_REPORT = _Paths.LIST_REPORT;
-  static const ADD_STATION = _Paths.STATION + _Paths.ADD_STATION;
-  static const ADD_COMMISS = _Paths.COMMISS + _Paths.ADD_COMMISS;
-  static const ADD_LECTUTER = _Paths.LECTUTER + _Paths.ADD_LECTUTER;
-  static const ADD_VILLAGE = _Paths.VILLAGEHOSTY + _Paths.ADD_VILLAGE;
   static const NEW_HOME = _Paths.NEW_HOME;
   static const ADD_DATA = _Paths.NEW_HOME + _Paths.ADD_DATA;
   static const MEMBER = _Paths.MEMBER;
   static const NETWORK = _Paths.NETWORK;
   static const TRAINING = _Paths.TRAINING;
   static const BUDGET = _Paths.BUDGET;
+  static const MANAGE_STATION = _Paths.STATION + _Paths.MANAGE_STATION;
 }
 
 abstract class _Paths {
@@ -41,14 +38,11 @@ abstract class _Paths {
   static const SETTING = '/setting';
   static const REPORTPROBLEM = '/reportproblem';
   static const LIST_REPORT = '/list-report';
-  static const ADD_STATION = '/add-station';
-  static const ADD_COMMISS = '/add-commiss';
-  static const ADD_LECTUTER = '/add-lectuter';
-  static const ADD_VILLAGE = '/add-village';
   static const NEW_HOME = '/new-home';
   static const ADD_DATA = '/add-data';
   static const MEMBER = '/member';
   static const NETWORK = '/network';
   static const TRAINING = '/training';
   static const BUDGET = '/budget';
+  static const MANAGE_STATION = '/manage-station';
 }

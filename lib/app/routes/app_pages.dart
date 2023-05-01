@@ -4,16 +4,12 @@ import '../modules/admin/bindings/admin_binding.dart';
 import '../modules/admin/views/admin_view.dart';
 import '../modules/budget/bindings/budget_binding.dart';
 import '../modules/budget/views/budget_view.dart';
-import '../modules/commiss/addCommiss/bindings/add_commiss_binding.dart';
-import '../modules/commiss/addCommiss/views/add_commiss_view.dart';
 import '../modules/commiss/bindings/commiss_binding.dart';
 import '../modules/commiss/views/commiss_view.dart';
 import '../modules/dashboard/bindings/dashboard_binding.dart';
 import '../modules/dashboard/views/dashboard_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
-import '../modules/lectuter/addLectuter/bindings/add_lectuter_binding.dart';
-import '../modules/lectuter/addLectuter/views/add_lectuter_view.dart';
 import '../modules/lectuter/bindings/lectuter_binding.dart';
 import '../modules/lectuter/views/lectuter_view.dart';
 import '../modules/list_report/bindings/list_report_binding.dart';
@@ -32,13 +28,12 @@ import '../modules/setting/bindings/setting_binding.dart';
 import '../modules/setting/views/setting_view.dart';
 import '../modules/signin/bindings/signin_binding.dart';
 import '../modules/signin/views/signin_view.dart';
-import '../modules/station/addStation/views/add_station_view.dart';
 import '../modules/station/bindings/station_binding.dart';
+import '../modules/station/manageStation/bindings/manage_station_binding.dart';
+import '../modules/station/manageStation/views/manage_station_view.dart';
 import '../modules/station/views/station_view.dart';
 import '../modules/training/bindings/training_binding.dart';
 import '../modules/training/views/training_view.dart';
-import '../modules/villagehosty/addVillage/bindings/add_village_binding.dart';
-import '../modules/villagehosty/addVillage/views/add_village_view.dart';
 import '../modules/villagehosty/bindings/villagehosty_binding.dart';
 import '../modules/villagehosty/views/villagehosty_view.dart';
 
@@ -76,8 +71,9 @@ class AppPages {
       binding: StationBinding(),
       children: [
         GetPage(
-          name: _Paths.ADD_STATION,
-          page: () => AddStationView(),
+          name: _Paths.MANAGE_STATION,
+          page: () => ManageStationView(),
+          binding: ManageStationBinding(),
         ),
       ],
     ),
@@ -85,37 +81,16 @@ class AppPages {
       name: _Paths.COMMISS,
       page: () => CommissView(),
       binding: CommissBinding(),
-      children: [
-        GetPage(
-          name: _Paths.ADD_COMMISS,
-          page: () => AddCommissView(),
-          binding: AddCommissBinding(),
-        ),
-      ],
     ),
     GetPage(
       name: _Paths.LECTUTER,
       page: () => LectuterView(),
       binding: LectuterBinding(),
-      children: [
-        GetPage(
-          name: _Paths.ADD_LECTUTER,
-          page: () => AddLectuterView(),
-          binding: AddLectuterBinding(),
-        ),
-      ],
     ),
     GetPage(
       name: _Paths.VILLAGEHOSTY,
       page: () => VillagehostyView(),
       binding: VillagehostyBinding(),
-      children: [
-        GetPage(
-          name: _Paths.ADD_VILLAGE,
-          page: () => AddVillageView(),
-          binding: AddVillageBinding(),
-        ),
-      ],
     ),
     GetPage(
       name: _Paths.SETTING,

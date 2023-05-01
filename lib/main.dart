@@ -59,9 +59,15 @@ class MyApp extends StatelessWidget {
         transition: Transition.noTransition,
       ),
       theme: ThemeData.light().copyWith(
+        // dropdownMenuTheme: DropdownMenuThemeData(inputDecorationTheme: InputDecorationTheme(),textStyle: TextStyle()),
         scaffoldBackgroundColor: scaffoldBackgroundColor,
         drawerTheme: const DrawerThemeData(
             scrimColor: Colors.transparent, elevation: 0.5),
+        // dropdownMenuTheme: const DropdownMenuThemeData(
+        //   textStyle: TextStyle(
+        //     fontSize: 12,
+        //   ),
+        // ),
         textTheme: GoogleFonts.sarabunTextTheme(Theme.of(context).textTheme)
             .apply(bodyColor: Colors.black87),
         canvasColor: canvasColor,

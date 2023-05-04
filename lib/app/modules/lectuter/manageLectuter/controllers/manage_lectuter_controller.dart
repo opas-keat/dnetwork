@@ -1,9 +1,15 @@
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+
+import '../../../../../main.dart';
 
 class ManageLectuterController extends GetxController {
-  //TODO: Implement ManageLectuterController
+  final logTitle = "ManageLectuterController";
+  RxBool isLoading = true.obs;
 
-  final count = 0.obs;
+  Rx<String> filePath = ''.obs;
+  Rx<XFile> fileUpload = XFile('').obs;
+  
   @override
   void onInit() {
     super.onInit();
@@ -19,5 +25,7 @@ class ManageLectuterController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+  addDataToTable() {
+    talker.info('$logTitle:addDataToTable:');
+  }
 }

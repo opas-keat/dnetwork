@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../../../../responsive.dart';
 import '../../../data/models/summary_chart.dart';
 import '../../../data/models/summary_info.dart';
+import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/header.dart';
@@ -72,7 +73,6 @@ class LectuterView extends StatelessWidget {
                                     ),
                                     const SizedBox(width: defaultPadding / 2),
                                     ElevatedButton.icon(
-                                      onPressed: () {},
                                       style: ElevatedButton.styleFrom(
                                         padding: const EdgeInsets.symmetric(
                                             vertical: defaultPadding,
@@ -85,6 +85,9 @@ class LectuterView extends StatelessWidget {
                                         text: "เพิ่ม/แก้ไข",
                                         color: Colors.white,
                                       ),
+                                      onPressed: () {
+                                        Get.toNamed(Routes.MANAGE_LECTUTER);
+                                      },
                                     ),
                                   ],
                                 ),

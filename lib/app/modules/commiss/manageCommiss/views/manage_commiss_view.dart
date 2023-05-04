@@ -491,37 +491,27 @@ List<DataColumn> listColumn = [
     fixedWidth: 50,
   ),
   const DataColumn2(
-    label: CustomText(text: "ชื่อ ศส.ปชต.", scale: 0.9),
+    label: CustomText(text: "คำนำหน้า", scale: 0.9),
     size: ColumnSize.M,
   ),
   const DataColumn2(
-    label: CustomText(text: "ที่ตั้ง", scale: 0.9),
+    label: CustomText(text: "ชื่อ", scale: 0.9),
     size: ColumnSize.M,
   ),
   const DataColumn2(
-    label: CustomText(text: "จังหวัด", scale: 0.9),
+    label: CustomText(text: "นามสกุล", scale: 0.9),
     size: ColumnSize.S,
   ),
   const DataColumn2(
-    label: CustomText(text: "อำเภอ", scale: 0.9),
+    label: CustomText(text: "ตำแหน่งใน ศศ.ปชต.", scale: 0.9),
     size: ColumnSize.S,
   ),
   const DataColumn2(
-    label: CustomText(text: "ตำบล", scale: 0.9),
+    label: CustomText(text: "ว/ด/ป แต่งตั้ง", scale: 0.9),
     size: ColumnSize.S,
   ),
   const DataColumn2(
-    label: CustomText(text: "Facebook/Location", scale: 0.9),
-    size: ColumnSize.S,
-    numeric: true,
-  ),
-  const DataColumn2(
-    label: CustomText(text: "ผลการดำเนินการ ศส.ปชต.", scale: 0.9),
-    size: ColumnSize.S,
-    numeric: true,
-  ),
-  const DataColumn2(
-    label: CustomText(text: "ข้อมูลอบรม ศส.ปชต.", scale: 0.9),
+    label: CustomText(text: "เบอร์ไทร", scale: 0.9),
     size: ColumnSize.S,
     numeric: true,
   ),

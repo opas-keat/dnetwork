@@ -98,7 +98,7 @@ class AppPages {
       children: [
         GetPage(
           name: _Paths.MANAGE_COMMISS,
-          page: () => const ManageCommissView(),
+          page: () => ManageCommissView(),
           binding: ManageCommissBinding(),
         ),
       ],
@@ -110,7 +110,7 @@ class AppPages {
       children: [
         GetPage(
           name: _Paths.MANAGE_LECTUTER,
-          page: () => const ManageLectuterView(),
+          page: () => ManageLectuterView(),
           binding: ManageLectuterBinding(),
         ),
       ],
@@ -122,7 +122,7 @@ class AppPages {
       children: [
         GetPage(
           name: _Paths.MANAGE_VILLAGE,
-          page: () => const ManageVillageView(),
+          page: () => ManageVillageView(),
           binding: ManageVillageBinding(),
         ),
       ],
@@ -144,12 +144,12 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.NEW_HOME,
-      page: () => const NewHomeView(),
+      page: () => NewHomeView(),
       binding: NewHomeBinding(),
       children: [
         GetPage(
           name: _Paths.ADD_DATA,
-          page: () => const AddDataView(),
+          page: () => AddDataView(),
           binding: AddDataBinding(),
         ),
       ],
@@ -161,7 +161,7 @@ class AppPages {
       children: [
         GetPage(
           name: _Paths.MANAGE_MEMBER,
-          page: () => const ManageMemberView(),
+          page: () => ManageMemberView(),
           binding: ManageMemberBinding(),
         ),
       ],
@@ -173,7 +173,7 @@ class AppPages {
       children: [
         GetPage(
           name: _Paths.MANAGE_NETWORK,
-          page: () => const ManageNetworkView(),
+          page: () => ManageNetworkView(),
           binding: ManageNetworkBinding(),
         ),
       ],
@@ -185,7 +185,7 @@ class AppPages {
       children: [
         GetPage(
           name: _Paths.MANAGE_TRAINING,
-          page: () => const ManageTrainingView(),
+          page: () => ManageTrainingView(),
           binding: ManageTrainingBinding(),
         ),
       ],
@@ -197,7 +197,7 @@ class AppPages {
       children: [
         GetPage(
           name: _Paths.MANAGE_BUDGET,
-          page: () => const ManageBudgetView(),
+          page: () => ManageBudgetView(),
           binding: ManageBudgetBinding(),
         ),
       ],

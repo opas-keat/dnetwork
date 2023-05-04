@@ -23,7 +23,7 @@ class ManageStationView extends StatelessWidget {
             Expanded(
               flex: 3,
               child: Container(
-                padding: EdgeInsets.only(bottom: defaultPadding),
+                padding: const EdgeInsets.only(bottom: defaultPadding),
                 decoration: const BoxDecoration(
                   border: Border(
                     right: BorderSide(

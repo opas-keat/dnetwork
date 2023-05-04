@@ -1,9 +1,14 @@
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+
+import '../../../../../main.dart';
 
 class ManageBudgetController extends GetxController {
-  //TODO: Implement ManageBudgetController
+  final logTitle = "ManageTrainingController";
+  RxBool isLoading = true.obs;
 
-  final count = 0.obs;
+  Rx<String> filePath = ''.obs;
+  Rx<XFile> fileUpload = XFile('').obs;
   @override
   void onInit() {
     super.onInit();
@@ -19,5 +24,7 @@ class ManageBudgetController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+  addDataToTable() {
+    talker.info('$logTitle:addDataToTable:');
+  }
 }

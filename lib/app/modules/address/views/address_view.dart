@@ -10,10 +10,16 @@ import '../controllers/address_controller.dart';
 class AddressView extends StatelessWidget {
   AddressView({
     Key? key,
+    this.showProvince = true,
+    this.showAmphure = true,
+    this.showTambol = true,
     this.showPostCode = true,
   }) : super(key: key);
   AddressController controller = Get.put(AddressController());
 
+  final bool showProvince;
+  final bool showAmphure;
+  final bool showTambol;
   final bool showPostCode;
   @override
   Widget build(BuildContext context) {
@@ -21,56 +27,57 @@ class AddressView extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CustomText(
-          text: "จังหวัด",
-          color: Colors.black87.withOpacity(.9),
-        ),
-        const SizedBox(height: defaultPadding / 2),
-        // TextFormField(
-        //   keyboardType: TextInputType.text,
-        //   decoration: InputDecoration(
-        //     fillColor: Colors.white.withOpacity(.2),
-        //     filled: true,
-        //     border: OutlineInputBorder(
-        //       borderRadius: BorderRadius.circular(defaultPadding / 2),
-        //       borderSide: const BorderSide(color: Colors.black87, width: 2),
-        //     ),
-        //     isCollapsed: true,
-        //     contentPadding: EdgeInsets.fromLTRB(12, 14, 12, 12),
-        //   ),
-        // ),
-        InputDecorator(
-          decoration: InputDecoration(
-            fillColor: Colors.white.withOpacity(.8),
-            filled: true,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(defaultPadding / 2),
-              borderSide: const BorderSide(color: Colors.black54, width: 1),
-            ),
-            isCollapsed: true,
-            contentPadding: EdgeInsets.fromLTRB(12, 14, 12, 12),
+        if (showProvince) ...[
+          CustomText(
+            text: "จังหวัด",
+            color: Colors.black87.withOpacity(.9),
           ),
-          child: DropdownButtonHideUnderline(
-            child: DropdownButton<Province>(
-              elevation: 0,
-              value: controller.provinceList.value[0],
-              isDense: true,
-              onChanged: (newValue) {
-                // controller.updatePaymentChannel(newValue!);
-              },
-              items: controller.provinceList.value.map((item) {
-                return DropdownMenuItem<Province>(
-                  value: item,
-                  child: Text(
-                    item.pName!,
-                    textScaleFactor: 0.9,
-                  ),
-                );
-              }).toList(),
+          const SizedBox(height: defaultPadding / 2),
+          // TextFormField(
+          //   keyboardType: TextInputType.text,
+          //   decoration: InputDecoration(
+          //     fillColor: Colors.white.withOpacity(.2),
+          //     filled: true,
+          //     border: OutlineInputBorder(
+          //       borderRadius: BorderRadius.circular(defaultPadding / 2),
+          //       borderSide: const BorderSide(color: Colors.black87, width: 2),
+          //     ),
+          //     isCollapsed: true,
+          //     contentPadding: EdgeInsets.fromLTRB(12, 14, 12, 12),
+          //   ),
+          // ),
+          InputDecorator(
+            decoration: InputDecoration(
+              fillColor: Colors.white.withOpacity(.8),
+              filled: true,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(defaultPadding / 2),
+                borderSide: const BorderSide(color: Colors.black54, width: 1),
+              ),
+              isCollapsed: true,
+              contentPadding: EdgeInsets.fromLTRB(12, 14, 12, 12),
+            ),
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton<Province>(
+                elevation: 0,
+                value: controller.provinceList.value[0],
+                isDense: true,
+                onChanged: (newValue) {
+                  // controller.updatePaymentChannel(newValue!);
+                },
+                items: controller.provinceList.value.map((item) {
+                  return DropdownMenuItem<Province>(
+                    value: item,
+                    child: Text(
+                      item.pName!,
+                      textScaleFactor: 0.9,
+                    ),
+                  );
+                }).toList(),
+              ),
             ),
           ),
-        ),
-
+        ],
         // Obx(
         //   () => InputDecorator(
         //     decoration: InputDecoration(
@@ -121,43 +128,45 @@ class AddressView extends StatelessWidget {
 
         //   onChanged: (value) {},
         // ),
-        const SizedBox(height: defaultPadding),
-        CustomText(
-          text: "อำเภอ",
-          color: Colors.black87.withOpacity(.9),
-        ),
-        const SizedBox(height: defaultPadding / 2),
-        InputDecorator(
-          decoration: InputDecoration(
-            fillColor: Colors.white.withOpacity(.8),
-            filled: true,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(defaultPadding / 2),
-              borderSide: const BorderSide(color: Colors.black54, width: 1),
-            ),
-            isCollapsed: true,
-            contentPadding: EdgeInsets.fromLTRB(12, 14, 12, 12),
+        if (showAmphure) ...[
+          const SizedBox(height: defaultPadding),
+          CustomText(
+            text: "อำเภอ",
+            color: Colors.black87.withOpacity(.9),
           ),
-          child: DropdownButtonHideUnderline(
-            child: DropdownButton<Amphure>(
-              elevation: 0,
-              value: controller.amphureList.value[0],
-              isDense: true,
-              onChanged: (newValue) {
-                // controller.updatePaymentChannel(newValue!);
-              },
-              items: controller.amphureList.value.map((item) {
-                return DropdownMenuItem<Amphure>(
-                  value: item,
-                  child: Text(
-                    item.aName!,
-                    textScaleFactor: 0.9,
-                  ),
-                );
-              }).toList(),
+          const SizedBox(height: defaultPadding / 2),
+          InputDecorator(
+            decoration: InputDecoration(
+              fillColor: Colors.white.withOpacity(.8),
+              filled: true,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(defaultPadding / 2),
+                borderSide: const BorderSide(color: Colors.black54, width: 1),
+              ),
+              isCollapsed: true,
+              contentPadding: EdgeInsets.fromLTRB(12, 14, 12, 12),
+            ),
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton<Amphure>(
+                elevation: 0,
+                value: controller.amphureList.value[0],
+                isDense: true,
+                onChanged: (newValue) {
+                  // controller.updatePaymentChannel(newValue!);
+                },
+                items: controller.amphureList.value.map((item) {
+                  return DropdownMenuItem<Amphure>(
+                    value: item,
+                    child: Text(
+                      item.aName!,
+                      textScaleFactor: 0.9,
+                    ),
+                  );
+                }).toList(),
+              ),
             ),
           ),
-        ),
+        ],
         // const SizedBox(height: defaultPadding / 2),
         // TextFormField(
         //   keyboardType: TextInputType.text,
@@ -172,56 +181,58 @@ class AddressView extends StatelessWidget {
         //     contentPadding: EdgeInsets.fromLTRB(12, 14, 12, 12),
         //   ),
         // ),
-        const SizedBox(height: defaultPadding),
-        CustomText(
-          text: "ตำบล",
-          color: Colors.black87.withOpacity(.9),
-        ),
-        const SizedBox(height: defaultPadding / 2),
-        // TextFormField(
-        //   keyboardType: TextInputType.text,
-        //   decoration: InputDecoration(
-        //     fillColor: Colors.white.withOpacity(.2),
-        //     filled: true,
-        //     border: OutlineInputBorder(
-        //       borderRadius: BorderRadius.circular(defaultPadding / 2),
-        //       borderSide: const BorderSide(color: Colors.black87, width: 2),
-        //     ),
-        //     isCollapsed: true,
-        //     contentPadding: EdgeInsets.fromLTRB(12, 14, 12, 12),
-        //   ),
-        // ),
-        InputDecorator(
-          decoration: InputDecoration(
-            fillColor: Colors.white.withOpacity(.8),
-            filled: true,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(defaultPadding / 2),
-              borderSide: const BorderSide(color: Colors.black54, width: 1),
-            ),
-            isCollapsed: true,
-            contentPadding: EdgeInsets.fromLTRB(12, 14, 12, 12),
+        if (showTambol) ...[
+          const SizedBox(height: defaultPadding),
+          CustomText(
+            text: "ตำบล",
+            color: Colors.black87.withOpacity(.9),
           ),
-          child: DropdownButtonHideUnderline(
-            child: DropdownButton<Tambol>(
-              elevation: 0,
-              value: controller.tambolList.value[0],
-              isDense: true,
-              onChanged: (newValue) {
-                // controller.updatePaymentChannel(newValue!);
-              },
-              items: controller.tambolList.value.map((item) {
-                return DropdownMenuItem<Tambol>(
-                  value: item,
-                  child: Text(
-                    item.tName!,
-                    textScaleFactor: 0.9,
-                  ),
-                );
-              }).toList(),
+          const SizedBox(height: defaultPadding / 2),
+          // TextFormField(
+          //   keyboardType: TextInputType.text,
+          //   decoration: InputDecoration(
+          //     fillColor: Colors.white.withOpacity(.2),
+          //     filled: true,
+          //     border: OutlineInputBorder(
+          //       borderRadius: BorderRadius.circular(defaultPadding / 2),
+          //       borderSide: const BorderSide(color: Colors.black87, width: 2),
+          //     ),
+          //     isCollapsed: true,
+          //     contentPadding: EdgeInsets.fromLTRB(12, 14, 12, 12),
+          //   ),
+          // ),
+          InputDecorator(
+            decoration: InputDecoration(
+              fillColor: Colors.white.withOpacity(.8),
+              filled: true,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(defaultPadding / 2),
+                borderSide: const BorderSide(color: Colors.black54, width: 1),
+              ),
+              isCollapsed: true,
+              contentPadding: EdgeInsets.fromLTRB(12, 14, 12, 12),
+            ),
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton<Tambol>(
+                elevation: 0,
+                value: controller.tambolList.value[0],
+                isDense: true,
+                onChanged: (newValue) {
+                  // controller.updatePaymentChannel(newValue!);
+                },
+                items: controller.tambolList.value.map((item) {
+                  return DropdownMenuItem<Tambol>(
+                    value: item,
+                    child: Text(
+                      item.tName!,
+                      textScaleFactor: 0.9,
+                    ),
+                  );
+                }).toList(),
+              ),
             ),
           ),
-        ),
+        ],
         const SizedBox(height: defaultPadding),
         if (showPostCode) ...[
           CustomText(

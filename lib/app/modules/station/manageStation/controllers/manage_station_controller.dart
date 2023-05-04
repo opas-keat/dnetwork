@@ -1,3 +1,4 @@
+import 'package:frontend/app/data/models/station_model.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -10,6 +11,9 @@ class ManageStationController extends GetxController {
 
   Rx<String> filePath = ''.obs;
   Rx<XFile> fileUpload = XFile('').obs;
+
+  final stationList = [].obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -26,6 +30,22 @@ class ManageStationController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+  }
+
+  addStationToDataTable() {
+    talker.info('$logTitle:addStationToDataTable:');
+    stationList.add(
+      StationModel(
+        name: "ทดสอบ",
+        locaion: "-",
+        province: "กรุงเทพมหานคร",
+        amphure: "บางขุนเทียน",
+        tambol: "แสมดำ",
+        facebook: "-",
+        process: "-",
+      ),
+    );
+    update();
   }
 
   // getAddCommiss() async {

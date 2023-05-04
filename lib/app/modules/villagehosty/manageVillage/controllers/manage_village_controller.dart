@@ -1,12 +1,19 @@
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+
+import '../../../../../main.dart';
 
 class ManageVillageController extends GetxController {
-  //TODO: Implement ManageVillageController
+  final logTitle = "ManageVillageController";
+  RxBool isLoading = true.obs;
 
-  final count = 0.obs;
+  Rx<String> filePath = ''.obs;
+  Rx<XFile> fileUpload = XFile('').obs;
+
   @override
   void onInit() {
     super.onInit();
+    talker.info('$logTitle:onInit:');
   }
 
   @override
@@ -19,5 +26,7 @@ class ManageVillageController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+  addDataToTable() {
+    talker.info('$logTitle:addDataToTable:');
+  }
 }

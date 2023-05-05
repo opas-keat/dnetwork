@@ -39,6 +39,8 @@ import '../modules/setting/views/setting_view.dart';
 import '../modules/signin/bindings/signin_binding.dart';
 import '../modules/signin/views/signin_view.dart';
 import '../modules/station/bindings/station_binding.dart';
+import '../modules/station/detailStation/bindings/detail_station_binding.dart';
+import '../modules/station/detailStation/views/detail_station_view.dart';
 import '../modules/station/manageStation/bindings/manage_station_binding.dart';
 import '../modules/station/manageStation/views/manage_station_view.dart';
 import '../modules/station/views/station_view.dart';
@@ -88,6 +90,11 @@ class AppPages {
           name: _Paths.MANAGE_STATION,
           page: () => ManageStationView(),
           binding: ManageStationBinding(),
+        ),
+        GetPage(
+          name: _Paths.DETAIL_STATION,
+          page: () => DetailStationView(),
+          binding: DetailStationBinding(),
         ),
       ],
     ),

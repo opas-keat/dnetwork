@@ -1,5 +1,7 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend/app/routes/app_pages.dart';
+import 'package:get/get.dart';
 
 import '../../../data/models/station_statistics_data.dart';
 import '../../../shared/constant.dart';
@@ -37,6 +39,7 @@ class StationStatistics extends StatelessWidget {
             child: SizedBox(
               width: double.infinity,
               child: DataTable2(
+                showCheckboxColumn: false,
                 columnSpacing: defaultPadding,
                 columns: listColumn,
                 // rows: [],
@@ -76,6 +79,9 @@ List<DataColumn> listColumn = [
 
 DataRow StationDataRow(int index, StationStatisticsData stationStatisticsData) {
   return DataRow(
+    onSelectChanged: (value) {
+      Get.toNamed(Routes.DETAIL_STATION);
+    },
     cells: [
       DataCell(
         Text(

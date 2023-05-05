@@ -1,7 +1,10 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import '../../../../main.dart';
 import '../../../data/models/province_summary.dart';
+import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/utils.dart';
@@ -37,6 +40,7 @@ class DashboardStatistics extends StatelessWidget {
             child: SizedBox(
               width: double.infinity,
               child: DataTable2(
+                showCheckboxColumn: false,
                 columnSpacing: defaultPadding,
                 columns: listColumn,
                 // rows: [],
@@ -118,6 +122,10 @@ List<DataColumn> listColumn = [
 
 DataRow DashboardDataRow(int index, ProvinceSummary provinceSummary) {
   return DataRow(
+    onSelectChanged: (value) {
+      talker.info("row selected: ${provinceSummary.name}");
+      Get.toNamed(Routes.STATION);
+    },
     cells: [
       // DataCell(Text(
       //   formatterItem.format(index + 1),
@@ -129,7 +137,7 @@ DataRow DashboardDataRow(int index, ProvinceSummary provinceSummary) {
         ),
       ),
       DataCell(
-        Row(
+        Wrap(
           children: [
             Text(provinceSummary.name!),
           ],

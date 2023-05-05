@@ -22,31 +22,28 @@ class ManageTrainingView extends StatelessWidget {
             Expanded(
               flex: 3,
               child: Container(
-                // color: Colors.amber,
-                child: Container(
-                  padding: const EdgeInsets.only(bottom: defaultPadding),
-                  decoration: const BoxDecoration(
-                    border: Border(
-                      right: BorderSide(
-                        width: 1,
-                        color: Colors.black38,
-                      ),
+                padding: const EdgeInsets.only(bottom: defaultPadding),
+                decoration: const BoxDecoration(
+                  border: Border(
+                    right: BorderSide(
+                      width: 1,
+                      color: Colors.black38,
                     ),
                   ),
-                  child: DataTable2(
-                    columnSpacing: defaultPadding,
-                    dividerThickness: 2,
-                    showBottomBorder: true,
-                    headingRowColor: MaterialStateProperty.resolveWith(
-                        (states) => Colors.grey.shade200),
-                    columns: listColumn,
-                    rows: [],
-                    // rows: List.generate(
-                    //   controller.stationList.value.length,
-                    //   (index) => StationDataRow(
-                    //       index, controller.stationList.value[index]),
-                    // ),
-                  ),
+                ),
+                child: DataTable2(
+                  columnSpacing: defaultPadding,
+                  dividerThickness: 2,
+                  showBottomBorder: true,
+                  headingRowColor: MaterialStateProperty.resolveWith(
+                      (states) => Colors.grey.shade200),
+                  columns: listColumn,
+                  rows: [],
+                  // rows: List.generate(
+                  //   controller.stationList.value.length,
+                  //   (index) => StationDataRow(
+                  //       index, controller.stationList.value[index]),
+                  // ),
                 ),
               ),
             ),
@@ -98,36 +95,34 @@ class ManageTrainingView extends StatelessWidget {
                         ),
                       ),
                       Expanded(
-                        child: Container(
-                          child: InkWell(
-                            hoverColor: Colors.white,
-                            onTap: () async {
-                              final ImagePicker picker = ImagePicker();
-                              final XFile? pickedFile = await picker.pickImage(
-                                source: ImageSource.gallery,
-                                maxHeight: 640,
-                                maxWidth: 480,
-                              );
-                              if (pickedFile != null) {
-                                controller.fileUpload.value = pickedFile;
-                                controller.update();
-                              }
-                            },
-                            child: Obx(() => SizedBox(
-                                  height: 100,
-                                  child: (controller
-                                          .fileUpload.value.path.isNotEmpty)
-                                      ? Image.network(
-                                          controller.fileUpload.value.path,
-                                          height: 100,
-                                          fit: BoxFit.fitHeight,
-                                        )
-                                      : Image.network(
-                                          'assets/images/undraw_Add_files_re_v09g.png',
-                                          fit: BoxFit.fitHeight,
-                                        ),
-                                )),
-                          ),
+                        child: InkWell(
+                          hoverColor: Colors.white,
+                          onTap: () async {
+                            final ImagePicker picker = ImagePicker();
+                            final XFile? pickedFile = await picker.pickImage(
+                              source: ImageSource.gallery,
+                              maxHeight: 640,
+                              maxWidth: 480,
+                            );
+                            if (pickedFile != null) {
+                              controller.fileUpload.value = pickedFile;
+                              controller.update();
+                            }
+                          },
+                          child: Obx(() => SizedBox(
+                                height: 100,
+                                child: (controller
+                                        .fileUpload.value.path.isNotEmpty)
+                                    ? Image.network(
+                                        controller.fileUpload.value.path,
+                                        height: 100,
+                                        fit: BoxFit.fitHeight,
+                                      )
+                                    : Image.network(
+                                        'assets/images/undraw_Add_files_re_v09g.png',
+                                        fit: BoxFit.fitHeight,
+                                      ),
+                              )),
                         ),
                       ),
                     ],

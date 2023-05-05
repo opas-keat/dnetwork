@@ -28,14 +28,14 @@ List<Module> listModule = [
     id: 4,
     nameTH: "สมาชิก",
     nameEn: "member",
-    icon: Icons.account_box_sharp,
+    icon: Icons.supervisor_account_sharp,
     url: Routes.MEMBER,
   ),
   Module(
     id: 5,
     nameTH: "เครือข่าย",
     nameEn: "network",
-    icon: Icons.account_box_sharp,
+    icon: Icons.account_tree_sharp,
     url: Routes.NETWORK,
   ),
   Module(

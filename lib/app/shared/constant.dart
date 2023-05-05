@@ -14,7 +14,10 @@ const double defaultPadding = 16.0;
 const logActionLogin = "เข้าสู่ระบบ";
 
 final divider = Divider(color: Colors.white.withOpacity(0.3), height: 1);
-final accentDivider = Divider(color: Colors.black.withOpacity(0.3), height: 1);
+final accentDivider = Padding(
+  padding: const EdgeInsets.symmetric(vertical: defaultPadding / 2),
+  child: Divider(color: Colors.black.withOpacity(0.3), height: 1),
+);
 
 // const primaryColor = Color(0xFF2697FF);
 const secondaryColor = Color(0xFF2A2D3E);

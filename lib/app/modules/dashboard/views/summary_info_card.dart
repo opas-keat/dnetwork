@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/app/shared/custom_text.dart';
 import 'package:get/get.dart';
 
 import '../../../data/models/module.dart';
@@ -72,14 +73,18 @@ class SummaryInfoCard extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Text(
-                          formatterItem.format(listSummaryInfo[index].value),
-                          textScaleFactor: 1.8,
-                          style: TextStyle(
-                            color: Colors.black87.withOpacity(0.7),
-                            fontWeight: FontWeight.bold,
-                          ),
+                        CustomText(
+                          text: formatterItem
+                              .format(listSummaryInfo[index].value),
                         ),
+                        // Text(
+                        //   formatterItem.format(listSummaryInfo[index].value),
+                        //   textScaleFactor: 1.8,
+                        //   style: TextStyle(
+                        //     color: Colors.black87.withOpacity(0.7),
+                        //     fontWeight: FontWeight.bold,
+                        //   ),
+                        // ),
                       ],
                     ),
                   ],

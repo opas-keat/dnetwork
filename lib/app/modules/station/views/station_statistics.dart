@@ -80,7 +80,10 @@ List<DataColumn> listColumn = [
 DataRow StationDataRow(int index, StationStatisticsData stationStatisticsData) {
   return DataRow(
     onSelectChanged: (value) {
-      Get.toNamed(Routes.DETAIL_STATION);
+      Get.toNamed(
+        Routes.DETAIL_STATION,
+        arguments: stationStatisticsData,
+      );
     },
     cells: [
       DataCell(

@@ -11,6 +11,7 @@ class MainDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           DrawerHeader(
             child: Padding(

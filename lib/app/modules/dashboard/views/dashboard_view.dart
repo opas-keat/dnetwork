@@ -76,7 +76,7 @@ class DashboardView extends StatelessWidget {
                 ),
               ),
               Expanded(
-                flex: 4,
+                flex: Responsive.isLargeScreen(context) ? 6 : 1,
                 child: LayoutBuilder(
                   builder: (context, constraints) => Container(
                     color: Colors.white,

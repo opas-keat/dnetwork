@@ -18,6 +18,10 @@ final accentDivider = Padding(
   padding: const EdgeInsets.symmetric(vertical: defaultPadding / 2),
   child: Divider(color: Colors.black.withOpacity(0.3), height: 1),
 );
+final accentDividerTop = Padding(
+  padding: const EdgeInsets.only(top: defaultPadding / 2),
+  child: Divider(color: Colors.black.withOpacity(0.3), height: 1),
+);
 
 // const primaryColor = Color(0xFF2697FF);
 const secondaryColor = Color(0xFF2A2D3E);

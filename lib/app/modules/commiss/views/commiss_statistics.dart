@@ -15,7 +15,7 @@ class CommissStatistics extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(defaultPadding / 2),
-      height: MediaQuery.of(context).size.height - 300,
+      height: MediaQuery.of(context).size.height - 260,
       decoration: BoxDecoration(
         color: canvasColor,
         borderRadius: BorderRadius.circular(defaultPadding),
@@ -28,7 +28,6 @@ class CommissStatistics extends StatelessWidget {
               CustomText(
                 text: "ข้อมูลกรรมการ ศส.ปชต.",
                 weight: FontWeight.bold,
-                size: 16,
               ),
             ],
           ),

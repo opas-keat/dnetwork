@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../data/models/station_statistics_data.dart';
+import '../../../../responsive.dart';
+import '../../../data/models/commiss_statistics_data.dart';
 import '../../../data/models/summary_chart.dart';
 import '../../../data/models/summary_info.dart';
 import '../../../routes/app_pages.dart';
@@ -10,8 +11,8 @@ import '../../../shared/custom_text.dart';
 import '../../../shared/info_card.dart';
 import '../../../shared/main_chart.dart';
 
-class StationLayoutSmall extends StatelessWidget {
-  StationLayoutSmall({
+class CommissLayoutSmall extends StatelessWidget {
+  CommissLayoutSmall({
     super.key,
   });
 
@@ -66,17 +67,17 @@ class StationLayoutSmall extends StatelessWidget {
                     vertical: defaultPadding, horizontal: defaultPadding / 2),
               ),
               onPressed: () {
-                Get.toNamed(Routes.MANAGE_STATION);
+                Get.toNamed(Routes.MANAGE_COMMISS);
               },
             ),
           ],
         ),
         const SizedBox(height: defaultPadding / 2),
         InfoCard(
-          crossAxisCount: 2,
+          crossAxisCount: Responsive.isSmallScreen(context) ? 2 : 4,
           childAspectRatio: 2.0,
           textScale: 1.0,
-          listSummaryInfo: listStationSummaryInfo,
+          listSummaryInfo: listCommissSummaryInfo,
         ),
         const SizedBox(height: defaultPadding / 2),
         Container(
@@ -87,8 +88,6 @@ class StationLayoutSmall extends StatelessWidget {
           ),
           child: SingleChildScrollView(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              mainAxisSize: MainAxisSize.max,
               children: [
                 Row(
                   children: const [
@@ -98,14 +97,14 @@ class StationLayoutSmall extends StatelessWidget {
                     ),
                   ],
                 ),
-                accentDivider,
+                accentDividerTop,
                 ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: listStationStatisticsData.length,
+                  itemCount: listCommissStatisticsData.length,
                   itemBuilder: (context, index) {
-                    return DashboardStatisticsSmallRow(
-                        index, listStationStatisticsData[index]);
+                    return CommissStatisticsSmallRow(
+                        index, listCommissStatisticsData[index]);
                   },
                 ),
               ],
@@ -114,17 +113,19 @@ class StationLayoutSmall extends StatelessWidget {
         ),
         const SizedBox(height: defaultPadding / 2),
         MainChart(
-          header: "สถิติข้อมูลการอบรมของ ศส.ปชต.",
-          subHeader: "ประเภทการอบรม",
-          listSummaryChart: summaryStationChart,
+          header: "สถิติข้อมูลกรรมกา ศส.ปชต.",
+          subHeader: "ตำแหน่งกรรมการ",
+          listSummaryChart: summaryCommissChart,
         ),
       ],
     );
   }
 }
 
-Widget DashboardStatisticsSmallRow(
-    int index, StationStatisticsData stationStatisticsData) {
+Widget CommissStatisticsSmallRow(
+  int index,
+  CommissStatisticsData commissStatisticsData,
+) {
   return Row(
     children: [
       // Image.network(
@@ -134,26 +135,38 @@ Widget DashboardStatisticsSmallRow(
       Expanded(
         flex: 8,
         child: Container(
-          padding: const EdgeInsets.all(defaultPadding / 2),
+          padding: const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(defaultPadding),
           ),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Wrap(
-                children: [
-                  Text(
-                    "ชื่อ : ${stationStatisticsData.name} ",
-                  ),
-                  Text(
-                    "ที่อยู่ : ${stationStatisticsData.address}",
-                  ),
-                  Text(
-                    "จำนวนกรรมการ/สมาชิก : ${stationStatisticsData.totalCommiss}/${stationStatisticsData.totalMember}",
-                  ),
-                ],
+              CustomText(
+                text: "ชื่อ-นามสกุล : ${commissStatisticsData.name} ",
+                scale: 0.9,
+              ),
+              CustomText(
+                text: "เบอร์โทร : ${commissStatisticsData.telephone}",
+                scale: 0.9,
+              ),
+              CustomText(
+                text: "ตำแหน่ง : ${commissStatisticsData.position}",
+                scale: 0.9,
+              ),
+              CustomText(
+                text: "ว/ด/ป/ แต่งตั้ง : ${commissStatisticsData.commissDate}",
+                scale: 0.9,
+              ),
+              CustomText(
+                text:
+                    "สังกัด ศส.ปชต. : ${commissStatisticsData.commissLocation}",
+                scale: 0.9,
+                maxLine: 2,
+              ),
+              CustomText(
+                text: "จังหวัด/อำเภอ/ตำบล : ${commissStatisticsData.address}",
+                scale: 0.9,
               ),
               const SizedBox(height: defaultPadding / 4),
               accentDivider,

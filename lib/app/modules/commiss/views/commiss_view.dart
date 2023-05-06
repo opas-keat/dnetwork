@@ -57,7 +57,7 @@ class CommissView extends GetView<CommissController> {
             ),
           ),
           mediumScreen: Container(
-            padding: const EdgeInsets.all(defaultPadding / 2),
+            padding: const EdgeInsets.all(defaultPadding),
             // color: Colors.amber,
             child: SingleChildScrollView(
               primary: true,

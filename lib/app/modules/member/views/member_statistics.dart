@@ -15,7 +15,7 @@ class MemberStatistics extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(defaultPadding / 2),
-      height: MediaQuery.of(context).size.height - 300,
+      height: MediaQuery.of(context).size.height - 275,
       decoration: BoxDecoration(
         color: canvasColor,
         borderRadius: BorderRadius.circular(defaultPadding),
@@ -28,7 +28,6 @@ class MemberStatistics extends StatelessWidget {
               CustomText(
                 text: "ข้อมูลสมาชิก ศส.ปชต.",
                 weight: FontWeight.bold,
-                size: 16,
               ),
             ],
           ),

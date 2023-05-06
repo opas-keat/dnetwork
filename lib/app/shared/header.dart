@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../responsive.dart';
 import 'constant.dart';
 import 'custom_text.dart';
 
@@ -19,12 +20,33 @@ class Header extends StatelessWidget {
         CustomText(
           text: moduleName,
           weight: FontWeight.bold,
-          size: 22,
         ),
         const Spacer(flex: 2),
-        const Expanded(child: SearchField()),
+        // const Expanded(child: SearchField()),
+        const SearchButton(),
         const ProfileCard(),
       ],
+    );
+  }
+}
+
+class SearchButton extends StatelessWidget {
+  const SearchButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () {},
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: const [
+          Icon(
+            Icons.search_sharp,
+          ),
+        ],
+      ),
     );
   }
 }
@@ -53,11 +75,11 @@ class ProfileCard extends StatelessWidget {
             "assets/images/avatar.png",
             height: 38,
           ),
-          // if (!Responsive.isMobile(context))
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: defaultPadding / 2),
-            child: Text("ผู้ดูแลระบบ"),
-          ),
+          if (!Responsive.isSmallScreen(context))
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: defaultPadding / 2),
+              child: Text("ผู้ดูแลระบบ"),
+            ),
           // Icon(Icons.keyboard_arrow_down),
         ],
       ),

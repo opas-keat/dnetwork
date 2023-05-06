@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/app/shared/custom_text.dart';
 
+import '../../responsive.dart';
 import '../data/models/module.dart';
 import '../data/models/summary_info.dart';
 import 'constant.dart';
@@ -11,11 +12,13 @@ class InfoCard extends StatelessWidget {
     super.key,
     this.crossAxisCount = 4,
     this.childAspectRatio = 1,
+    this.textScale = 1.6,
     required this.listSummaryInfo,
   });
 
   final int crossAxisCount;
   final double childAspectRatio;
+  final double textScale;
   final List<SummaryInfo> listSummaryInfo;
 
   @override
@@ -33,7 +36,7 @@ class InfoCard extends StatelessWidget {
       // itemBuilder: (context, index) => FileInfoCard(info: demoMyFiles[index]),
       itemBuilder: (context, index) {
         return Container(
-          padding: const EdgeInsets.all(defaultPadding),
+          // padding: const EdgeInsets.all(defaultPadding / 2),
           decoration: const BoxDecoration(
             color: canvasColor,
             borderRadius: BorderRadius.all(Radius.circular(defaultPadding / 2)),
@@ -42,42 +45,45 @@ class InfoCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                children: [
-                  Icon(
-                    getModuleByNameEn(listSummaryInfo[index].nameEn).icon,
-                    color: primaryColor,
-                  ),
-                  const SizedBox(width: defaultPadding / 2),
-                  Text(
-                    listSummaryInfo[index].name,
-                    textScaleFactor: 1.3,
-                    style: const TextStyle(
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: defaultPadding / 2,
+                  top: defaultPadding / 2,
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      getModuleByNameEn(listSummaryInfo[index].nameEn).icon,
                       color: primaryColor,
-                      fontWeight: FontWeight.bold,
                     ),
-                  ),
-                ],
+                    const SizedBox(width: defaultPadding / 2),
+                    Expanded(
+                      child: CustomText(
+                        text: listSummaryInfo[index].name,
+                        weight: FontWeight.bold,
+                        scale: textScale,
+                      ),
+                    ),
+                  ],
+                ),
               ),
               accentDivider,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  CustomText(
-                    text: formatterItem.format(listSummaryInfo[index].value),
-                    scale: 1.6,
-                    weight: FontWeight.bold,
-                    color: Colors.black87.withOpacity(0.7),
-                  ),
-                  // Text(
-                  //   formatterItem.format(listSummaryInfo[index].value),
-                  //   textScaleFactor: 1.8,
-                  //   style: TextStyle(
-                  //     color: Colors.black87.withOpacity(0.7),
-                  //     fontWeight: FontWeight.bold,
-                  //   ),
-                  // ),
-                ],
+              Padding(
+                padding: const EdgeInsets.only(
+                  bottom: defaultPadding / 2,
+                  right: defaultPadding / 2,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    CustomText(
+                      text: formatterItem.format(listSummaryInfo[index].value),
+                      scale: textScale,
+                      weight: FontWeight.bold,
+                      color: Colors.black87.withOpacity(0.7),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../responsive.dart';
 import '../../../data/models/summary_chart.dart';
 import '../../../data/models/summary_info.dart';
 import '../../../shared/constant.dart';
@@ -43,7 +44,7 @@ class DashboardLayoutSmall extends StatelessWidget {
         ),
         const SizedBox(height: defaultPadding / 2),
         InfoCard(
-          crossAxisCount: 2,
+          crossAxisCount: Responsive.isSmallScreen(context) ? 2 : 4,
           childAspectRatio: 2.0,
           textScale: 1.0,
           listSummaryInfo: listDashboardSummaryInfo,

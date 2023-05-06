@@ -57,7 +57,7 @@ class DashboardView extends StatelessWidget {
             ),
           ),
           mediumScreen: Container(
-            padding: const EdgeInsets.all(defaultPadding / 2),
+            padding: const EdgeInsets.all(defaultPadding),
             // color: Colors.amber,
             child: SingleChildScrollView(
               primary: true,

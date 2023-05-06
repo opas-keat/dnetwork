@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../responsive.dart';
 import '../../../data/models/province_summary.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
@@ -38,7 +39,10 @@ class DashboardStatisticsSmall extends StatelessWidget {
               itemCount: listProvinceSummary.length,
               itemBuilder: (context, index) {
                 return DashboardStatisticsSmallRow(
-                    index, listProvinceSummary[index]);
+                  context,
+                  index,
+                  listProvinceSummary[index],
+                );
               },
             ),
           ],
@@ -48,15 +52,19 @@ class DashboardStatisticsSmall extends StatelessWidget {
   }
 }
 
-Widget DashboardStatisticsSmallRow(int index, ProvinceSummary provinceSummary) {
+Widget DashboardStatisticsSmallRow(
+  BuildContext context,
+  int index,
+  ProvinceSummary provinceSummary,
+) {
   return Row(
     children: [
       Image.network(
         "assets/images/seal/${provinceSummary.seal}",
-        height: 38,
+        height: Responsive.isSmallScreen(context) ? 38 : 75,
       ),
       Expanded(
-        flex: 8,
+        flex: 1,
         child: Container(
           padding: const EdgeInsets.all(defaultPadding / 2),
           decoration: BoxDecoration(
@@ -71,7 +79,7 @@ Widget DashboardStatisticsSmallRow(int index, ProvinceSummary provinceSummary) {
                 children: [
                   CustomText(
                     text: "จังหวัด : ${provinceSummary.name}",
-                    scale: 0.9,
+                    scale: Responsive.isSmallScreen(context) ? 0.9 : 1.2,
                   ),
                 ],
               ),
@@ -81,17 +89,17 @@ Widget DashboardStatisticsSmallRow(int index, ProvinceSummary provinceSummary) {
                   CustomText(
                     text:
                         "ศส.ปชต. : ${formatterItem.format(provinceSummary.totalStation!)}",
-                    scale: 0.9,
+                    scale: Responsive.isSmallScreen(context) ? 0.9 : 1.2,
                   ),
                   CustomText(
                     text:
                         "กรรมการ : ${formatterItem.format(provinceSummary.totalCommiss!)}",
-                    scale: 0.9,
+                    scale: Responsive.isSmallScreen(context) ? 0.9 : 1.2,
                   ),
                   CustomText(
                     text:
                         "สมาชิก : ${formatterItem.format(provinceSummary.totalMember!)}",
-                    scale: 0.9,
+                    scale: Responsive.isSmallScreen(context) ? 0.9 : 1.2,
                   ),
                 ],
               ),
@@ -101,17 +109,17 @@ Widget DashboardStatisticsSmallRow(int index, ProvinceSummary provinceSummary) {
                   CustomText(
                     text:
                         "เครือข่าย : ${formatterItem.format(provinceSummary.totalNetwork!)}",
-                    scale: 0.9,
+                    scale: Responsive.isSmallScreen(context) ? 0.9 : 1.2,
                   ),
                   CustomText(
                     text:
                         "หมู่บ้าน : ${formatterItem.format(provinceSummary.totalVillage!)}",
-                    scale: 0.9,
+                    scale: Responsive.isSmallScreen(context) ? 0.9 : 1.2,
                   ),
                   CustomText(
                     text:
                         "วิทยากร : ${formatterItem.format(provinceSummary.totalLectuter!)}",
-                    scale: 0.9,
+                    scale: Responsive.isSmallScreen(context) ? 0.9 : 1.2,
                   ),
                 ],
               ),

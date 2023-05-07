@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../../../responsive.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../../shared/constant.dart';
 import '../../../../shared/custom_text.dart';
+import '../../../../shared/main_drawer.dart';
 import '../../../address/views/address_view.dart';
 import '../controllers/manage_training_controller.dart';
 
@@ -16,37 +18,56 @@ class ManageTrainingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: !Responsive.isLargeScreen(context)
+          ? AppBar(
+              centerTitle: true,
+              title: const CustomText(
+                text: "การฝึกอบรม",
+                color: Colors.white,
+              ),
+              actions: [
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.person_sharp,
+                  ),
+                ),
+              ],
+            )
+          : null,
+      drawer: !Responsive.isLargeScreen(context) ? const MainDrawer() : null,
       body: SafeArea(
         child: Row(
           children: [
-            Expanded(
-              flex: 3,
-              child: Container(
-                padding: const EdgeInsets.only(bottom: defaultPadding),
-                decoration: const BoxDecoration(
-                  border: Border(
-                    right: BorderSide(
-                      width: 1,
-                      color: Colors.black38,
+            if (Responsive.isLargeScreen(context))
+              Expanded(
+                flex: 3,
+                child: Container(
+                  padding: const EdgeInsets.only(bottom: defaultPadding),
+                  decoration: const BoxDecoration(
+                    border: Border(
+                      right: BorderSide(
+                        width: 1,
+                        color: Colors.black38,
+                      ),
                     ),
                   ),
-                ),
-                child: DataTable2(
-                  columnSpacing: defaultPadding,
-                  dividerThickness: 2,
-                  showBottomBorder: true,
-                  headingRowColor: MaterialStateProperty.resolveWith(
-                      (states) => Colors.grey.shade200),
-                  columns: listColumn,
-                  rows: [],
-                  // rows: List.generate(
-                  //   controller.stationList.value.length,
-                  //   (index) => StationDataRow(
-                  //       index, controller.stationList.value[index]),
-                  // ),
+                  child: DataTable2(
+                    columnSpacing: defaultPadding,
+                    dividerThickness: 2,
+                    showBottomBorder: true,
+                    headingRowColor: MaterialStateProperty.resolveWith(
+                        (states) => Colors.grey.shade200),
+                    columns: listColumn,
+                    rows: [],
+                    // rows: List.generate(
+                    //   controller.stationList.value.length,
+                    //   (index) => StationDataRow(
+                    //       index, controller.stationList.value[index]),
+                    // ),
+                  ),
                 ),
               ),
-            ),
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,

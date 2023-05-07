@@ -2,7 +2,6 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../data/models/commiss_statistics_data.dart';
 import '../../../../data/models/member_statistics_data.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../../shared/constant.dart';
@@ -123,46 +122,33 @@ DataRow MemberDataRow(int index, MemberStatisticsData memberStatisticsData) {
   return DataRow(
     cells: [
       DataCell(
-        Text(
-          formatterItem.format(index + 1),
-          style: const TextStyle(
-            fontSize: 12,
-          ),
+        CustomText(
+          text: formatterItem.format(index + 1),
+          scale: 0.9,
         ),
       ),
       DataCell(
-        Wrap(
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  memberStatisticsData.name!,
-                  style: const TextStyle(
-                    fontSize: 12,
-                  ),
-                ),
-                Text(
-                  memberStatisticsData.telephone!,
-                  style: const TextStyle(
-                    fontSize: 12,
-                  ),
-                ),
-              ],
+            CustomText(
+              text: memberStatisticsData.name!,
+              scale: 0.9,
+              maxLine: 2,
+            ),
+            CustomText(
+              text: memberStatisticsData.telephone!,
+              scale: 0.9,
+              maxLine: 2,
             ),
           ],
         ),
       ),
       DataCell(
-        Wrap(
-          children: [
-            Text(
-              memberStatisticsData.position!,
-              style: const TextStyle(
-                fontSize: 12,
-              ),
-            ),
-          ],
+        CustomText(
+          text: memberStatisticsData.position!,
+          scale: 0.9,
+          maxLine: 2,
         ),
       ),
       // DataCell(

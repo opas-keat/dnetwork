@@ -110,11 +110,11 @@ List<DataColumn> listColumnCommiss = [
   // ),
   const DataColumn2(
     label: CustomText(text: "ชื่อ-นามสกุล", scale: 0.9),
-    size: ColumnSize.M,
+    size: ColumnSize.L,
   ),
   const DataColumn2(
     label: CustomText(text: "ตำแหน่ง", scale: 0.9),
-    size: ColumnSize.M,
+    size: ColumnSize.L,
   ),
 ];
 
@@ -122,46 +122,33 @@ DataRow CommissDataRow(int index, CommissStatisticsData commissStatisticsData) {
   return DataRow(
     cells: [
       DataCell(
-        Text(
-          formatterItem.format(index + 1),
-          style: const TextStyle(
-            fontSize: 12,
-          ),
+        CustomText(
+          text: formatterItem.format(index + 1),
+          scale: 0.9,
         ),
       ),
       DataCell(
-        Wrap(
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  commissStatisticsData.name!,
-                  style: const TextStyle(
-                    fontSize: 12,
-                  ),
-                ),
-                Text(
-                  commissStatisticsData.telephone!,
-                  style: const TextStyle(
-                    fontSize: 12,
-                  ),
-                ),
-              ],
+            CustomText(
+              text: commissStatisticsData.name!,
+              scale: 0.9,
+              maxLine: 2,
+            ),
+            CustomText(
+              text: commissStatisticsData.telephone!,
+              scale: 0.9,
+              maxLine: 2,
             ),
           ],
         ),
       ),
       DataCell(
-        Wrap(
-          children: [
-            Text(
-              commissStatisticsData.position!,
-              style: const TextStyle(
-                fontSize: 12,
-              ),
-            ),
-          ],
+        CustomText(
+          text: commissStatisticsData.position!,
+          scale: 0.9,
+          maxLine: 2,
         ),
       ),
       // DataCell(

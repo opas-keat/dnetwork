@@ -38,94 +38,34 @@ class DetailStationResult extends StatelessWidget {
                 ),
               ),
               accentDivider,
-              Row(
-                children: [
-                  Row(
-                    children: const [
-                      CustomText(
-                        text: "1",
-                        scale: 0.90,
-                      ),
-                      SizedBox(width: defaultPadding),
-                      CustomText(
-                        text: "-",
-                        scale: 0.90,
-                      ),
-                    ],
-                  ),
-                ],
+              const CustomText(
+                text: "1. -",
+                scale: 0.90,
+                maxLine: 2,
               ),
               accentDivider,
-              Row(
-                children: [
-                  Row(
-                    children: const [
-                      CustomText(
-                        text: "2",
-                        scale: 0.90,
-                      ),
-                      SizedBox(width: defaultPadding),
-                      CustomText(
-                        text: "-",
-                        scale: 0.90,
-                      ),
-                    ],
-                  ),
-                ],
+              const CustomText(
+                text: "2. -",
+                scale: 0.90,
+                maxLine: 2,
               ),
               accentDivider,
-              Row(
-                children: [
-                  Row(
-                    children: const [
-                      CustomText(
-                        text: "3",
-                        scale: 0.90,
-                      ),
-                      SizedBox(width: defaultPadding),
-                      CustomText(
-                        text: "-",
-                        scale: 0.90,
-                      ),
-                    ],
-                  ),
-                ],
+              const CustomText(
+                text: "3. -",
+                scale: 0.90,
+                maxLine: 2,
               ),
               accentDivider,
-              Row(
-                children: [
-                  Row(
-                    children: const [
-                      CustomText(
-                        text: "4",
-                        scale: 0.90,
-                      ),
-                      SizedBox(width: defaultPadding),
-                      CustomText(
-                        text: "-",
-                        scale: 0.90,
-                      ),
-                    ],
-                  ),
-                ],
+              const CustomText(
+                text: "4. -",
+                scale: 0.90,
+                maxLine: 2,
               ),
               accentDivider,
-              Row(
-                children: [
-                  Row(
-                    children: const [
-                      CustomText(
-                        text: "5",
-                        scale: 0.90,
-                      ),
-                      SizedBox(width: defaultPadding),
-                      CustomText(
-                        text: "-",
-                        scale: 0.90,
-                      ),
-                    ],
-                  ),
-                ],
+              const CustomText(
+                text: "5. -",
+                scale: 0.90,
+                maxLine: 2,
               ),
             ],
           ),

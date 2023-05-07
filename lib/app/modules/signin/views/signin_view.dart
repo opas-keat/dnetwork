@@ -198,10 +198,10 @@ class SigninView extends StatelessWidget {
                                 );
                                 Get.back();
                                 result
-                                    ? Get.offAllNamed(Routes.HOME)
+                                    ? Get.offAllNamed(Routes.DASHBOARD)
                                     : Get.snackbar(
                                         'Error',
-                                        'Error',
+                                        controller.authenError.value,
                                         backgroundColor: accentColor,
                                         snackPosition: SnackPosition.BOTTOM,
                                         colorText: Colors.white,

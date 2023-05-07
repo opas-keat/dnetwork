@@ -18,8 +18,9 @@ dependencies:
   # flutter_treeview: ^1.0.7+1
   image_picker: ^0.8.7+4
   fl_chart: ^0.62.0
+  connectivity_plus: ^3.0.6
   flutter: 
-    sdk: flutter
+    sdk: flutter  
 
 dev_dependencies: 
   flutter_lints: ^2.0.1

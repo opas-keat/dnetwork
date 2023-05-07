@@ -52,13 +52,14 @@ import '../modules/villagehosty/bindings/villagehosty_binding.dart';
 import '../modules/villagehosty/manageVillage/bindings/manage_village_binding.dart';
 import '../modules/villagehosty/manageVillage/views/manage_village_view.dart';
 import '../modules/villagehosty/views/villagehosty_view.dart';
+import 'app_middleware.dart';
 
 part 'app_routes.dart';
 
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.DASHBOARD;
+  static const INITIAL = Routes.SIGNIN;
 
   static final routes = [
     GetPage(
@@ -80,21 +81,25 @@ class AppPages {
       name: _Paths.DASHBOARD,
       page: () => DashboardView(),
       binding: DashboardBinding(),
+      middlewares: [RouteGuard()],
     ),
     GetPage(
       name: _Paths.STATION,
       page: () => StationView(),
       binding: StationBinding(),
+      middlewares: [RouteGuard()],
       children: [
         GetPage(
           name: _Paths.MANAGE_STATION,
           page: () => ManageStationView(),
           binding: ManageStationBinding(),
+          middlewares: [RouteGuard()],
         ),
         GetPage(
           name: _Paths.DETAIL_STATION,
           page: () => DetailStationView(),
           binding: DetailStationBinding(),
+          middlewares: [RouteGuard()],
         ),
       ],
     ),
@@ -102,11 +107,13 @@ class AppPages {
       name: _Paths.COMMISS,
       page: () => CommissView(),
       binding: CommissBinding(),
+      middlewares: [RouteGuard()],
       children: [
         GetPage(
           name: _Paths.MANAGE_COMMISS,
           page: () => ManageCommissView(),
           binding: ManageCommissBinding(),
+          middlewares: [RouteGuard()],
         ),
       ],
     ),
@@ -114,11 +121,13 @@ class AppPages {
       name: _Paths.LECTUTER,
       page: () => LectuterView(),
       binding: LectuterBinding(),
+      middlewares: [RouteGuard()],
       children: [
         GetPage(
           name: _Paths.MANAGE_LECTUTER,
           page: () => ManageLectuterView(),
           binding: ManageLectuterBinding(),
+          middlewares: [RouteGuard()],
         ),
       ],
     ),
@@ -126,11 +135,13 @@ class AppPages {
       name: _Paths.VILLAGEHOSTY,
       page: () => VillagehostyView(),
       binding: VillagehostyBinding(),
+      middlewares: [RouteGuard()],
       children: [
         GetPage(
           name: _Paths.MANAGE_VILLAGE,
           page: () => ManageVillageView(),
           binding: ManageVillageBinding(),
+          middlewares: [RouteGuard()],
         ),
       ],
     ),
@@ -138,26 +149,31 @@ class AppPages {
       name: _Paths.SETTING,
       page: () => SettingView(),
       binding: SettingBinding(),
+      middlewares: [RouteGuard()],
     ),
     GetPage(
       name: _Paths.REPORTPROBLEM,
       page: () => ReportproblemView(),
       binding: ReportproblemBinding(),
+      middlewares: [RouteGuard()],
     ),
     GetPage(
       name: _Paths.LIST_REPORT,
       page: () => ListReportView(),
       binding: ListReportBinding(),
+      middlewares: [RouteGuard()],
     ),
     GetPage(
       name: _Paths.NEW_HOME,
       page: () => NewHomeView(),
       binding: NewHomeBinding(),
+      middlewares: [RouteGuard()],
       children: [
         GetPage(
           name: _Paths.ADD_DATA,
           page: () => AddDataView(),
           binding: AddDataBinding(),
+          middlewares: [RouteGuard()],
         ),
       ],
     ),
@@ -165,11 +181,13 @@ class AppPages {
       name: _Paths.MEMBER,
       page: () => MemberView(),
       binding: MemberBinding(),
+      middlewares: [RouteGuard()],
       children: [
         GetPage(
           name: _Paths.MANAGE_MEMBER,
           page: () => ManageMemberView(),
           binding: ManageMemberBinding(),
+          middlewares: [RouteGuard()],
         ),
       ],
     ),
@@ -177,11 +195,13 @@ class AppPages {
       name: _Paths.NETWORK,
       page: () => NetworkView(),
       binding: NetworkBinding(),
+      middlewares: [RouteGuard()],
       children: [
         GetPage(
           name: _Paths.MANAGE_NETWORK,
           page: () => ManageNetworkView(),
           binding: ManageNetworkBinding(),
+          middlewares: [RouteGuard()],
         ),
       ],
     ),
@@ -189,11 +209,13 @@ class AppPages {
       name: _Paths.TRAINING,
       page: () => TrainingView(),
       binding: TrainingBinding(),
+      middlewares: [RouteGuard()],
       children: [
         GetPage(
           name: _Paths.MANAGE_TRAINING,
           page: () => ManageTrainingView(),
           binding: ManageTrainingBinding(),
+          middlewares: [RouteGuard()],
         ),
       ],
     ),
@@ -201,11 +223,13 @@ class AppPages {
       name: _Paths.BUDGET,
       page: () => BudgetView(),
       binding: BudgetBinding(),
+      middlewares: [RouteGuard()],
       children: [
         GetPage(
           name: _Paths.MANAGE_BUDGET,
           page: () => ManageBudgetView(),
           binding: ManageBudgetBinding(),
+          middlewares: [RouteGuard()],
         ),
       ],
     ),

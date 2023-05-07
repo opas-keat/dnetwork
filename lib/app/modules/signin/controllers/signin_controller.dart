@@ -1,5 +1,7 @@
+import 'dart:html';
 import 'dart:io';
 
+import 'package:frontend/app/api/services/auth_service.dart';
 import 'package:get/get.dart';
 
 import '../../../../main.dart';
@@ -8,6 +10,8 @@ class SigninController extends GetxController {
   final logTitle = "SigninController";
   var isObscure = true.obs;
   var isLoading = true.obs;
+
+  RxString authenError = ''.obs;
 
   @override
   void onInit() {
@@ -25,12 +29,29 @@ class SigninController extends GetxController {
     super.onClose();
   }
 
-  Future<bool> signIn({required String userName, required String password}) {
+  Future<bool> signIn(
+      {required String userName, required String password}) async {
     talker.info('signIn');
     talker.debug('userName:$userName');
     talker.debug('password:$password');
-    return Future.delayed(const Duration(seconds: 3), () {
-      return true;
-    });
+    try {
+      final result = await AuthenService().login(userName, password);
+      talker.debug('statusCode : ${result?.statusCode}');
+      if (result?.statusCode == 200) {
+        talker.debug('token : ${result?.data!.token}');
+        window.sessionStorage["token"] = result!.data!.token!;
+        return true;
+      }
+      authenError.value = result!.message!;
+      return false;
+    } catch (e) {
+      talker.error('$e');
+      // talker.error('${e.responseBody['message']}');
+      // signUpError.value = '${e.responseBody['message']}';
+      return false;
+    }
+    // return Future.delayed(const Duration(seconds: 3), () {
+    //   return true;
+    // });
   }
 }

@@ -2,7 +2,7 @@ name: Gh-Pages
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   build-to-gh-pages:
@@ -12,8 +12,8 @@ jobs:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.7.6'
-          channel: 'stable'
+          flutter-version: "3.10.0"
+          channel: "stable"
       - run: flutter --version
       - run: flutter build web --release --base-href /dnetwork/
       - run: git config user.name github-actions

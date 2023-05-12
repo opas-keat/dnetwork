@@ -12,16 +12,16 @@ import '../../../shared/info_card.dart';
 import '../../../shared/main_chart.dart';
 
 class MemberLayoutSmall extends StatelessWidget {
-  MemberLayoutSmall({
+  const MemberLayoutSmall({
     super.key,
   });
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
+        const Row(
           mainAxisAlignment: MainAxisAlignment.start,
-          children: const [
+          children: [
             Expanded(
               child: CustomText(
                 text: "จังหวัด: กรุงเทพมหานคร",
@@ -88,8 +88,8 @@ class MemberLayoutSmall extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                Row(
-                  children: const [
+                const Row(
+                  children: [
                     CustomText(
                       text: "ข้อมูลสถิติรายจังหวัด",
                       weight: FontWeight.bold,

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../shared/constant.dart';
-import '../../../shared/custom_text.dart';
 import '../../../shared/header.dart';
 import '../../../shared/main_drawer.dart';
 import '../controllers/reportproblem_controller.dart';
@@ -35,7 +34,7 @@ class ReportproblemView extends StatelessWidget {
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Expanded(
+                          const Expanded(
                             flex: 4,
                             child: Column(
                               children: [

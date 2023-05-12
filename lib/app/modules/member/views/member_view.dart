@@ -12,7 +12,7 @@ import 'member_layout_large.dart';
 import 'member_layout_small.dart';
 
 class MemberView extends GetView<MemberController> {
-  MemberView({Key? key}) : super(key: key);
+  const MemberView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class MemberView extends GetView<MemberController> {
           smallScreen: Container(
             padding: const EdgeInsets.all(defaultPadding / 2),
             // color: Colors.amber,
-            child: SingleChildScrollView(
+            child: const SingleChildScrollView(
               primary: true,
               child: Column(
                 children: [
@@ -58,7 +58,7 @@ class MemberView extends GetView<MemberController> {
           mediumScreen: Container(
             padding: const EdgeInsets.all(defaultPadding),
             // color: Colors.amber,
-            child: SingleChildScrollView(
+            child: const SingleChildScrollView(
               primary: true,
               child: Column(
                 children: [
@@ -79,16 +79,16 @@ class MemberView extends GetView<MemberController> {
                 child: LayoutBuilder(
                   builder: (context, constraints) => Container(
                     color: Colors.white,
-                    child: Align(
+                    child: const Align(
                       alignment: Alignment.topCenter,
                       child: SingleChildScrollView(
                         padding:
-                            const EdgeInsets.only(left: defaultPadding / 2),
+                            EdgeInsets.only(left: defaultPadding / 2),
                         primary: true,
                         child: Column(
                           children: [
-                            const Header(moduleName: "สมาชิก"),
-                            const SizedBox(height: defaultPadding / 2),
+                            Header(moduleName: "สมาชิก"),
+                            SizedBox(height: defaultPadding / 2),
                             MemberLayoutLarge(),
                           ],
                         ),

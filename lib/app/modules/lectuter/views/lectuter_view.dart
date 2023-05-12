@@ -48,7 +48,7 @@ class LectuterView extends StatelessWidget {
           smallScreen: Container(
             padding: const EdgeInsets.all(defaultPadding / 2),
             // color: Colors.amber,
-            child: SingleChildScrollView(
+            child: const SingleChildScrollView(
               primary: true,
               child: Column(
                 children: [
@@ -60,7 +60,7 @@ class LectuterView extends StatelessWidget {
           mediumScreen: Container(
             padding: const EdgeInsets.all(defaultPadding),
             // color: Colors.amber,
-            child: SingleChildScrollView(
+            child: const SingleChildScrollView(
               primary: true,
               child: Column(
                 children: [
@@ -81,16 +81,16 @@ class LectuterView extends StatelessWidget {
                 child: LayoutBuilder(
                   builder: (context, constraints) => Container(
                     color: Colors.white,
-                    child: Align(
+                    child: const Align(
                       alignment: Alignment.topCenter,
                       child: SingleChildScrollView(
                         padding:
-                            const EdgeInsets.only(left: defaultPadding / 2),
+                            EdgeInsets.only(left: defaultPadding / 2),
                         primary: true,
                         child: Column(
                           children: [
-                            const Header(moduleName: "วิทยากรประชาธิปไตย"),
-                            const SizedBox(height: defaultPadding / 2),
+                            Header(moduleName: "วิทยากรประชาธิปไตย"),
+                            SizedBox(height: defaultPadding / 2),
                             LectuterLayoutLarge(),
                           ],
                         ),

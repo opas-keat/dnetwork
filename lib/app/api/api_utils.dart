@@ -80,7 +80,7 @@ class ApiUtils {
       talker.error(title, 'dioError:: $dioError');
       if (dioError.response != null) {
         talker.error(
-            title, "dioError:: response >> " + dioError.response.toString());
+            title, "dioError:: response >> ${dioError.response}");
       }
 
       switch (dioError.type) {

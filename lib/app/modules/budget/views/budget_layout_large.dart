@@ -11,7 +11,7 @@ import '../../../shared/main_chart.dart';
 import 'budget_statistics.dart';
 
 class BudgetLayoutLarge extends StatelessWidget {
-  BudgetLayoutLarge({
+  const BudgetLayoutLarge({
     super.key,
   });
 
@@ -75,7 +75,7 @@ class BudgetLayoutLarge extends StatelessWidget {
                 textScale: 1.4,
               ),
               const SizedBox(height: defaultPadding / 2),
-              BudgetStatistics(),
+              const BudgetStatistics(),
             ],
           ),
         ),

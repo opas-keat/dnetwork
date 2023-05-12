@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/app/data/models/provinces.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
@@ -55,7 +54,7 @@ class AddressView extends StatelessWidget {
                 borderSide: const BorderSide(color: Colors.black54, width: 1),
               ),
               isCollapsed: true,
-              contentPadding: EdgeInsets.fromLTRB(12, 14, 12, 12),
+              contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
             ),
             child: DropdownButtonHideUnderline(
               child: DropdownButton<Province>(
@@ -144,7 +143,7 @@ class AddressView extends StatelessWidget {
                 borderSide: const BorderSide(color: Colors.black54, width: 1),
               ),
               isCollapsed: true,
-              contentPadding: EdgeInsets.fromLTRB(12, 14, 12, 12),
+              contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
             ),
             child: DropdownButtonHideUnderline(
               child: DropdownButton<Amphure>(
@@ -210,7 +209,7 @@ class AddressView extends StatelessWidget {
                 borderSide: const BorderSide(color: Colors.black54, width: 1),
               ),
               isCollapsed: true,
-              contentPadding: EdgeInsets.fromLTRB(12, 14, 12, 12),
+              contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
             ),
             child: DropdownButtonHideUnderline(
               child: DropdownButton<Tambol>(
@@ -250,7 +249,7 @@ class AddressView extends StatelessWidget {
                 borderSide: const BorderSide(color: Colors.black87, width: 2),
               ),
               isCollapsed: true,
-              contentPadding: EdgeInsets.fromLTRB(12, 14, 12, 12),
+              contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
             ),
           ),
         ]

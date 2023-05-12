@@ -11,7 +11,7 @@ import '../../../shared/info_card.dart';
 import '../../../shared/main_chart.dart';
 
 class StationLayoutSmall extends StatelessWidget {
-  StationLayoutSmall({
+  const StationLayoutSmall({
     super.key,
   });
 
@@ -19,9 +19,9 @@ class StationLayoutSmall extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
+        const Row(
           mainAxisAlignment: MainAxisAlignment.start,
-          children: const [
+          children: [
             Expanded(
               child: CustomText(
                 text: "จังหวัด: กรุงเทพมหานคร",
@@ -90,8 +90,8 @@ class StationLayoutSmall extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               mainAxisSize: MainAxisSize.max,
               children: [
-                Row(
-                  children: const [
+                const Row(
+                  children: [
                     CustomText(
                       text: "ข้อมูลสถิติรายจังหวัด",
                       weight: FontWeight.bold,

@@ -4,7 +4,7 @@ import '../../../../shared/constant.dart';
 import '../../../../shared/custom_text.dart';
 
 class DetailStationResult extends StatelessWidget {
-  DetailStationResult({
+  const DetailStationResult({
     super.key,
   });
 

@@ -17,15 +17,7 @@ class ListReportController extends GetxController {
     getListReport();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
 
   getListReport() async {
     talker.info('$logTitle:getListReport:');

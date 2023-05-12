@@ -13,7 +13,7 @@ import '../../../shared/main_chart.dart';
 import '../../../shared/utils.dart';
 
 class VillageLayoutSmall extends StatelessWidget {
-  VillageLayoutSmall({
+  const VillageLayoutSmall({
     super.key,
   });
 
@@ -21,9 +21,9 @@ class VillageLayoutSmall extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
+        const Row(
           mainAxisAlignment: MainAxisAlignment.start,
-          children: const [
+          children: [
             Expanded(
               child: CustomText(
                 text: "จังหวัด: กรุงเทพมหานคร",
@@ -90,8 +90,8 @@ class VillageLayoutSmall extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                Row(
-                  children: const [
+                const Row(
+                  children: [
                     CustomText(
                       text: "ข้อมูลสถิติรายจังหวัด",
                       weight: FontWeight.bold,

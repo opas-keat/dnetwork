@@ -11,7 +11,7 @@ import '../../../shared/main_chart.dart';
 import 'member_statistics.dart';
 
 class MemberLayoutLarge extends StatelessWidget {
-  MemberLayoutLarge({
+  const MemberLayoutLarge({
     super.key,
   });
 
@@ -75,7 +75,7 @@ class MemberLayoutLarge extends StatelessWidget {
                 textScale: 1.4,
               ),
               const SizedBox(height: defaultPadding / 2),
-              MemberStatistics(),
+              const MemberStatistics(),
             ],
           ),
         ),

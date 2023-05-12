@@ -11,7 +11,7 @@ import '../../../shared/main_chart.dart';
 import 'training_statistics.dart';
 
 class TrainingLayoutLarge extends StatelessWidget {
-  TrainingLayoutLarge({
+  const TrainingLayoutLarge({
     super.key,
   });
 
@@ -74,7 +74,7 @@ class TrainingLayoutLarge extends StatelessWidget {
                 textScale: 1.4,
               ),
               const SizedBox(height: defaultPadding / 2),
-              TrainingStatistics(),
+              const TrainingStatistics(),
             ],
           ),
         ),

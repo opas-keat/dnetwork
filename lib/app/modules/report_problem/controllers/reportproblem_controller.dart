@@ -17,15 +17,7 @@ class ReportproblemController extends GetxController {
     getReportProblem();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
 
   updateModuleSelected(String value) {
     talker.info('$logTitle:updateModuleSelected: $value');

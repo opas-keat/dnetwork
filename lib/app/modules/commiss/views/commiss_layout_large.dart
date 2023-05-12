@@ -11,7 +11,7 @@ import '../../../shared/main_chart.dart';
 import 'commiss_statistics.dart';
 
 class CommissLayoutLarge extends StatelessWidget {
-  CommissLayoutLarge({
+  const CommissLayoutLarge({
     super.key,
   });
 
@@ -75,7 +75,7 @@ class CommissLayoutLarge extends StatelessWidget {
                 textScale: 1.4,
               ),
               const SizedBox(height: defaultPadding / 2),
-              CommissStatistics(),
+              const CommissStatistics(),
             ],
           ),
         ),

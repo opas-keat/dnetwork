@@ -9,7 +9,7 @@ import '../../../shared/custom_text.dart';
 import '../../../shared/utils.dart';
 
 class StationStatistics extends StatelessWidget {
-  StationStatistics({
+  const StationStatistics({
     super.key,
   });
 
@@ -25,8 +25,8 @@ class StationStatistics extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            children: const [
+          const Row(
+            children: [
               CustomText(
                 text: "ข้อมูล ศส.ปชต.",
                 weight: FontWeight.bold,

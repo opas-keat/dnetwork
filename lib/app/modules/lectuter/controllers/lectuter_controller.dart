@@ -16,15 +16,7 @@ class LectuterController extends GetxController {
     getLectuter();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
 
   getLectuter() async {
     talker.info('$logTitle:getLectuter:');

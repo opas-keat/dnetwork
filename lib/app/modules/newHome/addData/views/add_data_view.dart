@@ -14,7 +14,7 @@ class AddDataView extends GetView<AddDataController> {
         title: const Text('AddDataView'),
         centerTitle: true,
       ),
-      drawer: MainDrawer(),
+      drawer: const MainDrawer(),
       body: const Center(
         child: Text(
           'AddDataView is working',

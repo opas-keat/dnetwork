@@ -77,11 +77,11 @@ class NewHomeView extends GetView<NewHomeController> {
                                   ),
                                 ),
                                 const SizedBox(height: defaultPadding),
-                                StatisticsDashboard2(),
+                                const StatisticsDashboard2(),
                               ],
                             ),
                           ),
-                          Expanded(
+                          const Expanded(
                             child: StatisticsChart(),
                           ),
                         ],

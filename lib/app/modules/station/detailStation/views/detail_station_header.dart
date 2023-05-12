@@ -5,7 +5,7 @@ import '../../../../shared/constant.dart';
 import '../../../../shared/custom_text.dart';
 
 class DetailStationHeader extends StatelessWidget {
-  DetailStationHeader({
+  const DetailStationHeader({
     super.key,
     this.name = "",
     this.location = "",

@@ -13,7 +13,7 @@ import '../../../shared/main_chart.dart';
 import '../../../shared/utils.dart';
 
 class TrainingLayoutSmall extends StatelessWidget {
-  TrainingLayoutSmall({
+  const TrainingLayoutSmall({
     super.key,
   });
 
@@ -79,8 +79,8 @@ class TrainingLayoutSmall extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                Row(
-                  children: const [
+                const Row(
+                  children: [
                     CustomText(
                       text: "ข้อมูลการฝึกอบรม",
                       weight: FontWeight.bold,

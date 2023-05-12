@@ -7,7 +7,7 @@ import '../../../shared/custom_text.dart';
 import '../../../shared/utils.dart';
 
 class BudgetStatistics extends StatelessWidget {
-  BudgetStatistics({
+  const BudgetStatistics({
     super.key,
   });
 
@@ -23,8 +23,8 @@ class BudgetStatistics extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            children: const [
+          const Row(
+            children: [
               CustomText(
                 text:
                     "ข้อมูลงบประมาณ รายรับ-รายจ่ายของสำนักพัฒนาเครือข่ายการเลือกตั้ง",

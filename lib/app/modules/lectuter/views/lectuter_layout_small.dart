@@ -12,7 +12,7 @@ import '../../../shared/info_card.dart';
 import '../../../shared/main_chart.dart';
 
 class LectuterLayoutSmall extends StatelessWidget {
-  LectuterLayoutSmall({
+  const LectuterLayoutSmall({
     super.key,
   });
 
@@ -20,9 +20,9 @@ class LectuterLayoutSmall extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
+        const Row(
           mainAxisAlignment: MainAxisAlignment.start,
-          children: const [
+          children: [
             Expanded(
               child: CustomText(
                 text: "จังหวัด: กรุงเทพมหานคร",
@@ -89,8 +89,8 @@ class LectuterLayoutSmall extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                Row(
-                  children: const [
+                const Row(
+                  children: [
                     CustomText(
                       text: "ข้อมูลวิทยากรประชาธิปไตย",
                       weight: FontWeight.bold,

@@ -16,15 +16,7 @@ class VillagehostyController extends GetxController {
     getVillage();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
 
   getVillage() async {
     talker.info('$logTitle:getVillage:');

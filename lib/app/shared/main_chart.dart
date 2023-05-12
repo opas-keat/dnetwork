@@ -1,14 +1,13 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-import '../../responsive.dart';
 import '../data/models/summary_chart.dart';
 import 'constant.dart';
 import 'custom_text.dart';
 import 'utils.dart';
 
 class MainChart extends StatelessWidget {
-  MainChart({
+  const MainChart({
     super.key,
     this.header = "",
     this.subHeader = "",
@@ -97,7 +96,7 @@ class MainChart extends StatelessWidget {
 }
 
 class Chart extends StatelessWidget {
-  Chart({
+  const Chart({
     Key? key,
     this.listSummaryChart = const [],
   }) : super(key: key);

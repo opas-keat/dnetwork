@@ -11,7 +11,7 @@ import '../../../shared/main_chart.dart';
 import 'station_statistics.dart';
 
 class StationLayoutLarge extends StatelessWidget {
-  StationLayoutLarge({
+  const StationLayoutLarge({
     super.key,
   });
 
@@ -75,7 +75,7 @@ class StationLayoutLarge extends StatelessWidget {
                 textScale: 1.4,
               ),
               const SizedBox(height: defaultPadding / 2),
-              StationStatistics(),
+              const StationStatistics(),
             ],
           ),
         ),

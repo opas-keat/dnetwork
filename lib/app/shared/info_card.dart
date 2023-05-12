@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/app/shared/custom_text.dart';
 
-import '../../responsive.dart';
 import '../data/models/module.dart';
 import '../data/models/summary_info.dart';
 import 'constant.dart';
 import 'utils.dart';
 
 class InfoCard extends StatelessWidget {
-  InfoCard({
+  const InfoCard({
     super.key,
     this.crossAxisCount = 4,
     this.childAspectRatio = 1,

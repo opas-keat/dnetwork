@@ -11,7 +11,7 @@ import '../../../shared/main_chart.dart';
 import 'lectuter_statistics.dart';
 
 class LectuterLayoutLarge extends StatelessWidget {
-  LectuterLayoutLarge({
+  const LectuterLayoutLarge({
     super.key,
   });
 
@@ -75,7 +75,7 @@ class LectuterLayoutLarge extends StatelessWidget {
                 textScale: 1.4,
               ),
               const SizedBox(height: defaultPadding / 2),
-              LectuterStatistics(),
+              const LectuterStatistics(),
             ],
           ),
         ),

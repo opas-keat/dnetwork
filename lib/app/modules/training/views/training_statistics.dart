@@ -7,7 +7,7 @@ import '../../../shared/custom_text.dart';
 import '../../../shared/utils.dart';
 
 class TrainingStatistics extends StatelessWidget {
-  TrainingStatistics({
+  const TrainingStatistics({
     super.key,
   });
 
@@ -23,8 +23,8 @@ class TrainingStatistics extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            children: const [
+          const Row(
+            children: [
               CustomText(
                 text: "ข้อมูลการฝึกอบรม",
                 weight: FontWeight.bold,

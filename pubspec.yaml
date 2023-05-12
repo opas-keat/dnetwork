@@ -7,18 +7,18 @@ environment:
 
 dependencies: 
   cupertino_icons: ^1.0.5
-  google_fonts: ^4.0.3
-  flutter_svg: ^2.0.2
-  intl: ^0.17.0
-  dio: ^5.0.1
+  google_fonts: ^4.0.4
+  flutter_svg: ^2.0.5
+  intl: ^0.18.1
+  dio: ^5.1.2
   get: 4.6.5
-  talker_flutter: ^2.2.1
-  sidebarx: ^0.15.0
-  data_table_2: ^2.4.1
+  talker_flutter: ^2.4.3
+  # sidebarx: ^0.15.0
+  data_table_2: ^2.4.3
   # flutter_treeview: ^1.0.7+1
-  image_picker: ^0.8.7+4
+  image_picker: ^0.8.7+5
   fl_chart: ^0.62.0
-  connectivity_plus: ^3.0.6
+  connectivity_plus: ^4.0.0
   flutter: 
     sdk: flutter  
 

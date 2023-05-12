@@ -34,10 +34,10 @@ class SummaryVillage extends StatelessWidget {
             }
             return Column(
               children: [
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     DashboardHeader(header: "หมู่บ้านไม่ขายเสียง"),
                   ],
                 ),

@@ -37,8 +37,4 @@ class AddressController extends GetxController {
     talker.info('$logTitle onReady');
   }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
 }

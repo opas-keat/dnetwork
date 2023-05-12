@@ -11,7 +11,7 @@ import '../../../shared/main_chart.dart';
 import 'village_statistics.dart';
 
 class VillageLayoutLarge extends StatelessWidget {
-  VillageLayoutLarge({
+  const VillageLayoutLarge({
     super.key,
   });
 
@@ -75,7 +75,7 @@ class VillageLayoutLarge extends StatelessWidget {
                 textScale: 1.4,
               ),
               const SizedBox(height: defaultPadding / 2),
-              VillageStatistics(),
+              const VillageStatistics(),
             ],
           ),
         ),

@@ -9,20 +9,8 @@ class ManageMemberController extends GetxController {
 
   Rx<String> filePath = ''.obs;
   Rx<XFile> fileUpload = XFile('').obs;
-  @override
-  void onInit() {
-    super.onInit();
-  }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
 
   addDataToTable() {
     talker.info('$logTitle:addDataToTable:');

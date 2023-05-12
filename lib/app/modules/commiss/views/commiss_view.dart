@@ -13,6 +13,7 @@ import 'commiss_layout_small.dart';
 
 class CommissView extends GetView<CommissController> {
   CommissView({Key? key}) : super(key: key);
+  @override
   CommissController controller = Get.find<CommissController>();
 
   @override
@@ -47,7 +48,7 @@ class CommissView extends GetView<CommissController> {
           smallScreen: Container(
             padding: const EdgeInsets.all(defaultPadding / 2),
             // color: Colors.amber,
-            child: SingleChildScrollView(
+            child: const SingleChildScrollView(
               primary: true,
               child: Column(
                 children: [
@@ -59,7 +60,7 @@ class CommissView extends GetView<CommissController> {
           mediumScreen: Container(
             padding: const EdgeInsets.all(defaultPadding),
             // color: Colors.amber,
-            child: SingleChildScrollView(
+            child: const SingleChildScrollView(
               primary: true,
               child: Column(
                 children: [
@@ -80,16 +81,16 @@ class CommissView extends GetView<CommissController> {
                 child: LayoutBuilder(
                   builder: (context, constraints) => Container(
                     color: Colors.white,
-                    child: Align(
+                    child: const Align(
                       alignment: Alignment.topCenter,
                       child: SingleChildScrollView(
                         padding:
-                            const EdgeInsets.only(left: defaultPadding / 2),
+                            EdgeInsets.only(left: defaultPadding / 2),
                         primary: true,
                         child: Column(
                           children: [
-                            const Header(moduleName: "กรรมการ"),
-                            const SizedBox(height: defaultPadding / 2),
+                            Header(moduleName: "กรรมการ"),
+                            SizedBox(height: defaultPadding / 2),
                             CommissLayoutLarge(),
                           ],
                         ),

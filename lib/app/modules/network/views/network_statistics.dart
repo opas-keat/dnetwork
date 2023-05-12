@@ -7,7 +7,7 @@ import '../../../shared/custom_text.dart';
 import '../../../shared/utils.dart';
 
 class NetworkStatistics extends StatelessWidget {
-  NetworkStatistics({
+  const NetworkStatistics({
     super.key,
   });
 
@@ -23,8 +23,8 @@ class NetworkStatistics extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            children: const [
+          const Row(
+            children: [
               CustomText(
                 text: "ข้อมูลเครือข่าย ศส.ปชต.",
                 weight: FontWeight.bold,

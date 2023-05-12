@@ -7,7 +7,7 @@ import '../../../shared/custom_text.dart';
 import '../../../shared/utils.dart';
 
 class LectuterStatistics extends StatelessWidget {
-  LectuterStatistics({
+  const LectuterStatistics({
     super.key,
   });
 
@@ -23,8 +23,8 @@ class LectuterStatistics extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            children: const [
+          const Row(
+            children: [
               CustomText(
                 text: "ข้อมูลวิทยากรประชาธิปไตย",
                 weight: FontWeight.bold,

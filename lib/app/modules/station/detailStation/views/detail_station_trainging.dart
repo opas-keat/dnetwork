@@ -4,7 +4,7 @@ import '../../../../shared/constant.dart';
 import '../../../../shared/custom_text.dart';
 
 class DetailStationTraining extends StatelessWidget {
-  DetailStationTraining({
+  const DetailStationTraining({
     super.key,
   });
 

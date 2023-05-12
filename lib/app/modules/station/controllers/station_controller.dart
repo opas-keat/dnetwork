@@ -16,15 +16,7 @@ class StationController extends GetxController {
     getStation();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
 
   getStation() async {
     talker.info('$logTitle:getStation:');

@@ -6,11 +6,10 @@ import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/info_card.dart';
 import '../../../shared/main_chart.dart';
-import '../../../shared/utils.dart';
 import 'dashboard_statistics.dart';
 
 class DashboardLayoutLarge extends StatelessWidget {
-  DashboardLayoutLarge({
+  const DashboardLayoutLarge({
     super.key,
   });
 
@@ -173,7 +172,7 @@ class DashboardLayoutLarge extends StatelessWidget {
               //   ),
               // ),
               const SizedBox(height: defaultPadding),
-              DashboardStatistics(),
+              const DashboardStatistics(),
             ],
           ),
         ),

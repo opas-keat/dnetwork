@@ -7,7 +7,7 @@ import '../../../shared/custom_text.dart';
 import '../../../shared/utils.dart';
 
 class StatisticsDashboard2 extends StatelessWidget {
-  StatisticsDashboard2({
+  const StatisticsDashboard2({
     super.key,
   });
 
@@ -23,8 +23,8 @@ class StatisticsDashboard2 extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            children: const [
+          const Row(
+            children: [
               CustomText(
                 text: "ข้อมูลสถิติรายจังหวัด",
                 weight: FontWeight.bold,

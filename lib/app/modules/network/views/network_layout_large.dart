@@ -11,7 +11,7 @@ import '../../../shared/main_chart.dart';
 import 'network_statistics.dart';
 
 class NetworkLayoutLarge extends StatelessWidget {
-  NetworkLayoutLarge({
+  const NetworkLayoutLarge({
     super.key,
   });
 
@@ -75,7 +75,7 @@ class NetworkLayoutLarge extends StatelessWidget {
                 textScale: 1.4,
               ),
               const SizedBox(height: defaultPadding / 2),
-              NetworkStatistics(),
+              const NetworkStatistics(),
             ],
           ),
         ),

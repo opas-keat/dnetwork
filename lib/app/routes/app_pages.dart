@@ -165,13 +165,13 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.NEW_HOME,
-      page: () => NewHomeView(),
+      page: () => const NewHomeView(),
       binding: NewHomeBinding(),
       middlewares: [RouteGuard()],
       children: [
         GetPage(
           name: _Paths.ADD_DATA,
-          page: () => AddDataView(),
+          page: () => const AddDataView(),
           binding: AddDataBinding(),
           middlewares: [RouteGuard()],
         ),
@@ -179,7 +179,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.MEMBER,
-      page: () => MemberView(),
+      page: () => const MemberView(),
       binding: MemberBinding(),
       middlewares: [RouteGuard()],
       children: [
@@ -193,7 +193,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.NETWORK,
-      page: () => NetworkView(),
+      page: () => const NetworkView(),
       binding: NetworkBinding(),
       middlewares: [RouteGuard()],
       children: [
@@ -207,7 +207,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.TRAINING,
-      page: () => TrainingView(),
+      page: () => const TrainingView(),
       binding: TrainingBinding(),
       middlewares: [RouteGuard()],
       children: [
@@ -221,7 +221,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.BUDGET,
-      page: () => BudgetView(),
+      page: () => const BudgetView(),
       binding: BudgetBinding(),
       middlewares: [RouteGuard()],
       children: [

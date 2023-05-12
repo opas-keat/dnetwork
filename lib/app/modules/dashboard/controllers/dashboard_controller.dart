@@ -17,15 +17,7 @@ class DashboardController extends GetxController {
     getSummaryData();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
 
   getSummaryData() {
     getSummaryStation();

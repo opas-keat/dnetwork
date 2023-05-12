@@ -34,10 +34,10 @@ class SummaryStation extends StatelessWidget {
           }
           return Column(
             children: [
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   DashboardHeader(header: "ศส.ปชต."),
                 ],
               ),
@@ -88,7 +88,7 @@ class SummaryStation extends StatelessWidget {
                 // crossAxisAlignment: CrossAxisAlignment.baseline,
                 children: [
                   TextButton(
-                    child: Text("ดูรายละเอียด"),
+                    child: const Text("ดูรายละเอียด"),
                     onPressed: () {},
                   ),
                 ],

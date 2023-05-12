@@ -9,7 +9,7 @@ import '../../../../shared/custom_text.dart';
 import '../../../../shared/utils.dart';
 
 class DetailStationCommiss extends StatelessWidget {
-  DetailStationCommiss({
+  const DetailStationCommiss({
     super.key,
   });
 

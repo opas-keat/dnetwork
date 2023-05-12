@@ -8,7 +8,7 @@ import 'detail_station_result.dart';
 import 'detail_station_trainging.dart';
 
 class DetailStation extends StatelessWidget {
-  DetailStation({
+  const DetailStation({
     super.key,
   });
 
@@ -18,8 +18,8 @@ class DetailStation extends StatelessWidget {
       children: [
         Expanded(
           child: Responsive.isLargeScreen(context)
-              ? DetailStationLarge()
-              : DetailStationSmall(),
+              ? const DetailStationLarge()
+              : const DetailStationSmall(),
         ),
         const SizedBox(width: defaultPadding / 2),
       ],
@@ -28,59 +28,59 @@ class DetailStation extends StatelessWidget {
 }
 
 class DetailStationSmall extends StatelessWidget {
-  DetailStationSmall({
+  const DetailStationSmall({
     super.key,
   });
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       children: [
         DetailStationResult(),
-        const SizedBox(height: defaultPadding / 2),
+        SizedBox(height: defaultPadding / 2),
         DetailStationTraining(),
-        const SizedBox(height: defaultPadding / 2),
+        SizedBox(height: defaultPadding / 2),
         DetailStationCommiss(),
-        const SizedBox(height: defaultPadding / 2),
+        SizedBox(height: defaultPadding / 2),
         DetailStationMember(),
-        const SizedBox(height: defaultPadding / 2),
+        SizedBox(height: defaultPadding / 2),
       ],
     );
   }
 }
 
 class DetailStationLarge extends StatelessWidget {
-  DetailStationLarge({
+  const DetailStationLarge({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       children: [
         Row(
           children: [
             Expanded(
               child: DetailStationResult(),
             ),
-            const SizedBox(width: defaultPadding / 2),
+            SizedBox(width: defaultPadding / 2),
             Expanded(
               child: DetailStationTraining(),
             ),
           ],
         ),
-        const SizedBox(height: defaultPadding / 2),
+        SizedBox(height: defaultPadding / 2),
         Row(
           children: [
             Expanded(
               child: DetailStationCommiss(),
             ),
-            const SizedBox(width: defaultPadding / 2),
+            SizedBox(width: defaultPadding / 2),
             Expanded(
               child: DetailStationMember(),
             ),
           ],
         ),
-        const SizedBox(height: defaultPadding / 2),
+        SizedBox(height: defaultPadding / 2),
         // const DetailStationCommiss(),
       ],
     );

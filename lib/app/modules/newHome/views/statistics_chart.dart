@@ -6,7 +6,7 @@ import '../../../shared/custom_text.dart';
 import '../../../shared/utils.dart';
 
 class StatisticsChart extends StatelessWidget {
-  StatisticsChart({
+  const StatisticsChart({
     super.key,
   });
 
@@ -59,13 +59,13 @@ class StatisticsChart extends StatelessWidget {
                       color: primaryColor,
                     ),
                   ),
-                  Expanded(
+                  const Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(
+                      padding: EdgeInsets.symmetric(
                           horizontal: defaultPadding),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           Tooltip(
                             message: "การอบรม ศส.ปชต.",
                             child: CustomText(
@@ -107,13 +107,13 @@ class StatisticsChart extends StatelessWidget {
                       color: Color(0xFF26E5FF),
                     ),
                   ),
-                  Expanded(
+                  const Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(
+                      padding: EdgeInsets.symmetric(
                           horizontal: defaultPadding),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           Tooltip(
                             message: "การอบรมของภาครัฐ",
                             child: CustomText(
@@ -155,13 +155,13 @@ class StatisticsChart extends StatelessWidget {
                       color: Color(0xFFFFCF26),
                     ),
                   ),
-                  Expanded(
+                  const Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(
+                      padding: EdgeInsets.symmetric(
                           horizontal: defaultPadding),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           Tooltip(
                             message: "การอบรมของสำนักงาน กกต.",
                             child: CustomText(
@@ -203,13 +203,13 @@ class StatisticsChart extends StatelessWidget {
                       color: Color(0xFFEE2727),
                     ),
                   ),
-                  Expanded(
+                  const Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(
+                      padding: EdgeInsets.symmetric(
                           horizontal: defaultPadding),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           Tooltip(
                             message: "การอบรมการเลือกตั้ง",
                             child: CustomText(

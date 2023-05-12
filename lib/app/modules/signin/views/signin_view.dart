@@ -117,7 +117,7 @@ class SigninView extends StatelessWidget {
                             cursorColor: primaryColor,
                             controller: passwordController,
                             decoration: InputDecoration(
-                              prefixIcon: Icon(Icons.lock),
+                              prefixIcon: const Icon(Icons.lock),
                               fillColor: Colors.white.withOpacity(.2),
                               filled: true,
                               enabledBorder: OutlineInputBorder(

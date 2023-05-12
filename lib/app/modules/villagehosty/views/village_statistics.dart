@@ -7,7 +7,7 @@ import '../../../shared/custom_text.dart';
 import '../../../shared/utils.dart';
 
 class VillageStatistics extends StatelessWidget {
-  VillageStatistics({
+  const VillageStatistics({
     super.key,
   });
 
@@ -23,8 +23,8 @@ class VillageStatistics extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            children: const [
+          const Row(
+            children: [
               CustomText(
                 text: "ข้อมูลหมู่บ้าน วิถี ประชาธิปไตย",
                 weight: FontWeight.bold,

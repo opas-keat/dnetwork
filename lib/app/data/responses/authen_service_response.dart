@@ -46,10 +46,10 @@ class AuthenServiceData {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['message'] = this.message;
-    data['token'] = this.token;
-    data['refreshToken'] = this.refreshToken;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['message'] = message;
+    data['token'] = token;
+    data['refreshToken'] = refreshToken;
     return data;
   }
 }

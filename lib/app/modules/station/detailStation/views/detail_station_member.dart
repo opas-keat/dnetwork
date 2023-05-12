@@ -9,7 +9,7 @@ import '../../../../shared/custom_text.dart';
 import '../../../../shared/utils.dart';
 
 class DetailStationMember extends StatelessWidget {
-  DetailStationMember({
+  const DetailStationMember({
     super.key,
   });
 

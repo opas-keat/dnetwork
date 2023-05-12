@@ -7,7 +7,7 @@ import '../../../shared/custom_text.dart';
 import '../../../shared/utils.dart';
 
 class CommissStatistics extends StatelessWidget {
-  CommissStatistics({
+  const CommissStatistics({
     super.key,
   });
 
@@ -23,8 +23,8 @@ class CommissStatistics extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            children: const [
+          const Row(
+            children: [
               CustomText(
                 text: "ข้อมูลกรรมการ ศส.ปชต.",
                 weight: FontWeight.bold,

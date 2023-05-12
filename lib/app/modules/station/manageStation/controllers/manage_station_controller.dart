@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../../main.dart';
-import '../../../../shared/utils.dart';
 
 class ManageStationController extends GetxController {
   final logTitle = "ManageStationController";
@@ -14,23 +13,8 @@ class ManageStationController extends GetxController {
 
   final stationList = [].obs;
 
-  @override
-  void onInit() {
-    super.onInit();
-    // isLoading.value = true;
-    // update();
-    // getAddCommiss();
-  }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
 
   addStationToDataTable() {
     talker.info('$logTitle:addStationToDataTable:');

@@ -10,7 +10,7 @@ import 'detail_station.dart';
 import 'detail_station_header.dart';
 
 class DetailStationLayoutLarge extends StatelessWidget {
-  DetailStationLayoutLarge({
+  const DetailStationLayoutLarge({
     super.key,
   });
 
@@ -53,7 +53,7 @@ class DetailStationLayoutLarge extends StatelessWidget {
                         const SizedBox(height: defaultPadding / 2),
                         DetailStationHeader(name: Get.arguments!.name),
                         const SizedBox(height: defaultPadding / 2),
-                        DetailStation(),
+                        const DetailStation(),
                       ],
                     ),
                   ),

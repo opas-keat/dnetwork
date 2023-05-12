@@ -16,15 +16,7 @@ class ManageVillageController extends GetxController {
     talker.info('$logTitle:onInit:');
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
 
   addDataToTable() {
     talker.info('$logTitle:addDataToTable:');

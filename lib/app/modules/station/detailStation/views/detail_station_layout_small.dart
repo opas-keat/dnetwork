@@ -21,9 +21,9 @@ class DetailStationLayoutSmall extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
+        const Row(
           mainAxisAlignment: MainAxisAlignment.start,
-          children: const [
+          children: [
             Expanded(
               child: CustomText(
                 text: "จังหวัด: กรุงเทพมหานคร",
@@ -57,7 +57,7 @@ class DetailStationLayoutSmall extends StatelessWidget {
         DetailStationHeader(name: Get.arguments!.name),
         // DetailStationHeader(name: "กรุงเทพ"),
         const SizedBox(height: defaultPadding / 2),
-        DetailStation(),
+        const DetailStation(),
         const SizedBox(height: defaultPadding / 2),
         // InfoCard(
         //   crossAxisCount: 2,

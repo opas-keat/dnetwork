@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../shared/constant.dart';
-import '../../../shared/custom_text.dart';
 import '../../../shared/header.dart';
 import '../../../shared/main_drawer.dart';
 import '../controllers/list_report_controller.dart';
 
 class ListReportView extends GetView<ListReportController> {
   ListReportView({Key? key}) : super(key: key);
+  @override
   ListReportController controller = Get.find<ListReportController>();
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class ListReportView extends GetView<ListReportController> {
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Expanded(
+                          const Expanded(
                             flex: 4,
                             child: Column(
                               children: [

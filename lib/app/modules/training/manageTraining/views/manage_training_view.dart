@@ -59,7 +59,7 @@ class ManageTrainingView extends StatelessWidget {
                     headingRowColor: MaterialStateProperty.resolveWith(
                         (states) => Colors.grey.shade200),
                     columns: listColumn,
-                    rows: [],
+                    rows: const [],
                     // rows: List.generate(
                     //   controller.stationList.value.length,
                     //   (index) => StationDataRow(

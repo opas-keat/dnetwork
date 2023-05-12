@@ -10,7 +10,7 @@ import '../../../shared/main_chart.dart';
 import 'dashboard_statistics_small.dart';
 
 class DashboardLayoutSmall extends StatelessWidget {
-  DashboardLayoutSmall({
+  const DashboardLayoutSmall({
     super.key,
   });
 
@@ -50,7 +50,7 @@ class DashboardLayoutSmall extends StatelessWidget {
           listSummaryInfo: listDashboardSummaryInfo,
         ),
         const SizedBox(height: defaultPadding / 2),
-        DashboardStatisticsSmall(),
+        const DashboardStatisticsSmall(),
         const SizedBox(height: defaultPadding / 2),
         MainChart(
           header: "สถิติข้อมูลการอบรมของ ศส.ปชต.",

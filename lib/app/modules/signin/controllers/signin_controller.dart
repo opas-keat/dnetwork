@@ -1,5 +1,4 @@
 import 'dart:html';
-import 'dart:io';
 
 import 'package:frontend/app/api/services/auth_service.dart';
 import 'package:get/get.dart';
@@ -19,15 +18,7 @@ class SigninController extends GetxController {
     super.onInit();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
 
   Future<bool> signIn(
       {required String userName, required String password}) async {

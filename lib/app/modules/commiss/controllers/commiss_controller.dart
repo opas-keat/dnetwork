@@ -16,15 +16,7 @@ class CommissController extends GetxController {
     getCommiss();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
 
   getCommiss() async {
     talker.info('$logTitle:getCommiss:');

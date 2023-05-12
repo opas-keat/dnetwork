@@ -7,7 +7,7 @@ import '../../../shared/custom_text.dart';
 import '../../../shared/utils.dart';
 
 class MemberStatistics extends StatelessWidget {
-  MemberStatistics({
+  const MemberStatistics({
     super.key,
   });
 
@@ -23,8 +23,8 @@ class MemberStatistics extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            children: const [
+          const Row(
+            children: [
               CustomText(
                 text: "ข้อมูลสมาชิก ศส.ปชต.",
                 weight: FontWeight.bold,

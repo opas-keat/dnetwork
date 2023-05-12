@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../main.dart';
 import '../../../shared/constant.dart';
-import '../../../shared/custom_flat_button.dart';
-import '../../../shared/custom_text.dart';
 import '../../../shared/header.dart';
 import '../../../shared/main_drawer.dart';
 import '../controllers/setting_controller.dart';
@@ -36,7 +33,7 @@ class SettingView extends StatelessWidget {
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Expanded(
+                          const Expanded(
                             flex: 4,
                             child: Column(
                               children: [

@@ -58,6 +58,8 @@ class MyApp extends StatelessWidget {
         page: () => const PageNotFound(),
         transition: Transition.noTransition,
       ),
+      themeMode: ThemeMode.light,
+      darkTheme: ThemeData(brightness: Brightness.dark),
       theme: ThemeData.light().copyWith(
         // dropdownMenuTheme: DropdownMenuThemeData(inputDecorationTheme: InputDecorationTheme(),textStyle: TextStyle()),
         scaffoldBackgroundColor: scaffoldBackgroundColor,

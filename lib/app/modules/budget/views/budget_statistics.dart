@@ -78,7 +78,7 @@ List<DataColumn> listColumn = [
     numeric: true,
   ),
   const DataColumn2(
-    label: Text("ใช้งบไป"),
+    label: Text("งบที่ใช้ไป"),
     size: ColumnSize.S,
     numeric: true,
   ),

@@ -60,7 +60,7 @@ List<DataColumn> listColumn = [
     fixedWidth: 10,
   ),
   const DataColumn2(
-    label: Text("ชื่อโครงการฝึกอบรม"),
+    label: Text("หลักสูตรอบรม"),
     size: ColumnSize.L,
   ),
   const DataColumn2(

@@ -11,13 +11,13 @@ class DashboardController extends GetxController {
   RxBool isLoadingSummaryLectuter = true.obs;
   RxBool isLoadingSummaryVillage = true.obs;
 
+  final stationList = [].obs;
+
   @override
   void onInit() {
     super.onInit();
     getSummaryData();
   }
-
-
 
   getSummaryData() {
     getSummaryStation();

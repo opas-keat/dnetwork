@@ -8,11 +8,13 @@ import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/utils.dart';
+import '../controllers/dashboard_controller.dart';
 
 class DashboardStatistics extends StatelessWidget {
-  const DashboardStatistics({
+  DashboardStatistics({
     super.key,
   });
+  DashboardController controller = Get.find<DashboardController>();
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +44,13 @@ class DashboardStatistics extends StatelessWidget {
                 showCheckboxColumn: false,
                 columnSpacing: defaultPadding,
                 columns: listColumn,
+                sortArrowIcon: Icons.keyboard_arrow_up,
+                sortArrowAnimationDuration: const Duration(milliseconds: 500),
+                empty: Center(
+                    child: Container(
+                        padding: const EdgeInsets.all(20),
+                        color: Colors.grey[200],
+                        child: const Text('ไม่พบข้อมูล'))),
                 // rows: [],
                 rows: List.generate(
                   listProvinceSummary.length,

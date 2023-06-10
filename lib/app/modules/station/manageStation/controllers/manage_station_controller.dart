@@ -13,9 +13,6 @@ class ManageStationController extends GetxController {
 
   final stationList = [].obs;
 
-
-
-
   addStationToDataTable() {
     talker.info('$logTitle:addStationToDataTable:');
     stationList.add(

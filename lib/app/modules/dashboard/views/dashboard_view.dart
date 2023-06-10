@@ -80,16 +80,16 @@ class DashboardView extends StatelessWidget {
                 child: LayoutBuilder(
                   builder: (context, constraints) => Container(
                     color: Colors.white,
-                    child: const Align(
+                    child: Align(
                       alignment: Alignment.topCenter,
                       child: SingleChildScrollView(
                         padding:
-                            EdgeInsets.only(left: defaultPadding / 2),
+                            const EdgeInsets.only(left: defaultPadding / 2),
                         primary: true,
                         child: Column(
                           children: [
-                            Header(moduleName: "หน้าจอหลัก"),
-                            SizedBox(height: defaultPadding / 2),
+                            const Header(moduleName: "หน้าจอหลัก"),
+                            const SizedBox(height: defaultPadding / 2),
                             DashboardLayoutLarge(),
                           ],
                         ),

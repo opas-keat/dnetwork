@@ -47,24 +47,24 @@ List<Module> listModule = [
   ),
   Module(
     id: 7,
-    nameTH: "งบประมาณ รายรับ-รายจ่าย",
-    nameEn: "budget",
-    icon: Icons.book_sharp,
-    url: Routes.BUDGET,
-  ),
-  Module(
-    id: 8,
     nameTH: "หมู่บ้าน วิถี ประชาธิปไตย",
     nameEn: "villagehosty",
     icon: Icons.holiday_village_sharp,
     url: Routes.VILLAGEHOSTY,
   ),
   Module(
-    id: 9,
+    id: 8,
     nameTH: "วิทยากรประชาธิปไตย",
     nameEn: "lectuter",
     icon: Icons.three_p_sharp,
     url: Routes.LECTUTER,
+  ),
+  Module(
+    id: 9,
+    nameTH: "งบประมาณ รายรับ-รายจ่าย",
+    nameEn: "budget",
+    icon: Icons.book_sharp,
+    url: Routes.BUDGET,
   ),
   Module(
     id: 10,

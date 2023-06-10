@@ -64,7 +64,7 @@ List<DataColumn> listColumn = [
     size: ColumnSize.L,
   ),
   const DataColumn2(
-    label: Text("ระหว่างวัน"),
+    label: Text("วันที่อบรม"),
     size: ColumnSize.M,
   ),
   const DataColumn2(

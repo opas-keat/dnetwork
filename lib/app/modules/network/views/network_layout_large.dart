@@ -83,7 +83,7 @@ class NetworkLayoutLarge extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(left: defaultPadding / 2),
             child: MainChart(
-              header: "สถิติข้อมูลเครือข่าย ศส.ปชต.",
+              header: "สถิติข้อมูลภาคีเครือข่าย ศส.ปชต.",
               subHeader: "",
               listSummaryChart: summaryNetworkChart,
             ),

@@ -1,7 +1,7 @@
 List listBudgetStatisticsData = [
   BudgetStatisticsData(
     date: "25/05/2566",
-    type: "ภารกิจการดำเนินโครงการของสำนักพัฒนาเครือข่ายการเลือกตั้ง 2566",    
+    type: "ภารกิจการดำเนินโครงการของสำนักพัฒนาภาคีเครือข่ายการเลือกตั้ง 2566",
     budgetBegin: 10000000,
     budgetUsed: 900000,
     budgetRemain: 100000,
@@ -9,7 +9,7 @@ List listBudgetStatisticsData = [
   ),
   BudgetStatisticsData(
     date: "20/05/2566",
-    type: "ภารกิจการดำเนินโครงการของสำนักพัฒนาเครือข่ายการเลือกตั้ง 2566",    
+    type: "ภารกิจการดำเนินโครงการของสำนักพัฒนาภาคีเครือข่ายการเลือกตั้ง 2566",
     budgetBegin: 10000000,
     budgetUsed: 200000,
     budgetRemain: 800000,
@@ -17,7 +17,7 @@ List listBudgetStatisticsData = [
   ),
   BudgetStatisticsData(
     date: "25/04/2566",
-    type: "ภารกิจการดำเนินโครงการของสำนักพัฒนาเครือข่ายการเลือกตั้ง 2566",    
+    type: "ภารกิจการดำเนินโครงการของสำนักพัฒนาภาคีเครือข่ายการเลือกตั้ง 2566",
     budgetBegin: 10000000,
     budgetUsed: 900000,
     budgetRemain: 100000,
@@ -25,7 +25,7 @@ List listBudgetStatisticsData = [
   ),
   BudgetStatisticsData(
     date: "24/04/2566",
-    type: "ภารกิจการดำเนินโครงการของสำนักพัฒนาเครือข่ายการเลือกตั้ง 2566",    
+    type: "ภารกิจการดำเนินโครงการของสำนักพัฒนาภาคีเครือข่ายการเลือกตั้ง 2566",
     budgetBegin: 10000000,
     budgetUsed: 900000,
     budgetRemain: 100000,
@@ -33,7 +33,7 @@ List listBudgetStatisticsData = [
   ),
   BudgetStatisticsData(
     date: "25/03/2566",
-    type: "ภารกิจการดำเนินโครงการของสำนักพัฒนาเครือข่ายการเลือกตั้ง 2566",    
+    type: "ภารกิจการดำเนินโครงการของสำนักพัฒนาภาคีเครือข่ายการเลือกตั้ง 2566",
     budgetBegin: 10000000,
     budgetUsed: 900000,
     budgetRemain: 100000,
@@ -41,7 +41,7 @@ List listBudgetStatisticsData = [
   ),
   BudgetStatisticsData(
     date: "19/03/2566",
-    type: "ภารกิจการดำเนินโครงการของสำนักพัฒนาเครือข่ายการเลือกตั้ง 2566",    
+    type: "ภารกิจการดำเนินโครงการของสำนักพัฒนาภาคีเครือข่ายการเลือกตั้ง 2566",
     budgetBegin: 10000000,
     budgetUsed: 900000,
     budgetRemain: 100000,
@@ -49,7 +49,7 @@ List listBudgetStatisticsData = [
   ),
   BudgetStatisticsData(
     date: "01/01/2566",
-    type: "ภารกิจการดำเนินโครงการของสำนักพัฒนาเครือข่ายการเลือกตั้ง 2566",    
+    type: "ภารกิจการดำเนินโครงการของสำนักพัฒนาภาคีเครือข่ายการเลือกตั้ง 2566",
     budgetBegin: 10000000,
     budgetUsed: 900000,
     budgetRemain: 100000,

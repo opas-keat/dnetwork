@@ -26,7 +26,7 @@ class NetworkStatistics extends StatelessWidget {
           const Row(
             children: [
               CustomText(
-                text: "ข้อมูลเครือข่าย ศส.ปชต.",
+                text: "ข้อมูลภาคีเครือข่าย ศส.ปชต.",
                 weight: FontWeight.bold,
                 size: 16,
               ),

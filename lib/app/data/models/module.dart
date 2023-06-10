@@ -33,7 +33,7 @@ List<Module> listModule = [
   ),
   Module(
     id: 5,
-    nameTH: "เครือข่าย",
+    nameTH: "ภาคีเครือข่าย",
     nameEn: "network",
     icon: Icons.account_tree_sharp,
     url: Routes.NETWORK,

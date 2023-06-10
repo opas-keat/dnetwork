@@ -22,7 +22,7 @@ class ManageNetworkView extends StatelessWidget {
           ? AppBar(
               centerTitle: true,
               title: const CustomText(
-                text: "เครือข่าย",
+                text: "ภาคีเครือข่าย",
                 color: Colors.white,
               ),
               actions: [

@@ -114,7 +114,7 @@ class VillageLayoutSmall extends StatelessWidget {
         ),
         const SizedBox(height: defaultPadding / 2),
         MainChart(
-          header: "สถิติข้อมูลเครือข่าย ศส.ปชต.",
+          header: "สถิติข้อมูลภาคีเครือข่าย ศส.ปชต.",
           subHeader: "ระดับจังหวัด",
           listSummaryChart: summaryVillageChart,
         ),

@@ -27,7 +27,7 @@ class BudgetStatistics extends StatelessWidget {
             children: [
               CustomText(
                 text:
-                    "ข้อมูลงบประมาณ รายรับ-รายจ่ายของสำนักพัฒนาเครือข่ายการเลือกตั้ง",
+                    "ข้อมูลงบประมาณ รายรับ-รายจ่ายของสำนักพัฒนาภาคีเครือข่ายการเลือกตั้ง",
                 weight: FontWeight.bold,
                 size: 16,
               ),

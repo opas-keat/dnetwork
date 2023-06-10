@@ -63,7 +63,7 @@ class StatisticsDashboard2 extends StatelessWidget {
                     numeric: true,
                   ),
                   DataColumn2(
-                    label: Text("เครือข่าย"),
+                    label: Text("ภาคีเครือข่าย"),
                     size: ColumnSize.S,
                     numeric: true,
                   ),

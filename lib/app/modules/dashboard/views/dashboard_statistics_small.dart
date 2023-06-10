@@ -108,7 +108,7 @@ Widget DashboardStatisticsSmallRow(
                 children: [
                   CustomText(
                     text:
-                        "เครือข่าย : ${formatterItem.format(provinceSummary.totalNetwork!)}",
+                        "ภาคีเครือข่าย : ${formatterItem.format(provinceSummary.totalNetwork!)}",
                     scale: Responsive.isSmallScreen(context) ? 0.9 : 1.2,
                   ),
                   CustomText(

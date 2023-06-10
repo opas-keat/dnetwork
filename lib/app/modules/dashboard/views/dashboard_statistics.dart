@@ -95,7 +95,7 @@ List<DataColumn> listColumn = [
   ),
   const DataColumn2(
     label: CustomText(
-      text: "เครือข่าย",
+      text: "ภาคีเครือข่าย",
       size: 14,
     ),
     size: ColumnSize.S,

@@ -87,7 +87,7 @@ class NetworkView extends GetView<NetworkController> {
                         primary: true,
                         child: Column(
                           children: [
-                            Header(moduleName: "เครือข่าย"),
+                            Header(moduleName: "ภาคีเครือข่าย"),
                             SizedBox(height: defaultPadding / 2),
                             NetworkLayoutLarge(),
                           ],

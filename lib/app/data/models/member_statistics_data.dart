@@ -2,7 +2,7 @@ List listMemberStatisticsData = [
   MemberStatisticsData(
     name: "นายอลงกรณ์ โนนคู่เขตโขง",
     telephone: "096-998-8444",
-    position: "ประธานกรรมการ",
+    position: "สมาชิก",
     commissDate: "12/02/2566",
     commissLocation: "ศูนย์ส่งเสริมพัฒนาประชาธิปไตยและการเลือกตั้งแขวงลาดยาว",
     address: "กรุงเทพมหานคร/เขตจตุจักร/แขวงลาดยาว",
@@ -10,7 +10,7 @@ List listMemberStatisticsData = [
   MemberStatisticsData(
     name: "นางสาวกัญฑิมา แม้นเหลืองอ่อน",
     telephone: "095-957-3311",
-    position: "รองประธานกรรมการ",
+    position: "สมาชิก",
     commissDate: "12/02/2566",
     commissLocation:
         "ศูนย์ส่งเสริมพัฒนาประชาธิปไตยและการเลือกตั้งแขวงจันทรเกษม สาขา 6",
@@ -19,7 +19,7 @@ List listMemberStatisticsData = [
   MemberStatisticsData(
     name: "นายณเดช คูกิมิยะ",
     telephone: "099-999-9999",
-    position: "กรรมการ",
+    position: "สมาชิก",
     commissDate: "12/02/2566",
     commissLocation: "ศูนย์ส่งเสริมพัฒนาประชาธิปไตยและการเลือกตั้งแขวงจอมพล",
     address: "กรุงเทพมหานคร/เขตจตุจักร/แขวงจอมพล",
@@ -27,7 +27,7 @@ List listMemberStatisticsData = [
   MemberStatisticsData(
     name: "นายทศพล เจริญกรุง",
     telephone: "095-588-9999",
-    position: "กรรมการ/นายทะเบียน",
+    position: "สมาชิก",
     commissDate: "12/02/2566",
     commissLocation: "ศูนย์ส่งเสริมพัฒนาประชาธิปไตยและการเลือกตั้งแขวงจตุจักร",
     address: "กรุงเทพมหานคร/เขตจตุจักร/แขวงจตุจักร",
@@ -35,7 +35,7 @@ List listMemberStatisticsData = [
   MemberStatisticsData(
     name: "นายโอภาส ทรงคุณค่า",
     telephone: "098-556-9875",
-    position: "กรรมการ/เหรัญญิก",
+    position: "สมาชิก",
     commissDate: "12/02/2566",
     commissLocation:
         "ศูนย์ส่งเสริมพัฒนาประชาธิปไตยและการเลือกตั้งแขวงเสนานิคม สาขา 4",
@@ -44,7 +44,7 @@ List listMemberStatisticsData = [
   MemberStatisticsData(
     name: "นางสาวกมลวรรณ โนนคู่เขตโขง",
     telephone: "088-888-4444",
-    position: "กรรมการ/ประชาสัมพันธ์",
+    position: "สมาชิก",
     commissDate: "12/02/2566",
     commissLocation:
         "ศูนย์ส่งเสริมพัฒนาประชาธิปไตยและการเลือกตั้งแขวงเสนานิคม สาขา 7",
@@ -53,7 +53,7 @@ List listMemberStatisticsData = [
   MemberStatisticsData(
     name: "นายสมพส แม้นเหลืองอ่อน",
     telephone: "081-235-9874",
-    position: "กรรมการ/เลขานุการ",
+    position: "สมาชิก",
     commissDate: "12/02/2566",
     commissLocation:
         "ศูนย์ส่งเสริมพัฒนาประชาธิปไตยและการเลือกตั้งแขวงเสนานิคม สาขา 8",

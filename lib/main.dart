@@ -12,7 +12,7 @@ import 'app/shared/page_not_found.dart';
 final talker = Talker(
   /// Your own observers to handle errors's exception's and log's
   /// like Crashlytics or Sentry observer
-  observers: [],
+  // observers: [],
   settings: TalkerSettings(
     /// You can enable/disable all talker processes with this field
     enabled: !kReleaseMode,

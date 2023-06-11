@@ -9,7 +9,7 @@ import '../../../shared/main_chart.dart';
 import 'dashboard_statistics.dart';
 
 class DashboardLayoutLarge extends StatelessWidget {
-  DashboardLayoutLarge({Key? key}) : super(key: key);
+  const DashboardLayoutLarge({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

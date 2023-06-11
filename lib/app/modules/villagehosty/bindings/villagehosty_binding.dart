@@ -5,8 +5,8 @@ import '../controllers/villagehosty_controller.dart';
 class VillagehostyBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<VillagehostyController>(
-      () => VillagehostyController(),
+    Get.lazyPut<VillageController>(
+      () => VillageController(),
     );
   }
 }

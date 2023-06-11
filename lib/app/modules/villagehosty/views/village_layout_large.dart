@@ -75,7 +75,7 @@ class VillageLayoutLarge extends StatelessWidget {
                 textScale: 1.4,
               ),
               const SizedBox(height: defaultPadding / 2),
-              const VillageStatistics(),
+              VillageStatistics(),
             ],
           ),
         ),

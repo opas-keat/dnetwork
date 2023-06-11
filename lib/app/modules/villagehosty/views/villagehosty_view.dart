@@ -13,7 +13,7 @@ import 'village_layout_small.dart';
 
 class VillagehostyView extends StatelessWidget {
   VillagehostyView({Key? key}) : super(key: key);
-  VillagehostyController controller = Get.find<VillagehostyController>();
+  VillageController controller = Get.find<VillageController>();
 
   @override
   Widget build(BuildContext context) {
@@ -84,13 +84,11 @@ class VillagehostyView extends StatelessWidget {
                     child: const Align(
                       alignment: Alignment.topCenter,
                       child: SingleChildScrollView(
-                        padding:
-                            EdgeInsets.only(left: defaultPadding / 2),
+                        padding: EdgeInsets.only(left: defaultPadding / 2),
                         primary: true,
                         child: Column(
                           children: [
-                            Header(
-                                moduleName: "หมู่บ้าน วิถี ประชาธิปไตย"),
+                            Header(moduleName: "หมู่บ้าน วิถี ประชาธิปไตย"),
                             SizedBox(height: defaultPadding / 2),
                             VillageLayoutLarge(),
                           ],

@@ -75,7 +75,7 @@ class LectuterLayoutLarge extends StatelessWidget {
                 textScale: 1.4,
               ),
               const SizedBox(height: defaultPadding / 2),
-              const LectuterStatistics(),
+              LectuterStatistics(),
             ],
           ),
         ),

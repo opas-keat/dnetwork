@@ -1,15 +1,18 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../data/models/lectuter_statistics_data.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/utils.dart';
+import '../controllers/lectuter_controller.dart';
 
 class LectuterStatistics extends StatelessWidget {
-  const LectuterStatistics({
+  LectuterStatistics({
     super.key,
   });
+  LectuterController controller = Get.find<LectuterController>();
 
   @override
   Widget build(BuildContext context) {
@@ -36,16 +39,61 @@ class LectuterStatistics extends StatelessWidget {
           Expanded(
             child: SizedBox(
               width: double.infinity,
-              child: DataTable2(
-                columnSpacing: defaultPadding,
-                columns: listColumn,
-                // rows: [],
-                rows: List.generate(
-                  listLectuterStatisticsData.length,
-                  (index) =>
-                      LectuterDataRow(index, listLectuterStatisticsData[index]),
-                ),
-              ),
+              child: Obx(() => DataTable2(
+                    showCheckboxColumn: false,
+                    columnSpacing: defaultPadding,
+                    // columns: listColumn,
+                    sortArrowIcon: Icons.keyboard_arrow_up,
+                    sortArrowAnimationDuration:
+                        const Duration(milliseconds: 500),
+                    sortColumnIndex: controller.sortColumnIndex.value,
+                    sortAscending: controller.sortAscending.value,
+                    empty: Center(
+                        child: Container(
+                            padding: const EdgeInsets.all(20),
+                            color: Colors.grey[200],
+                            child: const Text('ไม่พบข้อมูล'))),
+                    columns: [
+                      const DataColumn2(
+                        label: Text(""),
+                        fixedWidth: 10,
+                      ),
+                      DataColumn2(
+                        label: Text("ชื่อ-นามสกุล"),
+                        size: ColumnSize.S,
+                        onSort: (columnIndex, ascending) {
+                          controller.sort("name", columnIndex, ascending);
+                        },
+                      ),
+                      DataColumn2(
+                        label: Text("หน่วยงาน"),
+                        size: ColumnSize.S,
+                        onSort: (columnIndex, ascending) {
+                          controller.sort("agency", columnIndex, ascending);
+                        },
+                      ),
+                      DataColumn2(
+                        label: Text("สังกัดวิทยากร"),
+                        size: ColumnSize.S,
+                        onSort: (columnIndex, ascending) {
+                          controller.sort("affiliate", columnIndex, ascending);
+                        },
+                      ),
+                      DataColumn2(
+                        label: Text("จังหวัด"),
+                        size: ColumnSize.S,
+                        onSort: (columnIndex, ascending) {
+                          controller.sort("province", columnIndex, ascending);
+                        },
+                      ),
+                    ],
+                    // rows: [],
+                    rows: List.generate(
+                      listLectuterStatisticsData.length,
+                      (index) => LectuterDataRow(
+                          index, listLectuterStatisticsData[index]),
+                    ),
+                  )),
             ),
           ),
         ],

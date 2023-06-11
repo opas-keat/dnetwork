@@ -1,13 +1,13 @@
-List listProvinceSummary = [
+List listProvinceSummaryData = [
   ProvinceSummary(
     seal: "Seal_Bangkok.png",
     name: "กรุงเทพมหานคร",
-    totalStation: 9999,
-    totalCommiss: 8888,
-    totalMember: 7777,
-    totalNetwork: 6666,
-    totalLectuter: 5555,
-    totalVillage: 4444,
+    totalStation: 1111,
+    totalCommiss: 1111,
+    totalMember: 1111,
+    totalNetwork: 1111,
+    totalLectuter: 1111,
+    totalVillage: 1111,
   ),
   ProvinceSummary(
     seal: "Seal_Samut_Prakan.png",

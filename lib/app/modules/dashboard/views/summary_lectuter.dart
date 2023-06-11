@@ -69,9 +69,9 @@ class SummaryLectuter extends StatelessWidget {
                         ),
                       ],
                       rows: List.generate(
-                        listProvinceSummary.length,
+                        listProvinceSummaryData.length,
                         (index) => LectuterDataRow(
-                            context, index, listProvinceSummary[index]),
+                            context, index, listProvinceSummaryData[index]),
                       ),
                     ),
                   ),

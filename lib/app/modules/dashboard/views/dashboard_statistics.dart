@@ -40,24 +40,115 @@ class DashboardStatistics extends StatelessWidget {
           Expanded(
             child: SizedBox(
               width: double.infinity,
-              child: DataTable2(
-                showCheckboxColumn: false,
-                columnSpacing: defaultPadding,
-                columns: listColumn,
-                sortArrowIcon: Icons.keyboard_arrow_up,
-                sortArrowAnimationDuration: const Duration(milliseconds: 500),
-                empty: Center(
-                    child: Container(
-                        padding: const EdgeInsets.all(20),
-                        color: Colors.grey[200],
-                        child: const Text('ไม่พบข้อมูล'))),
-                // rows: [],
-                rows: List.generate(
-                  listProvinceSummary.length,
-                  (index) =>
-                      DashboardDataRow(index, listProvinceSummary[index]),
-                ),
-              ),
+              child: Obx(() => DataTable2(
+                    showCheckboxColumn: false,
+                    columnSpacing: defaultPadding,
+                    // columns: listColumn,
+                    sortArrowIcon: Icons.keyboard_arrow_up,
+                    sortArrowAnimationDuration:
+                        const Duration(milliseconds: 500),
+                    sortColumnIndex: controller.sortColumnIndex.value,
+                    sortAscending: controller.sortAscending.value,
+                    empty: Center(
+                        child: Container(
+                            padding: const EdgeInsets.all(20),
+                            color: Colors.grey[200],
+                            child: const Text('ไม่พบข้อมูล'))),
+                    columns: [
+                      const DataColumn2(
+                        label: Text(""),
+                        fixedWidth: 40,
+                      ),
+                      DataColumn2(
+                        label: const CustomText(
+                          text: "จังหวัด",
+                          size: 14,
+                        ),
+                        size: ColumnSize.S,
+                        onSort: (columnIndex, ascending) {
+                          controller.sort("name", columnIndex, ascending);
+                        },
+                      ),
+                      DataColumn2(
+                        label: const CustomText(
+                          text: "ศส.ปชต.",
+                          size: 14,
+                        ),
+                        size: ColumnSize.S,
+                        numeric: true,
+                        onSort: (columnIndex, ascending) {
+                          controller.sort(
+                              "totalStation", columnIndex, ascending);
+                        },
+                      ),
+                      DataColumn2(
+                        label: const CustomText(
+                          text: "กรรมการ",
+                          size: 14,
+                        ),
+                        size: ColumnSize.S,
+                        numeric: true,
+                        onSort: (columnIndex, ascending) {
+                          controller.sort(
+                              "totalCommiss", columnIndex, ascending);
+                        },
+                      ),
+                      DataColumn2(
+                        label: const CustomText(
+                          text: "สมาชิก",
+                          size: 14,
+                        ),
+                        size: ColumnSize.S,
+                        numeric: true,
+                        onSort: (columnIndex, ascending) {
+                          controller.sort(
+                              "totalMember", columnIndex, ascending);
+                        },
+                      ),
+                      DataColumn2(
+                        label: const CustomText(
+                          text: "ภาคีเครือข่าย",
+                          size: 14,
+                        ),
+                        size: ColumnSize.S,
+                        numeric: true,
+                        onSort: (columnIndex, ascending) {
+                          controller.sort(
+                              "totalNetwork", columnIndex, ascending);
+                        },
+                      ),
+                      DataColumn2(
+                        label: const CustomText(
+                          text: "หมู่บ้าน วิถี ประชาธิปไตย",
+                          size: 14,
+                        ),
+                        size: ColumnSize.S,
+                        numeric: true,
+                        onSort: (columnIndex, ascending) {
+                          controller.sort(
+                              "totalVillage", columnIndex, ascending);
+                        },
+                      ),
+                      DataColumn2(
+                        label: const CustomText(
+                          text: "วิทยากรประชาธิปไตย",
+                          size: 14,
+                        ),
+                        size: ColumnSize.S,
+                        numeric: true,
+                        onSort: (columnIndex, ascending) {
+                          controller.sort(
+                              "totalLectuter", columnIndex, ascending);
+                        },
+                      ),
+                    ],
+                    // rows: [],
+                    rows: List.generate(
+                      controller.listProvinceSummary.value.length,
+                      (index) => DashboardDataRow(
+                          index, controller.listProvinceSummary.value[index]),
+                    ),
+                  )),
             ),
           ),
         ],
@@ -66,67 +157,67 @@ class DashboardStatistics extends StatelessWidget {
   }
 }
 
-List<DataColumn> listColumn = [
-  const DataColumn2(
-    label: Text(""),
-    fixedWidth: 40,
-  ),
-  const DataColumn2(
-    label: CustomText(
-      text: "จังหวัด",
-      size: 14,
-    ),
-    size: ColumnSize.S,
-  ),
-  const DataColumn2(
-    label: CustomText(
-      text: "ศส.ปชต.",
-      size: 14,
-    ),
-    size: ColumnSize.S,
-    numeric: true,
-  ),
-  const DataColumn2(
-    label: CustomText(
-      text: "กรรมการ",
-      size: 14,
-    ),
-    size: ColumnSize.S,
-    numeric: true,
-  ),
-  const DataColumn2(
-    label: CustomText(
-      text: "สมาชิก",
-      size: 14,
-    ),
-    size: ColumnSize.S,
-    numeric: true,
-  ),
-  const DataColumn2(
-    label: CustomText(
-      text: "ภาคีเครือข่าย",
-      size: 14,
-    ),
-    size: ColumnSize.S,
-    numeric: true,
-  ),
-  const DataColumn2(
-    label: CustomText(
-      text: "หมู่บ้าน วิถี ประชาธิปไตย",
-      size: 14,
-    ),
-    size: ColumnSize.S,
-    numeric: true,
-  ),
-  const DataColumn2(
-    label: CustomText(
-      text: "วิทยากรประชาธิปไตย",
-      size: 14,
-    ),
-    size: ColumnSize.S,
-    numeric: true,
-  ),
-];
+// List<DataColumn> listColumn = [
+//   const DataColumn2(
+//     label: Text(""),
+//     fixedWidth: 40,
+//   ),
+//   const DataColumn2(
+//     label: CustomText(
+//       text: "จังหวัด",
+//       size: 14,
+//     ),
+//     size: ColumnSize.S,
+//   ),
+//   const DataColumn2(
+//     label: CustomText(
+//       text: "ศส.ปชต.",
+//       size: 14,
+//     ),
+//     size: ColumnSize.S,
+//     numeric: true,
+//   ),
+//   const DataColumn2(
+//     label: CustomText(
+//       text: "กรรมการ",
+//       size: 14,
+//     ),
+//     size: ColumnSize.S,
+//     numeric: true,
+//   ),
+//   const DataColumn2(
+//     label: CustomText(
+//       text: "สมาชิก",
+//       size: 14,
+//     ),
+//     size: ColumnSize.S,
+//     numeric: true,
+//   ),
+//   const DataColumn2(
+//     label: CustomText(
+//       text: "ภาคีเครือข่าย",
+//       size: 14,
+//     ),
+//     size: ColumnSize.S,
+//     numeric: true,
+//   ),
+//   const DataColumn2(
+//     label: CustomText(
+//       text: "หมู่บ้าน วิถี ประชาธิปไตย",
+//       size: 14,
+//     ),
+//     size: ColumnSize.S,
+//     numeric: true,
+//   ),
+//   const DataColumn2(
+//     label: CustomText(
+//       text: "วิทยากรประชาธิปไตย",
+//       size: 14,
+//     ),
+//     size: ColumnSize.S,
+//     numeric: true,
+//   ),
+// ];
 
 DataRow DashboardDataRow(int index, ProvinceSummary provinceSummary) {
   return DataRow(

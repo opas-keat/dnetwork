@@ -36,12 +36,12 @@ class DashboardStatisticsSmall extends StatelessWidget {
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: listProvinceSummary.length,
+              itemCount: listProvinceSummaryData.length,
               itemBuilder: (context, index) {
                 return DashboardStatisticsSmallRow(
                   context,
                   index,
-                  listProvinceSummary[index],
+                  listProvinceSummaryData[index],
                 );
               },
             ),

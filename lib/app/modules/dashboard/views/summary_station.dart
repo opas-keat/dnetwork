@@ -69,9 +69,9 @@ class SummaryStation extends StatelessWidget {
                       ),
                     ],
                     rows: List.generate(
-                      listProvinceSummary.length,
+                      listProvinceSummaryData.length,
                       (index) => StationDataRow(
-                          context, index, listProvinceSummary[index]),
+                          context, index, listProvinceSummaryData[index]),
                     ),
                   ),
                 ),

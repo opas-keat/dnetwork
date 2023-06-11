@@ -69,9 +69,9 @@ class SummaryCommiss extends StatelessWidget {
                         ),
                       ],
                       rows: List.generate(
-                        listProvinceSummary.length,
+                        listProvinceSummaryData.length,
                         (index) => CommissDataRow(
-                            context, index, listProvinceSummary[index]),
+                            context, index, listProvinceSummaryData[index]),
                       ),
                     ),
                   ),

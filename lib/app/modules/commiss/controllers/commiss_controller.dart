@@ -39,32 +39,33 @@ class CommissController extends GetxController {
     talker.info('$logTitle:sort:$field');
     if (field == "name") {
       ascending
-          ? listCommissStatistics.value.sort((a, b) => a.name.compareTo(b.name))
-          : listCommissStatistics.value
+          ? listCommissStatistics.obs.value
+              .sort((a, b) => a.name.compareTo(b.name))
+          : listCommissStatistics.obs.value
               .sort((a, b) => b.name.compareTo(a.name));
     } else if (field == "position") {
       ascending
-          ? listCommissStatistics.value
+          ? listCommissStatistics.obs.value
               .sort((a, b) => a.position.compareTo(b.position))
-          : listCommissStatistics.value
+          : listCommissStatistics.obs.value
               .sort((a, b) => b.position.compareTo(a.position));
     } else if (field == "commissDate") {
       ascending
-          ? listCommissStatistics.value
+          ? listCommissStatistics.obs.value
               .sort((a, b) => a.commissDate.compareTo(b.commissDate))
-          : listCommissStatistics.value
+          : listCommissStatistics.obs.value
               .sort((a, b) => b.commissDate.compareTo(a.commissDate));
     } else if (field == "commissLocation") {
       ascending
-          ? listCommissStatistics.value
+          ? listCommissStatistics.obs.value
               .sort((a, b) => a.commissLocation.compareTo(b.commissLocation))
-          : listCommissStatistics.value
+          : listCommissStatistics.obs.value
               .sort((a, b) => b.commissLocation.compareTo(a.commissLocation));
     } else if (field == "address") {
       ascending
-          ? listCommissStatistics.value
+          ? listCommissStatistics.obs.value
               .sort((a, b) => a.address.compareTo(b.address))
-          : listCommissStatistics.value
+          : listCommissStatistics.obs.value
               .sort((a, b) => b.address.compareTo(a.address));
     }
     sortColumnIndex.value = columnIndex;

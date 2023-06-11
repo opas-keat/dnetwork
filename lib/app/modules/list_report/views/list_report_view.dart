@@ -7,10 +7,10 @@ import '../../../shared/header.dart';
 import '../../../shared/main_drawer.dart';
 import '../controllers/list_report_controller.dart';
 
-class ListReportView extends GetView<ListReportController> {
+class ListReportView extends StatelessWidget {
   ListReportView({Key? key}) : super(key: key);
-  @override
-  ListReportController controller = Get.find<ListReportController>();
+
+  final ListReportController controller = Get.find<ListReportController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

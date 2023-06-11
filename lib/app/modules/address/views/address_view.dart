@@ -14,7 +14,7 @@ class AddressView extends StatelessWidget {
     this.showTambol = true,
     this.showPostCode = true,
   }) : super(key: key);
-  AddressController controller = Get.put(AddressController());
+  final AddressController controller = Get.put(AddressController());
 
   final bool showProvince;
   final bool showAmphure;
@@ -59,12 +59,12 @@ class AddressView extends StatelessWidget {
             child: DropdownButtonHideUnderline(
               child: DropdownButton<Province>(
                 elevation: 0,
-                value: controller.provinceList.value[0],
+                value: controller.provinceList.obs.value[0],
                 isDense: true,
                 onChanged: (newValue) {
                   // controller.updatePaymentChannel(newValue!);
                 },
-                items: controller.provinceList.value.map((item) {
+                items: controller.provinceList.obs.value.map((item) {
                   return DropdownMenuItem<Province>(
                     value: item,
                     child: Text(
@@ -148,12 +148,12 @@ class AddressView extends StatelessWidget {
             child: DropdownButtonHideUnderline(
               child: DropdownButton<Amphure>(
                 elevation: 0,
-                value: controller.amphureList.value[0],
+                value: controller.amphureList.obs.value[0],
                 isDense: true,
                 onChanged: (newValue) {
                   // controller.updatePaymentChannel(newValue!);
                 },
-                items: controller.amphureList.value.map((item) {
+                items: controller.amphureList.obs.value.map((item) {
                   return DropdownMenuItem<Amphure>(
                     value: item,
                     child: Text(
@@ -214,12 +214,12 @@ class AddressView extends StatelessWidget {
             child: DropdownButtonHideUnderline(
               child: DropdownButton<Tambol>(
                 elevation: 0,
-                value: controller.tambolList.value[0],
+                value: controller.tambolList.obs.value[0],
                 isDense: true,
                 onChanged: (newValue) {
                   // controller.updatePaymentChannel(newValue!);
                 },
-                items: controller.tambolList.value.map((item) {
+                items: controller.tambolList.obs.value.map((item) {
                   return DropdownMenuItem<Tambol>(
                     value: item,
                     child: Text(

@@ -13,7 +13,8 @@ import '../controllers/manage_lectuter_controller.dart';
 
 class ManageLectuterView extends StatelessWidget {
   ManageLectuterView({Key? key}) : super(key: key);
-  ManageLectuterController controller = Get.put(ManageLectuterController());
+  final ManageLectuterController controller =
+      Get.put(ManageLectuterController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(

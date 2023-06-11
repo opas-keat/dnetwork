@@ -12,7 +12,7 @@ class VillageStatistics extends StatelessWidget {
   VillageStatistics({
     super.key,
   });
-  VillageController controller = Get.find<VillageController>();
+  final VillageController controller = Get.find<VillageController>();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -89,9 +89,9 @@ class VillageStatistics extends StatelessWidget {
                     ],
                     // rows: [],
                     rows: List.generate(
-                      controller.listVillageStatistics.value.length,
-                      (index) => VillageDataRow(
-                          index, controller.listVillageStatistics.value[index]),
+                      controller.listVillageStatistics.obs.value.length,
+                      (index) => VillageDataRow(index,
+                          controller.listVillageStatistics.obs.value[index]),
                     ),
                   )),
             ),

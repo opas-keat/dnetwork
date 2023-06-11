@@ -39,31 +39,33 @@ class MemberController extends GetxController {
     talker.info('$logTitle:sort:$field');
     if (field == "name") {
       ascending
-          ? listMemberStatistics.value.sort((a, b) => a.name.compareTo(b.name))
-          : listMemberStatistics.value.sort((a, b) => b.name.compareTo(a.name));
+          ? listMemberStatistics.obs.value
+              .sort((a, b) => a.name.compareTo(b.name))
+          : listMemberStatistics.obs.value
+              .sort((a, b) => b.name.compareTo(a.name));
     } else if (field == "position") {
       ascending
-          ? listMemberStatistics.value
+          ? listMemberStatistics.obs.value
               .sort((a, b) => a.position.compareTo(b.position))
-          : listMemberStatistics.value
+          : listMemberStatistics.obs.value
               .sort((a, b) => b.position.compareTo(a.position));
     } else if (field == "commissDate") {
       ascending
-          ? listMemberStatistics.value
+          ? listMemberStatistics.obs.value
               .sort((a, b) => a.commissDate.compareTo(b.commissDate))
-          : listMemberStatistics.value
+          : listMemberStatistics.obs.value
               .sort((a, b) => b.commissDate.compareTo(a.commissDate));
     } else if (field == "commissLocation") {
       ascending
-          ? listMemberStatistics.value
+          ? listMemberStatistics.obs.value
               .sort((a, b) => a.commissLocation.compareTo(b.commissLocation))
-          : listMemberStatistics.value
+          : listMemberStatistics.obs.value
               .sort((a, b) => b.commissLocation.compareTo(a.commissLocation));
     } else if (field == "address") {
       ascending
-          ? listMemberStatistics.value
+          ? listMemberStatistics.obs.value
               .sort((a, b) => a.address.compareTo(b.address))
-          : listMemberStatistics.value
+          : listMemberStatistics.obs.value
               .sort((a, b) => b.address.compareTo(a.address));
     }
     sortColumnIndex.value = columnIndex;

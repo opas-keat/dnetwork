@@ -14,7 +14,7 @@ import '../controllers/manage_village_controller.dart';
 
 class ManageVillageView extends StatelessWidget {
   ManageVillageView({Key? key}) : super(key: key);
-  ManageVillageController controller = Get.put(ManageVillageController());
+  final ManageVillageController controller = Get.put(ManageVillageController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(

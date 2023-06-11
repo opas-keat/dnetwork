@@ -14,7 +14,8 @@ import '../controllers/manage_training_controller.dart';
 
 class ManageTrainingView extends StatelessWidget {
   ManageTrainingView({Key? key}) : super(key: key);
-  ManageTrainingController controller = Get.put(ManageTrainingController());
+  final ManageTrainingController controller =
+      Get.put(ManageTrainingController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(

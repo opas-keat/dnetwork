@@ -9,7 +9,8 @@ import '../controllers/reportproblem_controller.dart';
 
 class ReportproblemView extends StatelessWidget {
   ReportproblemView({Key? key}) : super(key: key);
-  ReportproblemController controller = Get.find<ReportproblemController>();
+  final ReportproblemController controller =
+      Get.find<ReportproblemController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

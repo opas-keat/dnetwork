@@ -39,27 +39,27 @@ class LectuterController extends GetxController {
     talker.info('$logTitle:sort:$field');
     if (field == "name") {
       ascending
-          ? listLectuterStatistics.value
+          ? listLectuterStatistics.obs.value
               .sort((a, b) => a.name.compareTo(b.name))
-          : listLectuterStatistics.value
+          : listLectuterStatistics.obs.value
               .sort((a, b) => b.name.compareTo(a.name));
     } else if (field == "agency") {
       ascending
-          ? listLectuterStatistics.value
+          ? listLectuterStatistics.obs.value
               .sort((a, b) => a.agency.compareTo(b.agency))
-          : listLectuterStatistics.value
+          : listLectuterStatistics.obs.value
               .sort((a, b) => b.agency.compareTo(a.agency));
     } else if (field == "affiliate") {
       ascending
-          ? listLectuterStatistics.value
+          ? listLectuterStatistics.obs.value
               .sort((a, b) => a.affiliate.compareTo(b.affiliate))
-          : listLectuterStatistics.value
+          : listLectuterStatistics.obs.value
               .sort((a, b) => b.affiliate.compareTo(a.affiliate));
     } else if (field == "province") {
       ascending
-          ? listLectuterStatistics.value
+          ? listLectuterStatistics.obs.value
               .sort((a, b) => a.province.compareTo(b.province))
-          : listLectuterStatistics.value
+          : listLectuterStatistics.obs.value
               .sort((a, b) => b.province.compareTo(a.province));
     }
     sortColumnIndex.value = columnIndex;

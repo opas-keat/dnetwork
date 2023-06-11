@@ -8,7 +8,7 @@ import '../controllers/setting_controller.dart';
 
 class SettingView extends StatelessWidget {
   SettingView({Key? key}) : super(key: key);
-  SettingController controller = Get.put(SettingController());
+  final SettingController controller = Get.put(SettingController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(

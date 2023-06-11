@@ -15,7 +15,7 @@ class DetailStationLayoutSmall extends StatelessWidget {
   DetailStationLayoutSmall({
     super.key,
   });
-  DetailStationController controller = Get.put(DetailStationController());
+  final DetailStationController controller = Get.put(DetailStationController());
 
   @override
   Widget build(BuildContext context) {

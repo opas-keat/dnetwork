@@ -12,7 +12,7 @@ class CommissStatistics extends StatelessWidget {
   CommissStatistics({
     super.key,
   });
-  CommissController controller = Get.find<CommissController>();
+  final CommissController controller = Get.find<CommissController>();
 
   @override
   Widget build(BuildContext context) {
@@ -97,9 +97,9 @@ class CommissStatistics extends StatelessWidget {
                     ],
                     // rows: [],
                     rows: List.generate(
-                      controller.listCommissStatistics.value.length,
-                      (index) => CommissDataRow(
-                          index, controller.listCommissStatistics.value[index]),
+                      controller.listCommissStatistics.obs.value.length,
+                      (index) => CommissDataRow(index,
+                          controller.listCommissStatistics.obs.value[index]),
                     ),
                   )),
             ),

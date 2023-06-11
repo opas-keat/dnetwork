@@ -13,7 +13,7 @@ import 'lectuter_layout_small.dart';
 
 class LectuterView extends StatelessWidget {
   LectuterView({Key? key}) : super(key: key);
-  LectuterController controller = Get.find<LectuterController>();
+  final LectuterController controller = Get.find<LectuterController>();
 
   @override
   Widget build(BuildContext context) {
@@ -84,8 +84,7 @@ class LectuterView extends StatelessWidget {
                     child: const Align(
                       alignment: Alignment.topCenter,
                       child: SingleChildScrollView(
-                        padding:
-                            EdgeInsets.only(left: defaultPadding / 2),
+                        padding: EdgeInsets.only(left: defaultPadding / 2),
                         primary: true,
                         child: Column(
                           children: [

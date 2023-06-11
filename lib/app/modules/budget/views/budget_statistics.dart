@@ -12,7 +12,7 @@ class BudgetStatistics extends StatelessWidget {
   BudgetStatistics({
     super.key,
   });
-  BudgetController controller = Get.find<BudgetController>();
+  final BudgetController controller = Get.find<BudgetController>();
 
   @override
   Widget build(BuildContext context) {
@@ -109,9 +109,9 @@ class BudgetStatistics extends StatelessWidget {
                     ],
                     // rows: [],
                     rows: List.generate(
-                      controller.listBudgetStatistics.value.length,
-                      (index) => BudgetDataRow(
-                          index, controller.listBudgetStatistics.value[index]),
+                      controller.listBudgetStatistics.obs.value.length,
+                      (index) => BudgetDataRow(index,
+                          controller.listBudgetStatistics.obs.value[index]),
                     ),
                   )),
             ),

@@ -9,7 +9,7 @@ import '../controllers/signin_controller.dart';
 
 class SigninView extends StatelessWidget {
   SigninView({Key? key}) : super(key: key);
-  SigninController controller = Get.put(SigninController());
+  final SigninController controller = Get.put(SigninController());
 
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();

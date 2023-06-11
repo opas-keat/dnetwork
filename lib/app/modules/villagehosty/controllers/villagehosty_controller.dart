@@ -39,24 +39,26 @@ class VillageController extends GetxController {
     talker.info('$logTitle:sort:$field');
     if (field == "name") {
       ascending
-          ? listVillageStatistics.value.sort((a, b) => a.name.compareTo(b.name))
-          : listVillageStatistics.value
+          ? listVillageStatistics.obs.value
+              .sort((a, b) => a.name.compareTo(b.name))
+          : listVillageStatistics.obs.value
               .sort((a, b) => b.name.compareTo(a.name));
     } else if (field == "no") {
       ascending
-          ? listVillageStatistics.value.sort((a, b) => a.no.compareTo(b.no))
-          : listVillageStatistics.value.sort((a, b) => b.no.compareTo(a.no));
+          ? listVillageStatistics.obs.value.sort((a, b) => a.no.compareTo(b.no))
+          : listVillageStatistics.obs.value
+              .sort((a, b) => b.no.compareTo(a.no));
     } else if (field == "address") {
       ascending
-          ? listVillageStatistics.value
+          ? listVillageStatistics.obs.value
               .sort((a, b) => a.address.compareTo(b.address))
-          : listVillageStatistics.value
+          : listVillageStatistics.obs.value
               .sort((a, b) => b.address.compareTo(a.address));
     } else if (field == "total") {
       ascending
-          ? listVillageStatistics.value
+          ? listVillageStatistics.obs.value
               .sort((a, b) => a.total.compareTo(b.total))
-          : listVillageStatistics.value
+          : listVillageStatistics.obs.value
               .sort((a, b) => b.total.compareTo(a.total));
     }
     sortColumnIndex.value = columnIndex;

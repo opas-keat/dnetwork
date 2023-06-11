@@ -14,7 +14,7 @@ import 'commiss_layout_small.dart';
 class CommissView extends GetView<CommissController> {
   CommissView({Key? key}) : super(key: key);
   @override
-  CommissController controller = Get.find<CommissController>();
+  final CommissController controller = Get.find<CommissController>();
 
   @override
   Widget build(BuildContext context) {
@@ -84,8 +84,7 @@ class CommissView extends GetView<CommissController> {
                     child: const Align(
                       alignment: Alignment.topCenter,
                       child: SingleChildScrollView(
-                        padding:
-                            EdgeInsets.only(left: defaultPadding / 2),
+                        padding: EdgeInsets.only(left: defaultPadding / 2),
                         primary: true,
                         child: Column(
                           children: [

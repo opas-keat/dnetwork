@@ -14,7 +14,7 @@ import '../controllers/manage_member_controller.dart';
 
 class ManageMemberView extends StatelessWidget {
   ManageMemberView({Key? key}) : super(key: key);
-  ManageMemberController controller = Get.put(ManageMemberController());
+  final ManageMemberController controller = Get.put(ManageMemberController());
 
   @override
   Widget build(BuildContext context) {

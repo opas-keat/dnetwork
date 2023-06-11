@@ -13,7 +13,7 @@ class StationStatistics extends StatelessWidget {
   StationStatistics({
     super.key,
   });
-  StationController controller = Get.find<StationController>();
+  final StationController controller = Get.find<StationController>();
 
   @override
   Widget build(BuildContext context) {
@@ -84,9 +84,9 @@ class StationStatistics extends StatelessWidget {
                     ],
                     // rows: [],
                     rows: List.generate(
-                      controller.listStationStatistics.value.length,
-                      (index) => StationDataRow(
-                          index, controller.listStationStatistics.value[index]),
+                      controller.listStationStatistics.obs.value.length,
+                      (index) => StationDataRow(index,
+                          controller.listStationStatistics.obs.value[index]),
                     ),
                   )),
             ),

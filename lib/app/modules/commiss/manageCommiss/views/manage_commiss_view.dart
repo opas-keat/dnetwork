@@ -14,7 +14,7 @@ import '../controllers/manage_commiss_controller.dart';
 
 class ManageCommissView extends StatelessWidget {
   ManageCommissView({Key? key}) : super(key: key);
-  ManageCommissController controller = Get.put(ManageCommissController());
+  final ManageCommissController controller = Get.put(ManageCommissController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(

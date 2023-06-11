@@ -39,32 +39,33 @@ class NetworkController extends GetxController {
     talker.info('$logTitle:sort:$field');
     if (field == "name") {
       ascending
-          ? listNetworkStatistics.value.sort((a, b) => a.name.compareTo(b.name))
-          : listNetworkStatistics.value
+          ? listNetworkStatistics.obs.value
+              .sort((a, b) => a.name.compareTo(b.name))
+          : listNetworkStatistics.obs.value
               .sort((a, b) => b.name.compareTo(a.name));
     } else if (field == "position") {
       ascending
-          ? listNetworkStatistics.value
+          ? listNetworkStatistics.obs.value
               .sort((a, b) => a.position.compareTo(b.position))
-          : listNetworkStatistics.value
+          : listNetworkStatistics.obs.value
               .sort((a, b) => b.position.compareTo(a.position));
     } else if (field == "commissDate") {
       ascending
-          ? listNetworkStatistics.value
+          ? listNetworkStatistics.obs.value
               .sort((a, b) => a.commissDate.compareTo(b.commissDate))
-          : listNetworkStatistics.value
+          : listNetworkStatistics.obs.value
               .sort((a, b) => b.commissDate.compareTo(a.commissDate));
     } else if (field == "commissLocation") {
       ascending
-          ? listNetworkStatistics.value
+          ? listNetworkStatistics.obs.value
               .sort((a, b) => a.commissLocation.compareTo(b.commissLocation))
-          : listNetworkStatistics.value
+          : listNetworkStatistics.obs.value
               .sort((a, b) => b.commissLocation.compareTo(a.commissLocation));
     } else if (field == "address") {
       ascending
-          ? listNetworkStatistics.value
+          ? listNetworkStatistics.obs.value
               .sort((a, b) => a.address.compareTo(b.address))
-          : listNetworkStatistics.value
+          : listNetworkStatistics.obs.value
               .sort((a, b) => b.address.compareTo(a.address));
     }
     sortColumnIndex.value = columnIndex;

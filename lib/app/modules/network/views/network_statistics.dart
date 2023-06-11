@@ -12,7 +12,7 @@ class NetworkStatistics extends StatelessWidget {
   NetworkStatistics({
     super.key,
   });
-  NetworkController controller = Get.find<NetworkController>();
+  final NetworkController controller = Get.find<NetworkController>();
 
   @override
   Widget build(BuildContext context) {
@@ -98,9 +98,9 @@ class NetworkStatistics extends StatelessWidget {
                     ],
                     // rows: [],
                     rows: List.generate(
-                      listNetworkStatisticsData.length,
-                      (index) => NetworkDataRow(
-                          index, listNetworkStatisticsData[index]),
+                      controller.listNetworkStatistics.obs.value.length,
+                      (index) => NetworkDataRow(index,
+                          controller.listNetworkStatistics.obs.value[index]),
                     ),
                   )),
             ),

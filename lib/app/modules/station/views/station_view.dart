@@ -12,7 +12,7 @@ import 'station_layout_small.dart';
 
 class StationView extends StatelessWidget {
   StationView({Key? key}) : super(key: key);
-  StationController controller = Get.find<StationController>();
+  final StationController controller = Get.find<StationController>();
 
   @override
   Widget build(BuildContext context) {
@@ -74,8 +74,7 @@ class StationView extends StatelessWidget {
                     child: const Align(
                       alignment: Alignment.topCenter,
                       child: SingleChildScrollView(
-                        padding:
-                            EdgeInsets.only(left: defaultPadding / 2),
+                        padding: EdgeInsets.only(left: defaultPadding / 2),
                         primary: true,
                         child: Column(
                           children: [

@@ -13,7 +13,7 @@ class SummaryVillage extends StatelessWidget {
   SummaryVillage({
     Key? key,
   }) : super(key: key);
-  DashboardController controller = Get.find<DashboardController>();
+  final DashboardController controller = Get.find<DashboardController>();
 
   final ScrollController _scrollController = ScrollController();
 

@@ -14,7 +14,7 @@ import '../controllers/manage_network_controller.dart';
 
 class ManageNetworkView extends StatelessWidget {
   ManageNetworkView({Key? key}) : super(key: key);
-  ManageNetworkController controller = Get.put(ManageNetworkController());
+  final ManageNetworkController controller = Get.put(ManageNetworkController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(

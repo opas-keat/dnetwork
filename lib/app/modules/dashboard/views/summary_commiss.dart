@@ -13,7 +13,7 @@ class SummaryCommiss extends StatelessWidget {
   SummaryCommiss({
     Key? key,
   }) : super(key: key);
-  DashboardController controller = Get.find<DashboardController>();
+  final DashboardController controller = Get.find<DashboardController>();
 
   final ScrollController _scrollController = ScrollController();
 

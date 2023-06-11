@@ -15,7 +15,7 @@ import '../controllers/manage_station_controller.dart';
 
 class ManageStationView extends StatelessWidget {
   ManageStationView({Key? key}) : super(key: key);
-  ManageStationController controller = Get.put(ManageStationController());
+  final ManageStationController controller = Get.put(ManageStationController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,11 +100,12 @@ class ManageStationDataTable extends StatelessWidget {
                 : listColumnLayoutSmall,
             // rows: [],
             rows: List.generate(
-              controller.stationList.value.length,
+              controller.stationList.obs.value.length,
               (index) => Responsive.isLargeScreen(context)
-                  ? StationDataRow(index, controller.stationList.value[index])
+                  ? StationDataRow(
+                      index, controller.stationList.obs.value[index])
                   : StationDataRowLayoutSmall(
-                      index, controller.stationList.value[index]),
+                      index, controller.stationList.obs.value[index]),
             ),
           )),
     );

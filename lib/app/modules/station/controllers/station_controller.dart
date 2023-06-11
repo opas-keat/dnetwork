@@ -1,4 +1,3 @@
-
 import 'package:get/get.dart';
 
 import '../../../../main.dart';
@@ -43,20 +42,21 @@ class StationController extends GetxController {
     // talker.debug(logTitle + ':ascending:' + ascending.toString());
     if (field == "name") {
       ascending
-          ? listStationStatistics.value.sort((a, b) => a.name.compareTo(b.name))
-          : listStationStatistics.value
+          ? listStationStatistics.obs.value
+              .sort((a, b) => a.name.compareTo(b.name))
+          : listStationStatistics.obs.value
               .sort((a, b) => b.name.compareTo(a.name));
     } else if (field == "address") {
       ascending
-          ? listStationStatistics.value
+          ? listStationStatistics.obs.value
               .sort((a, b) => a.address.compareTo(b.address))
-          : listStationStatistics.value
+          : listStationStatistics.obs.value
               .sort((a, b) => b.address.compareTo(a.address));
     } else if (field == "totalCommiss") {
       ascending
-          ? listStationStatistics.value
+          ? listStationStatistics.obs.value
               .sort((a, b) => a.totalCommiss.compareTo(b.totalCommiss))
-          : listStationStatistics.value
+          : listStationStatistics.obs.value
               .sort((a, b) => b.totalCommiss.compareTo(a.totalCommiss));
     }
     sortColumnIndex.value = columnIndex;

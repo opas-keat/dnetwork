@@ -12,7 +12,7 @@ class LectuterStatistics extends StatelessWidget {
   LectuterStatistics({
     super.key,
   });
-  LectuterController controller = Get.find<LectuterController>();
+  final LectuterController controller = Get.find<LectuterController>();
 
   @override
   Widget build(BuildContext context) {
@@ -89,9 +89,9 @@ class LectuterStatistics extends StatelessWidget {
                     ],
                     // rows: [],
                     rows: List.generate(
-                      listLectuterStatisticsData.length,
-                      (index) => LectuterDataRow(
-                          index, listLectuterStatisticsData[index]),
+                      controller.listLectuterStatistics.obs.value.length,
+                      (index) => LectuterDataRow(index,
+                          controller.listLectuterStatistics.obs.value[index]),
                     ),
                   )),
             ),

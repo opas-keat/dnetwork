@@ -14,7 +14,7 @@ import '../controllers/manage_budget_controller.dart';
 
 class ManageBudgetView extends StatelessWidget {
   ManageBudgetView({Key? key}) : super(key: key);
-  ManageBudgetController controller = Get.put(ManageBudgetController());
+  final ManageBudgetController controller = Get.put(ManageBudgetController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(

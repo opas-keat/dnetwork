@@ -13,7 +13,7 @@ import 'detail_station_layout_small.dart';
 
 class DetailStationView extends StatelessWidget {
   DetailStationView({Key? key}) : super(key: key);
-  DetailStationController controller = Get.put(DetailStationController());
+  final DetailStationController controller = Get.put(DetailStationController());
 
   @override
   Widget build(BuildContext context) {
@@ -75,8 +75,7 @@ class DetailStationView extends StatelessWidget {
                     child: const Align(
                       alignment: Alignment.topCenter,
                       child: SingleChildScrollView(
-                        padding:
-                            EdgeInsets.only(left: defaultPadding / 2),
+                        padding: EdgeInsets.only(left: defaultPadding / 2),
                         primary: true,
                         child: Column(
                           children: [

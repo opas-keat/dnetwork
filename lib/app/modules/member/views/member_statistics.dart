@@ -12,7 +12,7 @@ class MemberStatistics extends StatelessWidget {
   MemberStatistics({
     super.key,
   });
-  MemberController controller = Get.find<MemberController>();
+  final MemberController controller = Get.find<MemberController>();
 
   @override
   Widget build(BuildContext context) {
@@ -97,9 +97,9 @@ class MemberStatistics extends StatelessWidget {
                     ],
                     // rows: [],
                     rows: List.generate(
-                      controller.listMemberStatistics.value.length,
-                      (index) => MemberDataRow(
-                          index, controller.listMemberStatistics.value[index]),
+                      controller.listMemberStatistics.obs.value.length,
+                      (index) => MemberDataRow(index,
+                          controller.listMemberStatistics.obs.value[index]),
                     ),
                   )),
             ),

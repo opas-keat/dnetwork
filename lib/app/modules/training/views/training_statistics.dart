@@ -12,7 +12,7 @@ class TrainingStatistics extends StatelessWidget {
   TrainingStatistics({
     super.key,
   });
-  TrainingController controller = Get.find<TrainingController>();
+  final TrainingController controller = Get.find<TrainingController>();
 
   @override
   Widget build(BuildContext context) {
@@ -97,9 +97,9 @@ class TrainingStatistics extends StatelessWidget {
                     ],
                     // rows: [],
                     rows: List.generate(
-                      controller.listTrainingStatistics.value.length,
+                      controller.listTrainingStatistics.obs.value.length,
                       (index) => TraingingDataRow(index,
-                          controller.listTrainingStatistics.value[index]),
+                          controller.listTrainingStatistics.obs.value[index]),
                     ),
                   )),
             ),

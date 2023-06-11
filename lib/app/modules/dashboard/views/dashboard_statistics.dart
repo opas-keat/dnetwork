@@ -14,7 +14,7 @@ class DashboardStatistics extends StatelessWidget {
   DashboardStatistics({
     super.key,
   });
-  DashboardController controller = Get.find<DashboardController>();
+  final DashboardController controller = Get.find<DashboardController>();
 
   @override
   Widget build(BuildContext context) {
@@ -144,9 +144,9 @@ class DashboardStatistics extends StatelessWidget {
                     ],
                     // rows: [],
                     rows: List.generate(
-                      controller.listProvinceSummary.value.length,
-                      (index) => DashboardDataRow(
-                          index, controller.listProvinceSummary.value[index]),
+                      controller.listProvinceSummary.obs.value.length,
+                      (index) => DashboardDataRow(index,
+                          controller.listProvinceSummary.obs.value[index]),
                     ),
                   )),
             ),

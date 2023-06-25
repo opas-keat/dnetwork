@@ -16,8 +16,8 @@ class SigninView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    usernameController.text = "user001";
-    passwordController.text = "123456";
+    // usernameController.text = "user001";
+    // passwordController.text = "123456";
     return Scaffold(
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(defaultPadding),

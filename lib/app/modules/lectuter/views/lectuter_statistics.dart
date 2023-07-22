@@ -59,28 +59,28 @@ class LectuterStatistics extends StatelessWidget {
                         fixedWidth: 10,
                       ),
                       DataColumn2(
-                        label: Text("ชื่อ-นามสกุล"),
+                        label: const Text("ชื่อ-นามสกุล"),
                         size: ColumnSize.S,
                         onSort: (columnIndex, ascending) {
                           controller.sort("name", columnIndex, ascending);
                         },
                       ),
                       DataColumn2(
-                        label: Text("หน่วยงาน"),
+                        label: const Text("หน่วยงาน"),
                         size: ColumnSize.S,
                         onSort: (columnIndex, ascending) {
                           controller.sort("agency", columnIndex, ascending);
                         },
                       ),
                       DataColumn2(
-                        label: Text("สังกัดวิทยากร"),
+                        label: const Text("สังกัดวิทยากร"),
                         size: ColumnSize.S,
                         onSort: (columnIndex, ascending) {
                           controller.sort("affiliate", columnIndex, ascending);
                         },
                       ),
                       DataColumn2(
-                        label: Text("จังหวัด"),
+                        label: const Text("จังหวัด"),
                         size: ColumnSize.S,
                         onSort: (columnIndex, ascending) {
                           controller.sort("province", columnIndex, ascending);

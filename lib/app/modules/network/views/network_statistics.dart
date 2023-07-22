@@ -59,21 +59,21 @@ class NetworkStatistics extends StatelessWidget {
                         fixedWidth: 10,
                       ),
                       DataColumn2(
-                        label: Text("ชื่อ-นามสกุล"),
+                        label: const Text("ชื่อ-นามสกุล"),
                         size: ColumnSize.S,
                         onSort: (columnIndex, ascending) {
                           controller.sort("name", columnIndex, ascending);
                         },
                       ),
                       DataColumn2(
-                        label: Text("ตำแหน่ง"),
+                        label: const Text("ตำแหน่ง"),
                         size: ColumnSize.S,
                         onSort: (columnIndex, ascending) {
                           controller.sort("position", columnIndex, ascending);
                         },
                       ),
                       DataColumn2(
-                        label: Text("ว/ด/ป/ แต่งตั้ง"),
+                        label: const Text("ว/ด/ป/ แต่งตั้ง"),
                         size: ColumnSize.S,
                         onSort: (columnIndex, ascending) {
                           controller.sort(
@@ -81,7 +81,7 @@ class NetworkStatistics extends StatelessWidget {
                         },
                       ),
                       DataColumn2(
-                        label: Text("สังกัด ศส.ปชต."),
+                        label: const Text("สังกัด ศส.ปชต."),
                         size: ColumnSize.S,
                         onSort: (columnIndex, ascending) {
                           controller.sort(
@@ -89,7 +89,7 @@ class NetworkStatistics extends StatelessWidget {
                         },
                       ),
                       DataColumn2(
-                        label: Text("จังหวัด/อำเภอ/ตำบล"),
+                        label: const Text("จังหวัด/อำเภอ/ตำบล"),
                         size: ColumnSize.S,
                         onSort: (columnIndex, ascending) {
                           controller.sort("address", columnIndex, ascending);

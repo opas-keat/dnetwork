@@ -60,28 +60,28 @@ class BudgetStatistics extends StatelessWidget {
                         fixedWidth: 10,
                       ),
                       DataColumn2(
-                        label: Text("วันที่รับงบประมาณ"),
+                        label: const Text("วันที่รับงบประมาณ"),
                         size: ColumnSize.S,
                         onSort: (columnIndex, ascending) {
                           controller.sort("date", columnIndex, ascending);
                         },
                       ),
                       DataColumn2(
-                        label: Text("ประเภทงบประมาณ"),
+                        label: const Text("ประเภทงบประมาณ"),
                         size: ColumnSize.L,
                         onSort: (columnIndex, ascending) {
                           controller.sort("type", columnIndex, ascending);
                         },
                       ),
                       DataColumn2(
-                        label: Text("จังหวัด"),
+                        label: const Text("จังหวัด"),
                         size: ColumnSize.S,
                         onSort: (columnIndex, ascending) {
                           controller.sort("province", columnIndex, ascending);
                         },
                       ),
                       DataColumn2(
-                        label: Text("งบต้น"),
+                        label: const Text("งบต้น"),
                         size: ColumnSize.S,
                         onSort: (columnIndex, ascending) {
                           controller.sort(
@@ -90,7 +90,7 @@ class BudgetStatistics extends StatelessWidget {
                         numeric: true,
                       ),
                       DataColumn2(
-                        label: Text("งบที่ใช้ไป"),
+                        label: const Text("งบที่ใช้ไป"),
                         size: ColumnSize.S,
                         numeric: true,
                         onSort: (columnIndex, ascending) {
@@ -98,7 +98,7 @@ class BudgetStatistics extends StatelessWidget {
                         },
                       ),
                       DataColumn2(
-                        label: Text("คงเหลือ"),
+                        label: const Text("คงเหลือ"),
                         size: ColumnSize.S,
                         numeric: true,
                         onSort: (columnIndex, ascending) {

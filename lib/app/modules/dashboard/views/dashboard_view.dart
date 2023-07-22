@@ -9,7 +9,7 @@ import 'dashboard_layout_large.dart';
 import 'dashboard_layout_small.dart';
 
 class DashboardView extends StatelessWidget {
-  DashboardView({Key? key}) : super(key: key);
+  const DashboardView({Key? key}) : super(key: key);
   // DashboardController controller = Get.find<DashboardController>();
 
   @override

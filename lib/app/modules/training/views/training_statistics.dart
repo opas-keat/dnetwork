@@ -59,35 +59,35 @@ class TrainingStatistics extends StatelessWidget {
                         fixedWidth: 10,
                       ),
                       DataColumn2(
-                        label: Text("หลักสูตรอบรม"),
+                        label: const Text("หลักสูตรอบรม"),
                         size: ColumnSize.L,
                         onSort: (columnIndex, ascending) {
                           controller.sort("name", columnIndex, ascending);
                         },
                       ),
                       DataColumn2(
-                        label: Text("วันที่อบรม"),
+                        label: const Text("วันที่อบรม"),
                         size: ColumnSize.M,
                         onSort: (columnIndex, ascending) {
                           controller.sort("date", columnIndex, ascending);
                         },
                       ),
                       DataColumn2(
-                        label: Text("ประเภทการฝีกอบรม"),
+                        label: const Text("ประเภทการฝีกอบรม"),
                         size: ColumnSize.M,
                         onSort: (columnIndex, ascending) {
                           controller.sort("type", columnIndex, ascending);
                         },
                       ),
                       DataColumn2(
-                        label: Text("จังหวัด"),
+                        label: const Text("จังหวัด"),
                         size: ColumnSize.S,
                         onSort: (columnIndex, ascending) {
                           controller.sort("province", columnIndex, ascending);
                         },
                       ),
                       DataColumn2(
-                        label: Text("จำนวนผู้ฝึกอบรม"),
+                        label: const Text("จำนวนผู้ฝึกอบรม"),
                         size: ColumnSize.S,
                         onSort: (columnIndex, ascending) {
                           controller.sort("total", columnIndex, ascending);

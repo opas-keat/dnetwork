@@ -58,28 +58,28 @@ class VillageStatistics extends StatelessWidget {
                         fixedWidth: 10,
                       ),
                       DataColumn2(
-                        label: Text("ชื่อหมู่บ้าน"),
+                        label: const Text("ชื่อหมู่บ้าน"),
                         size: ColumnSize.S,
                         onSort: (columnIndex, ascending) {
                           controller.sort("name", columnIndex, ascending);
                         },
                       ),
                       DataColumn2(
-                        label: Text("หมู่ที่/บ้านเลขที่"),
+                        label: const Text("หมู่ที่/บ้านเลขที่"),
                         size: ColumnSize.S,
                         onSort: (columnIndex, ascending) {
                           controller.sort("no", columnIndex, ascending);
                         },
                       ),
                       DataColumn2(
-                        label: Text("จังหวัด/อำเภอ/ตำบล"),
+                        label: const Text("จังหวัด/อำเภอ/ตำบล"),
                         size: ColumnSize.S,
                         onSort: (columnIndex, ascending) {
                           controller.sort("address", columnIndex, ascending);
                         },
                       ),
                       DataColumn2(
-                        label: Text("จำนวนครัวเรือน"),
+                        label: const Text("จำนวนครัวเรือน"),
                         size: ColumnSize.S,
                         numeric: true,
                         onSort: (columnIndex, ascending) {

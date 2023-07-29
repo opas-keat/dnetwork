@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:frontend/app/api/api.dart';
 import 'package:frontend/main.dart';
 
 import 'custom_log_interceptor.dart';
@@ -8,7 +9,14 @@ ApiUtils apiUtils = ApiUtils();
 class ApiUtils {
   static const title = "ApiUtils";
   static final ApiUtils _apiUtils = ApiUtils._i();
-  final Dio _dio = Dio();
+  static final _options = BaseOptions(
+    baseUrl: Api.baseUrl,
+    connectTimeout: const Duration(seconds: Api.connectionTimeout),
+    receiveTimeout: const Duration(milliseconds: Api.receiveTimeout),
+    contentType: Headers.jsonContentType,
+    responseType: ResponseType.json,
+  );
+  final Dio _dio = Dio(_options);
 
   ApiUtils._i() {
     _dio.interceptors.add(CustomLogInterceptor(
@@ -23,15 +31,17 @@ class ApiUtils {
     return _apiUtils;
   }
 
-  Map<String, String> header = {"Content-Type": "application/json"};
+  Map<String, dynamic> header = {
+    "Content-Type": "application/json; charset=utf-8"
+  };
 
   Map<String, String> headers = {
-    "Content-Type": "application/json",
+    "Content-Type": "application/json; charset=utf-8",
     "api-version": "1"
   };
 
   Map<String, String> secureHeaders = {
-    "Content-Type": "application/json",
+    "Content-Type": "application/json; charset=utf-8",
     "api-version": "1",
     "Authorization": ""
   };
@@ -46,6 +56,7 @@ class ApiUtils {
       queryParameters: queryParameters,
       options: options,
     );
+    // talker.error(result);
     return result;
   }
 
@@ -72,41 +83,40 @@ class ApiUtils {
 
     talker.error(title, "handleError:: error >> $error");
 
-    if (error is DioError) {
-      talker.error(
-          title, '************************ DioError ************************');
+    if (error is DioException) {
+      talker.error(title,
+          '************************ DioException ************************');
 
-      DioError dioError = error;
-      talker.error(title, 'dioError:: $dioError');
+      DioException dioError = error;
+      talker.error(title, 'dioException:: $dioError');
       if (dioError.response != null) {
-        talker.error(
-            title, "dioError:: response >> ${dioError.response}");
+        talker.error(title, "dioException:: response >> ${dioError.response}");
       }
 
       switch (dioError.type) {
-        case DioErrorType.cancel:
+        case DioExceptionType.cancel:
           errorDescription = "Request to API server was cancelled";
           break;
-        case DioErrorType.receiveTimeout:
+        case DioExceptionType.receiveTimeout:
           errorDescription = "Receive timeout in connection with API server";
           break;
-        case DioErrorType.sendTimeout:
+        case DioExceptionType.sendTimeout:
           errorDescription = "Send timeout in connection with API server";
           break;
-        case DioErrorType.connectionTimeout:
+        case DioExceptionType.connectionTimeout:
           errorDescription = "Connection timeout with API server";
           break;
-        case DioErrorType.badCertificate:
+        case DioExceptionType.badCertificate:
           errorDescription = "badCertificate";
           break;
-        case DioErrorType.badResponse:
+        case DioExceptionType.badResponse:
           errorDescription =
               "Received invalid status code: ${dioError.response?.statusCode} : ${dioError.response?.data['message']}";
           break;
-        case DioErrorType.connectionError:
+        case DioExceptionType.connectionError:
           errorDescription = "Unexpected error occured";
           break;
-        case DioErrorType.unknown:
+        case DioExceptionType.unknown:
           errorDescription =
               "Connection to API server failed due to internet connection";
           break;
@@ -119,7 +129,7 @@ class ApiUtils {
   }
 
   getFormattedError() {
-    return {'error': 'Error'};
+    return {"error": "Error"};
   }
 
   getNetworkError() {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/app/data/models/provinces.dart';
+import 'package:frontend/app/data/responses/province_service_response.dart';
 import 'package:get/get.dart';
 
 import '../../../shared/constant.dart';
@@ -45,37 +46,40 @@ class AddressView extends StatelessWidget {
           //     contentPadding: EdgeInsets.fromLTRB(12, 14, 12, 12),
           //   ),
           // ),
-          InputDecorator(
-            decoration: InputDecoration(
-              fillColor: Colors.white.withOpacity(.8),
-              filled: true,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(defaultPadding / 2),
-                borderSide: const BorderSide(color: Colors.black54, width: 1),
-              ),
-              isCollapsed: true,
-              contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-            ),
-            child: DropdownButtonHideUnderline(
-              child: DropdownButton<Province>(
-                elevation: 0,
-                value: controller.provinceList.obs.value[0],
-                isDense: true,
-                onChanged: (newValue) {
-                  // controller.updatePaymentChannel(newValue!);
-                },
-                items: controller.provinceList.obs.value.map((item) {
-                  return DropdownMenuItem<Province>(
-                    value: item,
-                    child: Text(
-                      item.pName!,
-                      textScaleFactor: 0.9,
-                    ),
-                  );
-                }).toList(),
-              ),
-            ),
-          ),
+          Obx(() => InputDecorator(
+                decoration: InputDecoration(
+                  fillColor: Colors.white.withOpacity(.8),
+                  filled: true,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(defaultPadding / 2),
+                    borderSide:
+                        const BorderSide(color: Colors.black54, width: 1),
+                  ),
+                  isCollapsed: true,
+                  contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                ),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton<ProvinceData>(
+                    elevation: 0,
+                    // value: null,
+                    // value: controller.provinceList.obs.value[0],
+                    value: controller.selectedProvince.value,
+                    isDense: true,
+                    onChanged: (newValue) {
+                      controller.updateSelectedProvince(newValue!);
+                    },
+                    items: controller.provinceList.obs.value.map((item) {
+                      return DropdownMenuItem<ProvinceData>(
+                        value: item,
+                        child: Text(
+                          item.pName!,
+                          textScaleFactor: 0.9,
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              )),
         ],
         // Obx(
         //   () => InputDecorator(
@@ -134,37 +138,38 @@ class AddressView extends StatelessWidget {
             color: Colors.black87.withOpacity(.9),
           ),
           const SizedBox(height: defaultPadding / 2),
-          InputDecorator(
-            decoration: InputDecoration(
-              fillColor: Colors.white.withOpacity(.8),
-              filled: true,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(defaultPadding / 2),
-                borderSide: const BorderSide(color: Colors.black54, width: 1),
-              ),
-              isCollapsed: true,
-              contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-            ),
-            child: DropdownButtonHideUnderline(
-              child: DropdownButton<Amphure>(
-                elevation: 0,
-                value: controller.amphureList.obs.value[0],
-                isDense: true,
-                onChanged: (newValue) {
-                  // controller.updatePaymentChannel(newValue!);
-                },
-                items: controller.amphureList.obs.value.map((item) {
-                  return DropdownMenuItem<Amphure>(
-                    value: item,
-                    child: Text(
-                      item.aName!,
-                      textScaleFactor: 0.9,
-                    ),
-                  );
-                }).toList(),
-              ),
-            ),
-          ),
+          Obx(() => InputDecorator(
+                decoration: InputDecoration(
+                  fillColor: Colors.white.withOpacity(.8),
+                  filled: true,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(defaultPadding / 2),
+                    borderSide:
+                        const BorderSide(color: Colors.black54, width: 1),
+                  ),
+                  isCollapsed: true,
+                  contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                ),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton<Amphure>(
+                    elevation: 0,
+                    value: controller.amphureList.obs.value[0],
+                    isDense: true,
+                    onChanged: (newValue) {
+                      // controller.updatePaymentChannel(newValue!);
+                    },
+                    items: controller.amphureList.obs.value.map((item) {
+                      return DropdownMenuItem<Amphure>(
+                        value: item,
+                        child: Text(
+                          item.aName!,
+                          textScaleFactor: 0.9,
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              )),
         ],
         // const SizedBox(height: defaultPadding / 2),
         // TextFormField(

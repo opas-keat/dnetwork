@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:frontend/app/data/models/station_model.dart';
+import 'package:frontend/app/modules/address/controllers/address_controller.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -7,25 +9,41 @@ import '../../../../../main.dart';
 class ManageStationController extends GetxController {
   final logTitle = "ManageStationController";
   RxBool isLoading = true.obs;
+  AddressController addressController = Get.put(AddressController());
 
   Rx<String> filePath = ''.obs;
   Rx<XFile> fileUpload = XFile('').obs;
 
   final stationList = [].obs;
+  final processList = [].obs;
+
+  final tffName = TextEditingController();
+  final tffLocaion = TextEditingController();
+  final tffProvince = TextEditingController();
+  final amphureController = TextEditingController();
+  final tambolController = TextEditingController();
+  final facebookController = TextEditingController();
+  final processController = TextEditingController();
 
   addStationToDataTable() {
     talker.info('$logTitle:addStationToDataTable:');
     stationList.add(
       StationModel(
-        name: "ทดสอบ",
-        locaion: "-",
-        province: "กรุงเทพมหานคร",
+        name: tffName.text,
+        locaion: tffLocaion.text,
+        province: addressController.selectedProvince.value.pName,
         amphure: "บางขุนเทียน",
         tambol: "แสมดำ",
         facebook: "-",
         process: "-",
       ),
     );
+    resetForm();
+  }
+
+  resetForm() {
+    tffName.text = "";
+    tffLocaion.text = "";
     update();
   }
 

@@ -2,31 +2,31 @@ name: frontend
 version: 1.0.0+1
 publish_to: none
 description: d-network project.
-environment: 
-  sdk: '>=2.19.3 <3.0.0'
+environment:
+  sdk: ">=2.19.3 <3.0.0"
 
-dependencies: 
+dependencies:
   cupertino_icons: ^1.0.5
   google_fonts: ^5.0.0
   flutter_svg: ^2.0.5
   intl: ^0.18.1
-  dio: ^5.1.2
+  dio: ^5.3.0
   get: 4.6.5
-  talker_flutter: ^3.1.1
+  talker_flutter: ^3.1.9
   data_table_2: ^2.4.3
   # flutter_treeview: ^1.0.7+1
   image_picker: ^0.8.7+5
   fl_chart: ^0.63.0
   connectivity_plus: ^4.0.0
-  flutter: 
-    sdk: flutter  
-
-dev_dependencies: 
-  flutter_lints: ^2.0.1
-  flutter_test: 
+  flutter:
     sdk: flutter
-flutter: 
+
+dev_dependencies:
+  flutter_lints: ^2.0.1
+  flutter_test:
+    sdk: flutter
+flutter:
   uses-material-design: true
-  
+
 assets:
   - web/assets/

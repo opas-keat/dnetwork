@@ -16,6 +16,7 @@ import '../controllers/manage_station_controller.dart';
 class ManageStationView extends StatelessWidget {
   ManageStationView({Key? key}) : super(key: key);
   final ManageStationController controller = Get.put(ManageStationController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -113,7 +114,7 @@ class ManageStationDataTable extends StatelessWidget {
 }
 
 class ManageStationDetail extends StatelessWidget {
-  const ManageStationDetail({
+  ManageStationDetail({
     super.key,
     required this.controller,
   });
@@ -226,6 +227,7 @@ class ManageStationDetail extends StatelessWidget {
                 ),
                 const SizedBox(height: defaultPadding / 2),
                 TextFormField(
+                  controller: controller.tffName,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     fillColor: Colors.white.withOpacity(.8),
@@ -246,6 +248,7 @@ class ManageStationDetail extends StatelessWidget {
                 ),
                 const SizedBox(height: defaultPadding / 2),
                 TextFormField(
+                  controller: controller.tffLocaion,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     fillColor: Colors.white.withOpacity(.8),
@@ -310,7 +313,9 @@ class ManageStationDetail extends StatelessWidget {
                     const SizedBox(width: defaultPadding / 2),
                     IconButton(
                       icon: const Icon(Icons.add_sharp),
-                      onPressed: () {},
+                      onPressed: () {
+                        // controller.addStationToDataTable();
+                      },
                     ),
                     // Ink(
                     //   decoration: const ShapeDecoration(

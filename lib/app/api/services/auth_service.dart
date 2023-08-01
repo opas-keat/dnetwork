@@ -25,12 +25,13 @@ class AuthenService {
       "userPass": password,
     };
 
-    String url =
-        '${Api.baseUrl}${Api.ectApiContext}${Api.ectApiVersion}${ApiEndPoints.authen}/login';
+    // String url =
+    //     '${Api.baseUrl}${Api.ectApiContext}${Api.ectApiVersion}${ApiEndPoints.authen}/login';
     try {
       final result = await apiUtils.post(
-        // url: url,
-        url: "http://localhost:9999/ectapi/v2/auth/login",
+        url:
+            '${Api.ectApiContext}${Api.ectApiVersion}${ApiEndPoints.authen}/login',
+        // url: "http://localhost:9999/ectapi/v2/auth/login",
         data: login,
         options: Options(
           headers: apiUtils.header,

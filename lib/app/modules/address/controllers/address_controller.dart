@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 
 import '../../../../main.dart';
 import '../../../api/services/address_service.dart';
-import '../../../data/models/provinces.dart';
 import '../../../data/responses/address_service_response.dart';
 
 class AddressController extends GetxController {
@@ -22,8 +21,8 @@ class AddressController extends GetxController {
   // ).obs;
 
   Rx<ProvinceData> selectedProvince = ProvinceData(
-    pName: "กรุงเทพมหานคร",
-    pCode: "10",
+    pName: "",
+    pCode: "",
   ).obs;
   Rx<AmphureData> selectedAmphure = AmphureData().obs;
   Rx<TambolData> selectedTambol = TambolData().obs;
@@ -117,7 +116,7 @@ class AddressController extends GetxController {
 
   updateSelectedAmphure(AmphureData amphure) {
     talker.info('$logTitle updateSelectedAmphure:${amphure.aName}');
-    // selectedAmphure.value = amphure;
+    selectedAmphure.value = amphure;
     // update();
     // talker.info('$logTitle updateSelectedAmphure::pCode:${amphure.aCode}');
     tambolList.clear();

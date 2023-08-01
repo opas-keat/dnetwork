@@ -1,6 +1,5 @@
 import 'dart:html';
 
-import 'package:frontend/app/api/api_utils.dart';
 import 'package:frontend/app/api/services/auth_service.dart';
 import 'package:get/get.dart';
 

@@ -1,5 +1,6 @@
 import 'dart:html';
 
+import 'package:frontend/app/api/api_utils.dart';
 import 'package:frontend/app/api/services/auth_service.dart';
 import 'package:get/get.dart';
 
@@ -18,18 +19,19 @@ class SigninController extends GetxController {
     super.onInit();
   }
 
-
-
   Future<bool> signIn(
       {required String userName, required String password}) async {
     talker.info('signIn');
-    talker.debug('userName:$userName');
-    talker.debug('password:$password');
+    // talker.debug('userName:$userName');
+    // talker.debug('password:$password');
     try {
       final result = await AuthenService().login(userName, password);
-      talker.debug('statusCode : ${result?.statusCode}');
-      if (result?.statusCode == 200) {
-        talker.debug('token : ${result?.data!.token}');
+      talker.debug('response message : ${result?.message}');
+      // talker.debug('token : ${result?.data!.token}');
+      if (result?.code == "000") {
+        // ApiUtils().secureHeaders = {
+        //   'Authorization': 'Bearer ${result?.data!.token}',
+        // };
         window.sessionStorage["token"] = result!.data!.token!;
         return true;
       }

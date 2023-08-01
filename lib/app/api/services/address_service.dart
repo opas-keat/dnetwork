@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:html';
 
+import 'package:dio/dio.dart';
 import 'package:frontend/main.dart';
 
-import '../../data/responses/province_service_response.dart';
+import '../../data/responses/address_service_response.dart';
 import '../api_utils.dart';
 
 class AddressService {
@@ -13,6 +15,9 @@ class AddressService {
       "offset": 0,
       "limit": 100,
     };
+    // apiUtils.secureHeaders = {
+    //   'Authorization': 'Bearer: ${window.sessionStorage["token"]}',
+    // };
     try {
       final response = await apiUtils.get(
         // url: Api.masterApiContext +
@@ -21,15 +26,68 @@ class AddressService {
         // url: "https://jsonplaceholder.typicode.com/photos",
         url: "http://localhost:9999/ectapi/v2/provinces",
         queryParameters: qParams,
+        options: Options(
+          headers: apiUtils.secureHeaders,
+        ),
       );
       ProvinceServiceResponse provinceServiceResponse =
           ProvinceServiceResponse.fromJson(jsonDecode(response.toString()));
-      talker.debug(
-          "provinceServiceResponse " + provinceServiceResponse.toString());
+      talker.debug("provinceServiceResponse $provinceServiceResponse");
       return provinceServiceResponse;
     } catch (e) {
       talker.error(e);
     }
+    return null;
+  }
+
+  Future<AmphureServiceResponse?> listAmphureByPCode(String pCode) async {
+    // Map<String, dynamic> qParams = {
+    //   "offset": 0,
+    //   "limit": 100,
+    // };
+    try {
+      final response = await apiUtils.get(
+        // url: Api.masterApiContext +
+        //     Api.masterApiVersion +
+        //     ApiEndPoints.provinces,
+        // url: "https://jsonplaceholder.typicode.com/photos",
+        url: "http://localhost:9999/ectapi/v2/amphures/$pCode",
+        // queryParameters: qParams,
+        options: Options(
+          headers: apiUtils.secureHeaders,
+        ),
+      );
+      AmphureServiceResponse amphureServiceResponse =
+          AmphureServiceResponse.fromJson(jsonDecode(response.toString()));
+      talker.debug("amphureServiceResponse $amphureServiceResponse");
+      return amphureServiceResponse;
+    } catch (e) {
+      talker.error(e);
+    }
+    return null;
+  }
+
+  Future<TambolServiceResponse?> listTambolByACode(String aCode) async {
+    try {
+      final response = await apiUtils.get(
+        // url: Api.masterApiContext +
+        //     Api.masterApiVersion +
+        //     ApiEndPoints.provinces,
+        // url: "https://jsonplaceholder.typicode.com/photos",
+        url: "http://localhost:9999/ectapi/v2/tambols/$aCode",
+        // queryParameters: qParams,
+        options: Options(
+          headers: apiUtils.secureHeaders,
+        ),
+      );
+      TambolServiceResponse tambolServiceResponse =
+          TambolServiceResponse.fromJson(jsonDecode(response.toString()));
+      talker.debug("tambolServiceResponse $tambolServiceResponse");
+      return tambolServiceResponse;
+    } catch (e) {
+      talker.error(e);
+    }
+    return null;
   }
 }
 

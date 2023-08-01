@@ -114,7 +114,7 @@ class ManageStationDataTable extends StatelessWidget {
 }
 
 class ManageStationDetail extends StatelessWidget {
-  ManageStationDetail({
+  const ManageStationDetail({
     super.key,
     required this.controller,
   });

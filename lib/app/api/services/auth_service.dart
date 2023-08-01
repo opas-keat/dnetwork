@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:dio/dio.dart';
 
+import '../../../main.dart';
 import '../../data/responses/authen_service_response.dart';
 import '../api.dart';
 import '../api_end_points.dart';
@@ -15,7 +17,7 @@ class AuthenService {
     final connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.none) {
       return AuthenServiceResponse.withError(
-          statusCode: CODE_NO_INTERNET, msg: apiUtils.getNetworkError());
+          code: CODE_NO_INTERNET, msg: apiUtils.getNetworkError());
     }
 
     Map<String, String> login = {
@@ -27,30 +29,35 @@ class AuthenService {
         '${Api.baseUrl}${Api.ectApiContext}${Api.ectApiVersion}${ApiEndPoints.authen}/login';
     try {
       final result = await apiUtils.post(
-        url: url,
+        // url: url,
+        url: "http://localhost:9999/ectapi/v2/auth/login",
         data: login,
+        options: Options(
+          headers: apiUtils.header,
+        ),
       );
-      // talker.info(title, 'login:: ${result.toString()}');
+      talker.debug('login:: ${result.statusCode}');
+      talker.debug('login:: ${result.toString()}');
       // talker.info(title, 'login:: ${result.data['status_code']}');
       // if (result.data['status_code'] == 200) {
       //   return AuthenServiceResponse.fromJson(result.data);
       // }
-      AuthenServiceData authenServiceData =
-          AuthenServiceData.fromJson(jsonDecode(result.toString()));
-      if (authenServiceData.message == "") {
+      AuthenServiceResponse authenServiceResponse =
+          AuthenServiceResponse.fromJson(jsonDecode(result.toString()));
+      talker.info('code:: ${authenServiceResponse.message}');
+      if (authenServiceResponse.code == "000") {
         return AuthenServiceResponse(
-          statusCode: 200,
-          code: "",
+          code: authenServiceResponse.code,
           message: result.data["message"],
-          data: authenServiceData,
+          data: authenServiceResponse.data,
         );
       }
       // talker.info(title, 'login:: ${result.data["message"]}');
       return AuthenServiceResponse.withError(
-          statusCode: CODE_RESPONSE_NULL, msg: result.data["message"]);
+          code: CODE_RESPONSE_NULL, msg: result.data["message"]);
     } catch (e) {
       return AuthenServiceResponse.withError(
-          statusCode: CODE_ERROR, msg: apiUtils.handleError(e));
+          code: CODE_ERROR, msg: apiUtils.handleError(e));
     }
   }
 }

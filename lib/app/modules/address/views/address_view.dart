@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/app/data/models/provinces.dart';
-import 'package:frontend/app/data/responses/province_service_response.dart';
+import 'package:frontend/app/data/responses/address_service_response.dart';
 import 'package:get/get.dart';
 
 import '../../../shared/constant.dart';
@@ -151,15 +151,16 @@ class AddressView extends StatelessWidget {
                   contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
                 ),
                 child: DropdownButtonHideUnderline(
-                  child: DropdownButton<Amphure>(
+                  child: DropdownButton<AmphureData>(
                     elevation: 0,
-                    value: controller.amphureList.obs.value[0],
+                    // value: controller.amphureList.obs.value[0],
+                    value: controller.selectedAmphure.value,
                     isDense: true,
                     onChanged: (newValue) {
-                      // controller.updatePaymentChannel(newValue!);
+                      controller.updateSelectedAmphure(newValue!);
                     },
                     items: controller.amphureList.obs.value.map((item) {
-                      return DropdownMenuItem<Amphure>(
+                      return DropdownMenuItem<AmphureData>(
                         value: item,
                         child: Text(
                           item.aName!,
@@ -205,37 +206,38 @@ class AddressView extends StatelessWidget {
           //     contentPadding: EdgeInsets.fromLTRB(12, 14, 12, 12),
           //   ),
           // ),
-          InputDecorator(
-            decoration: InputDecoration(
-              fillColor: Colors.white.withOpacity(.8),
-              filled: true,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(defaultPadding / 2),
-                borderSide: const BorderSide(color: Colors.black54, width: 1),
-              ),
-              isCollapsed: true,
-              contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-            ),
-            child: DropdownButtonHideUnderline(
-              child: DropdownButton<Tambol>(
-                elevation: 0,
-                value: controller.tambolList.obs.value[0],
-                isDense: true,
-                onChanged: (newValue) {
-                  // controller.updatePaymentChannel(newValue!);
-                },
-                items: controller.tambolList.obs.value.map((item) {
-                  return DropdownMenuItem<Tambol>(
-                    value: item,
-                    child: Text(
-                      item.tName!,
-                      textScaleFactor: 0.9,
-                    ),
-                  );
-                }).toList(),
-              ),
-            ),
-          ),
+          Obx(() => InputDecorator(
+                decoration: InputDecoration(
+                  fillColor: Colors.white.withOpacity(.8),
+                  filled: true,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(defaultPadding / 2),
+                    borderSide:
+                        const BorderSide(color: Colors.black54, width: 1),
+                  ),
+                  isCollapsed: true,
+                  contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                ),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton<TambolData>(
+                    elevation: 0,
+                    value: controller.selectedTambol.value,
+                    isDense: true,
+                    onChanged: (newValue) {
+                      controller.updateSelectedTambol(newValue!);
+                    },
+                    items: controller.tambolList.obs.value.map((item) {
+                      return DropdownMenuItem<TambolData>(
+                        value: item,
+                        child: Text(
+                          item.tName!,
+                          textScaleFactor: 0.9,
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              )),
         ],
         const SizedBox(height: defaultPadding),
         if (showPostCode) ...[

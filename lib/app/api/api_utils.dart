@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:dio/dio.dart';
 import 'package:frontend/app/api/api.dart';
 import 'package:frontend/main.dart';
@@ -51,10 +53,18 @@ class ApiUtils {
     Map<String, dynamic>? queryParameters,
     Options? options,
   }) async {
+    // talker.debug(window.sessionStorage["token"]);
+    // options!.headers?['Authorization'] =
+    //     'Bearer: ${window.sessionStorage["token"]}';
+    var opts = Options(
+      headers: {
+        "Authorization": 'Bearer ${window.sessionStorage["token"]}',
+      },
+    );
     var result = await _dio.get(
       url,
       queryParameters: queryParameters,
-      options: options,
+      options: opts,
     );
     // talker.error(result);
     return result;
@@ -68,7 +78,9 @@ class ApiUtils {
   }) async {
     //Sending FormData:
     //FormData formData = FormData.fromMap({"name": ""});
-
+    // options!.headers = secureHeaders;
+    // options!.headers?['Authorization'] =
+    //     'Bearer: ${window.sessionStorage["token"]}';
     var result = await _dio.post(
       url,
       data: data,

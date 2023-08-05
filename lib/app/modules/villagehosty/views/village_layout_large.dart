@@ -71,7 +71,7 @@ class VillageLayoutLarge extends StatelessWidget {
               const SizedBox(height: defaultPadding / 2),
               InfoCard(
                 childAspectRatio: 2.2,
-                listSummaryInfo: listVillageSummaryInfo,
+                // listSummaryInfo: listVillageSummaryInfo,
                 textScale: 1.4,
               ),
               const SizedBox(height: defaultPadding / 2),

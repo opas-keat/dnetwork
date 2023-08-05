@@ -33,7 +33,7 @@ class SummaryInfoCard extends StatelessWidget {
           return GridView.builder(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            itemCount: listSummaryInfo.length,
+            itemCount: listSummaryInfoModel.length,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: crossAxisCount,
               crossAxisSpacing: defaultPadding,
@@ -55,12 +55,13 @@ class SummaryInfoCard extends StatelessWidget {
                     Row(
                       children: [
                         Icon(
-                          getModuleByNameEn(listSummaryInfo[index].nameEn).icon,
+                          getModuleByNameEn(listSummaryInfoModel[index].nameEn)
+                              .icon,
                           color: primaryColor,
                         ),
                         const SizedBox(width: defaultPadding / 2),
                         Text(
-                          listSummaryInfo[index].name,
+                          listSummaryInfoModel[index].name,
                           textScaleFactor: 1.3,
                           style: const TextStyle(
                             color: primaryColor,
@@ -75,7 +76,7 @@ class SummaryInfoCard extends StatelessWidget {
                       children: [
                         CustomText(
                           text: formatterItem
-                              .format(listSummaryInfo[index].value),
+                              .format(listSummaryInfoModel[index].value),
                         ),
                         // Text(
                         //   formatterItem.format(listSummaryInfo[index].value),

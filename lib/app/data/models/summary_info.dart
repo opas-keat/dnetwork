@@ -1,4 +1,4 @@
-List listSummaryInfo = [
+List<SummaryInfo> listSummaryInfoModel = [
   SummaryInfo(
     name: "ศส.ปชต.",
     nameEn: "station",

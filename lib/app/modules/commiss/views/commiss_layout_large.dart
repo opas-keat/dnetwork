@@ -71,7 +71,7 @@ class CommissLayoutLarge extends StatelessWidget {
               const SizedBox(height: defaultPadding / 2),
               InfoCard(
                 childAspectRatio: 2.2,
-                listSummaryInfo: listCommissSummaryInfo,
+                // listSummaryInfo: listCommissSummaryInfo,
                 textScale: 1.4,
               ),
               const SizedBox(height: defaultPadding / 2),

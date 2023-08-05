@@ -48,7 +48,7 @@ List<Module> listModule = [
   Module(
     id: 7,
     nameTH: "หมู่บ้าน วิถี ประชาธิปไตย",
-    nameEn: "villagehosty",
+    nameEn: "village",
     icon: Icons.holiday_village_sharp,
     url: Routes.VILLAGEHOSTY,
   ),
@@ -94,7 +94,7 @@ Module getModuleByIndex(int index) {
   // return listModule.where((element) => element.id == index).first;
 }
 
-Module getModuleByNameEn(String nameEn) {
+Module getModuleByNameEn(String? nameEn) {
   return listModule.where((element) => element.nameEn == nameEn).first;
 }
 

@@ -76,7 +76,7 @@ class StationLayoutSmall extends StatelessWidget {
           crossAxisCount: 2,
           childAspectRatio: 2.0,
           textScale: 1.0,
-          listSummaryInfo: listStationSummaryInfo,
+          // listSummaryInfo: listStationSummaryInfo,
         ),
         const SizedBox(height: defaultPadding / 2),
         Container(

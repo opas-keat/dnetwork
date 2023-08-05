@@ -70,7 +70,7 @@ class TrainingLayoutLarge extends StatelessWidget {
               const SizedBox(height: defaultPadding / 2),
               InfoCard(
                 childAspectRatio: 2.2,
-                listSummaryInfo: listTrainingSummaryInfo,
+                // listSummaryInfo: listTrainingSummaryInfo,
                 textScale: 1.4,
               ),
               const SizedBox(height: defaultPadding / 2),

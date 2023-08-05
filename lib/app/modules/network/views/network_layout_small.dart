@@ -77,7 +77,7 @@ class NetworkLayoutSmall extends StatelessWidget {
           crossAxisCount: Responsive.isSmallScreen(context) ? 2 : 4,
           childAspectRatio: 2.0,
           textScale: 1.0,
-          listSummaryInfo: listNetworkSummaryInfo,
+          // listSummaryInfo: listNetworkSummaryInfo,
         ),
         const SizedBox(height: defaultPadding / 2),
         Container(

@@ -71,7 +71,7 @@ class LectuterLayoutLarge extends StatelessWidget {
               const SizedBox(height: defaultPadding / 2),
               InfoCard(
                 childAspectRatio: 2.2,
-                listSummaryInfo: listLectuterSummaryInfo,
+                // listSummaryInfo: listLectuterSummaryInfo,
                 textScale: 1.4,
               ),
               const SizedBox(height: defaultPadding / 2),

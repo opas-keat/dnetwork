@@ -71,7 +71,7 @@ class NetworkLayoutLarge extends StatelessWidget {
               const SizedBox(height: defaultPadding / 2),
               InfoCard(
                 childAspectRatio: 2.2,
-                listSummaryInfo: listNetworkSummaryInfo,
+                // listSummaryInfo: listNetworkSummaryInfo,
                 textScale: 1.4,
               ),
               const SizedBox(height: defaultPadding / 2),

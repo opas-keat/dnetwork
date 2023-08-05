@@ -2,18 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../data/models/summary_chart.dart';
-import '../../../data/models/summary_info.dart';
 import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/info_card.dart';
 import '../../../shared/main_chart.dart';
+import '../controllers/station_controller.dart';
 import 'station_statistics.dart';
 
 class StationLayoutLarge extends StatelessWidget {
-  const StationLayoutLarge({
+  StationLayoutLarge({
     super.key,
   });
+
+  final StationController controller = Get.find<StationController>();
+  // final InfoCardController infoCardController = Get.find<StationController>();
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +74,7 @@ class StationLayoutLarge extends StatelessWidget {
               const SizedBox(height: defaultPadding / 2),
               InfoCard(
                 childAspectRatio: 2.2,
-                listSummaryInfo: listDashboardSummaryInfo,
+                // listSummaryInfo: controller.listDashboardSummaryInfo,
                 textScale: 1.4,
               ),
               const SizedBox(height: defaultPadding / 2),

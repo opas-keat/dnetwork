@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import '../../../../responsive.dart';
 import '../../../data/models/network_statistics.data.dart';
 import '../../../data/models/summary_chart.dart';
-import '../../../data/models/summary_info.dart';
 import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';

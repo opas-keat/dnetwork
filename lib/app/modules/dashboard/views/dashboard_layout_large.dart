@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../data/models/summary_chart.dart';
-import '../../../data/models/summary_info.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/info_card.dart';
@@ -46,7 +45,7 @@ class DashboardLayoutLarge extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: defaultPadding),
-              InfoCard(
+              const InfoCard(
                 childAspectRatio: 2.2,
                 // listSummaryInfo: listDashboardSummaryInfo,
                 textScale: 1.4,

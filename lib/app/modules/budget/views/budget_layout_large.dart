@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../data/models/summary_chart.dart';
-import '../../../data/models/summary_info.dart';
 import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
@@ -69,7 +68,7 @@ class BudgetLayoutLarge extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: defaultPadding / 2),
-              InfoCard(
+              const InfoCard(
                 childAspectRatio: 2.2,
                 // listSummaryInfo: listBudgetSummaryInfo,
                 textScale: 1.4,

@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 
 import '../../../data/models/station_statistics_data.dart';
 import '../../../data/models/summary_chart.dart';
-import '../../../data/models/summary_info.dart';
 import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
@@ -72,7 +71,7 @@ class StationLayoutSmall extends StatelessWidget {
           ],
         ),
         const SizedBox(height: defaultPadding / 2),
-        InfoCard(
+        const InfoCard(
           crossAxisCount: 2,
           childAspectRatio: 2.0,
           textScale: 1.0,

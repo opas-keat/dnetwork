@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../responsive.dart';
 import '../../../data/models/summary_chart.dart';
-import '../../../data/models/summary_info.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/info_card.dart';

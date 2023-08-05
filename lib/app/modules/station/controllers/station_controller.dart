@@ -1,9 +1,7 @@
 import 'package:get/get.dart';
 
 import '../../../../main.dart';
-import '../../../api/services/summary_info_service.dart';
-import '../../../data/models/summary_info.dart';
-import '../../../data/responses/summary_info_service_response.dart';
+import '../../../data/models/station_statistics_data.dart';
 import '../../../shared/utils.dart';
 
 class StationController extends GetxController {
@@ -15,39 +13,14 @@ class StationController extends GetxController {
   RxBool sortAscending = true.obs;
   RxInt sortColumnIndex = 0.obs;
 
-  // final listStationInfo = <SummaryInfoData>[].obs;
-  // final listDashboardSummaryInfo = <SummaryInfo>[].obs;
-
   @override
   void onInit() {
     super.onInit();
     isLoading.value = true;
-    // listStationStatistics.value = listStationStatisticsData;
-    // update();
-    // getSummaryInfo();
+    listStationStatistics.value = listStationStatisticsData;
+    update();
     getStation();
   }
-
-  // getSummaryInfo() async {
-  //   talker.info('$logTitle:getSummaryInfo:');
-  //   try {
-  //     final result = await SummaryInfoService().getSummaryInfo();
-  //     listStationInfo.clear();
-  //     for (final item in result!.data!) {
-  //       listDashboardSummaryInfo.add(SummaryInfo(
-  //         name: item.name!,
-  //         nameEn: item.nameEn!,
-  //         value: item.value!,
-  //       ));
-  //     }
-  //     // listDashboardSummaryInfo.addAll(result!.data! as Iterable<SummaryInfo>);
-  //     update();
-  //     return false;
-  //   } catch (e) {
-  //     talker.error('$e');
-  //     return false;
-  //   }
-  // }
 
   getStation() async {
     talker.info('$logTitle:getStation:');

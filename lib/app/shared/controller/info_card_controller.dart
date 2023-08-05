@@ -29,6 +29,7 @@ class InfoCardController extends GetxController {
           value: item.value!,
         ));
       }
+      isLoading.value = false;
       update();
       return false;
     } catch (e) {

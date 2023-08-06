@@ -5,6 +5,8 @@ class ApiEndPoints {
   static const provinces = "/provinces";
   static const amphures = "/amphures";
   static const tambols = "/tambols";
+  // ---- province_summary ----
+  static const provinceSummary = "/province_summary";
   // ---- summary_info ----
   static const summaryInfo = "/summary_info";
   // ---- station ----

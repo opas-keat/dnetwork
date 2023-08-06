@@ -1,6 +1,6 @@
+import 'package:frontend/app/api/services/province_summary_service.dart';
 import 'package:get/get.dart';
 
-import '../../../../main.dart';
 import '../../../data/models/province_summary.dart';
 import '../../../shared/utils.dart';
 
@@ -13,17 +13,47 @@ class DashboardController extends GetxController {
   RxBool isLoadingSummaryLectuter = true.obs;
   RxBool isLoadingSummaryVillage = true.obs;
 
-  final listProvinceSummary = [].obs;
+  final listProvinceSummary = <ProvinceSummary>[].obs;
   RxBool sortAscending = true.obs;
   RxInt sortColumnIndex = 0.obs;
 
   @override
   void onInit() {
     super.onInit();
-    isLoading.value = true;
-    listProvinceSummary.value = listProvinceSummaryData;
-    update();
+    // isLoading.value = true;
+    // listProvinceSummary.value = listProvinceSummaryData;
+    // update();
     // getSummaryData();
+    listProvinceSummaryDashboard();
+  }
+
+  listProvinceSummaryDashboard() async {
+    talker.info('$logTitle:listProvinceSummaryDashboard:');
+    isLoading.value = true;
+    String province = "";
+    try {
+      final result =
+          await ProvinceSummaryService().listProvinceSummary(province);
+      listProvinceSummary.clear();
+      for (final item in result!.data!) {
+        listProvinceSummary.add(
+          ProvinceSummary(
+            seal: item.seal,
+            name: item.name,
+            totalCommiss: item.totalCommiss,
+            totalLectuter: item.totalLectuter,
+            totalMember: item.totalMember,
+            totalNetwork: item.totalNetwork,
+            totalStation: item.totalStation,
+            totalVillage: item.totalVillage,
+          ),
+        );
+      }
+      isLoading.value = false;
+      update();
+    } catch (e) {
+      talker.error('$e');
+    }
   }
 
   void sort<T>(
@@ -35,45 +65,45 @@ class DashboardController extends GetxController {
     if (field == "name") {
       ascending
           ? listProvinceSummary.obs.value
-              .sort((a, b) => a.name.compareTo(b.name))
+              .sort((a, b) => a.name!.compareTo(b.name!))
           : listProvinceSummary.obs.value
-              .sort((a, b) => b.name.compareTo(a.name));
+              .sort((a, b) => b.name!.compareTo(a.name!));
     } else if (field == "totalStation") {
       ascending
           ? listProvinceSummary.obs.value
-              .sort((a, b) => a.totalStation.compareTo(b.totalStation))
+              .sort((a, b) => a.totalStation!.compareTo(b.totalStation!))
           : listProvinceSummary.obs.value
-              .sort((a, b) => b.totalStation.compareTo(a.totalStation));
+              .sort((a, b) => b.totalStation!.compareTo(a.totalStation!));
     } else if (field == "totalCommiss") {
       ascending
           ? listProvinceSummary.obs.value
-              .sort((a, b) => a.totalCommiss.compareTo(b.totalCommiss))
+              .sort((a, b) => a.totalCommiss!.compareTo(b.totalCommiss!))
           : listProvinceSummary.obs.value
-              .sort((a, b) => b.totalCommiss.compareTo(a.totalCommiss));
+              .sort((a, b) => b.totalCommiss!.compareTo(a.totalCommiss!));
     } else if (field == "totalMember") {
       ascending
           ? listProvinceSummary.obs.value
-              .sort((a, b) => a.totalMember.compareTo(b.totalMember))
+              .sort((a, b) => a.totalMember!.compareTo(b.totalMember!))
           : listProvinceSummary.obs.value
-              .sort((a, b) => b.totalMember.compareTo(a.totalMember));
+              .sort((a, b) => b.totalMember!.compareTo(a.totalMember!));
     } else if (field == "totalNetwork") {
       ascending
           ? listProvinceSummary.obs.value
-              .sort((a, b) => a.totalNetwork.compareTo(b.totalNetwork))
+              .sort((a, b) => a.totalNetwork!.compareTo(b.totalNetwork!))
           : listProvinceSummary.obs.value
-              .sort((a, b) => b.totalNetwork.compareTo(a.totalNetwork));
+              .sort((a, b) => b.totalNetwork!.compareTo(a.totalNetwork!));
     } else if (field == "totalLectuter") {
       ascending
           ? listProvinceSummary.obs.value
-              .sort((a, b) => a.totalLectuter.compareTo(b.totalLectuter))
+              .sort((a, b) => a.totalLectuter!.compareTo(b.totalLectuter!))
           : listProvinceSummary.obs.value
-              .sort((a, b) => b.totalLectuter.compareTo(a.totalLectuter));
+              .sort((a, b) => b.totalLectuter!.compareTo(a.totalLectuter!));
     } else if (field == "totalVillage") {
       ascending
           ? listProvinceSummary.obs.value
-              .sort((a, b) => a.totalVillage.compareTo(b.totalVillage))
+              .sort((a, b) => a.totalVillage!.compareTo(b.totalVillage!))
           : listProvinceSummary.obs.value
-              .sort((a, b) => b.totalVillage.compareTo(a.totalVillage));
+              .sort((a, b) => b.totalVillage!.compareTo(a.totalVillage!));
     }
     sortColumnIndex.value = columnIndex;
     sortAscending.value = ascending;

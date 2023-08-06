@@ -2,7 +2,6 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../main.dart';
 import '../../../data/models/province_summary.dart';
 import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
@@ -28,11 +27,29 @@ class DashboardStatistics extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Row(
+          Row(
             children: [
-              CustomText(
+              const CustomText(
                 text: "ข้อมูลสถิติรายจังหวัด",
                 weight: FontWeight.bold,
+              ),
+              Obx(
+                () => controller.isLoading.value
+                    ? const IconButton(
+                        onPressed: null,
+                        icon: Icon(
+                          Icons.refresh_sharp,
+                        ),
+                      )
+                    : IconButton(
+                        onPressed: () {
+                          controller.listProvinceSummaryDashboard();
+                        },
+                        icon: const Icon(
+                          Icons.refresh_sharp,
+                        ),
+                        color: primaryColor,
+                      ),
               ),
             ],
           ),

@@ -1,4 +1,4 @@
-List listProvinceSummaryData = [
+List<ProvinceSummary> listProvinceSummaryData = [
   ProvinceSummary(
     seal: "Seal_Bangkok.png",
     name: "กรุงเทพมหานคร",

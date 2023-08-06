@@ -39,56 +39,63 @@ class StationStatistics extends StatelessWidget {
           Expanded(
             child: SizedBox(
               width: double.infinity,
-              child: Obx(() => DataTable2(
-                    showCheckboxColumn: false,
-                    columnSpacing: defaultPadding,
-                    // columns: listColumn,
-                    sortArrowIcon: Icons.keyboard_arrow_up,
-                    sortArrowAnimationDuration:
-                        const Duration(milliseconds: 500),
-                    sortColumnIndex: controller.sortColumnIndex.value,
-                    sortAscending: controller.sortAscending.value,
-                    empty: Center(
-                        child: Container(
-                            padding: const EdgeInsets.all(20),
-                            color: Colors.grey[200],
-                            child: const Text('ไม่พบข้อมูล'))),
-                    columns: [
-                      const DataColumn2(
-                        label: Text(""),
-                        fixedWidth: 10,
+              child: Obx(
+                () => controller.isLoading.value
+                    ? const Center(child: CircularProgressIndicator())
+                    : DataTable2(
+                        showCheckboxColumn: false,
+                        columnSpacing: defaultPadding,
+                        // columns: listColumn,
+                        sortArrowIcon: Icons.keyboard_arrow_up,
+                        sortArrowAnimationDuration:
+                            const Duration(milliseconds: 500),
+                        sortColumnIndex: controller.sortColumnIndex.value,
+                        sortAscending: controller.sortAscending.value,
+                        empty: Center(
+                            child: Container(
+                                padding: const EdgeInsets.all(20),
+                                color: Colors.grey[200],
+                                child: const Text('ไม่พบข้อมูล'))),
+                        columns: [
+                          const DataColumn2(
+                            label: Text(""),
+                            fixedWidth: 30,
+                          ),
+                          DataColumn2(
+                            label: const Text("ชื่อ ศส.ปชต."),
+                            size: ColumnSize.M,
+                            onSort: (columnIndex, ascending) {
+                              controller.sort("name", columnIndex, ascending);
+                            },
+                          ),
+                          DataColumn2(
+                            label: const Text("จังหวัด/อำเภอ/ตำบล"),
+                            size: ColumnSize.S,
+                            onSort: (columnIndex, ascending) {
+                              controller.sort(
+                                  "address", columnIndex, ascending);
+                            },
+                          ),
+                          DataColumn2(
+                            label: const Text("จำนวนกรรมการ/สมาชิก"),
+                            size: ColumnSize.S,
+                            numeric: true,
+                            onSort: (columnIndex, ascending) {
+                              controller.sort(
+                                  "totalCommiss", columnIndex, ascending);
+                            },
+                          ),
+                        ],
+                        // rows: [],
+                        rows: List.generate(
+                          controller.listStationStatistics.obs.value.length,
+                          (index) => StationDataRow(
+                              index,
+                              controller
+                                  .listStationStatistics.obs.value[index]),
+                        ),
                       ),
-                      DataColumn2(
-                        label: const Text("ชื่อ ศส.ปชต."),
-                        size: ColumnSize.M,
-                        onSort: (columnIndex, ascending) {
-                          controller.sort("name", columnIndex, ascending);
-                        },
-                      ),
-                      DataColumn2(
-                        label: const Text("จังหวัด/อำเภอ/ตำบล"),
-                        size: ColumnSize.S,
-                        onSort: (columnIndex, ascending) {
-                          controller.sort("address", columnIndex, ascending);
-                        },
-                      ),
-                      DataColumn2(
-                        label: const Text("จำนวนกรรมการ/สมาชิก"),
-                        size: ColumnSize.S,
-                        numeric: true,
-                        onSort: (columnIndex, ascending) {
-                          controller.sort(
-                              "totalCommiss", columnIndex, ascending);
-                        },
-                      ),
-                    ],
-                    // rows: [],
-                    rows: List.generate(
-                      controller.listStationStatistics.obs.value.length,
-                      (index) => StationDataRow(index,
-                          controller.listStationStatistics.obs.value[index]),
-                    ),
-                  )),
+              ),
             ),
           ),
         ],

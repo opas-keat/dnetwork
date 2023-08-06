@@ -101,10 +101,10 @@ class StationLayoutSmall extends StatelessWidget {
                 ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: listStationStatisticsData.length,
+                  itemCount: listStationStatisticsDataModel.length,
                   itemBuilder: (context, index) {
                     return DashboardStatisticsSmallRow(
-                        index, listStationStatisticsData[index]);
+                        index, listStationStatisticsDataModel[index]);
                   },
                 ),
               ],

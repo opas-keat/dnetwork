@@ -37,7 +37,9 @@ class StationLayoutLarge extends StatelessWidget {
                   ),
                   const Spacer(flex: 2),
                   ElevatedButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      controller.listStation();
+                    },
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(
                           vertical: defaultPadding,
@@ -72,13 +74,18 @@ class StationLayoutLarge extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: defaultPadding / 2),
-              InfoCard(
+              const InfoCard(
                 childAspectRatio: 2.2,
                 // listSummaryInfo: controller.listDashboardSummaryInfo,
                 textScale: 1.4,
               ),
               const SizedBox(height: defaultPadding / 2),
               StationStatistics(),
+              // Obx(
+              //   () => controller.isLoading.value
+              //       ? const Center(child: CircularProgressIndicator())
+              //       : StationStatistics(),
+              // )
             ],
           ),
         ),

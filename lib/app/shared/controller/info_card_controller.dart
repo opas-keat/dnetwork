@@ -23,7 +23,7 @@ class InfoCardController extends GetxController {
       final result = await SummaryInfoService().getSummaryInfo();
       listSummaryInfo.clear();
       for (final item in result!.data!) {
-        listSummaryInfo.value.add(SummaryInfo(
+        listSummaryInfo.add(SummaryInfo(
           name: item.name!,
           nameEn: item.nameEn!,
           value: item.value!,

@@ -10,9 +10,9 @@ const title = "CustomLogInterceptor";
 class CustomLogInterceptor extends Interceptor {
   CustomLogInterceptor({
     this.request = true,
-    this.requestHeader = true,
+    this.requestHeader = false,
     this.requestBody = false,
-    this.responseHeader = true,
+    this.responseHeader = false,
     this.responseBody = false,
     this.error = true,
     this.logPrint = print,
@@ -87,9 +87,6 @@ class CustomLogInterceptor extends Interceptor {
     }
     if (responseBody) {
       logPrint("Response Text:");
-      // logPrint(responseBody);
-      printAll(response.toString());
-
       final pattern = RegExp(".{1,800}"); // 800 is the size of each chunk
       pattern
           .allMatches(response.toString())

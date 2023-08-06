@@ -1,4 +1,4 @@
-List listStationStatisticsData = [
+List<StationStatisticsData> listStationStatisticsDataModel = [
   StationStatisticsData(
     name: "ศูนย์ส่งเสริมพัฒนาประชาธิปไตยและการเลือกตั้งแขวงลาดยาว",
     address: "กรุงเทพมหานคร/เขตจตุจักร/แขวงลาดยาว",

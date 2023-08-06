@@ -19,6 +19,8 @@ class ApiEndPoints {
   static const lectuter = "/lectuter";
   // ---- budget ----
   static const budget = "/budget";
+  // ---- training ----
+  static const training = "/training";
   // ---- logs ----
   // static const logs = "/logs";
 }

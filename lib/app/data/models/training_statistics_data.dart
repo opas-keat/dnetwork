@@ -1,4 +1,4 @@
-List listTrainingStatisticsData = [
+List<TrainingStatisticsData> listTrainingStatisticsData = [
   TrainingStatisticsData(
     name:
         "โครงการรับฟังความคิดเห็นและข้อเสนอแนะ ร่างพระราชบัญญัติการจัดซื้อจัดจ้างและการบริหารพัสดุภาครัฐ",

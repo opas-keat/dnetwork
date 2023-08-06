@@ -153,12 +153,11 @@ Widget CommissStatisticsSmallRow(
                 scale: 0.9,
               ),
               CustomText(
-                text: "ว/ด/ป/ แต่งตั้ง : ${memberStatisticsData.commissDate}",
+                text: "ว/ด/ป/ แต่งตั้ง : ${memberStatisticsData.memberDate}",
                 scale: 0.9,
               ),
               CustomText(
-                text:
-                    "สังกัด ศส.ปชต. : ${memberStatisticsData.commissLocation}",
+                text: "สังกัด ศส.ปชต. : ${memberStatisticsData.memberLocation}",
                 scale: 0.9,
                 maxLine: 2,
               ),

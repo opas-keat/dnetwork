@@ -21,6 +21,8 @@ class ApiEndPoints {
   static const budget = "/budget";
   // ---- training ----
   static const training = "/training";
+  // ---- member ----
+  static const member = "/member";
   // ---- logs ----
   // static const logs = "/logs";
 }

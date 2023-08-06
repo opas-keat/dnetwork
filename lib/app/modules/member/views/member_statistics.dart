@@ -26,11 +26,29 @@ class MemberStatistics extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Row(
+          Row(
             children: [
-              CustomText(
+              const CustomText(
                 text: "ข้อมูลสมาชิก ศส.ปชต.",
                 weight: FontWeight.bold,
+              ),
+              Obx(
+                () => controller.isLoading.value
+                    ? const IconButton(
+                        onPressed: null,
+                        icon: Icon(
+                          Icons.refresh_sharp,
+                        ),
+                      )
+                    : IconButton(
+                        onPressed: () {
+                          controller.listMember();
+                        },
+                        icon: const Icon(
+                          Icons.refresh_sharp,
+                        ),
+                        color: primaryColor,
+                      ),
               ),
             ],
           ),
@@ -187,7 +205,7 @@ DataRow MemberDataRow(int index, MemberStatisticsData memberStatisticsData) {
         Wrap(
           children: [
             Text(
-              memberStatisticsData.commissDate!,
+              memberStatisticsData.memberDate!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -199,7 +217,7 @@ DataRow MemberDataRow(int index, MemberStatisticsData memberStatisticsData) {
         Wrap(
           children: [
             Text(
-              memberStatisticsData.commissLocation!,
+              memberStatisticsData.memberLocation!,
               style: const TextStyle(
                 fontSize: 12,
               ),

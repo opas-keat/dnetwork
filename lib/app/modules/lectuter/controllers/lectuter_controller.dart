@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import '../../../../main.dart';
+import '../../../api/services/lectuter_service.dart';
 import '../../../data/models/lectuter_statistics_data.dart';
 import '../../../shared/utils.dart';
 
@@ -16,10 +16,36 @@ class LectuterController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    // isLoading.value = true;
+    // listLectuterStatistics.value = listLectuterStatisticsData;
+    // update();
+    // getLectuter();
+    listLectuter();
+  }
+
+  listLectuter() async {
+    talker.info('$logTitle:listLectuter:');
     isLoading.value = true;
-    listLectuterStatistics.value = listLectuterStatisticsData;
-    update();
-    getLectuter();
+    String province = "ฉะเชิงเทรา";
+    try {
+      final result = await LectuterService().listLectuter(province);
+      listLectuterStatistics.clear();
+      for (final item in result!.data!) {
+        listLectuterStatistics.add(
+          LectuterStatisticsData(
+            name: item.name,
+            telephone: item.telephone,
+            agency: item.agency,
+            affiliate: item.affiliate,
+            province: item.province,
+          ),
+        );
+      }
+      isLoading.value = false;
+      update();
+    } catch (e) {
+      talker.error('$e');
+    }
   }
 
   getLectuter() async {

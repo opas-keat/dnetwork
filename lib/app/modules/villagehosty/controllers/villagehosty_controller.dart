@@ -26,7 +26,7 @@ class VillageController extends GetxController {
   listVillage() async {
     talker.info('$logTitle:listVillage:');
     isLoading.value = true;
-    String province = "ชลบุรี";
+    String province = "ฉะเชิงเทรา";
     try {
       final result = await VillageService().listVillage(province);
       listVillageStatistics.clear();

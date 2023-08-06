@@ -1,4 +1,4 @@
-List listLectuterStatisticsData = [
+List<LectuterStatisticsData> listLectuterStatisticsData = [
   LectuterStatisticsData(
     name: "นายอลงกรณ์ โนนคู่เขตโขง",
     telephone: "096-998-8444",

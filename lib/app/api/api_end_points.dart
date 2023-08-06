@@ -13,6 +13,8 @@ class ApiEndPoints {
   static const commiss = "/commiss";
   // ---- village ----
   static const village = "/village";
+  // ---- lectuter ----
+  static const lectuter = "/lectuter";
   // ---- logs ----
   // static const logs = "/logs";
 }

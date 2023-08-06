@@ -1,4 +1,4 @@
-List listBudgetStatisticsData = [
+List<BudgetStatisticsData> listBudgetStatisticsData = [
   BudgetStatisticsData(
     date: "25/05/2566",
     type: "ภารกิจการดำเนินโครงการของสำนักพัฒนาภาคีเครือข่ายการเลือกตั้ง 2566",

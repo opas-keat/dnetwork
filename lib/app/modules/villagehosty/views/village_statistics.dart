@@ -25,12 +25,30 @@ class VillageStatistics extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Row(
+          Row(
             children: [
-              CustomText(
+              const CustomText(
                 text: "ข้อมูลหมู่บ้าน วิถี ประชาธิปไตย",
                 weight: FontWeight.bold,
                 size: 16,
+              ),
+              Obx(
+                () => controller.isLoading.value
+                    ? const IconButton(
+                        onPressed: null,
+                        icon: Icon(
+                          Icons.refresh_sharp,
+                        ),
+                      )
+                    : IconButton(
+                        onPressed: () {
+                          controller.listVillage();
+                        },
+                        icon: const Icon(
+                          Icons.refresh_sharp,
+                        ),
+                        color: primaryColor,
+                      ),
               ),
             ],
           ),
@@ -55,7 +73,7 @@ class VillageStatistics extends StatelessWidget {
                     columns: [
                       const DataColumn2(
                         label: Text(""),
-                        fixedWidth: 10,
+                        fixedWidth: 30,
                       ),
                       DataColumn2(
                         label: const Text("ชื่อหมู่บ้าน"),

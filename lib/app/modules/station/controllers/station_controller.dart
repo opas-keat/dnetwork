@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 
-import '../../../../main.dart';
 import '../../../api/services/station_service.dart';
 import '../../../data/models/station_statistics_data.dart';
 import '../../../shared/utils.dart';
@@ -28,7 +27,7 @@ class StationController extends GetxController {
     isLoading.value = true;
     String province = "";
     try {
-      final result = await StationService().listSummaryInfo(province);
+      final result = await StationService().listStation(province);
       listStationStatistics.clear();
       for (final item in result!.data!) {
         listStationStatistics.add(

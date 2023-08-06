@@ -1,4 +1,4 @@
-List listCommissStatisticsData = [
+List<CommissStatisticsData> listCommissStatisticsData = [
   CommissStatisticsData(
     name: "นายอลงกรณ์ โนนคู่เขตโขง",
     telephone: "096-998-8444",

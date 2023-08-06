@@ -9,6 +9,10 @@ class ApiEndPoints {
   static const summaryInfo = "/summary_info";
   // ---- station ----
   static const station = "/station";
+  // ---- commiss ----
+  static const commiss = "/commiss";
+  // ---- village ----
+  static const village = "/village";
   // ---- logs ----
   // static const logs = "/logs";
 }

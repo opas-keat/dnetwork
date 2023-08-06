@@ -26,11 +26,29 @@ class CommissStatistics extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Row(
+          Row(
             children: [
-              CustomText(
+              const CustomText(
                 text: "ข้อมูลกรรมการ ศส.ปชต.",
                 weight: FontWeight.bold,
+              ),
+              Obx(
+                () => controller.isLoading.value
+                    ? const IconButton(
+                        onPressed: null,
+                        icon: Icon(
+                          Icons.refresh_sharp,
+                        ),
+                      )
+                    : IconButton(
+                        onPressed: () {
+                          controller.listCommiss();
+                        },
+                        icon: const Icon(
+                          Icons.refresh_sharp,
+                        ),
+                        color: primaryColor,
+                      ),
               ),
             ],
           ),
@@ -55,7 +73,7 @@ class CommissStatistics extends StatelessWidget {
                     columns: [
                       const DataColumn2(
                         label: Text(""),
-                        fixedWidth: 10,
+                        fixedWidth: 30,
                       ),
                       DataColumn2(
                         label: const Text("ชื่อ-นามสกุล"),

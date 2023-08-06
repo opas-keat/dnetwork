@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 
-import '../../data/responses/commiss_service_reponse.dart';
+import '../../data/responses/commiss_service_response.dart';
 import '../../shared/utils.dart';
 import '../api.dart';
 import '../api_end_points.dart';
@@ -25,7 +25,7 @@ class CommissService {
     };
     try {
       final response = await apiUtils.get(
-        url: Api.ectApiContext + Api.ectApiVersion + ApiEndPoints.station,
+        url: Api.ectApiContext + Api.ectApiVersion + ApiEndPoints.commiss,
         queryParameters: qParams,
         options: Options(
           headers: apiUtils.secureHeaders,

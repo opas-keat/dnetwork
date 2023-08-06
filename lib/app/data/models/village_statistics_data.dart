@@ -1,4 +1,4 @@
-List listVillageStatisticsData = [
+List<VillageStatisticsData> listVillageStatisticsData = [
   VillageStatisticsData(
     name: "ลาดยาว 1",
     no: "125/258",

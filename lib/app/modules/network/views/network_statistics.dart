@@ -26,12 +26,30 @@ class NetworkStatistics extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Row(
+          Row(
             children: [
-              CustomText(
+              const CustomText(
                 text: "ข้อมูลภาคีเครือข่าย ศส.ปชต.",
                 weight: FontWeight.bold,
                 size: 16,
+              ),
+              Obx(
+                () => controller.isLoading.value
+                    ? const IconButton(
+                        onPressed: null,
+                        icon: Icon(
+                          Icons.refresh_sharp,
+                        ),
+                      )
+                    : IconButton(
+                        onPressed: () {
+                          controller.listNetwork();
+                        },
+                        icon: const Icon(
+                          Icons.refresh_sharp,
+                        ),
+                        color: primaryColor,
+                      ),
               ),
             ],
           ),
@@ -188,7 +206,7 @@ DataRow NetworkDataRow(int index, NetworkStatisticsData networkStatisticsData) {
         Wrap(
           children: [
             Text(
-              networkStatisticsData.commissDate!,
+              networkStatisticsData.networkDate!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -200,7 +218,7 @@ DataRow NetworkDataRow(int index, NetworkStatisticsData networkStatisticsData) {
         Wrap(
           children: [
             Text(
-              networkStatisticsData.commissLocation!,
+              networkStatisticsData.networkLocation!,
               style: const TextStyle(
                 fontSize: 12,
               ),

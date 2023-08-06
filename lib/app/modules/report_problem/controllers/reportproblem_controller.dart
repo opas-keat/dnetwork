@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 
-import '../../../../main.dart';
 import '../../../shared/utils.dart';
 
 class ReportproblemController extends GetxController {
@@ -16,8 +15,6 @@ class ReportproblemController extends GetxController {
     update();
     getReportProblem();
   }
-
-
 
   updateModuleSelected(String value) {
     talker.info('$logTitle:updateModuleSelected: $value');

@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 
-import '../../../../main.dart';
 import '../../../data/models/list_report.dart';
 import '../../../shared/utils.dart';
 
@@ -16,8 +15,6 @@ class ListReportController extends GetxController {
     update();
     getListReport();
   }
-
-
 
   getListReport() async {
     talker.info('$logTitle:getListReport:');

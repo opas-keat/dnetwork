@@ -23,6 +23,8 @@ class ApiEndPoints {
   static const training = "/training";
   // ---- member ----
   static const member = "/member";
+  // ---- network ----
+  static const network = "/network";
   // ---- logs ----
   // static const logs = "/logs";
 }

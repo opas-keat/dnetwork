@@ -154,12 +154,12 @@ Widget NetworkStatisticsSmallRow(
                 scale: 0.9,
               ),
               CustomText(
-                text: "ว/ด/ป/ แต่งตั้ง : ${networkStatisticsData.commissDate}",
+                text: "ว/ด/ป/ แต่งตั้ง : ${networkStatisticsData.networkDate}",
                 scale: 0.9,
               ),
               CustomText(
                 text:
-                    "สังกัด ศส.ปชต. : ${networkStatisticsData.commissLocation}",
+                    "สังกัด ศส.ปชต. : ${networkStatisticsData.networkLocation}",
                 scale: 0.9,
                 maxLine: 2,
               ),

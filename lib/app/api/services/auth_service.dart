@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 
-import '../../../main.dart';
 import '../../data/responses/authen_service_response.dart';
+import '../../shared/utils.dart';
 import '../api.dart';
 import '../api_end_points.dart';
 import '../api_params.dart';

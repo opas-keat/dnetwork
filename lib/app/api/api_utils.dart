@@ -2,8 +2,8 @@ import 'dart:html';
 
 import 'package:dio/dio.dart';
 import 'package:frontend/app/api/api.dart';
-import 'package:frontend/main.dart';
 
+import '../shared/utils.dart';
 import 'custom_log_interceptor.dart';
 
 ApiUtils apiUtils = ApiUtils();

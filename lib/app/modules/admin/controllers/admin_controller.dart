@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import '../../../../main.dart';
+import '../../../shared/utils.dart';
 
 class AdminController extends GetxController {
   @override

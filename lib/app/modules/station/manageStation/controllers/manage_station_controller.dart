@@ -4,7 +4,7 @@ import 'package:frontend/app/modules/address/controllers/address_controller.dart
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../../../../main.dart';
+import '../../../../shared/utils.dart';
 
 class ManageStationController extends GetxController {
   final logTitle = "ManageStationController";

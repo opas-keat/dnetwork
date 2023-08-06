@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 
-import '../../../main.dart';
 import '../../api/services/summary_info_service.dart';
 import '../../data/models/summary_info.dart';
+import '../utils.dart';
 
 class InfoCardController extends GetxController {
   final logTitle = "InfoCardController";

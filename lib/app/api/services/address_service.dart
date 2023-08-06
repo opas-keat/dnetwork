@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:frontend/main.dart';
 
 import '../../data/responses/address_service_response.dart';
+import '../../shared/utils.dart';
 import '../api.dart';
 import '../api_end_points.dart';
 import '../api_utils.dart';

@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 
-import '../../../../main.dart';
 import '../../../api/services/address_service.dart';
 import '../../../data/responses/address_service_response.dart';
+import '../../../shared/utils.dart';
 
 class AddressController extends GetxController {
   final logTitle = "AddressController";

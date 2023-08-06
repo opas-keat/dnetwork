@@ -38,7 +38,7 @@ class StationLayoutLarge extends StatelessWidget {
                   const Spacer(flex: 2),
                   ElevatedButton.icon(
                     onPressed: () {
-                      controller.listStation();
+                      // controller.listStation();
                     },
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(

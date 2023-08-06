@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../../../../main.dart';
+import '../../../../shared/utils.dart';
 
 class ManageVillageController extends GetxController {
   final logTitle = "ManageVillageController";
@@ -15,8 +15,6 @@ class ManageVillageController extends GetxController {
     super.onInit();
     talker.info('$logTitle:onInit:');
   }
-
-
 
   addDataToTable() {
     talker.info('$logTitle:addDataToTable:');

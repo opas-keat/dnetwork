@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/app/data/models/module.dart';
 import 'package:get/get.dart';
 
-import '../../../../main.dart';
+import '../../../shared/utils.dart';
 
 class HomeController extends GetxController {
   final logTitle = "HomeController";
@@ -29,5 +29,4 @@ class HomeController extends GetxController {
     talker.info('HomeController is onReady');
     super.onReady();
   }
-
 }

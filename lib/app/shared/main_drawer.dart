@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../main.dart';
 import '../data/models/module.dart';
 import 'constant.dart';
 import 'custom_text.dart';
+import 'utils.dart';
 
 class MainDrawer extends StatelessWidget {
   const MainDrawer({super.key});

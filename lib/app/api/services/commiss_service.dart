@@ -2,16 +2,16 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 
-import '../../data/responses/station_service_response.dart';
+import '../../data/responses/commiss_service_reponse.dart';
 import '../../shared/utils.dart';
 import '../api.dart';
 import '../api_end_points.dart';
 import '../api_utils.dart';
 
-class StationService {
-  final title = "StationService";
+class CommissService {
+  final title = "CommissService";
 
-  Future<StationServiceResponse?> listSummaryInfo(
+  Future<CommissServiceResponse?> listCommiss(
     String province,
   ) async {
     // apiUtils.secureHeaders = {
@@ -31,10 +31,10 @@ class StationService {
           headers: apiUtils.secureHeaders,
         ),
       );
-      StationServiceResponse stationServiceResponse =
-          StationServiceResponse.fromJson(jsonDecode(response.toString()));
-      // talker.debug("stationServiceResponse $stationServiceResponse");
-      return stationServiceResponse;
+      CommissServiceResponse commissServiceResponse =
+          CommissServiceResponse.fromJson(jsonDecode(response.toString()));
+      // talker.debug("commissServiceResponse $commissServiceResponse");
+      return commissServiceResponse;
     } catch (e) {
       talker.error(e);
     }

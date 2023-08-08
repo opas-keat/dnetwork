@@ -1,20 +1,24 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../../responsive.dart';
+import '../../../../data/responses/budget_service_response.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../../shared/constant.dart';
 import '../../../../shared/custom_text.dart';
 import '../../../../shared/main_drawer.dart';
+import '../../../../shared/utils.dart';
 import '../../../address/views/address_view.dart';
 import '../controllers/manage_budget_controller.dart';
 
 class ManageBudgetView extends StatelessWidget {
   ManageBudgetView({Key? key}) : super(key: key);
   final ManageBudgetController controller = Get.put(ManageBudgetController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,19 +57,26 @@ class ManageBudgetView extends StatelessWidget {
                       ),
                     ),
                   ),
-                  child: DataTable2(
-                    columnSpacing: defaultPadding,
-                    dividerThickness: 2,
-                    showBottomBorder: true,
-                    headingRowColor: MaterialStateProperty.resolveWith(
-                        (states) => Colors.grey.shade200),
-                    columns: listColumn,
-                    rows: const [],
-                    // rows: List.generate(
-                    //   controller.stationList.value.length,
-                    //   (index) => StationDataRow(
-                    //       index, controller.stationList.value[index]),
-                    // ),
+                  child: Obx(
+                    () => DataTable2(
+                      columnSpacing: defaultPadding,
+                      dividerThickness: 2,
+                      showBottomBorder: true,
+                      headingRowColor: MaterialStateProperty.resolveWith(
+                          (states) => Colors.grey.shade200),
+                      columns: listColumn,
+                      // rows: const [],
+                      rows: List.generate(
+                        controller.budgetList.obs.value.length,
+                        (index) => Responsive.isLargeScreen(context)
+                            ? budgetDataRow(
+                                index, controller.budgetList.obs.value[index])
+                            : budgetDataRowLayoutSmall(
+                                index, controller.budgetList.obs.value[index]),
+                        // (index) => StationDataRow(
+                        //     index, controller.budgetList.obs.value[index]),
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -117,36 +128,34 @@ class ManageBudgetView extends StatelessWidget {
                         ),
                       ),
                       Expanded(
-                        child: Container(
-                          child: InkWell(
-                            hoverColor: Colors.white,
-                            onTap: () async {
-                              final ImagePicker picker = ImagePicker();
-                              final XFile? pickedFile = await picker.pickImage(
-                                source: ImageSource.gallery,
-                                maxHeight: 640,
-                                maxWidth: 480,
-                              );
-                              if (pickedFile != null) {
-                                controller.fileUpload.value = pickedFile;
-                                controller.update();
-                              }
-                            },
-                            child: Obx(() => SizedBox(
-                                  height: 100,
-                                  child: (controller
-                                          .fileUpload.value.path.isNotEmpty)
-                                      ? Image.network(
-                                          controller.fileUpload.value.path,
-                                          height: 100,
-                                          fit: BoxFit.fitHeight,
-                                        )
-                                      : Image.network(
-                                          'assets/images/undraw_Add_files_re_v09g.png',
-                                          fit: BoxFit.fitHeight,
-                                        ),
-                                )),
-                          ),
+                        child: InkWell(
+                          hoverColor: Colors.white,
+                          onTap: () async {
+                            final ImagePicker picker = ImagePicker();
+                            final XFile? pickedFile = await picker.pickImage(
+                              source: ImageSource.gallery,
+                              maxHeight: 640,
+                              maxWidth: 480,
+                            );
+                            if (pickedFile != null) {
+                              controller.fileUpload.value = pickedFile;
+                              controller.update();
+                            }
+                          },
+                          child: Obx(() => SizedBox(
+                                height: 100,
+                                child: (controller
+                                        .fileUpload.value.path.isNotEmpty)
+                                    ? Image.network(
+                                        controller.fileUpload.value.path,
+                                        height: 100,
+                                        fit: BoxFit.fitHeight,
+                                      )
+                                    : Image.network(
+                                        'assets/images/undraw_Add_files_re_v09g.png',
+                                        fit: BoxFit.fitHeight,
+                                      ),
+                              )),
                         ),
                       ),
                     ],
@@ -166,6 +175,7 @@ class ManageBudgetView extends StatelessWidget {
                           ),
                           const SizedBox(height: defaultPadding / 2),
                           TextFormField(
+                            controller: controller.budgetType,
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                               fillColor: Colors.white.withOpacity(.8),
@@ -188,6 +198,7 @@ class ManageBudgetView extends StatelessWidget {
                           ),
                           const SizedBox(height: defaultPadding / 2),
                           TextFormField(
+                            controller: controller.budgetDate,
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                               fillColor: Colors.white.withOpacity(.8),
@@ -210,7 +221,11 @@ class ManageBudgetView extends StatelessWidget {
                           ),
                           const SizedBox(height: defaultPadding / 2),
                           TextFormField(
-                            keyboardType: TextInputType.text,
+                            controller: controller.budgetBegin,
+                            keyboardType: TextInputType.number,
+                            inputFormatters: <TextInputFormatter>[
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
                             decoration: InputDecoration(
                               fillColor: Colors.white.withOpacity(.8),
                               filled: true,
@@ -232,7 +247,11 @@ class ManageBudgetView extends StatelessWidget {
                           ),
                           const SizedBox(height: defaultPadding / 2),
                           TextFormField(
-                            keyboardType: TextInputType.text,
+                            controller: controller.budgetUsed,
+                            keyboardType: TextInputType.number,
+                            inputFormatters: <TextInputFormatter>[
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
                             decoration: InputDecoration(
                               fillColor: Colors.white.withOpacity(.8),
                               filled: true,
@@ -254,7 +273,11 @@ class ManageBudgetView extends StatelessWidget {
                           ),
                           const SizedBox(height: defaultPadding / 2),
                           TextFormField(
-                            keyboardType: TextInputType.text,
+                            controller: controller.budgetRemain,
+                            keyboardType: TextInputType.number,
+                            inputFormatters: <TextInputFormatter>[
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
                             decoration: InputDecoration(
                               fillColor: Colors.white.withOpacity(.8),
                               filled: true,
@@ -299,7 +322,9 @@ class ManageBudgetView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         ElevatedButton.icon(
-                          onPressed: () {},
+                          onPressed: () {
+                            controller.saveBudget();
+                          },
                           style: ElevatedButton.styleFrom(
                             padding: const EdgeInsets.symmetric(
                                 vertical: defaultPadding,
@@ -373,3 +398,169 @@ List<DataColumn> listColumn = [
     size: ColumnSize.S,
   ),
 ];
+
+DataRow budgetDataRow(int index, BudgetData budgetData) {
+  return DataRow(
+    cells: [
+      DataCell(
+        Text(
+          formatterItem.format(index + 1),
+          style: const TextStyle(
+            fontSize: 12,
+          ),
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              budgetData.budgetType!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              budgetData.budgetDate!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              formatterItem.format(budgetData.budgetBegin),
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              formatterItem.format(budgetData.budgetUsed),
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              formatterItem.format(budgetData.budgetRemain),
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Text(
+          budgetData.province!,
+          style: const TextStyle(
+            fontSize: 12,
+          ),
+        ),
+      ),
+    ],
+  );
+}
+
+DataRow budgetDataRowLayoutSmall(int index, BudgetData budgetData) {
+  return DataRow(
+    cells: [
+      DataCell(
+        Text(
+          formatterItem.format(index + 1),
+          style: const TextStyle(
+            fontSize: 12,
+          ),
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              budgetData.budgetDate!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              budgetData.budgetType!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              budgetData.province!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              formatterItem.format(budgetData.budgetBegin),
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              formatterItem.format(budgetData.budgetUsed),
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Text(
+          formatterItem.format(budgetData.budgetRemain),
+          style: const TextStyle(
+            fontSize: 12,
+          ),
+        ),
+      ),
+    ],
+  );
+}

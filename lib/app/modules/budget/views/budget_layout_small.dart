@@ -10,11 +10,13 @@ import '../../../shared/custom_text.dart';
 import '../../../shared/info_card.dart';
 import '../../../shared/main_chart.dart';
 import '../../../shared/utils.dart';
+import '../controllers/budget_controller.dart';
 
 class BudgetLayoutSmall extends StatelessWidget {
-  const BudgetLayoutSmall({
+  BudgetLayoutSmall({
     super.key,
   });
+  final BudgetController controller = Get.find<BudgetController>();
 
   @override
   Widget build(BuildContext context) {
@@ -89,23 +91,43 @@ class BudgetLayoutSmall extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                const Row(
+                Row(
                   children: [
-                    CustomText(
+                    const CustomText(
                       text: "ข้อมูลสถิติรายจังหวัด",
                       weight: FontWeight.bold,
+                    ),
+                    Obx(
+                      () => controller.isLoading.value
+                          ? const IconButton(
+                              onPressed: null,
+                              icon: Icon(
+                                Icons.refresh_sharp,
+                              ),
+                            )
+                          : IconButton(
+                              onPressed: () {
+                                controller.listBudget();
+                              },
+                              icon: const Icon(
+                                Icons.refresh_sharp,
+                              ),
+                              color: primaryColor,
+                            ),
                     ),
                   ],
                 ),
                 accentDivider,
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: listBudgetStatisticsData.length,
-                  itemBuilder: (context, index) {
-                    return BudgetStatisticsSmallRow(
-                        index, listBudgetStatisticsData[index]);
-                  },
+                Obx(
+                  () => ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: controller.listBudgetStatistics.obs.value.length,
+                    itemBuilder: (context, index) {
+                      return budgetStatisticsSmallRow(index,
+                          controller.listBudgetStatistics.obs.value[index]);
+                    },
+                  ),
                 ),
               ],
             ),
@@ -122,7 +144,7 @@ class BudgetLayoutSmall extends StatelessWidget {
   }
 }
 
-Widget BudgetStatisticsSmallRow(
+Widget budgetStatisticsSmallRow(
   int index,
   BudgetStatisticsData budgetStatisticsData,
 ) {

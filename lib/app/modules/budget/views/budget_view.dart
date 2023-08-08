@@ -44,7 +44,7 @@ class BudgetView extends StatelessWidget {
           smallScreen: Container(
             padding: const EdgeInsets.all(defaultPadding / 2),
             // color: Colors.amber,
-            child: const SingleChildScrollView(
+            child: SingleChildScrollView(
               primary: true,
               child: Column(
                 children: [
@@ -56,7 +56,7 @@ class BudgetView extends StatelessWidget {
           mediumScreen: Container(
             padding: const EdgeInsets.all(defaultPadding),
             // color: Colors.amber,
-            child: const SingleChildScrollView(
+            child: SingleChildScrollView(
               primary: true,
               child: Column(
                 children: [
@@ -80,8 +80,7 @@ class BudgetView extends StatelessWidget {
                     child: const Align(
                       alignment: Alignment.topCenter,
                       child: SingleChildScrollView(
-                        padding:
-                            EdgeInsets.only(left: defaultPadding / 2),
+                        padding: EdgeInsets.only(left: defaultPadding / 2),
                         primary: true,
                         child: Column(
                           children: [

@@ -1,14 +1,17 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../../responsive.dart';
+import '../../../../data/responses/training_service_response.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../../shared/constant.dart';
 import '../../../../shared/custom_text.dart';
 import '../../../../shared/main_drawer.dart';
+import '../../../../shared/utils.dart';
 import '../../../address/views/address_view.dart';
 import '../controllers/manage_training_controller.dart';
 
@@ -53,19 +56,24 @@ class ManageTrainingView extends StatelessWidget {
                       ),
                     ),
                   ),
-                  child: DataTable2(
-                    columnSpacing: defaultPadding,
-                    dividerThickness: 2,
-                    showBottomBorder: true,
-                    headingRowColor: MaterialStateProperty.resolveWith(
-                        (states) => Colors.grey.shade200),
-                    columns: listColumn,
-                    rows: const [],
-                    // rows: List.generate(
-                    //   controller.stationList.value.length,
-                    //   (index) => StationDataRow(
-                    //       index, controller.stationList.value[index]),
-                    // ),
+                  child: Obx(
+                    () => DataTable2(
+                      columnSpacing: defaultPadding,
+                      dividerThickness: 2,
+                      showBottomBorder: true,
+                      headingRowColor: MaterialStateProperty.resolveWith(
+                          (states) => Colors.grey.shade200),
+                      columns: listColumn,
+                      // rows: const [],
+                      rows: List.generate(
+                        controller.trainingList.obs.value.length,
+                        (index) => Responsive.isLargeScreen(context)
+                            ? trainingDataRow(
+                                index, controller.trainingList.obs.value[index])
+                            : trainingDataRowLayoutSmall(index,
+                                controller.trainingList.obs.value[index]),
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -164,6 +172,7 @@ class ManageTrainingView extends StatelessWidget {
                           ),
                           const SizedBox(height: defaultPadding / 2),
                           TextFormField(
+                            controller: controller.trainingName,
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                               fillColor: Colors.white.withOpacity(.8),
@@ -186,6 +195,7 @@ class ManageTrainingView extends StatelessWidget {
                           ),
                           const SizedBox(height: defaultPadding / 2),
                           TextFormField(
+                            controller: controller.trainingDateForm,
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                               fillColor: Colors.white.withOpacity(.8),
@@ -208,6 +218,7 @@ class ManageTrainingView extends StatelessWidget {
                           ),
                           const SizedBox(height: defaultPadding / 2),
                           TextFormField(
+                            controller: controller.trainingDateTo,
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                               fillColor: Colors.white.withOpacity(.8),
@@ -230,6 +241,7 @@ class ManageTrainingView extends StatelessWidget {
                           ),
                           const SizedBox(height: defaultPadding / 2),
                           TextFormField(
+                            controller: controller.trainingType,
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                               fillColor: Colors.white.withOpacity(.8),
@@ -256,7 +268,11 @@ class ManageTrainingView extends StatelessWidget {
                           ),
                           const SizedBox(height: defaultPadding / 2),
                           TextFormField(
-                            keyboardType: TextInputType.text,
+                            controller: controller.trainingTotal,
+                            keyboardType: TextInputType.number,
+                            inputFormatters: <TextInputFormatter>[
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
                             decoration: InputDecoration(
                               fillColor: Colors.white.withOpacity(.8),
                               filled: true,
@@ -297,7 +313,33 @@ class ManageTrainingView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         ElevatedButton.icon(
-                          onPressed: () {},
+                          onPressed: () async {
+                            Get.dialog(
+                              const Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                              barrierDismissible: false,
+                            );
+                            final result = await controller.saveTraining();
+                            Get.back();
+                            result
+                                ? Get.offAllNamed(Routes.TRAINING)
+                                : Get.snackbar(
+                                    'Error',
+                                    controller.trainingError.value,
+                                    backgroundColor: accentColor,
+                                    snackPosition: SnackPosition.BOTTOM,
+                                    colorText: Colors.white,
+                                    icon: const Icon(
+                                      Icons.lock_person_outlined,
+                                      color: Colors.white,
+                                    ),
+                                    isDismissible: true,
+                                    margin: const EdgeInsets.all(
+                                      defaultPadding,
+                                    ),
+                                  );
+                          },
                           style: ElevatedButton.styleFrom(
                             padding: const EdgeInsets.symmetric(
                                 vertical: defaultPadding,
@@ -372,3 +414,116 @@ List<DataColumn> listColumn = [
     numeric: true,
   ),
 ];
+
+DataRow trainingDataRow(int index, TrainingData trainingData) {
+  return DataRow(
+    cells: [
+      DataCell(
+        Text(
+          formatterItem.format(index + 1),
+          style: const TextStyle(
+            fontSize: 12,
+          ),
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              trainingData.trainingName!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              trainingData.trainingDateForm!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              trainingData.trainingDateTo!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              trainingData.trainingType!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              trainingData.province!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Text(
+          formatterItem.format(trainingData.trainingTotal),
+          style: const TextStyle(
+            fontSize: 12,
+          ),
+        ),
+      ),
+    ],
+  );
+}
+
+DataRow trainingDataRowLayoutSmall(
+  int index,
+  TrainingData trainingData,
+) {
+  return DataRow(
+    cells: [
+      DataCell(
+        Text(
+          formatterItem.format(index + 1),
+          style: const TextStyle(
+            fontSize: 12,
+          ),
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              trainingData.trainingName!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+    ],
+  );
+}

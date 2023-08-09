@@ -5,6 +5,11 @@ class TrainingServiceResponse {
 
   TrainingServiceResponse({this.code, this.message, this.data});
 
+  TrainingServiceResponse.withError({
+    code,
+    String? msg,
+  }) : message = msg;
+
   TrainingServiceResponse.fromJson(Map<String, dynamic> json) {
     code = json['code'];
     message = json['message'];

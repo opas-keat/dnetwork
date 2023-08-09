@@ -20,12 +20,14 @@ class ManageBudgetController extends GetxController {
 
   final budgetDate = TextEditingController();
   final budgetType = TextEditingController();
-  final budgetBegin = TextEditingController();
-  final budgetUsed = TextEditingController();
-  final budgetRemain = TextEditingController();
+  final budgetBegin = TextEditingController(text: '0');
+  final budgetUsed = TextEditingController(text: '0');
+  final budgetRemain = TextEditingController(text: '0');
 
   final budgetList = <BudgetData>[].obs;
   final budgets = <Budgets>[].obs;
+
+  RxString budgetError = ''.obs;
 
   @override
   void onInit() {
@@ -86,9 +88,9 @@ class ManageBudgetController extends GetxController {
   resetForm() {
     budgetDate.text = "";
     budgetType.text = "";
-    budgetBegin.text = "";
-    budgetUsed.text = "";
-    budgetRemain.text = "";
+    budgetBegin.text = "0";
+    budgetUsed.text = "0";
+    budgetRemain.text = "0";
     update();
   }
 }

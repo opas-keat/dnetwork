@@ -5,6 +5,11 @@ class NetworkServiceResponse {
 
   NetworkServiceResponse({this.code, this.message, this.data});
 
+  NetworkServiceResponse.withError({
+    code,
+    String? msg,
+  }) : message = msg;
+
   NetworkServiceResponse.fromJson(Map<String, dynamic> json) {
     code = json['code'];
     message = json['message'];

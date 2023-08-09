@@ -5,6 +5,11 @@ class MemberServiceResponse {
 
   MemberServiceResponse({this.code, this.message, this.data});
 
+  MemberServiceResponse.withError({
+    code,
+    String? msg,
+  }) : message = msg;
+
   MemberServiceResponse.fromJson(Map<String, dynamic> json) {
     code = json['code'];
     message = json['message'];

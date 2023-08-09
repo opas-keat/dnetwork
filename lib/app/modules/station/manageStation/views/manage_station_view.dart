@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../../responsive.dart';
-import '../../../../data/models/station_model.dart';
+import '../../../../data/responses/station_service_response.dart';
 import '../../../../shared/constant.dart';
 import '../../../../shared/custom_text.dart';
 import '../../../../shared/main_drawer.dart';
@@ -152,7 +152,7 @@ class ManageStationDetail extends StatelessWidget {
                         IconButton(
                           icon: const Icon(Icons.add_sharp),
                           onPressed: () {
-                            controller.addStationToDataTable();
+                            controller.addToDataTable();
                           },
                         ),
                         // const SizedBox(height: defaultPadding),
@@ -294,6 +294,7 @@ class ManageStationDetail extends StatelessWidget {
                   children: [
                     Expanded(
                       child: TextFormField(
+                        controller: controller.process,
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
                           fillColor: Colors.white.withOpacity(.8),
@@ -313,9 +314,7 @@ class ManageStationDetail extends StatelessWidget {
                     const SizedBox(width: defaultPadding / 2),
                     IconButton(
                       icon: const Icon(Icons.add_sharp),
-                      onPressed: () {
-                        // controller.addStationToDataTable();
-                      },
+                      onPressed: () {},
                     ),
                     // Ink(
                     //   decoration: const ShapeDecoration(
@@ -411,7 +410,33 @@ class ManageStationDetail extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               ElevatedButton.icon(
-                onPressed: () {},
+                onPressed: () async {
+                  Get.dialog(
+                    const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                    barrierDismissible: false,
+                  );
+                  final result = await controller.saveStation();
+                  Get.back();
+                  result
+                      ? Get.offAllNamed(Routes.STATION)
+                      : Get.snackbar(
+                          'Error',
+                          controller.stationError.value,
+                          backgroundColor: accentColor,
+                          snackPosition: SnackPosition.BOTTOM,
+                          colorText: Colors.white,
+                          icon: const Icon(
+                            Icons.lock_person_outlined,
+                            color: Colors.white,
+                          ),
+                          isDismissible: true,
+                          margin: const EdgeInsets.all(
+                            defaultPadding,
+                          ),
+                        );
+                },
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(
                       vertical: defaultPadding, horizontal: defaultPadding / 2),
@@ -455,14 +480,14 @@ List<DataColumn> listColumnLayoutSmall = [
   ),
 ];
 
-DataRow StationDataRowLayoutSmall(int index, StationModel stationModel) {
+DataRow StationDataRowLayoutSmall(int index, StationData stationData) {
   return DataRow(
     cells: [
       DataCell(
         Wrap(
           children: [
             Text(
-              stationModel.name!,
+              stationData.name!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -516,7 +541,7 @@ List<DataColumn> listColumn = [
   ),
 ];
 
-DataRow StationDataRow(int index, StationModel stationModel) {
+DataRow StationDataRow(int index, StationData stationData) {
   return DataRow(
     cells: [
       DataCell(
@@ -531,7 +556,7 @@ DataRow StationDataRow(int index, StationModel stationModel) {
         Wrap(
           children: [
             Text(
-              stationModel.name!,
+              stationData.name!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -543,7 +568,7 @@ DataRow StationDataRow(int index, StationModel stationModel) {
         Wrap(
           children: [
             Text(
-              stationModel.locaion!,
+              stationData.location!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -555,7 +580,7 @@ DataRow StationDataRow(int index, StationModel stationModel) {
         Wrap(
           children: [
             Text(
-              stationModel.province!,
+              stationData.province!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -567,7 +592,7 @@ DataRow StationDataRow(int index, StationModel stationModel) {
         Wrap(
           children: [
             Text(
-              stationModel.amphure!,
+              stationData.amphure!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -579,7 +604,7 @@ DataRow StationDataRow(int index, StationModel stationModel) {
         Wrap(
           children: [
             Text(
-              stationModel.tambol!,
+              stationData.district!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -591,7 +616,7 @@ DataRow StationDataRow(int index, StationModel stationModel) {
         Wrap(
           children: [
             Text(
-              stationModel.facebook!,
+              stationData.facebook!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -603,7 +628,7 @@ DataRow StationDataRow(int index, StationModel stationModel) {
         Wrap(
           children: [
             Text(
-              stationModel.process!,
+              stationData.process!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -615,7 +640,7 @@ DataRow StationDataRow(int index, StationModel stationModel) {
         Wrap(
           children: [
             Text(
-              stationModel.process!,
+              stationData.process!,
               style: const TextStyle(
                 fontSize: 12,
               ),

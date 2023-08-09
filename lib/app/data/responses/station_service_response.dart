@@ -5,6 +5,11 @@ class StationServiceResponse {
 
   StationServiceResponse({this.code, this.message, this.data});
 
+  StationServiceResponse.withError({
+    code,
+    String? msg,
+  }) : message = msg;
+
   StationServiceResponse.fromJson(Map<String, dynamic> json) {
     code = json['code'];
     message = json['message'];

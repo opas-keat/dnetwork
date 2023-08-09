@@ -5,6 +5,11 @@ class VillageServiceResponse {
 
   VillageServiceResponse({this.code, this.message, this.data});
 
+  VillageServiceResponse.withError({
+    code,
+    String? msg,
+  }) : message = msg;
+
   VillageServiceResponse.fromJson(Map<String, dynamic> json) {
     code = json['code'];
     message = json['message'];

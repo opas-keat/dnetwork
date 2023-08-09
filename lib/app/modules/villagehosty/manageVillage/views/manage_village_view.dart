@@ -1,14 +1,17 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../../responsive.dart';
+import '../../../../data/responses/village_service_response.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../../shared/constant.dart';
 import '../../../../shared/custom_text.dart';
 import '../../../../shared/main_drawer.dart';
+import '../../../../shared/utils.dart';
 import '../../../address/views/address_view.dart';
 import '../controllers/manage_village_controller.dart';
 
@@ -55,20 +58,30 @@ class ManageVillageView extends StatelessWidget {
                         ),
                       ),
                     ),
-                    child: DataTable2(
-                      columnSpacing: defaultPadding,
-                      dividerThickness: 2,
-                      showBottomBorder: true,
-                      headingRowColor: MaterialStateProperty.resolveWith(
-                          (states) => Colors.grey.shade200),
-                      columns: listColumn,
-                      rows: const [],
-                      // rows: List.generate(
-                      //   controller.stationList.value.length,
-                      //   (index) => StationDataRow(
-                      //       index, controller.stationList.value[index]),
-                      // ),
-                    ),
+                    child: Obx(() => DataTable2(
+                          columnSpacing: defaultPadding,
+                          dividerThickness: 2,
+                          showBottomBorder: true,
+                          headingRowColor: MaterialStateProperty.resolveWith(
+                              (states) => Colors.grey.shade200),
+                          columns: listColumn,
+                          // rows: const [],
+                          rows: List.generate(
+                            controller.villageList.obs.value.length,
+                            (index) => Responsive.isLargeScreen(context)
+                                ? villageDataRow(index,
+                                    controller.villageList.obs.value[index])
+                                : villageDataRowLayoutSmall(index,
+                                    controller.villageList.obs.value[index]),
+                            // (index) => StationDataRow(
+                            //     index, controller.villageList.obs.value[index]),
+                          ),
+                          // rows: List.generate(
+                          //   controller.stationList.value.length,
+                          //   (index) => StationDataRow(
+                          //       index, controller.stationList.value[index]),
+                          // ),
+                        )),
                   ),
                 ),
               ),
@@ -169,6 +182,7 @@ class ManageVillageView extends StatelessWidget {
                           ),
                           const SizedBox(height: defaultPadding / 2),
                           TextFormField(
+                            controller: controller.villageName,
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                               fillColor: Colors.white.withOpacity(.8),
@@ -191,6 +205,7 @@ class ManageVillageView extends StatelessWidget {
                           ),
                           const SizedBox(height: defaultPadding / 2),
                           TextFormField(
+                            controller: controller.villageNo,
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                               fillColor: Colors.white.withOpacity(.8),
@@ -214,7 +229,11 @@ class ManageVillageView extends StatelessWidget {
                           ),
                           const SizedBox(height: defaultPadding / 2),
                           TextFormField(
-                            keyboardType: TextInputType.text,
+                            controller: controller.villageTotal,
+                            keyboardType: TextInputType.number,
+                            inputFormatters: <TextInputFormatter>[
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
                             decoration: InputDecoration(
                               fillColor: Colors.white.withOpacity(.8),
                               filled: true,
@@ -236,6 +255,7 @@ class ManageVillageView extends StatelessWidget {
                           ),
                           const SizedBox(height: defaultPadding / 2),
                           TextFormField(
+                            controller: controller.villageLocation,
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                               fillColor: Colors.white.withOpacity(.8),
@@ -262,6 +282,7 @@ class ManageVillageView extends StatelessWidget {
                             children: [
                               Expanded(
                                 child: TextFormField(
+                                  controller: controller.villageTypeAct,
                                   keyboardType: TextInputType.text,
                                   decoration: InputDecoration(
                                     fillColor: Colors.white.withOpacity(.8),
@@ -292,6 +313,7 @@ class ManageVillageView extends StatelessWidget {
                           ),
                           const SizedBox(height: defaultPadding / 2),
                           TextFormField(
+                            controller: controller.villageGoalAct2,
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                               fillColor: Colors.white.withOpacity(.8),
@@ -319,7 +341,33 @@ class ManageVillageView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         ElevatedButton.icon(
-                          onPressed: () {},
+                          onPressed: () async {
+                            Get.dialog(
+                              const Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                              barrierDismissible: false,
+                            );
+                            final result = await controller.saveVillage();
+                            Get.back();
+                            result
+                                ? Get.offAllNamed(Routes.VILLAGEHOSTY)
+                                : Get.snackbar(
+                                    'Error',
+                                    controller.villageError.value,
+                                    backgroundColor: accentColor,
+                                    snackPosition: SnackPosition.BOTTOM,
+                                    colorText: Colors.white,
+                                    icon: const Icon(
+                                      Icons.lock_person_outlined,
+                                      color: Colors.white,
+                                    ),
+                                    isDismissible: true,
+                                    margin: const EdgeInsets.all(
+                                      defaultPadding,
+                                    ),
+                                  );
+                          },
                           style: ElevatedButton.styleFrom(
                             padding: const EdgeInsets.symmetric(
                                 vertical: defaultPadding,
@@ -377,20 +425,152 @@ List<DataColumn> listColumn = [
     size: ColumnSize.M,
   ),
   const DataColumn2(
-    label: CustomText(text: "จังหวัด", scale: 0.9),
+    label: CustomText(text: "จังหวัด/อำเภอ/ตำบล", scale: 0.9),
     size: ColumnSize.S,
   ),
-  const DataColumn2(
-    label: CustomText(text: "อำเภอ", scale: 0.9),
-    size: ColumnSize.S,
-  ),
-  const DataColumn2(
-    label: CustomText(text: "ตำบล", scale: 0.9),
-    size: ColumnSize.S,
-  ),
+  // const DataColumn2(
+  //   label: CustomText(text: "อำเภอ", scale: 0.9),
+  //   size: ColumnSize.S,
+  // ),
+  // const DataColumn2(
+  //   label: CustomText(text: "ตำบล", scale: 0.9),
+  //   size: ColumnSize.S,
+  // ),
   const DataColumn2(
     label: CustomText(text: "จำนวนครัวเรือน", scale: 0.9),
     size: ColumnSize.S,
     numeric: true,
   ),
 ];
+
+DataRow villageDataRow(
+  int index,
+  VillageData villageData,
+) {
+  return DataRow(
+    cells: [
+      DataCell(
+        Text(
+          formatterItem.format(index + 1),
+          style: const TextStyle(
+            fontSize: 12,
+          ),
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              villageData.name!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              villageData.no!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              villageData.address!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              formatterItem.format(villageData.total),
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+    ],
+  );
+}
+
+DataRow villageDataRowLayoutSmall(
+  int index,
+  VillageData villageData,
+) {
+  return DataRow(
+    cells: [
+      DataCell(
+        Text(
+          formatterItem.format(index + 1),
+          style: const TextStyle(
+            fontSize: 12,
+          ),
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              villageData.name!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              villageData.no!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              villageData.address!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              formatterItem.format(villageData.total),
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+    ],
+  );
+}

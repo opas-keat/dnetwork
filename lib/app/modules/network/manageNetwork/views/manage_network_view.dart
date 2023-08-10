@@ -1,14 +1,17 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../../responsive.dart';
+import '../../../../data/responses/network_service_response.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../../shared/constant.dart';
 import '../../../../shared/custom_text.dart';
 import '../../../../shared/main_drawer.dart';
+import '../../../../shared/utils.dart';
 import '../../../address/views/address_view.dart';
 import '../controllers/manage_network_controller.dart';
 
@@ -43,30 +46,34 @@ class ManageNetworkView extends StatelessWidget {
               Expanded(
                 flex: 3,
                 child: Container(
-                  // color: Colors.amber,
-                  child: Container(
-                    padding: const EdgeInsets.only(bottom: defaultPadding),
-                    decoration: const BoxDecoration(
-                      border: Border(
-                        right: BorderSide(
-                          width: 1,
-                          color: Colors.black38,
-                        ),
+                  padding: const EdgeInsets.only(bottom: defaultPadding),
+                  decoration: const BoxDecoration(
+                    border: Border(
+                      right: BorderSide(
+                        width: 1,
+                        color: Colors.black38,
                       ),
                     ),
-                    child: DataTable2(
+                  ),
+                  child: Obx(
+                    () => DataTable2(
                       columnSpacing: defaultPadding,
                       dividerThickness: 2,
                       showBottomBorder: true,
                       headingRowColor: MaterialStateProperty.resolveWith(
                           (states) => Colors.grey.shade200),
                       columns: listColumn,
-                      rows: const [],
-                      // rows: List.generate(
-                      //   controller.stationList.value.length,
-                      //   (index) => StationDataRow(
-                      //       index, controller.stationList.value[index]),
-                      // ),
+                      // rows: const [],
+                      rows: List.generate(
+                        controller.networkList.obs.value.length,
+                        (index) => Responsive.isLargeScreen(context)
+                            ? networkDataRow(
+                                index, controller.networkList.obs.value[index])
+                            : networkDataRowLayoutSmall(
+                                index, controller.networkList.obs.value[index]),
+                        // (index) => StationDataRow(
+                        //     index, controller.networkList.obs.value[index]),
+                      ),
                     ),
                   ),
                 ),
@@ -168,6 +175,7 @@ class ManageNetworkView extends StatelessWidget {
                           ),
                           const SizedBox(height: defaultPadding / 2),
                           TextFormField(
+                            controller: controller.networkStationName,
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                               fillColor: Colors.white.withOpacity(.8),
@@ -185,27 +193,27 @@ class ManageNetworkView extends StatelessWidget {
                           ),
                           const SizedBox(height: defaultPadding),
                           AddressView(showPostCode: false),
-                          CustomText(
-                            text: "คำนำหน้า",
-                            color: Colors.black87.withOpacity(.9),
-                          ),
-                          const SizedBox(height: defaultPadding / 2),
-                          TextFormField(
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                              fillColor: Colors.white.withOpacity(.8),
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(defaultPadding / 2),
-                                borderSide: const BorderSide(
-                                    color: Colors.black54, width: 1),
-                              ),
-                              isCollapsed: true,
-                              contentPadding:
-                                  const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                            ),
-                          ),
+                          // CustomText(
+                          //   text: "คำนำหน้า",
+                          //   color: Colors.black87.withOpacity(.9),
+                          // ),
+                          // const SizedBox(height: defaultPadding / 2),
+                          // TextFormField(
+                          //   keyboardType: TextInputType.text,
+                          //   decoration: InputDecoration(
+                          //     fillColor: Colors.white.withOpacity(.8),
+                          //     filled: true,
+                          //     border: OutlineInputBorder(
+                          //       borderRadius:
+                          //           BorderRadius.circular(defaultPadding / 2),
+                          //       borderSide: const BorderSide(
+                          //           color: Colors.black54, width: 1),
+                          //     ),
+                          //     isCollapsed: true,
+                          //     contentPadding:
+                          //         const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                          //   ),
+                          // ),
                           const SizedBox(height: defaultPadding),
                           CustomText(
                             text: "ชื่อ",
@@ -213,6 +221,7 @@ class ManageNetworkView extends StatelessWidget {
                           ),
                           const SizedBox(height: defaultPadding / 2),
                           TextFormField(
+                            controller: controller.networkFirstName,
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                               fillColor: Colors.white.withOpacity(.8),
@@ -235,6 +244,7 @@ class ManageNetworkView extends StatelessWidget {
                           ),
                           const SizedBox(height: defaultPadding / 2),
                           TextFormField(
+                            controller: controller.networkSurName,
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                               fillColor: Colors.white.withOpacity(.8),
@@ -257,7 +267,12 @@ class ManageNetworkView extends StatelessWidget {
                           ),
                           const SizedBox(height: defaultPadding / 2),
                           TextFormField(
-                            keyboardType: TextInputType.text,
+                            controller: controller.networkIdCard,
+                            keyboardType: TextInputType.number,
+                            inputFormatters: <TextInputFormatter>[
+                              FilteringTextInputFormatter.digitsOnly,
+                              LengthLimitingTextInputFormatter(13),
+                            ],
                             decoration: InputDecoration(
                               fillColor: Colors.white.withOpacity(.8),
                               filled: true,
@@ -279,6 +294,7 @@ class ManageNetworkView extends StatelessWidget {
                           ),
                           const SizedBox(height: defaultPadding / 2),
                           TextFormField(
+                            controller: controller.networkBirthYear,
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                               fillColor: Colors.white.withOpacity(.8),
@@ -301,6 +317,7 @@ class ManageNetworkView extends StatelessWidget {
                           ),
                           const SizedBox(height: defaultPadding / 2),
                           TextFormField(
+                            controller: controller.networkLocation,
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                               fillColor: Colors.white.withOpacity(.8),
@@ -323,6 +340,7 @@ class ManageNetworkView extends StatelessWidget {
                           ),
                           const SizedBox(height: defaultPadding / 2),
                           TextFormField(
+                            controller: controller.networkDate,
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                               fillColor: Colors.white.withOpacity(.8),
@@ -345,7 +363,12 @@ class ManageNetworkView extends StatelessWidget {
                           ),
                           const SizedBox(height: defaultPadding / 2),
                           TextFormField(
-                            keyboardType: TextInputType.text,
+                            controller: controller.networkTelephone,
+                            keyboardType: TextInputType.number,
+                            inputFormatters: <TextInputFormatter>[
+                              FilteringTextInputFormatter.digitsOnly,
+                              LengthLimitingTextInputFormatter(10),
+                            ],
                             decoration: InputDecoration(
                               fillColor: Colors.white.withOpacity(.8),
                               filled: true,
@@ -367,6 +390,7 @@ class ManageNetworkView extends StatelessWidget {
                           ),
                           const SizedBox(height: defaultPadding / 2),
                           TextFormField(
+                            controller: controller.networkPosition,
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                               fillColor: Colors.white.withOpacity(.8),
@@ -393,6 +417,7 @@ class ManageNetworkView extends StatelessWidget {
                             children: [
                               Expanded(
                                 child: TextFormField(
+                                  controller: controller.networkPositionCommu,
                                   keyboardType: TextInputType.text,
                                   decoration: InputDecoration(
                                     fillColor: Colors.white.withOpacity(.8),
@@ -427,6 +452,7 @@ class ManageNetworkView extends StatelessWidget {
                             children: [
                               Expanded(
                                 child: TextFormField(
+                                  controller: controller.networkExp,
                                   keyboardType: TextInputType.text,
                                   decoration: InputDecoration(
                                     fillColor: Colors.white.withOpacity(.8),
@@ -462,7 +488,33 @@ class ManageNetworkView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         ElevatedButton.icon(
-                          onPressed: () {},
+                          onPressed: () async {
+                            Get.dialog(
+                              const Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                              barrierDismissible: false,
+                            );
+                            final result = await controller.saveNetwork();
+                            Get.back();
+                            result
+                                ? Get.offAllNamed(Routes.NETWORK)
+                                : Get.snackbar(
+                                    'Error',
+                                    controller.networkError.value,
+                                    backgroundColor: accentColor,
+                                    snackPosition: SnackPosition.BOTTOM,
+                                    colorText: Colors.white,
+                                    icon: const Icon(
+                                      Icons.lock_person_outlined,
+                                      color: Colors.white,
+                                    ),
+                                    isDismissible: true,
+                                    margin: const EdgeInsets.all(
+                                      defaultPadding,
+                                    ),
+                                  );
+                          },
                           style: ElevatedButton.styleFrom(
                             padding: const EdgeInsets.symmetric(
                                 vertical: defaultPadding,
@@ -511,10 +563,10 @@ List<DataColumn> listColumn = [
     label: CustomText(text: "ลำดับ", scale: 0.9),
     fixedWidth: 50,
   ),
-  const DataColumn2(
-    label: CustomText(text: "คำนำหน้า", scale: 0.9),
-    size: ColumnSize.M,
-  ),
+  // const DataColumn2(
+  //   label: CustomText(text: "คำนำหน้า", scale: 0.9),
+  //   size: ColumnSize.M,
+  // ),
   const DataColumn2(
     label: CustomText(text: "ชื่อ", scale: 0.9),
     size: ColumnSize.M,
@@ -532,8 +584,164 @@ List<DataColumn> listColumn = [
     size: ColumnSize.S,
   ),
   const DataColumn2(
-    label: CustomText(text: "เบอร์ไทร", scale: 0.9),
+    label: CustomText(text: "เบอร์โทร", scale: 0.9),
     size: ColumnSize.S,
     numeric: true,
   ),
 ];
+
+DataRow networkDataRow(
+  int index,
+  NetworkData networkData,
+) {
+  return DataRow(
+    cells: [
+      DataCell(
+        Text(
+          formatterItem.format(index + 1),
+          style: const TextStyle(
+            fontSize: 12,
+          ),
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              networkData.networkFirstName!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              networkData.networkSurName!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              networkData.networkPosition!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              networkData.networkDate!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              networkData.networkTelephone!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+    ],
+  );
+}
+
+DataRow networkDataRowLayoutSmall(
+  int index,
+  NetworkData networkData,
+) {
+  return DataRow(
+    cells: [
+      DataCell(
+        Text(
+          formatterItem.format(index + 1),
+          style: const TextStyle(
+            fontSize: 12,
+          ),
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              networkData.networkFirstName!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              networkData.networkSurName!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              networkData.networkPosition!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              networkData.networkDate!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              networkData.networkTelephone!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+    ],
+  );
+}

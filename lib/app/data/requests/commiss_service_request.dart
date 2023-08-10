@@ -1,42 +1,27 @@
-class CommissServiceResponse {
-  String? code;
-  String? message;
-  List<CommissData>? data;
+class CommissServiceRequest {
+  List<Commisss>? commisss;
 
-  CommissServiceResponse({this.code, this.message, this.data});
+  CommissServiceRequest({this.commisss});
 
-  CommissServiceResponse.withError({
-    code,
-    String? msg,
-  }) : message = msg;
-
-  CommissServiceResponse.fromJson(Map<String, dynamic> json) {
-    code = json['code'];
-    message = json['message'];
-    if (json['data'] != null) {
-      data = <CommissData>[];
-      json['data'].forEach((v) {
-        data!.add(CommissData.fromJson(v));
+  CommissServiceRequest.fromJson(Map<String, dynamic> json) {
+    if (json['commisss'] != null) {
+      commisss = <Commisss>[];
+      json['commisss'].forEach((v) {
+        commisss!.add(Commisss.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['code'] = code;
-    data['message'] = message;
-    if (this.data != null) {
-      data['data'] = this.data!.map((v) => v.toJson()).toList();
+    if (commisss != null) {
+      data['commisss'] = commisss!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
-class CommissData {
-  int? id;
-  String? name;
-  String? telephone;
-  String? position;
+class Commisss {
   int? commissStationId;
   String? commissStationName;
   String? province;
@@ -53,12 +38,8 @@ class CommissData {
   String? commissPositionCommu;
   String? commissExp;
 
-  CommissData(
-      {this.id,
-      this.name,
-      this.telephone,
-      this.position,
-      this.commissStationId,
+  Commisss(
+      {this.commissStationId,
       this.commissStationName,
       this.province,
       this.amphure,
@@ -74,11 +55,7 @@ class CommissData {
       this.commissPositionCommu,
       this.commissExp});
 
-  CommissData.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    telephone = json['telephone'];
-    position = json['position'];
+  Commisss.fromJson(Map<String, dynamic> json) {
     commissStationId = json['commiss_station_id'];
     commissStationName = json['commiss_station_name'];
     province = json['province'];
@@ -98,10 +75,6 @@ class CommissData {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['name'] = name;
-    data['telephone'] = telephone;
-    data['position'] = position;
     data['commiss_station_id'] = commissStationId;
     data['commiss_station_name'] = commissStationName;
     data['province'] = province;

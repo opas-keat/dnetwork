@@ -45,7 +45,7 @@ class SearchButton extends StatelessWidget {
   });
 
   final String moduleName;
-  AddressController addressController = Get.put(AddressController());
+  final AddressController addressController = Get.put(AddressController());
   // addressController.selectedProvince.value = "0|";
   // addressController.update();
 

@@ -16,9 +16,9 @@ class BudgetService {
   Future<BudgetServiceResponse?> createBudget(
     List<Budgets> listBudgets,
   ) async {
-    apiUtils.secureHeaders = {
-      'Authorization': 'Bearer ${window.sessionStorage["token"]}',
-    };
+    // apiUtils.secureHeaders = {
+    //   'Authorization': 'Bearer ${window.sessionStorage["token"]}',
+    // };
     talker.debug(BudgetServiceRequest(budgets: listBudgets).toJson());
     try {
       final response = await apiUtils.post(

@@ -22,7 +22,7 @@ class ApiUtils {
 
   ApiUtils._i() {
     _dio.interceptors.add(CustomLogInterceptor(
-      requestHeader: false,
+      requestHeader: true,
       requestBody: true,
       responseHeader: false,
       responseBody: true,
@@ -81,11 +81,16 @@ class ApiUtils {
     // options!.headers = secureHeaders;
     // options!.headers?['Authorization'] =
     //     'Bearer: ${window.sessionStorage["token"]}';
+    var opts = Options(
+      headers: {
+        "Authorization": 'Bearer ${window.sessionStorage["token"]}',
+      },
+    );
     var result = await _dio.post(
       url,
       data: data,
       queryParameters: queryParameters,
-      options: options,
+      options: opts,
     );
     return result;
   }

@@ -28,7 +28,7 @@ class SigninController extends GetxController {
       talker.debug('response message : ${result?.message}');
       // talker.debug('token : ${result?.data!.token}');
       if (result?.code == "000") {
-        // ApiUtils().secureHeaders = {
+        // apiUtils..secureHeaders = {
         //   'Authorization': 'Bearer ${result?.data!.token}',
         // };
         window.sessionStorage["token"] = result!.data!.token!;

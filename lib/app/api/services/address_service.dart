@@ -16,9 +16,6 @@ class AddressService {
       "offset": 0,
       "limit": 100,
     };
-    // apiUtils.secureHeaders = {
-    //   'Authorization': 'Bearer: ${window.sessionStorage["token"]}',
-    // };
     try {
       final response = await apiUtils.get(
         url: Api.ectApiContext + Api.ectApiVersion + ApiEndPoints.provinces,

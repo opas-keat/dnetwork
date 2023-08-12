@@ -88,7 +88,7 @@ class CommissView extends GetView<CommissController> {
                         primary: true,
                         child: Column(
                           children: [
-                            Header(moduleName: "กรรมการ"),
+                            Header(moduleName: "commiss"),
                             SizedBox(height: defaultPadding / 2),
                             CommissLayoutLarge(),
                           ],

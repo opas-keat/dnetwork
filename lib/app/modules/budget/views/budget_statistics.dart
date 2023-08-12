@@ -2,7 +2,7 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../data/models/budget_statistics_data.dart';
+import '../../../data/responses/budget_service_response.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/utils.dart';
@@ -128,8 +128,8 @@ class BudgetStatistics extends StatelessWidget {
                     // rows: [],
                     rows: List.generate(
                       controller.listBudgetStatistics.obs.value.length,
-                      (index) => BudgetDataRow(index,
-                          controller.listBudgetStatistics.obs.value[index]),
+                      (index) => BudgetDataRow(
+                          index, controller.listBudgetStatistics.obs.value[index]),
                     ),
                   )),
             ),
@@ -174,7 +174,7 @@ class BudgetStatistics extends StatelessWidget {
 //   ),
 // ];
 
-DataRow BudgetDataRow(int index, BudgetStatisticsData budgetStatisticsData) {
+DataRow BudgetDataRow(int index, BudgetData budgetData) {
   return DataRow(
     cells: [
       DataCell(
@@ -189,7 +189,7 @@ DataRow BudgetDataRow(int index, BudgetStatisticsData budgetStatisticsData) {
         Wrap(
           children: [
             Text(
-              budgetStatisticsData.date!,
+              budgetData.budgetDate!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -201,7 +201,7 @@ DataRow BudgetDataRow(int index, BudgetStatisticsData budgetStatisticsData) {
         Wrap(
           children: [
             Text(
-              budgetStatisticsData.type!,
+              budgetData.budgetType!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -213,7 +213,7 @@ DataRow BudgetDataRow(int index, BudgetStatisticsData budgetStatisticsData) {
         Wrap(
           children: [
             Text(
-              budgetStatisticsData.province!,
+              budgetData.province!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -225,7 +225,7 @@ DataRow BudgetDataRow(int index, BudgetStatisticsData budgetStatisticsData) {
         Wrap(
           children: [
             Text(
-              formatterItem.format(budgetStatisticsData.budgetBegin),
+              formatterItem.format(budgetData.budgetBegin),
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -237,7 +237,7 @@ DataRow BudgetDataRow(int index, BudgetStatisticsData budgetStatisticsData) {
         Wrap(
           children: [
             Text(
-              formatterItem.format(budgetStatisticsData.budgetUsed),
+              formatterItem.format(budgetData.budgetUsed),
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -247,7 +247,7 @@ DataRow BudgetDataRow(int index, BudgetStatisticsData budgetStatisticsData) {
       ),
       DataCell(
         Text(
-          formatterItem.format(budgetStatisticsData.budgetRemain),
+          formatterItem.format(budgetData.budgetRemain),
           style: const TextStyle(
             fontSize: 12,
           ),

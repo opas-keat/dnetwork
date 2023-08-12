@@ -28,7 +28,7 @@ class SettingView extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      const Header(moduleName: "ตั้งค่า"),
+                      const Header(moduleName: "setting"),
                       const SizedBox(height: defaultPadding),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,

@@ -30,7 +30,7 @@ class ReportproblemView extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      const Header(moduleName: "แจ้งปัญหาการใช้งาน"),
+                      const Header(moduleName: "reportproblem"),
                       const SizedBox(height: defaultPadding),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,

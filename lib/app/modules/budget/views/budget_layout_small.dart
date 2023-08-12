@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../../../../responsive.dart';
 import '../../../data/models/budget_statistics_data.dart';
 import '../../../data/models/summary_chart.dart';
+import '../../../data/responses/budget_service_response.dart';
 import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
@@ -146,7 +147,7 @@ class BudgetLayoutSmall extends StatelessWidget {
 
 Widget budgetStatisticsSmallRow(
   int index,
-  BudgetStatisticsData budgetStatisticsData,
+  BudgetData budgetData,
 ) {
   return Row(
     children: [
@@ -164,31 +165,30 @@ Widget budgetStatisticsSmallRow(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomText(
-                text: "วันที่รับงบประมาณ : ${budgetStatisticsData.date} ",
+                text: "วันที่รับงบประมาณ : ${budgetData.budgetDate} ",
                 scale: 0.9,
               ),
               CustomText(
-                text: "ประเภทงบประมาณ : ${budgetStatisticsData.type}",
+                text: "ประเภทงบประมาณ : ${budgetData.budgetType}",
                 scale: 0.9,
                 maxLine: 2,
               ),
               CustomText(
-                text: "จังหวัด : ${budgetStatisticsData.province}",
+                text: "จังหวัด : ${budgetData.province}",
+                scale: 0.9,
+              ),
+              CustomText(
+                text: "งบต้น : ${formatterItem.format(budgetData.budgetBegin)}",
                 scale: 0.9,
               ),
               CustomText(
                 text:
-                    "งบต้น : ${formatterItem.format(budgetStatisticsData.budgetBegin)}",
+                    "ใช้งบไป : ${formatterItem.format(budgetData.budgetUsed)}",
                 scale: 0.9,
               ),
               CustomText(
                 text:
-                    "ใช้งบไป : ${formatterItem.format(budgetStatisticsData.budgetUsed)}",
-                scale: 0.9,
-              ),
-              CustomText(
-                text:
-                    "คงเหลือ : ${formatterItem.format(budgetStatisticsData.budgetRemain)}",
+                    "คงเหลือ : ${formatterItem.format(budgetData.budgetRemain)}",
                 scale: 0.9,
               ),
               const SizedBox(height: defaultPadding / 4),

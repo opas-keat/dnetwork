@@ -82,12 +82,11 @@ class NetworkView extends GetView<NetworkController> {
                     child: const Align(
                       alignment: Alignment.topCenter,
                       child: SingleChildScrollView(
-                        padding:
-                            EdgeInsets.only(left: defaultPadding / 2),
+                        padding: EdgeInsets.only(left: defaultPadding / 2),
                         primary: true,
                         child: Column(
                           children: [
-                            Header(moduleName: "ภาคีเครือข่าย"),
+                            Header(moduleName: "network"),
                             SizedBox(height: defaultPadding / 2),
                             NetworkLayoutLarge(),
                           ],

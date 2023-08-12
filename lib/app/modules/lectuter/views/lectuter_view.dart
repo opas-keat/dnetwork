@@ -88,7 +88,7 @@ class LectuterView extends StatelessWidget {
                         primary: true,
                         child: Column(
                           children: [
-                            Header(moduleName: "วิทยากรประชาธิปไตย"),
+                            Header(moduleName: "lectuter"),
                             SizedBox(height: defaultPadding / 2),
                             LectuterLayoutLarge(),
                           ],

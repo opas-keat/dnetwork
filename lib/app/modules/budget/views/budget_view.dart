@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/app/shared/utils.dart';
+import 'package:get/get.dart';
 
 import '../../../../responsive.dart';
 import '../../../shared/constant.dart';
@@ -7,6 +9,7 @@ import '../../../shared/header.dart';
 import '../../../shared/main_drawer.dart';
 import 'budget_layout_large.dart';
 import 'budget_layout_small.dart';
+import 'budget_search.dart';
 
 class BudgetView extends StatelessWidget {
   const BudgetView({Key? key}) : super(key: key);
@@ -24,7 +27,13 @@ class BudgetView extends StatelessWidget {
               ),
               actions: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    // talker.debug("search.");
+                    // Get.dialog(
+                    //   BudgetSearch(),
+                    //   barrierDismissible: false,
+                    // );
+                  },
                   icon: const Icon(
                     Icons.search_sharp,
                   ),
@@ -84,7 +93,7 @@ class BudgetView extends StatelessWidget {
                         primary: true,
                         child: Column(
                           children: [
-                            Header(moduleName: "หน้าจอหลัก"),
+                            Header(moduleName: "budget"),
                             SizedBox(height: defaultPadding / 2),
                             BudgetLayoutLarge(),
                           ],

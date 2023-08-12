@@ -88,7 +88,7 @@ class VillagehostyView extends StatelessWidget {
                         primary: true,
                         child: Column(
                           children: [
-                            Header(moduleName: "หมู่บ้าน วิถี ประชาธิปไตย"),
+                            Header(moduleName: "village"),
                             SizedBox(height: defaultPadding / 2),
                             VillageLayoutLarge(),
                           ],

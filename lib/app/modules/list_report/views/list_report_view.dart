@@ -30,7 +30,7 @@ class ListReportView extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      const Header(moduleName: "รายการปัญหา"),
+                      const Header(moduleName: "listproblem"),
                       const SizedBox(height: defaultPadding),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,

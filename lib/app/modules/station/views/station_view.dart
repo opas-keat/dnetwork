@@ -79,7 +79,7 @@ class StationView extends StatelessWidget {
                         primary: true,
                         child: Column(
                           children: [
-                            const Header(moduleName: "ศส.ปชต."),
+                            const Header(moduleName: "station"),
                             const SizedBox(height: defaultPadding / 2),
                             StationLayoutLarge(),
                           ],

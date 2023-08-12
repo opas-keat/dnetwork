@@ -79,12 +79,11 @@ class TrainingView extends StatelessWidget {
                     child: const Align(
                       alignment: Alignment.topCenter,
                       child: SingleChildScrollView(
-                        padding:
-                            EdgeInsets.only(left: defaultPadding / 2),
+                        padding: EdgeInsets.only(left: defaultPadding / 2),
                         primary: true,
                         child: Column(
                           children: [
-                            Header(moduleName: "การฝึกอบรม"),
+                            Header(moduleName: "training"),
                             SizedBox(height: defaultPadding / 2),
                             TrainingLayoutLarge(),
                           ],

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/app/shared/utils.dart';
+import 'package:get/get.dart';
 
 import '../../responsive.dart';
+import '../data/models/module.dart';
+import '../modules/budget/views/budget_search.dart';
 import 'constant.dart';
 import 'custom_text.dart';
 
@@ -18,12 +22,12 @@ class Header extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         CustomText(
-          text: moduleName,
+          text: getModuleByNameEn(moduleName).nameTH,
           weight: FontWeight.bold,
         ),
         const Spacer(flex: 2),
         // const Expanded(child: SearchField()),
-        const SearchButton(),
+        SearchButton(moduleName: moduleName),
         const ProfileCard(),
       ],
     );
@@ -31,14 +35,28 @@ class Header extends StatelessWidget {
 }
 
 class SearchButton extends StatelessWidget {
-  const SearchButton({
+  SearchButton({
     super.key,
+    this.moduleName = "",
   });
+
+  final String moduleName;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: () {
+        switch (moduleName) {
+          case "budget":
+            Get.dialog(
+              BudgetSearch(),
+              barrierDismissible: false,
+            );
+            break;
+          default:
+            talker.debug("search.");
+        }
+      },
       child: const Row(
         mainAxisSize: MainAxisSize.min,
         children: [

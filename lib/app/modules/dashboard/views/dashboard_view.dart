@@ -85,7 +85,7 @@ class DashboardView extends StatelessWidget {
                         primary: true,
                         child: Column(
                           children: [
-                            Header(moduleName: "หน้าจอหลัก"),
+                            Header(moduleName: "dashboard"),
                             SizedBox(height: defaultPadding / 2),
                             DashboardLayoutLarge(),
                           ],

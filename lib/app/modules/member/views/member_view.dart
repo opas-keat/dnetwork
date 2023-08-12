@@ -82,12 +82,11 @@ class MemberView extends GetView<MemberController> {
                     child: const Align(
                       alignment: Alignment.topCenter,
                       child: SingleChildScrollView(
-                        padding:
-                            EdgeInsets.only(left: defaultPadding / 2),
+                        padding: EdgeInsets.only(left: defaultPadding / 2),
                         primary: true,
                         child: Column(
                           children: [
-                            Header(moduleName: "สมาชิก"),
+                            Header(moduleName: "member"),
                             SizedBox(height: defaultPadding / 2),
                             MemberLayoutLarge(),
                           ],

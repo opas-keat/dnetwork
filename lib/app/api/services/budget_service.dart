@@ -49,14 +49,18 @@ class BudgetService {
 
   Future<BudgetServiceResponse?> listBudget(
     String province,
+    String budgetDate,
+    String budgetType,
   ) async {
     // apiUtils.secureHeaders = {
     //   'Authorization': 'Bearer ${window.sessionStorage["token"]}',
     // };
     Map<String, String> qParams = {
       "offset": "0",
-      "limit": "20",
-      "order": "created_at",
+      "limit": queryParamLimit,
+      "order": queryParamOrderBy,
+      "budget_date": budgetDate,
+      "budget_type": budgetType,
       "province": province,
     };
     try {

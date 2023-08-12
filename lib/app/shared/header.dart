@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '../../responsive.dart';
 import '../data/models/module.dart';
+import '../modules/address/controllers/address_controller.dart';
 import '../modules/budget/views/budget_search.dart';
 import '../modules/member/views/member_search.dart';
 import '../modules/network/views/network_search.dart';
@@ -38,17 +39,22 @@ class Header extends StatelessWidget {
 }
 
 class SearchButton extends StatelessWidget {
-  const SearchButton({
+  SearchButton({
     super.key,
     this.moduleName = "",
   });
 
   final String moduleName;
+  AddressController addressController = Get.put(AddressController());
+  // addressController.selectedProvince.value = "0|";
+  // addressController.update();
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
+        addressController.selectedProvince.value = "0|";
+        addressController.update();
         switch (moduleName) {
           case "budget":
             Get.dialog(

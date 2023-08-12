@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/app/data/models/station_model.dart';
 import 'package:frontend/app/modules/address/controllers/address_controller.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';

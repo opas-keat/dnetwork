@@ -1,30 +1,11 @@
 import 'package:get/get.dart';
 
 import '../../../api/services/address_service.dart';
-import '../../../data/responses/address_service_response.dart';
 import '../../../shared/utils.dart';
 
 class AddressController extends GetxController {
   final logTitle = "AddressController";
   RxBool isLoading = true.obs;
-
-  // Client _client = Client();
-  // var addressApi;
-
-  // Rx<Province> selectedProvince = Province(
-  //   name: "กรุงเทพมหานคร",
-  //   pCode: "10",
-  // ).obs;
-  // Rx<Province> selectedProvince = Province(
-  //   pName: "กรุงเทพมหานคร",
-  //   pCode: "10",
-  // ).obs;
-
-  // Rx<ProvinceData> selectedProvince = ProvinceData(
-  //   id: "1",
-  //   pCode: "1",
-  //   pName: "สำนักปลัดกระทรวงมหาดไทย",
-  // ).obs;
   final selectedProvince = '0|'.obs;
   final selectedAmphure = '0|'.obs;
   final selectedTambol = '0|'.obs;
@@ -32,27 +13,6 @@ class AddressController extends GetxController {
   // Rx<AmphureData> selectedAmphure = AmphureData().obs;
   // Rx<TambolData> selectedTambol = TambolData().obs;
   // Rx<Province> selectedProvince = Province().obs;
-  // final List<Province> provinceList = <Province>[
-  //   Province(
-  //     pName: "กรุงเทพมหานคร",
-  //     pCode: "10",
-  //   ),
-  //   Province(
-  //     pName: "กรุงเทพมหานคร2",
-  //     pCode: "102",
-  //   ),
-  // ].obs;
-  // final provinceList = <ProvinceData>[
-  //   ProvinceData(
-  //     id: "1",
-  //     pName: "กรุงเทพมหานคร",
-  //     pCode: "10",
-  //   ),
-  // ].obs;
-  // final selectedProvince = ProvinceData(
-  //   pName: "กรุงเทพมหานคร",
-  //   pCode: "10",
-  // ).obs;
   final provinceList = <String>["0|"].obs;
   final amphureList = <String>["0|"].obs;
   final tambolList = <String>["0|"].obs;
@@ -75,40 +35,30 @@ class AddressController extends GetxController {
     talker.info('$logTitle onReady');
   }
 
-  // Future<ProvinceServiceResponse> listProvince(
   Future<bool> listProvince() async {
     talker.info('$logTitle listProvince');
     try {
-      // final response = await addressApi.listProvince();
       final result = await AddressService().listProvince();
       provinceList.clear();
       provinceList.add("0|");
       for (var item in result!.data!) {
         provinceList.add("${item.pCode!}|${item.pName!}");
       }
-      // provinceList.clear();
-      // provinceList.addAll(result!.data!);
       update();
       return false;
     } catch (e) {
       talker.error('$e');
       return false;
     }
-    // return Future.delayed(const Duration(seconds: 3), () {
-    //   return true;
-    // });
   }
 
   updateSelectedProvince(String province) {
     talker.info('$logTitle updateSelectedProvince:${province}');
     selectedProvince.value = province;
     talker.info('$logTitle updateSelectedProvince::pCode:${province}');
-    // selectedProvince.value = provice;
-    // amphureList.clear();
     listAmphure(
       province.split('|').first,
     );
-    // update();
   }
 
   Future<bool> listAmphure(String pCode) async {
@@ -132,9 +82,6 @@ class AddressController extends GetxController {
   updateSelectedAmphure(String amphure) {
     talker.info('$logTitle updateSelectedAmphure:${amphure}');
     selectedAmphure.value = amphure;
-    // update();
-    // talker.info('$logTitle updateSelectedAmphure::pCode:${amphure.aCode}');
-    // tambolList.clear();
     listTambol(
       amphure.split('|').first,
     );

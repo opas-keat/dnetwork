@@ -85,15 +85,16 @@ class BudgetView extends StatelessWidget {
                 child: LayoutBuilder(
                   builder: (context, constraints) => Container(
                     color: Colors.white,
-                    child: const Align(
+                    child: Align(
                       alignment: Alignment.topCenter,
                       child: SingleChildScrollView(
-                        padding: EdgeInsets.only(left: defaultPadding / 2),
+                        padding:
+                            const EdgeInsets.only(left: defaultPadding / 2),
                         primary: true,
                         child: Column(
                           children: [
-                            Header(moduleName: "budget"),
-                            SizedBox(height: defaultPadding / 2),
+                            const Header(moduleName: "budget"),
+                            const SizedBox(height: defaultPadding / 2),
                             BudgetLayoutLarge(),
                           ],
                         ),

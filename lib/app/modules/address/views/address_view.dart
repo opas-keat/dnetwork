@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../data/responses/address_service_response.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../controllers/address_controller.dart';

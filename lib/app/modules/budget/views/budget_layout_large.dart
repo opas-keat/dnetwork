@@ -7,12 +7,14 @@ import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/info_card.dart';
 import '../../../shared/main_chart.dart';
+import '../../address/controllers/address_controller.dart';
 import 'budget_statistics.dart';
 
 class BudgetLayoutLarge extends StatelessWidget {
-  const BudgetLayoutLarge({
+  BudgetLayoutLarge({
     super.key,
   });
+  AddressController addressController = Get.put(AddressController());
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +64,8 @@ class BudgetLayoutLarge extends StatelessWidget {
                           horizontal: defaultPadding / 2),
                     ),
                     onPressed: () {
+                      addressController.selectedProvince.value = "0|";
+                      addressController.update();
                       Get.toNamed(Routes.MANAGE_BUDGET);
                     },
                   ),

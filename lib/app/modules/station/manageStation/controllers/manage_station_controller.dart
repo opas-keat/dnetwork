@@ -56,11 +56,11 @@ class ManageStationController extends GetxController {
     stationList.add(
       StationData(
         name: tffName.text,
-        province: addressController.selectedProvince.value.pName,
-        amphure: addressController.selectedAmphure.value.aName,
+        province: addressController.selectedProvince.value,
+        amphure: addressController.selectedAmphure.value,
         facebook: facebook.text,
         process: process.text,
-        district: addressController.selectedTambol.value.tName,
+        district: addressController.selectedTambol.value,
         location: tffLocaion.text,
         totalComiss: 0,
         totalMember: 0,
@@ -68,12 +68,12 @@ class ManageStationController extends GetxController {
     );
     stations.add(
       Stations(
-        amphure: addressController.selectedAmphure.value.aName,
-        district: addressController.selectedTambol.value.tName,
+        amphure: addressController.selectedAmphure.value,
+        district: addressController.selectedTambol.value,
         location: tffLocaion.text,
         name: tffName.text,
         process: process.text,
-        province: addressController.selectedProvince.value.pName,
+        province: addressController.selectedProvince.value,
         totalComiss: 0,
       ),
     );

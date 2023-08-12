@@ -58,7 +58,7 @@ class AddressView extends StatelessWidget {
                   contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
                 ),
                 child: DropdownButtonHideUnderline(
-                  child: DropdownButton<ProvinceData>(
+                  child: DropdownButton<String>(
                     elevation: 0,
                     // value: null,
                     // value: controller.provinceList.obs.value[0],
@@ -68,10 +68,10 @@ class AddressView extends StatelessWidget {
                       controller.updateSelectedProvince(newValue!);
                     },
                     items: controller.provinceList.obs.value.map((item) {
-                      return DropdownMenuItem<ProvinceData>(
+                      return DropdownMenuItem<String>(
                         value: item,
                         child: Text(
-                          item.pName!,
+                          item.split('|').last,
                           textScaleFactor: 0.9,
                         ),
                       );
@@ -80,56 +80,6 @@ class AddressView extends StatelessWidget {
                 ),
               )),
         ],
-        // Obx(
-        //   () => InputDecorator(
-        //     decoration: InputDecoration(
-        //       border: UnderlineInputBorder(
-        //         borderSide: BorderSide(color: Colors.blue.shade900),
-        //       ),
-        //       // helperText: 'การจ่ายเงิน',
-        //     ),
-        //     child: DropdownButtonHideUnderline(
-        //       child: DropdownButton<Province>(
-        //         elevation: 0,
-        //         value: controller.selectedProvince.value,
-        //         isDense: true,
-        //         // menuMaxHeight: 400,
-        //         style: const TextStyle(
-        //           fontSize: 18,
-        //         ),
-        //         onChanged: (newValue) {
-        //           // controller.updatePaymentChannel(newValue!);
-        //         },
-        //         items: listProvince.map((item) {
-        //           return DropdownMenuItem<Province>(
-        //             value: item,
-        //             child: Text(
-        //               item.name!,
-        //               style: TextStyle(
-        //                 color: Colors.grey.shade700,
-        //                 // fontSize: 18,
-        //               ),
-        //             ),
-        //           );
-        //         }).toList(),
-        //       ),
-        //     ),
-        //   ),
-        // ),
-        // DropdownButton(
-        //   items: listProvince
-        //       .map<DropdownMenuItem<Province>>(
-        //         (province) => DropdownMenuItem(
-        //           value: province,
-        //           child: Text(
-        //             province.name!,
-        //           ),
-        //         ),
-        //       )
-        //       .toList(),
-
-        //   onChanged: (value) {},
-        // ),
         if (showAmphure) ...[
           const SizedBox(height: defaultPadding),
           CustomText(
@@ -150,19 +100,18 @@ class AddressView extends StatelessWidget {
                   contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
                 ),
                 child: DropdownButtonHideUnderline(
-                  child: DropdownButton<AmphureData>(
+                  child: DropdownButton<String>(
                     elevation: 0,
-                    // value: controller.amphureList.obs.value[0],
                     value: controller.selectedAmphure.value,
                     isDense: true,
                     onChanged: (newValue) {
                       controller.updateSelectedAmphure(newValue!);
                     },
                     items: controller.amphureList.obs.value.map((item) {
-                      return DropdownMenuItem<AmphureData>(
+                      return DropdownMenuItem<String>(
                         value: item,
                         child: Text(
-                          item.aName!,
+                          item.split('|').last,
                           textScaleFactor: 0.9,
                         ),
                       );
@@ -218,7 +167,7 @@ class AddressView extends StatelessWidget {
                   contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
                 ),
                 child: DropdownButtonHideUnderline(
-                  child: DropdownButton<TambolData>(
+                  child: DropdownButton<String>(
                     elevation: 0,
                     value: controller.selectedTambol.value,
                     isDense: true,
@@ -226,10 +175,10 @@ class AddressView extends StatelessWidget {
                       controller.updateSelectedTambol(newValue!);
                     },
                     items: controller.tambolList.obs.value.map((item) {
-                      return DropdownMenuItem<TambolData>(
+                      return DropdownMenuItem<String>(
                         value: item,
                         child: Text(
-                          item.tName!,
+                          item.split('|').last,
                           textScaleFactor: 0.9,
                         ),
                       );

@@ -77,8 +77,8 @@ class ManageCommissController extends GetxController {
       ),
     );
     commisss.add(Commisss(
-      amphure: addressController.selectedAmphure.value.aName,
-      district: addressController.selectedTambol.value.tName,
+      amphure: addressController.selectedAmphure.value,
+      district: addressController.selectedTambol.value,
       commissBirthYear: commissBirthYear.text,
       commissDate: commissDate.text,
       commissExp: commissExp.text,
@@ -91,7 +91,7 @@ class ManageCommissController extends GetxController {
       commissStationName: commissStationName.text,
       commissSurName: commissSurName.text,
       commissTelephone: commissTelephone.text,
-      province: addressController.selectedProvince.value.pName,
+      province: addressController.selectedProvince.value,
     ));
     resetForm();
   }

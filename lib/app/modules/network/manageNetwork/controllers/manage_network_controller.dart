@@ -84,8 +84,8 @@ class ManageNetworkController extends GetxController {
       ),
     );
     networks.add(Networks(
-      amphure: addressController.selectedAmphure.value.aName,
-      district: addressController.selectedTambol.value.tName,
+      amphure: addressController.selectedAmphure.value,
+      district: addressController.selectedTambol.value,
       networkBirthYear: networkBirthYear.text,
       networkDate: networkDate.text,
       networkExp: networkExp.text,
@@ -98,7 +98,7 @@ class ManageNetworkController extends GetxController {
       networkStationName: networkStationName.text,
       networkSurName: networkSurName.text,
       networkTelephone: networkTelephone.text,
-      province: addressController.selectedProvince.value.pName,
+      province: addressController.selectedProvince.value,
     ));
     resetForm();
   }

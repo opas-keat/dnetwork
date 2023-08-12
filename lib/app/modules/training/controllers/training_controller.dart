@@ -37,7 +37,7 @@ class TrainingController extends GetxController {
     // String province = "";
     try {
       final result = await TrainingService().listTraining(
-        addressController.selectedProvince.value.pName!,
+        addressController.selectedProvince.value,
         trainingName.text,
         trainingDateForm.text,
         trainingDateTo.text,

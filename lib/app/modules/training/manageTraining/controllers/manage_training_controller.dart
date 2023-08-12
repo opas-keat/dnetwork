@@ -69,7 +69,7 @@ class ManageTrainingController extends GetxController {
         trainingName: trainingName.text,
         trainingTotal: int.parse(trainingTotal.text),
         trainingType: trainingType.text,
-        province: addressController.selectedProvince.value.pName,
+        province: addressController.selectedProvince.value,
       ),
     );
     trainings.add(
@@ -79,7 +79,7 @@ class ManageTrainingController extends GetxController {
         trainingName: trainingName.text,
         trainingTotal: int.parse(trainingTotal.text),
         trainingType: trainingType.text,
-        province: addressController.selectedProvince.value.pName,
+        province: addressController.selectedProvince.value,
       ),
     );
     resetForm();

@@ -37,10 +37,10 @@ class BudgetController extends GetxController {
     talker.debug('$logTitle::listBudget:budgetDate-${budgetDate.text}');
     talker.debug('$logTitle::listBudget:budgetType-${budgetType.text}');
     talker.debug(
-        '$logTitle::listBudget:province-${addressController.selectedProvince.value.pName!}');
+        '$logTitle::listBudget:province-${addressController.selectedProvince.value}');
     try {
       final result = await BudgetService().listBudget(
-        addressController.selectedProvince.value.pName!,
+        addressController.selectedProvince.value,
         budgetDate.text,
         budgetType.text,
       );

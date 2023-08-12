@@ -77,8 +77,8 @@ class ManageMemberController extends GetxController {
       ),
     );
     members.add(Members(
-      amphure: addressController.selectedAmphure.value.aName,
-      district: addressController.selectedTambol.value.tName,
+      amphure: addressController.selectedAmphure.value,
+      district: addressController.selectedTambol.value,
       memberBirthYear: memberBirthYear.text,
       memberDate: memberDate.text,
       memberExp: memberExp.text,
@@ -91,7 +91,7 @@ class ManageMemberController extends GetxController {
       memberStationName: memberStationName.text,
       memberSurName: memberSurName.text,
       memberTelephone: memberTelephone.text,
-      province: addressController.selectedProvince.value.pName,
+      province: addressController.selectedProvince.value,
     ));
     resetForm();
   }

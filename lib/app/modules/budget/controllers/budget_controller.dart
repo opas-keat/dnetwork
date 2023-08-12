@@ -1,22 +1,24 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../api/services/budget_service.dart';
-import '../../../data/models/budget_statistics_data.dart';
 import '../../../data/responses/budget_service_response.dart';
 import '../../../shared/utils.dart';
+import '../../address/controllers/address_controller.dart';
 
 class BudgetController extends GetxController {
   final logTitle = "BudgetController";
   RxBool isLoading = true.obs;
   RxBool isLoadingAdd = true.obs;
+  AddressController addressController = Get.put(AddressController());
 
   final listBudgetStatistics = <BudgetData>[].obs;
   RxBool sortAscending = true.obs;
   RxInt sortColumnIndex = 0.obs;
 
-  RxString budgetDate = ''.obs;
-  RxString budgetType = ''.obs;
-  RxString province = ''.obs;
+  final budgetDate = TextEditingController();
+  final budgetType = TextEditingController(text: "");
+  // final province = TextEditingController();
 
   @override
   void onInit() {
@@ -29,14 +31,18 @@ class BudgetController extends GetxController {
   }
 
   listBudget() async {
-    talker.info('$logTitle:listBudget:');
+    talker.info('$logTitle::listBudget');
     isLoading.value = true;
     // String province = "";
+    talker.debug('$logTitle::listBudget:budgetDate-${budgetDate.text}');
+    talker.debug('$logTitle::listBudget:budgetType-${budgetType.text}');
+    talker.debug(
+        '$logTitle::listBudget:province-${addressController.selectedProvince.value.pName!}');
     try {
       final result = await BudgetService().listBudget(
-        budgetDate.value,
-        budgetType.value,
-        province.value,
+        addressController.selectedProvince.value.pName!,
+        budgetDate.text,
+        budgetType.text,
       );
       listBudgetStatistics.clear();
       for (final item in result!.data!) {
@@ -52,7 +58,7 @@ class BudgetController extends GetxController {
         );
       }
       isLoading.value = false;
-      update();
+      resetSearch();
     } catch (e) {
       talker.error('$e');
     }
@@ -64,6 +70,12 @@ class BudgetController extends GetxController {
         await Future.delayed(Duration(seconds: randomValue()), () {
       return false;
     });
+    update();
+  }
+
+  resetSearch() {
+    budgetDate.text = "";
+    budgetType.text = "";
     update();
   }
 

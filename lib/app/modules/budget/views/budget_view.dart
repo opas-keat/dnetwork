@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/app/shared/utils.dart';
 import 'package:get/get.dart';
 
 import '../../../../responsive.dart';
@@ -29,10 +28,10 @@ class BudgetView extends StatelessWidget {
                 IconButton(
                   onPressed: () {
                     // talker.debug("search.");
-                    // Get.dialog(
-                    //   BudgetSearch(),
-                    //   barrierDismissible: false,
-                    // );
+                    Get.dialog(
+                      BudgetSearch(),
+                      barrierDismissible: false,
+                    );
                   },
                   icon: const Icon(
                     Icons.search_sharp,

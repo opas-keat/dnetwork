@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../../responsive.dart';
 import '../data/models/module.dart';
 import '../modules/budget/views/budget_search.dart';
+import '../modules/training/views/training_search.dart';
 import 'constant.dart';
 import 'custom_text.dart';
 
@@ -35,7 +36,7 @@ class Header extends StatelessWidget {
 }
 
 class SearchButton extends StatelessWidget {
-  SearchButton({
+  const SearchButton({
     super.key,
     this.moduleName = "",
   });
@@ -50,6 +51,12 @@ class SearchButton extends StatelessWidget {
           case "budget":
             Get.dialog(
               BudgetSearch(),
+              barrierDismissible: false,
+            );
+            break;
+          case "training":
+            Get.dialog(
+              TrainingSearch(),
               barrierDismissible: false,
             );
             break;

@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:html';
 
 import 'package:dio/dio.dart';
 import '../../data/requests/training_service_request.dart';
@@ -16,9 +15,9 @@ class TrainingService {
   Future<TrainingServiceResponse?> createTraining(
     List<Trainings> listTrainings,
   ) async {
-    apiUtils.secureHeaders = {
-      'Authorization': 'Bearer ${window.sessionStorage["token"]}',
-    };
+    // apiUtils.secureHeaders = {
+    //   'Authorization': 'Bearer ${window.sessionStorage["token"]}',
+    // };
     talker.debug(TrainingServiceRequest(trainings: listTrainings).toJson());
     try {
       final response = await apiUtils.post(
@@ -49,15 +48,20 @@ class TrainingService {
 
   Future<TrainingServiceResponse?> listTraining(
     String province,
+    String trainingName,
+    String trainingDateForm,
+    String trainingDateTo,
+    String trainingType,
   ) async {
-    // apiUtils.secureHeaders = {
-    //   'Authorization': 'Bearer: ${window.sessionStorage["token"]}',
-    // };
     Map<String, String> qParams = {
       "offset": "0",
       "limit": "20",
       "order": "created_at",
       "province": province,
+      "training_name": trainingName,
+      "training_date_form": trainingDateForm,
+      "training_date_to": trainingDateTo,
+      "training_type": trainingType,
     };
     try {
       final response = await apiUtils.get(

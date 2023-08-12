@@ -22,7 +22,7 @@ class ApiUtils {
 
   ApiUtils._i() {
     _dio.interceptors.add(CustomLogInterceptor(
-      requestHeader: true,
+      requestHeader: false,
       requestBody: true,
       responseHeader: false,
       responseBody: true,

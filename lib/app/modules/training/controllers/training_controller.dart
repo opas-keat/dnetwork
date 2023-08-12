@@ -1,17 +1,25 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../api/services/training_service.dart';
 import '../../../data/models/training_statistics_data.dart';
 import '../../../shared/utils.dart';
+import '../../address/controllers/address_controller.dart';
 
 class TrainingController extends GetxController {
   final logTitle = "TrainingController";
   RxBool isLoading = true.obs;
   RxBool isLoadingAddTraining = true.obs;
+  AddressController addressController = Get.put(AddressController());
 
   final listTrainingStatistics = <TrainingStatisticsData>[].obs;
   RxBool sortAscending = true.obs;
   RxInt sortColumnIndex = 0.obs;
+
+  final trainingName = TextEditingController(text: "");
+  final trainingDateForm = TextEditingController(text: "");
+  final trainingDateTo = TextEditingController(text: "");
+  final trainingType = TextEditingController(text: "");
 
   @override
   void onInit() {
@@ -26,9 +34,15 @@ class TrainingController extends GetxController {
   listTraining() async {
     talker.info('$logTitle:listTraining:');
     isLoading.value = true;
-    String province = "";
+    // String province = "";
     try {
-      final result = await TrainingService().listTraining(province);
+      final result = await TrainingService().listTraining(
+        addressController.selectedProvince.value.pName!,
+        trainingName.text,
+        trainingDateForm.text,
+        trainingDateTo.text,
+        trainingType.text,
+      );
       listTrainingStatistics.clear();
       for (final item in result!.data!) {
         listTrainingStatistics.add(
@@ -42,7 +56,7 @@ class TrainingController extends GetxController {
         );
       }
       isLoading.value = false;
-      update();
+      resetSearch();
     } catch (e) {
       talker.error('$e');
     }
@@ -54,6 +68,14 @@ class TrainingController extends GetxController {
         await Future.delayed(Duration(seconds: randomValue()), () {
       return false;
     });
+    update();
+  }
+
+  resetSearch() {
+    trainingName.text = "";
+    trainingDateForm.text = "";
+    trainingDateTo.text = "";
+    trainingType.text = "";
     update();
   }
 

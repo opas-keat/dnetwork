@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:html';
 
 import 'package:dio/dio.dart';
 import '../../data/requests/budget_service_request.dart';
@@ -16,9 +15,6 @@ class BudgetService {
   Future<BudgetServiceResponse?> createBudget(
     List<Budgets> listBudgets,
   ) async {
-    // apiUtils.secureHeaders = {
-    //   'Authorization': 'Bearer ${window.sessionStorage["token"]}',
-    // };
     talker.debug(BudgetServiceRequest(budgets: listBudgets).toJson());
     try {
       final response = await apiUtils.post(
@@ -52,9 +48,6 @@ class BudgetService {
     String budgetDate,
     String budgetType,
   ) async {
-    // apiUtils.secureHeaders = {
-    //   'Authorization': 'Bearer ${window.sessionStorage["token"]}',
-    // };
     Map<String, String> qParams = {
       "offset": "0",
       "limit": queryParamLimit,

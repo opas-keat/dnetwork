@@ -16,7 +16,7 @@ class BudgetController extends GetxController {
   RxBool sortAscending = true.obs;
   RxInt sortColumnIndex = 0.obs;
 
-  final budgetDate = TextEditingController();
+  final budgetDate = TextEditingController(text: "");
   final budgetType = TextEditingController(text: "");
   // final province = TextEditingController();
 

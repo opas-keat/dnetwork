@@ -49,6 +49,11 @@ class NetworkService {
 
   Future<NetworkServiceResponse?> listNetwork(
     String province,
+    String networkIdCard,
+    String networkTelephone,
+    String networkStationName,
+    String networkFirstName,
+    String networkSurName,
   ) async {
     // apiUtils.secureHeaders = {
     //   'Authorization': 'Bearer: ${window.sessionStorage["token"]}',
@@ -58,6 +63,11 @@ class NetworkService {
       "limit": "20",
       "order": "created_at",
       "province": province,
+      "network_id_card": networkIdCard,
+      "network_telephone": networkTelephone,
+      "network_station_name": networkStationName,
+      "network_first_name": networkFirstName,
+      "network_sur_name": networkSurName,
     };
     try {
       final response = await apiUtils.get(

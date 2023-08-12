@@ -1,17 +1,26 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../api/services/network_service.dart';
 import '../../../data/models/network_statistics.data.dart';
 import '../../../shared/utils.dart';
+import '../../address/controllers/address_controller.dart';
 
 class NetworkController extends GetxController {
   final logTitle = "NetworkController";
   RxBool isLoading = true.obs;
   RxBool isLoadingAddNetwork = true.obs;
+  AddressController addressController = Get.put(AddressController());
 
   final listNetworkStatistics = <NetworkStatisticsData>[].obs;
   RxBool sortAscending = true.obs;
   RxInt sortColumnIndex = 0.obs;
+
+  final networkIdCard = TextEditingController(text: "");
+  final networkTelephone = TextEditingController(text: "");
+  final networkStationName = TextEditingController(text: "");
+  final networkFirstName = TextEditingController(text: "");
+  final networkSurName = TextEditingController(text: "");
 
   @override
   void onInit() {
@@ -26,9 +35,16 @@ class NetworkController extends GetxController {
   listNetwork() async {
     talker.info('$logTitle:listNetwork:');
     isLoading.value = true;
-    String province = "";
+    // String province = "";
     try {
-      final result = await NetworkService().listNetwork(province);
+      final result = await NetworkService().listNetwork(
+        addressController.selectedProvince.value.pName!,
+        networkIdCard.text,
+        networkTelephone.text,
+        networkStationName.text,
+        networkFirstName.text,
+        networkSurName.text,
+      );
       listNetworkStatistics.clear();
       for (final item in result!.data!) {
         listNetworkStatistics.add(
@@ -43,7 +59,7 @@ class NetworkController extends GetxController {
         );
       }
       isLoading.value = false;
-      update();
+      resetSearch();
     } catch (e) {
       talker.error('$e');
     }
@@ -55,6 +71,15 @@ class NetworkController extends GetxController {
         await Future.delayed(Duration(seconds: randomValue()), () {
       return false;
     });
+    update();
+  }
+
+  resetSearch() {
+    networkIdCard.text = "";
+    networkTelephone.text = "";
+    networkStationName.text = "";
+    networkFirstName.text = "";
+    networkSurName.text = "";
     update();
   }
 

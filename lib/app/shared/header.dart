@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../../responsive.dart';
 import '../data/models/module.dart';
 import '../modules/budget/views/budget_search.dart';
+import '../modules/network/views/network_search.dart';
 import '../modules/training/views/training_search.dart';
 import 'constant.dart';
 import 'custom_text.dart';
@@ -51,6 +52,12 @@ class SearchButton extends StatelessWidget {
           case "budget":
             Get.dialog(
               BudgetSearch(),
+              barrierDismissible: false,
+            );
+            break;
+          case "network":
+            Get.dialog(
+              NetworkSearch(),
               barrierDismissible: false,
             );
             break;

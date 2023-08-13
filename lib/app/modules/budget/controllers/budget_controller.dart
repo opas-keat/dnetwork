@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../api/api_params.dart';
 import '../../../api/services/budget_service.dart';
 import '../../../data/responses/budget_service_response.dart';
 import '../../../shared/utils.dart';
@@ -38,12 +39,16 @@ class BudgetController extends GetxController {
     talker.debug('$logTitle::listBudget:budgetType-${budgetType.text}');
     talker.debug(
         '$logTitle::listBudget:province-${addressController.selectedProvince.value.split('|').last}');
+    Map<String, String> qParams = {
+      "offset": "0",
+      "limit": queryParamLimit,
+      "order": queryParamOrderBy,
+      "budget_date": budgetDate.text,
+      "budget_type": budgetType.text,
+      "province": addressController.selectedProvince.value.split('|').last,
+    };
     try {
-      final result = await BudgetService().listBudget(
-        addressController.selectedProvince.value.split('|').last,
-        budgetDate.text,
-        budgetType.text,
-      );
+      final result = await BudgetService().listBudget(qParams);
       listBudgetStatistics.clear();
       for (final item in result!.data!) {
         listBudgetStatistics.add(

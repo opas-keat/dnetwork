@@ -38,7 +38,7 @@ class NetworkController extends GetxController {
     // String province = "";
     try {
       final result = await NetworkService().listNetwork(
-        addressController.selectedProvince.value,
+        addressController.selectedProvince.value.split('|').last,
         networkIdCard.text,
         networkTelephone.text,
         networkStationName.text,

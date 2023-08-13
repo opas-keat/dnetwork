@@ -1,17 +1,26 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../api/api_params.dart';
 import '../../../api/services/station_service.dart';
 import '../../../data/models/station_statistics_data.dart';
 import '../../../shared/utils.dart';
+import '../../address/controllers/address_controller.dart';
 
 class StationController extends GetxController {
   final logTitle = "StationController";
   RxBool isLoading = true.obs;
   RxBool isLoadingAddStation = true.obs;
+  AddressController addressController = Get.put(AddressController());
 
   final listStationStatistics = <StationStatisticsData>[].obs;
   RxBool sortAscending = true.obs;
   RxInt sortColumnIndex = 0.obs;
+
+  final name = TextEditingController();
+  final location = TextEditingController();
+  final facebook = TextEditingController();
+  final process = TextEditingController();
 
   @override
   void onInit() {
@@ -25,9 +34,20 @@ class StationController extends GetxController {
   listStation() async {
     talker.info('$logTitle:listStation:');
     isLoading.value = true;
-    String province = "";
+    Map<String, String> qParams = {
+      "offset": "0",
+      "limit": queryParamLimit,
+      "order": queryParamOrderBy,
+      "province": addressController.selectedProvince.value.split('|').last,
+      "amphure": addressController.selectedAmphure.value.split('|').last,
+      "district": addressController.selectedTambol.value.split('|').last,
+      "name": name.text,
+      "process": process.text,
+      "location": location.text,
+      "facebook": facebook.text,
+    };
     try {
-      final result = await StationService().listStation(province);
+      final result = await StationService().listStation(qParams);
       listStationStatistics.clear();
       for (final item in result!.data!) {
         listStationStatistics.add(
@@ -40,7 +60,7 @@ class StationController extends GetxController {
         );
       }
       isLoading.value = false;
-      update();
+      resetSearch();
       // return false;
     } catch (e) {
       talker.error('$e');
@@ -55,6 +75,14 @@ class StationController extends GetxController {
         await Future.delayed(Duration(seconds: randomValue()), () {
       return false;
     });
+    update();
+  }
+
+  resetSearch() {
+    name.text = "";
+    process.text = "";
+    location.text = "";
+    facebook.text = "";
     update();
   }
 

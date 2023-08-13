@@ -5,6 +5,11 @@ class LectuterServiceResponse {
 
   LectuterServiceResponse({this.code, this.message, this.data});
 
+  LectuterServiceResponse.withError({
+    code,
+    String? msg,
+  }) : message = msg;
+
   LectuterServiceResponse.fromJson(Map<String, dynamic> json) {
     code = json['code'];
     message = json['message'];
@@ -34,6 +39,8 @@ class LectuterData {
   String? agency;
   String? affiliate;
   String? province;
+  String? lectuterFirstName;
+  String? lectuterSurName;
 
   LectuterData(
       {this.id,
@@ -41,7 +48,9 @@ class LectuterData {
       this.telephone,
       this.agency,
       this.affiliate,
-      this.province});
+      this.province,
+      this.lectuterFirstName,
+      this.lectuterSurName});
 
   LectuterData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -50,16 +59,20 @@ class LectuterData {
     agency = json['agency'];
     affiliate = json['affiliate'];
     province = json['province'];
+    lectuterFirstName = json['lectuter_first_name'];
+    lectuterSurName = json['lectuter_sur_name'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['name'] = name;
     data['telephone'] = telephone;
     data['agency'] = agency;
     data['affiliate'] = affiliate;
     data['province'] = province;
+    data['lectuter_first_name'] = lectuterFirstName;
+    data['lectuter_sur_name'] = lectuterSurName;
     return data;
   }
 }

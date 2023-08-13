@@ -1,14 +1,18 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../../responsive.dart';
+import '../../../../data/responses/lectuter_service_response.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../../shared/constant.dart';
 import '../../../../shared/custom_text.dart';
 import '../../../../shared/main_drawer.dart';
+import '../../../../shared/utils.dart';
+import '../../../address/views/address_view.dart';
 import '../controllers/manage_lectuter_controller.dart';
 
 class ManageLectuterView extends StatelessWidget {
@@ -43,30 +47,34 @@ class ManageLectuterView extends StatelessWidget {
               Expanded(
                 flex: 3,
                 child: Container(
-                  // color: Colors.amber,
-                  child: Container(
-                    padding: const EdgeInsets.only(bottom: defaultPadding),
-                    decoration: const BoxDecoration(
-                      border: Border(
-                        right: BorderSide(
-                          width: 1,
-                          color: Colors.black38,
-                        ),
+                  padding: const EdgeInsets.only(bottom: defaultPadding),
+                  decoration: const BoxDecoration(
+                    border: Border(
+                      right: BorderSide(
+                        width: 1,
+                        color: Colors.black38,
                       ),
                     ),
-                    child: DataTable2(
+                  ),
+                  child: Obx(
+                    () => DataTable2(
                       columnSpacing: defaultPadding,
                       dividerThickness: 2,
                       showBottomBorder: true,
                       headingRowColor: MaterialStateProperty.resolveWith(
                           (states) => Colors.grey.shade200),
                       columns: listColumn,
-                      rows: const [],
-                      // rows: List.generate(
-                      //   controller.stationList.value.length,
-                      //   (index) => StationDataRow(
-                      //       index, controller.stationList.value[index]),
-                      // ),
+                      // rows: const [],
+                      rows: List.generate(
+                        controller.lectuterList.obs.value.length,
+                        (index) => Responsive.isLargeScreen(context)
+                            ? lectuterDataRow(
+                                index, controller.lectuterList.obs.value[index])
+                            : lectuterDataRowLayoutSmall(index,
+                                controller.lectuterList.obs.value[index]),
+                        // (index) => StationDataRow(
+                        //     index, controller.commissList.obs.value[index]),
+                      ),
                     ),
                   ),
                 ),
@@ -95,7 +103,7 @@ class ManageLectuterView extends StatelessWidget {
                                 IconButton(
                                   icon: const Icon(Icons.add_sharp),
                                   onPressed: () {
-                                    controller.addDataToTable();
+                                    controller.addToDataTable();
                                   },
                                 ),
                                 const Spacer(flex: 1),
@@ -162,35 +170,18 @@ class ManageLectuterView extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          CustomText(
-                            text: "จังหวัด",
-                            color: Colors.black87.withOpacity(.9),
+                          AddressView(
+                            showPostCode: false,
+                            showAmphure: false,
+                            showTambol: false,
                           ),
-                          const SizedBox(height: defaultPadding / 2),
-                          TextFormField(
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                              fillColor: Colors.white.withOpacity(.8),
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(defaultPadding / 2),
-                                borderSide: const BorderSide(
-                                    color: Colors.black54, width: 1),
-                              ),
-                              isCollapsed: true,
-                              contentPadding:
-                                  const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                            ),
-                          ),
-                          const SizedBox(height: defaultPadding),
-                          // AddressView(showPostCode: false),
                           CustomText(
                             text: "คำนำหน้า",
                             color: Colors.black87.withOpacity(.9),
                           ),
                           const SizedBox(height: defaultPadding / 2),
                           TextFormField(
+                            controller: controller.lectuterPreName,
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                               fillColor: Colors.white.withOpacity(.8),
@@ -213,6 +204,7 @@ class ManageLectuterView extends StatelessWidget {
                           ),
                           const SizedBox(height: defaultPadding / 2),
                           TextFormField(
+                            controller: controller.lectuterFirstName,
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                               fillColor: Colors.white.withOpacity(.8),
@@ -235,6 +227,7 @@ class ManageLectuterView extends StatelessWidget {
                           ),
                           const SizedBox(height: defaultPadding / 2),
                           TextFormField(
+                            controller: controller.lectuterSurName,
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                               fillColor: Colors.white.withOpacity(.8),
@@ -257,7 +250,12 @@ class ManageLectuterView extends StatelessWidget {
                           ),
                           const SizedBox(height: defaultPadding / 2),
                           TextFormField(
-                            keyboardType: TextInputType.text,
+                            controller: controller.lectuterTelephone,
+                            keyboardType: TextInputType.number,
+                            inputFormatters: <TextInputFormatter>[
+                              FilteringTextInputFormatter.digitsOnly,
+                              LengthLimitingTextInputFormatter(10),
+                            ],
                             decoration: InputDecoration(
                               fillColor: Colors.white.withOpacity(.8),
                               filled: true,
@@ -279,6 +277,7 @@ class ManageLectuterView extends StatelessWidget {
                           ),
                           const SizedBox(height: defaultPadding / 2),
                           TextFormField(
+                            controller: controller.lectuterLine,
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                               fillColor: Colors.white.withOpacity(.8),
@@ -301,6 +300,7 @@ class ManageLectuterView extends StatelessWidget {
                           ),
                           const SizedBox(height: defaultPadding / 2),
                           TextFormField(
+                            controller: controller.lectuterFacebook,
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                               fillColor: Colors.white.withOpacity(.8),
@@ -323,6 +323,7 @@ class ManageLectuterView extends StatelessWidget {
                           ),
                           const SizedBox(height: defaultPadding / 2),
                           TextFormField(
+                            controller: controller.lectuterAgency,
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                               fillColor: Colors.white.withOpacity(.8),
@@ -345,6 +346,7 @@ class ManageLectuterView extends StatelessWidget {
                           ),
                           const SizedBox(height: defaultPadding / 2),
                           TextFormField(
+                            controller: controller.lectuterAffiliate,
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                               fillColor: Colors.white.withOpacity(.8),
@@ -371,6 +373,7 @@ class ManageLectuterView extends StatelessWidget {
                             children: [
                               Expanded(
                                 child: TextFormField(
+                                  controller: controller.lectuterExp,
                                   keyboardType: TextInputType.text,
                                   decoration: InputDecoration(
                                     fillColor: Colors.white.withOpacity(.8),
@@ -406,7 +409,33 @@ class ManageLectuterView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         ElevatedButton.icon(
-                          onPressed: () {},
+                          onPressed: () async {
+                            Get.dialog(
+                              const Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                              barrierDismissible: false,
+                            );
+                            final result = await controller.saveLectuter();
+                            Get.back();
+                            result
+                                ? Get.offAllNamed(Routes.LECTUTER)
+                                : Get.snackbar(
+                                    'Error',
+                                    controller.lectuterError.value,
+                                    backgroundColor: accentColor,
+                                    snackPosition: SnackPosition.BOTTOM,
+                                    colorText: Colors.white,
+                                    icon: const Icon(
+                                      Icons.lock_person_outlined,
+                                      color: Colors.white,
+                                    ),
+                                    isDismissible: true,
+                                    margin: const EdgeInsets.all(
+                                      defaultPadding,
+                                    ),
+                                  );
+                          },
                           style: ElevatedButton.styleFrom(
                             padding: const EdgeInsets.symmetric(
                                 vertical: defaultPadding,
@@ -481,3 +510,183 @@ List<DataColumn> listColumn = [
     numeric: true,
   ),
 ];
+
+DataRow lectuterDataRow(
+  int index,
+  LectuterData lectuterData,
+) {
+  return DataRow(
+    cells: [
+      DataCell(
+        Text(
+          formatterItem.format(index + 1),
+          style: const TextStyle(
+            fontSize: 12,
+          ),
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              lectuterData.name!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              lectuterData.lectuterFirstName!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              lectuterData.lectuterSurName!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              lectuterData.agency!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              lectuterData.affiliate!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              lectuterData.telephone!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+    ],
+  );
+}
+
+DataRow lectuterDataRowLayoutSmall(
+  int index,
+  LectuterData lectuterData,
+) {
+  return DataRow(
+    cells: [
+      DataCell(
+        Text(
+          formatterItem.format(index + 1),
+          style: const TextStyle(
+            fontSize: 12,
+          ),
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              lectuterData.name!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              lectuterData.lectuterFirstName!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              lectuterData.lectuterSurName!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              lectuterData.agency!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              lectuterData.affiliate!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              lectuterData.telephone!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+    ],
+  );
+}

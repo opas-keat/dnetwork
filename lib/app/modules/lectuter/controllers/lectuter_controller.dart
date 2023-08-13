@@ -1,13 +1,16 @@
 import 'package:get/get.dart';
 
+import '../../../api/api_params.dart';
 import '../../../api/services/lectuter_service.dart';
 import '../../../data/models/lectuter_statistics_data.dart';
 import '../../../shared/utils.dart';
+import '../../address/controllers/address_controller.dart';
 
 class LectuterController extends GetxController {
   final logTitle = "LectuterController";
   RxBool isLoading = true.obs;
   RxBool isLoadingAdd = true.obs;
+  AddressController addressController = Get.put(AddressController());
 
   final listLectuterStatistics = [].obs;
   RxBool sortAscending = true.obs;
@@ -26,9 +29,16 @@ class LectuterController extends GetxController {
   listLectuter() async {
     talker.info('$logTitle:listLectuter:');
     isLoading.value = true;
-    String province = "ฉะเชิงเทรา";
+     Map<String, String> qParams = {
+      "offset": "0",
+      "limit": queryParamLimit,
+      "order": queryParamOrderBy,
+      "province": addressController.selectedProvince.value.split('|').last,
+      "amphure": addressController.selectedAmphure.value.split('|').last,
+      "district": addressController.selectedTambol.value.split('|').last,
+    };
     try {
-      final result = await LectuterService().listLectuter(province);
+      final result = await LectuterService().listLectuter(qParams);
       listLectuterStatistics.clear();
       for (final item in result!.data!) {
         listLectuterStatistics.add(

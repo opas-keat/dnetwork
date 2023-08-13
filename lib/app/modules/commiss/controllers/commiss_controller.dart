@@ -1,17 +1,27 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../api/api_params.dart';
 import '../../../api/services/commiss_service.dart';
 import '../../../data/models/commiss_statistics_data.dart';
 import '../../../shared/utils.dart';
+import '../../address/controllers/address_controller.dart';
 
 class CommissController extends GetxController {
   final logTitle = "CommissController";
   RxBool isLoading = true.obs;
   RxBool isLoadingAdd = true.obs;
+  AddressController addressController = Get.put(AddressController());
 
   final listCommissStatistics = <CommissStatisticsData>[].obs;
   RxBool sortAscending = true.obs;
   RxInt sortColumnIndex = 0.obs;
+
+  final commissFirstName = TextEditingController(text: "");
+  final commissSurName = TextEditingController(text: "");
+  final commissTelephone = TextEditingController(text: "");
+  final commissDate = TextEditingController(text: "");
+  final commissStationName = TextEditingController(text: "");
 
   @override
   void onInit() {
@@ -26,9 +36,21 @@ class CommissController extends GetxController {
   listCommiss() async {
     talker.info('$logTitle:listCommiss:');
     isLoading.value = true;
-    String province = "ชลบุรี";
+    Map<String, String> qParams = {
+      "offset": "0",
+      "limit": queryParamLimit,
+      "order": queryParamOrderBy,
+      "province": addressController.selectedProvince.value.split('|').last,
+      "amphure": addressController.selectedAmphure.value.split('|').last,
+      "district": addressController.selectedTambol.value.split('|').last,
+      "commiss_first_name": commissFirstName.text,
+      "commiss_sur_name": commissSurName.text,
+      "commiss_telephone": commissTelephone.text,
+      "commiss_date": commissDate.text,
+      "commiss_station_name": commissStationName.text,
+    };
     try {
-      final result = await CommissService().listCommiss(province);
+      final result = await CommissService().listCommiss(qParams);
       listCommissStatistics.clear();
       for (final item in result!.data!) {
         listCommissStatistics.add(
@@ -43,7 +65,7 @@ class CommissController extends GetxController {
         );
       }
       isLoading.value = false;
-      update();
+      resetSearch();
     } catch (e) {
       talker.error('$e');
     }
@@ -55,6 +77,15 @@ class CommissController extends GetxController {
         await Future.delayed(Duration(seconds: randomValue()), () {
       return false;
     });
+    update();
+  }
+
+  resetSearch() {
+    commissFirstName.text = "";
+    commissSurName.text = "";
+    commissTelephone.text = "";
+    commissDate.text = "";
+    commissStationName.text = "";
     update();
   }
 

@@ -6,6 +6,7 @@ import '../../responsive.dart';
 import '../data/models/module.dart';
 import '../modules/address/controllers/address_controller.dart';
 import '../modules/budget/views/budget_search.dart';
+import '../modules/commiss/views/commiss_search.dart';
 import '../modules/member/views/member_search.dart';
 import '../modules/network/views/network_search.dart';
 import '../modules/training/views/training_search.dart';
@@ -87,7 +88,12 @@ class SearchButton extends StatelessWidget {
               barrierDismissible: false,
             );
             break;
-
+          case "commiss":
+            Get.dialog(
+              CommissSearch(),
+              barrierDismissible: false,
+            );
+            break;
           default:
             talker.debug("search.");
         }

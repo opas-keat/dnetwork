@@ -7,7 +7,7 @@ import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/header.dart';
 import '../../../shared/main_drawer.dart';
-import '../controllers/villagehosty_controller.dart';
+import '../controllers/village_controller.dart';
 import 'village_layout_large.dart';
 import 'village_layout_small.dart';
 

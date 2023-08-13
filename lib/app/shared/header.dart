@@ -9,6 +9,7 @@ import '../modules/budget/views/budget_search.dart';
 import '../modules/member/views/member_search.dart';
 import '../modules/network/views/network_search.dart';
 import '../modules/training/views/training_search.dart';
+import '../modules/villagehosty/views/village_search.dart';
 import 'constant.dart';
 import 'custom_text.dart';
 
@@ -56,12 +57,6 @@ class SearchButton extends StatelessWidget {
         addressController.selectedProvince.value = "0|";
         addressController.update();
         switch (moduleName) {
-          case "budget":
-            Get.dialog(
-              BudgetSearch(),
-              barrierDismissible: false,
-            );
-            break;
           case "member":
             Get.dialog(
               MemberSearch(),
@@ -80,6 +75,19 @@ class SearchButton extends StatelessWidget {
               barrierDismissible: false,
             );
             break;
+          case "budget":
+            Get.dialog(
+              BudgetSearch(),
+              barrierDismissible: false,
+            );
+            break;
+          case "village":
+            Get.dialog(
+              VillageSearch(),
+              barrierDismissible: false,
+            );
+            break;
+
           default:
             talker.debug("search.");
         }

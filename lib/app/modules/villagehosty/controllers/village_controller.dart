@@ -1,17 +1,24 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../api/api_params.dart';
 import '../../../api/services/village_service.dart';
 import '../../../data/models/village_statistics_data.dart';
 import '../../../shared/utils.dart';
+import '../../address/controllers/address_controller.dart';
 
 class VillageController extends GetxController {
   final logTitle = "VillageController";
   RxBool isLoading = true.obs;
   RxBool isLoadingAdd = true.obs;
+  AddressController addressController = Get.put(AddressController());
 
   final listVillageStatistics = <VillageStatisticsData>[].obs;
   RxBool sortAscending = true.obs;
   RxInt sortColumnIndex = 0.obs;
+
+  final villageName = TextEditingController(text: "");
+  final villageNo = TextEditingController(text: "");
 
   @override
   void onInit() {
@@ -26,9 +33,18 @@ class VillageController extends GetxController {
   listVillage() async {
     talker.info('$logTitle:listVillage:');
     isLoading.value = true;
-    String province = "ฉะเชิงเทรา";
+    Map<String, String> qParams = {
+      "offset": "0",
+      "limit": queryParamLimit,
+      "order": queryParamOrderBy,
+      "province": addressController.selectedProvince.value.split('|').last,
+      "amphure": addressController.selectedAmphure.value.split('|').last,
+      "district": addressController.selectedTambol.value.split('|').last,
+      "village_name": villageName.text,
+      "village_no": villageNo.text,
+    };
     try {
-      final result = await VillageService().listVillage(province);
+      final result = await VillageService().listVillage(qParams);
       listVillageStatistics.clear();
       for (final item in result!.data!) {
         listVillageStatistics.add(
@@ -41,7 +57,7 @@ class VillageController extends GetxController {
         );
       }
       isLoading.value = false;
-      update();
+      resetSearch();
     } catch (e) {
       talker.error('$e');
     }
@@ -53,6 +69,12 @@ class VillageController extends GetxController {
         await Future.delayed(Duration(seconds: randomValue()), () {
       return false;
     });
+    update();
+  }
+
+  resetSearch() {
+    villageName.text = "";
+    villageNo.text = "";
     update();
   }
 

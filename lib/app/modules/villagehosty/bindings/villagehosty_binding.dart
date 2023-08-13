@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import '../controllers/villagehosty_controller.dart';
+import '../controllers/village_controller.dart';
 
 class VillagehostyBinding extends Bindings {
   @override

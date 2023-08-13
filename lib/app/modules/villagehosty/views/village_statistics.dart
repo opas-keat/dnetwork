@@ -6,7 +6,7 @@ import '../../../data/models/village_statistics_data.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/utils.dart';
-import '../controllers/villagehosty_controller.dart';
+import '../controllers/village_controller.dart';
 
 class VillageStatistics extends StatelessWidget {
   VillageStatistics({

@@ -48,17 +48,12 @@ class VillageService {
   }
 
   Future<VillageServiceResponse?> listVillage(
-    String province,
+    Map<String, String> qParams,
   ) async {
     // apiUtils.secureHeaders = {
     //   'Authorization': 'Bearer: ${window.sessionStorage["token"]}',
     // };
-    Map<String, String> qParams = {
-      "offset": "0",
-      "limit": "20",
-      "order": "created_at",
-      "province": province,
-    };
+    
     try {
       final response = await apiUtils.get(
         url: Api.ectApiContext + Api.ectApiVersion + ApiEndPoints.village,

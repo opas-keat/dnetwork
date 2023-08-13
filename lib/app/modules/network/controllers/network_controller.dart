@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../api/api_params.dart';
 import '../../../api/services/network_service.dart';
 import '../../../data/models/network_statistics.data.dart';
 import '../../../shared/utils.dart';
@@ -35,16 +36,19 @@ class NetworkController extends GetxController {
   listNetwork() async {
     talker.info('$logTitle:listNetwork:');
     isLoading.value = true;
-    // String province = "";
+    Map<String, String> qParams = {
+      "offset": "0",
+      "limit": queryParamLimit,
+      "order": queryParamOrderBy,
+      "province": addressController.selectedProvince.value.split('|').last,
+      "network_id_card": networkIdCard.text,
+      "network_telephone": networkTelephone.text,
+      "network_station_name": networkStationName.text,
+      "network_first_name": networkFirstName.text,
+      "network_sur_name": networkSurName.text,
+    };
     try {
-      final result = await NetworkService().listNetwork(
-        addressController.selectedProvince.value.split('|').last,
-        networkIdCard.text,
-        networkTelephone.text,
-        networkStationName.text,
-        networkFirstName.text,
-        networkSurName.text,
-      );
+      final result = await NetworkService().listNetwork(qParams);
       listNetworkStatistics.clear();
       for (final item in result!.data!) {
         listNetworkStatistics.add(

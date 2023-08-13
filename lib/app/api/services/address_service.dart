@@ -35,10 +35,6 @@ class AddressService {
   }
 
   Future<AmphureServiceResponse?> listAmphureByPCode(String pCode) async {
-    // Map<String, dynamic> qParams = {
-    //   "offset": 0,
-    //   "limit": 100,
-    // };
     try {
       final response = await apiUtils.get(
         url:

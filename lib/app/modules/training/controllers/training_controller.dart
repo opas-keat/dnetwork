@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../api/api_params.dart';
 import '../../../api/services/training_service.dart';
 import '../../../data/models/training_statistics_data.dart';
 import '../../../shared/utils.dart';
@@ -35,14 +36,18 @@ class TrainingController extends GetxController {
     talker.info('$logTitle:listTraining:');
     isLoading.value = true;
     // String province = "";
+    Map<String, String> qParams = {
+      "offset": "0",
+      "limit": queryParamLimit,
+      "order": queryParamOrderBy,
+      "province": addressController.selectedProvince.value.split('|').last,
+      "training_name": trainingName.text,
+      "training_date_form": trainingDateForm.text,
+      "training_date_to": trainingDateTo.text,
+      "training_type": trainingType.text,
+    };
     try {
-      final result = await TrainingService().listTraining(
-        addressController.selectedProvince.value.split('|').last,
-        trainingName.text,
-        trainingDateForm.text,
-        trainingDateTo.text,
-        trainingType.text,
-      );
+      final result = await TrainingService().listTraining(qParams);
       listTrainingStatistics.clear();
       for (final item in result!.data!) {
         listTrainingStatistics.add(

@@ -46,14 +46,6 @@ class BudgetService {
   Future<BudgetServiceResponse?> listBudget(
     Map<String, String> qParams,
   ) async {
-    // Map<String, String> qParams = {
-    //   "offset": "0",
-    //   "limit": queryParamLimit,
-    //   "order": queryParamOrderBy,
-    //   "budget_date": budgetDate,
-    //   "budget_type": budgetType,
-    //   "province": province,
-    // };
     try {
       final response = await apiUtils.get(
         url: Api.ectApiContext + Api.ectApiVersion + ApiEndPoints.budget,

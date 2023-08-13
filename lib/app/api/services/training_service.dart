@@ -47,22 +47,8 @@ class TrainingService {
   }
 
   Future<TrainingServiceResponse?> listTraining(
-    String province,
-    String trainingName,
-    String trainingDateForm,
-    String trainingDateTo,
-    String trainingType,
+    Map<String, String> qParams,
   ) async {
-    Map<String, String> qParams = {
-      "offset": "0",
-      "limit": "20",
-      "order": "created_at",
-      "province": province,
-      "training_name": trainingName,
-      "training_date_form": trainingDateForm,
-      "training_date_to": trainingDateTo,
-      "training_type": trainingType,
-    };
     try {
       final response = await apiUtils.get(
         url: Api.ectApiContext + Api.ectApiVersion + ApiEndPoints.training,

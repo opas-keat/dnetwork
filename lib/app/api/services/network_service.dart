@@ -48,27 +48,22 @@ class NetworkService {
   }
 
   Future<NetworkServiceResponse?> listNetwork(
-    String province,
-    String networkIdCard,
-    String networkTelephone,
-    String networkStationName,
-    String networkFirstName,
-    String networkSurName,
+    Map<String, String> qParams,
   ) async {
     // apiUtils.secureHeaders = {
     //   'Authorization': 'Bearer: ${window.sessionStorage["token"]}',
     // };
-    Map<String, String> qParams = {
-      "offset": "0",
-      "limit": "20",
-      "order": "created_at",
-      "province": province,
-      "network_id_card": networkIdCard,
-      "network_telephone": networkTelephone,
-      "network_station_name": networkStationName,
-      "network_first_name": networkFirstName,
-      "network_sur_name": networkSurName,
-    };
+    // Map<String, String> qParams = {
+    //   "offset": "0",
+    //   "limit": "20",
+    //   "order": "created_at",
+    //   "province": province,
+    //   "network_id_card": networkIdCard,
+    //   "network_telephone": networkTelephone,
+    //   "network_station_name": networkStationName,
+    //   "network_first_name": networkFirstName,
+    //   "network_sur_name": networkSurName,
+    // };
     try {
       final response = await apiUtils.get(
         url: Api.ectApiContext + Api.ectApiVersion + ApiEndPoints.network,

@@ -67,7 +67,7 @@ class ManageBudgetController extends GetxController {
         budgetRemain: int.parse(budgetRemain.text),
         budgetType: budgetType.text,
         budgetUsed: int.parse(budgetUsed.text),
-        province: addressController.selectedProvince.value,
+        province: addressController.selectedProvince.value.split('|').last,
       ),
     );
     budgets.add(
@@ -77,7 +77,7 @@ class ManageBudgetController extends GetxController {
         budgetRemain: int.parse(budgetRemain.text),
         budgetType: budgetType.text,
         budgetUsed: int.parse(budgetUsed.text),
-        province: addressController.selectedProvince.value,
+        province: addressController.selectedProvince.value.split('|').last,
       ),
     );
     resetForm();

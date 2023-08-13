@@ -74,17 +74,17 @@ class ManageVillageController extends GetxController {
     talker.debug(election.text);
     villageList.add(VillageData(
       address:
-          "${addressController.selectedProvince.value}/${addressController.selectedAmphure.value}/${addressController.selectedTambol.value}",
+          "${addressController.selectedProvince.value.split('|').last}/${addressController.selectedAmphure.value.split('|').last}/${addressController.selectedTambol.value.split('|').last}",
       name: villageName.text,
       no: villageNo.text,
       total: int.parse(villageTotal.text),
     ));
     villages.add(
       Villages(
-        amphure: addressController.selectedAmphure.value,
-        district: addressController.selectedTambol.value,
+        amphure: addressController.selectedAmphure.value.split('|').last,
+        district: addressController.selectedTambol.value.split('|').last,
         election: election.text,
-        province: addressController.selectedProvince.value,
+        province: addressController.selectedProvince.value.split('|').last,
         villageActYear: villageActYear.text,
         villageActivity: villageActivity.text,
         villageGoalAct2: villageGoalAct2.text,

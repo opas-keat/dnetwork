@@ -7,6 +7,7 @@ import '../data/models/module.dart';
 import '../modules/address/controllers/address_controller.dart';
 import '../modules/budget/views/budget_search.dart';
 import '../modules/commiss/views/commiss_search.dart';
+import '../modules/lectuter/views/lectuter_search.dart';
 import '../modules/member/views/member_search.dart';
 import '../modules/network/views/network_search.dart';
 import '../modules/station/views/station_search.dart';
@@ -92,6 +93,12 @@ class SearchButton extends StatelessWidget {
           case "village":
             Get.dialog(
               VillageSearch(),
+              barrierDismissible: false,
+            );
+            break;
+          case "lectuter":
+            Get.dialog(
+              LectuterSearch(),
               barrierDismissible: false,
             );
             break;

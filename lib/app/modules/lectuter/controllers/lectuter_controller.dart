@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../api/api_params.dart';
@@ -16,6 +17,16 @@ class LectuterController extends GetxController {
   RxBool sortAscending = true.obs;
   RxInt sortColumnIndex = 0.obs;
 
+  final lectuterPreName = TextEditingController();
+  final lectuterFirstName = TextEditingController();
+  final lectuterSurName = TextEditingController();
+  final lectuterTelephone = TextEditingController();
+  final lectuterLine = TextEditingController();
+  final lectuterFacebook = TextEditingController();
+  final lectuterAgency = TextEditingController();
+  final lectuterAffiliate = TextEditingController();
+  final lectuterExp = TextEditingController();
+
   @override
   void onInit() {
     super.onInit();
@@ -29,13 +40,18 @@ class LectuterController extends GetxController {
   listLectuter() async {
     talker.info('$logTitle:listLectuter:');
     isLoading.value = true;
-     Map<String, String> qParams = {
+    Map<String, String> qParams = {
       "offset": "0",
       "limit": queryParamLimit,
       "order": queryParamOrderBy,
+      "lectuter_first_name": lectuterFirstName.text,
+      "lectuter_sur_name": lectuterSurName.text,
+      "lectuter_agency": lectuterAgency.text,
+      "lectuter_affiliate": lectuterAffiliate.text,
+      "lectuter_telephone": lectuterTelephone.text,
       "province": addressController.selectedProvince.value.split('|').last,
-      "amphure": addressController.selectedAmphure.value.split('|').last,
-      "district": addressController.selectedTambol.value.split('|').last,
+      // "amphure": addressController.selectedAmphure.value.split('|').last,
+      // "district": addressController.selectedTambol.value.split('|').last,
     };
     try {
       final result = await LectuterService().listLectuter(qParams);
@@ -52,7 +68,7 @@ class LectuterController extends GetxController {
         );
       }
       isLoading.value = false;
-      update();
+      resetSearch();
     } catch (e) {
       talker.error('$e');
     }
@@ -64,6 +80,15 @@ class LectuterController extends GetxController {
         await Future.delayed(Duration(seconds: randomValue()), () {
       return false;
     });
+    update();
+  }
+
+  resetSearch() {
+    lectuterFirstName.text = "";
+    lectuterSurName.text = "";
+    lectuterAgency.text = "";
+    lectuterAffiliate.text = "";
+    lectuterTelephone.text = "";
     update();
   }
 

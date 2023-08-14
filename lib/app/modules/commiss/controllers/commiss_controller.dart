@@ -59,7 +59,7 @@ class CommissController extends GetxController {
             telephone: item.telephone,
             position: item.position,
             commissDate: item.commissDate,
-            commissLocation: item.commissLocation,
+            commissLocation: item.commissStationName,
             address: '${item.province}/${item.amphure}/${item.district}',
           ),
         );

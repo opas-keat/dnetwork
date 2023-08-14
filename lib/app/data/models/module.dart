@@ -40,24 +40,24 @@ List<Module> listModule = [
   ),
   Module(
     id: 6,
-    nameTH: "การฝึกอบรม",
-    nameEn: "training",
-    icon: Icons.laptop_sharp,
-    url: Routes.TRAINING,
-  ),
-  Module(
-    id: 7,
     nameTH: "หมู่บ้าน วิถี ประชาธิปไตย",
     nameEn: "village",
     icon: Icons.holiday_village_sharp,
     url: Routes.VILLAGEHOSTY,
   ),
   Module(
-    id: 8,
+    id: 7,
     nameTH: "วิทยากรประชาธิปไตย",
     nameEn: "lectuter",
     icon: Icons.three_p_sharp,
     url: Routes.LECTUTER,
+  ),
+  Module(
+    id: 8,
+    nameTH: "การฝึกอบรม",
+    nameEn: "training",
+    icon: Icons.laptop_sharp,
+    url: Routes.TRAINING,
   ),
   Module(
     id: 9,

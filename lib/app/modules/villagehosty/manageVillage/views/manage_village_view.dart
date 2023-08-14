@@ -302,9 +302,28 @@ class ManageVillageView extends StatelessWidget {
                               const SizedBox(width: defaultPadding / 2),
                               IconButton(
                                 icon: const Icon(Icons.add_sharp),
-                                onPressed: () {},
+                                onPressed: () {
+                                  controller.addTypeActToChip(
+                                      controller.villageTypeAct.text);
+                                },
                               ),
                             ],
+                          ),
+                          const SizedBox(height: defaultPadding / 2),
+                          Obx(
+                            () => Wrap(
+                              alignment: WrapAlignment.start,
+                              spacing: 5.0,
+                              runSpacing: 5.0,
+                              children: controller.typeActChips.obs.value
+                                  .map((chip) => Chip(
+                                        backgroundColor: Colors.blue.shade100,
+                                        label: Text(chip),
+                                        onDeleted: () => controller
+                                            .deleteTypeActToChip(chip),
+                                      ))
+                                  .toList(),
+                            ),
                           ),
                           const SizedBox(height: defaultPadding),
                           CustomText(

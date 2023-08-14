@@ -437,9 +437,29 @@ class ManageNetworkView extends StatelessWidget {
                               const SizedBox(width: defaultPadding / 2),
                               IconButton(
                                 icon: const Icon(Icons.add_sharp),
-                                onPressed: () {},
+                                onPressed: () {
+                                  controller.addPositionCommuToChip(
+                                      controller.networkPositionCommu.text);
+                                },
                               ),
                             ],
+                          ),
+                          const SizedBox(height: defaultPadding / 2),
+                          Obx(
+                            () => Wrap(
+                              alignment: WrapAlignment.start,
+                              spacing: 5.0,
+                              runSpacing: 5.0,
+                              children: controller
+                                  .networkPositionCommuChips.obs.value
+                                  .map((chip) => Chip(
+                                        backgroundColor: Colors.blue.shade100,
+                                        label: Text(chip),
+                                        onDeleted: () => controller
+                                            .deletePositionCommuToChip(chip),
+                                      ))
+                                  .toList(),
+                            ),
                           ),
                           const SizedBox(height: defaultPadding),
                           CustomText(
@@ -472,9 +492,28 @@ class ManageNetworkView extends StatelessWidget {
                               const SizedBox(width: defaultPadding / 2),
                               IconButton(
                                 icon: const Icon(Icons.add_sharp),
-                                onPressed: () {},
+                                onPressed: () {
+                                  controller.addNetworkExpToChip(
+                                      controller.networkExp.text);
+                                },
                               ),
                             ],
+                          ),
+                          const SizedBox(height: defaultPadding / 2),
+                          Obx(
+                            () => Wrap(
+                              alignment: WrapAlignment.start,
+                              spacing: 5.0,
+                              runSpacing: 5.0,
+                              children: controller.networkExpChips.obs.value
+                                  .map((chip) => Chip(
+                                        backgroundColor: Colors.blue.shade100,
+                                        label: Text(chip),
+                                        onDeleted: () => controller
+                                            .deleteNetworkExpToChip(chip),
+                                      ))
+                                  .toList(),
+                            ),
                           ),
                           const SizedBox(height: defaultPadding),
                         ],

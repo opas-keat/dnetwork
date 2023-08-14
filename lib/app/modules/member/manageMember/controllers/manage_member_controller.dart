@@ -34,6 +34,9 @@ class ManageMemberController extends GetxController {
   final memberPositionCommu = TextEditingController();
   final memberExp = TextEditingController();
 
+  final memberPositionCommuChips = <String>[].obs;
+  final memberExpChips = <String>[].obs;
+
   Future<bool> saveMember() async {
     talker.info('$logTitle:saveMember:');
     isLoading.value = true;
@@ -81,12 +84,12 @@ class ManageMemberController extends GetxController {
       district: addressController.selectedTambol.value.split('|').last,
       memberBirthYear: memberBirthYear.text,
       memberDate: memberDate.text,
-      memberExp: memberExp.text,
+      memberExp: memberExpChips.toString(),
       memberFirstName: memberFirstName.text,
       memberIdCard: memberIdCard.text,
       memberLocation: memberLocation.text,
       memberPosition: memberPosition.text,
-      memberPositionCommu: memberPositionCommu.text,
+      memberPositionCommu: memberPositionCommuChips.toString(),
       memberStationId: int.parse(memberStationId.text),
       memberStationName: memberStationName.text,
       memberSurName: memberSurName.text,
@@ -109,6 +112,33 @@ class ManageMemberController extends GetxController {
     memberStationName.text = "";
     memberSurName.text = "";
     memberTelephone.text = "";
+    update();
+  }
+
+  addPositionCommuToChip(String positionCommu) {
+    talker.debug('$logTitle::addPositionCommuToChip:$positionCommu');
+    memberPositionCommuChips.add(positionCommu);
+    talker.debug(
+        '$logTitle::addPositionCommuToChip:${memberPositionCommuChips.toString()}');
+    update();
+  }
+
+  deletePositionCommuToChip(String positionCommu) {
+    talker.debug('$logTitle::deletePositionCommuToChip:$positionCommu');
+    memberPositionCommuChips.remove(positionCommu);
+    update();
+  }
+
+  addCommissExpToChip(String memberExp) {
+    talker.debug('$logTitle::addCommissExpToChip:$memberExp');
+    memberExpChips.add(memberExp);
+    talker.debug('$logTitle::addCommissExpToChip:${memberExpChips.toString()}');
+    update();
+  }
+
+  deleteCommissExpToChip(String memberExp) {
+    talker.debug('$logTitle::deleteCommissToChip:$memberExp');
+    memberExpChips.remove(memberExp);
     update();
   }
 }

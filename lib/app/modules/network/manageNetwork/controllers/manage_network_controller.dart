@@ -34,6 +34,9 @@ class ManageNetworkController extends GetxController {
   final networkPositionCommu = TextEditingController();
   final networkExp = TextEditingController();
 
+  final networkPositionCommuChips = <String>[].obs;
+  final networkExpChips = <String>[].obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -88,12 +91,12 @@ class ManageNetworkController extends GetxController {
       district: addressController.selectedTambol.value.split('|').last,
       networkBirthYear: networkBirthYear.text,
       networkDate: networkDate.text,
-      networkExp: networkExp.text,
+      networkExp: networkExpChips.toString(),
       networkFirstName: networkFirstName.text,
       networkIdCard: networkIdCard.text,
       networkLocation: networkLocation.text,
       networkPosition: networkPosition.text,
-      networkPositionCommu: networkPositionCommu.text,
+      networkPositionCommu: networkPositionCommuChips.toString(),
       networkStationId: int.parse(networkStationId.text),
       networkStationName: networkStationName.text,
       networkSurName: networkSurName.text,
@@ -116,6 +119,34 @@ class ManageNetworkController extends GetxController {
     networkStationName.text = "";
     networkSurName.text = "";
     networkTelephone.text = "";
+    update();
+  }
+
+  addPositionCommuToChip(String positionCommu) {
+    talker.debug('$logTitle::addPositionCommuToChip:$positionCommu');
+    networkPositionCommuChips.add(positionCommu);
+    talker.debug(
+        '$logTitle::addPositionCommuToChip:${networkPositionCommuChips.toString()}');
+    update();
+  }
+
+  deletePositionCommuToChip(String positionCommu) {
+    talker.debug('$logTitle::deletePositionCommuToChip:$positionCommu');
+    networkPositionCommuChips.remove(positionCommu);
+    update();
+  }
+
+  addNetworkExpToChip(String networkExp) {
+    talker.debug('$logTitle::addNetworkExpToChip:$networkExp');
+    networkExpChips.add(networkExp);
+    talker
+        .debug('$logTitle::addNetworkExpToChip:${networkExpChips.toString()}');
+    update();
+  }
+
+  deleteNetworkExpToChip(String networkExp) {
+    talker.debug('$logTitle::deleteNetworkToChip:$networkExp');
+    networkExpChips.remove(networkExp);
     update();
   }
 }

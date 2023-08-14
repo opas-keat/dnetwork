@@ -18,10 +18,6 @@ class ManageVillageController extends GetxController {
 
   final villageList = <VillageData>[].obs;
   final villages = <Villages>[].obs;
-
-//             "province": "กรุงเทพมหานคร",
-//             "amphure": "เขตพระนคร",
-//             "district": "เสาชิงช้า"
   final villageName = TextEditingController();
   final villageNo = TextEditingController();
   final villageTotal = TextEditingController(text: "0");
@@ -35,6 +31,8 @@ class ManageVillageController extends GetxController {
   final villageLocation = TextEditingController();
 
   RxString villageError = ''.obs;
+
+  final typeActChips = <String>[].obs;
 
   @override
   void onInit() {
@@ -93,7 +91,7 @@ class ManageVillageController extends GetxController {
         villageNo: villageNo.text,
         villageTotal: int.parse(villageTotal.text),
         villageTotalUsed: int.parse(villageTotalUsed.text),
-        villageTypeAct: villageTypeAct.text,
+        villageTypeAct: typeActChips.toString(),
         villageLocation: villageLocation.text,
       ),
     );
@@ -111,6 +109,20 @@ class ManageVillageController extends GetxController {
     villageGoalAct2.text = "";
     villageTypeAct.text = "";
     election.text = "";
+    update();
+  }
+
+  addTypeActToChip(String typeAct) {
+    talker.debug('$logTitle::addVillageTypeActToChip:$typeAct');
+    typeActChips.add(typeAct);
+    talker.debug(
+        '$logTitle::addVillageTypeActToChip:${typeActChips.toString()}');
+    update();
+  }
+
+  deleteTypeActToChip(String typeAct) {
+    talker.debug('$logTitle::deleteVillageTypeActToChip:$typeAct');
+    typeActChips.remove(typeAct);
     update();
   }
 }

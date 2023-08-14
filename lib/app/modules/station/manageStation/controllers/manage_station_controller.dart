@@ -30,6 +30,9 @@ class ManageStationController extends GetxController {
   // final tambolController = TextEditingController();
   final facebook = TextEditingController();
   final process = TextEditingController();
+  final training = TextEditingController();
+
+  final processChips = <String>['ทดสอบ', 'ทดสอบ2'].obs;
 
   Future<bool> saveStation() async {
     talker.info('$logTitle:saveStation:');
@@ -58,7 +61,7 @@ class ManageStationController extends GetxController {
         province: addressController.selectedProvince.value.split('|').last,
         amphure: addressController.selectedAmphure.value.split('|').last,
         facebook: facebook.text,
-        process: process.text,
+        process: processChips.first.toString(),
         district: addressController.selectedTambol.value.split('|').last,
         location: tffLocaion.text,
         totalComiss: 0,
@@ -71,7 +74,7 @@ class ManageStationController extends GetxController {
         district: addressController.selectedTambol.value.split('|').last,
         location: tffLocaion.text,
         name: tffName.text,
-        process: process.text,
+        process: processChips.toString(),
         province: addressController.selectedProvince.value.split('|').last,
         totalComiss: 0,
       ),
@@ -82,6 +85,19 @@ class ManageStationController extends GetxController {
   resetForm() {
     tffName.text = "";
     tffLocaion.text = "";
+    update();
+  }
+
+  addProcessToChip(String process) {
+    talker.debug('$logTitle::addProcessToChip:$process');
+    processChips.add(process);
+    talker.debug('$logTitle::addProcessToChip:${processChips.toString()}');
+    update();
+  }
+
+  deleteProcessToChip(String process) {
+    talker.debug('$logTitle::deleteProcessToChip:$process');
+    processChips.remove(process);
     update();
   }
 

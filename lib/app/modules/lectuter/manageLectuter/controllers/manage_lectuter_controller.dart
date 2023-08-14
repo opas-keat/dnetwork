@@ -33,6 +33,8 @@ class ManageLectuterController extends GetxController {
   final lectuterAffiliate = TextEditingController();
   final lectuterExp = TextEditingController();
 
+  final lectuterExpChips = <String>[].obs;
+
   Future<bool> saveLectuter() async {
     talker.info('$logTitle:saveLectuter:');
     isLoading.value = true;
@@ -70,7 +72,7 @@ class ManageLectuterController extends GetxController {
       Lectuters(
         lectuterAffiliate: lectuterAffiliate.text,
         lectuterAgency: lectuterAgency.text,
-        lectuterExp: lectuterExp.text,
+        lectuterExp: lectuterExpChips.toString(),
         lectuterFacebook: lectuterFacebook.text,
         lectuterFirstName: lectuterFirstName.text,
         lectuterLine: lectuterLine.text,
@@ -93,6 +95,20 @@ class ManageLectuterController extends GetxController {
     lectuterAgency.text = "";
     lectuterAffiliate.text = "";
     lectuterExp.text = "";
+    update();
+  }
+
+  addLectuterExpToChip(String lectuterExp) {
+    talker.debug('$logTitle::addLectuterExpToChip:$lectuterExp');
+    lectuterExpChips.add(lectuterExp);
+    talker.debug(
+        '$logTitle::addLectuterExpToChip:${lectuterExpChips.toString()}');
+    update();
+  }
+
+  deleteLectuterExpToChip(String lectuterExp) {
+    talker.debug('$logTitle::deleteLectuterExpToChip:$lectuterExp');
+    lectuterExpChips.remove(lectuterExp);
     update();
   }
 }

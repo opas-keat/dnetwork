@@ -437,9 +437,29 @@ class ManageCommissView extends StatelessWidget {
                               const SizedBox(width: defaultPadding / 2),
                               IconButton(
                                 icon: const Icon(Icons.add_sharp),
-                                onPressed: () {},
+                                onPressed: () {
+                                  controller.addPositionCommuToChip(
+                                      controller.commissPositionCommu.text);
+                                },
                               ),
                             ],
+                          ),
+                          const SizedBox(height: defaultPadding / 2),
+                          Obx(
+                            () => Wrap(
+                              alignment: WrapAlignment.start,
+                              spacing: 5.0,
+                              runSpacing: 5.0,
+                              children: controller
+                                  .commissPositionCommuChips.obs.value
+                                  .map((chip) => Chip(
+                                        backgroundColor: Colors.blue.shade100,
+                                        label: Text(chip),
+                                        onDeleted: () => controller
+                                            .deletePositionCommuToChip(chip),
+                                      ))
+                                  .toList(),
+                            ),
                           ),
                           const SizedBox(height: defaultPadding),
                           CustomText(
@@ -472,9 +492,28 @@ class ManageCommissView extends StatelessWidget {
                               const SizedBox(width: defaultPadding / 2),
                               IconButton(
                                 icon: const Icon(Icons.add_sharp),
-                                onPressed: () {},
+                                onPressed: () {
+                                  controller.addCommissExpToChip(
+                                      controller.commissExp.text);
+                                },
                               ),
                             ],
+                          ),
+                          const SizedBox(height: defaultPadding / 2),
+                          Obx(
+                            () => Wrap(
+                              alignment: WrapAlignment.start,
+                              spacing: 5.0,
+                              runSpacing: 5.0,
+                              children: controller.commissExpChips.obs.value
+                                  .map((chip) => Chip(
+                                        backgroundColor: Colors.blue.shade100,
+                                        label: Text(chip),
+                                        onDeleted: () => controller
+                                            .deleteCommissExpToChip(chip),
+                                      ))
+                                  .toList(),
+                            ),
                           ),
                           const SizedBox(height: defaultPadding),
                         ],

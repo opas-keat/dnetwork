@@ -438,9 +438,29 @@ class ManageMemberView extends StatelessWidget {
                               const SizedBox(width: defaultPadding / 2),
                               IconButton(
                                 icon: const Icon(Icons.add_sharp),
-                                onPressed: () {},
+                                onPressed: () {
+                                  controller.addPositionCommuToChip(
+                                      controller.memberPositionCommu.text);
+                                },
                               ),
                             ],
+                          ),
+                          const SizedBox(height: defaultPadding / 2),
+                          Obx(
+                            () => Wrap(
+                              alignment: WrapAlignment.start,
+                              spacing: 5.0,
+                              runSpacing: 5.0,
+                              children: controller
+                                  .memberPositionCommuChips.obs.value
+                                  .map((chip) => Chip(
+                                        backgroundColor: Colors.blue.shade100,
+                                        label: Text(chip),
+                                        onDeleted: () => controller
+                                            .deletePositionCommuToChip(chip),
+                                      ))
+                                  .toList(),
+                            ),
                           ),
                           const SizedBox(height: defaultPadding),
                           CustomText(
@@ -473,9 +493,28 @@ class ManageMemberView extends StatelessWidget {
                               const SizedBox(width: defaultPadding / 2),
                               IconButton(
                                 icon: const Icon(Icons.add_sharp),
-                                onPressed: () {},
+                                onPressed: () {
+                                  controller.addCommissExpToChip(
+                                      controller.memberExp.text);
+                                },
                               ),
                             ],
+                          ),
+                          const SizedBox(height: defaultPadding / 2),
+                          Obx(
+                            () => Wrap(
+                              alignment: WrapAlignment.start,
+                              spacing: 5.0,
+                              runSpacing: 5.0,
+                              children: controller.memberExpChips.obs.value
+                                  .map((chip) => Chip(
+                                        backgroundColor: Colors.blue.shade100,
+                                        label: Text(chip),
+                                        onDeleted: () => controller
+                                            .deleteCommissExpToChip(chip),
+                                      ))
+                                  .toList(),
+                            ),
                           ),
                           const SizedBox(height: defaultPadding),
                         ],

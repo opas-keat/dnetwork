@@ -270,6 +270,7 @@ class ManageStationDetail extends StatelessWidget {
                 ),
                 const SizedBox(height: defaultPadding / 2),
                 TextFormField(
+                  controller: controller.facebook,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     fillColor: Colors.white.withOpacity(.8),
@@ -314,20 +315,27 @@ class ManageStationDetail extends StatelessWidget {
                     const SizedBox(width: defaultPadding / 2),
                     IconButton(
                       icon: const Icon(Icons.add_sharp),
-                      onPressed: () {},
+                      onPressed: () {
+                        controller.addProcessToChip(controller.process.text);
+                      },
                     ),
-                    // Ink(
-                    //   decoration: const ShapeDecoration(
-                    //     color: Colors.lightBlue,
-                    //     shape: CircleBorder(),
-                    //   ),
-                    //   child: IconButton(
-                    //     icon: const Icon(Icons.add_sharp),
-                    //     color: Colors.white,
-                    //     onPressed: () {},
-                    //   ),
-                    // ),
                   ],
+                ),
+                const SizedBox(height: defaultPadding / 2),
+                Obx(
+                  () => Wrap(
+                    alignment: WrapAlignment.start,
+                    spacing: 5.0,
+                    runSpacing: 5.0,
+                    children: controller.processChips.obs.value
+                        .map((chip) => Chip(
+                              backgroundColor: Colors.blue.shade100,
+                              label: Text(chip),
+                              onDeleted: () =>
+                                  controller.deleteProcessToChip(chip),
+                            ))
+                        .toList(),
+                  ),
                 ),
                 const SizedBox(height: defaultPadding),
                 CustomText(
@@ -636,12 +644,13 @@ DataRow StationDataRow(int index, StationData stationData) {
           ],
         ),
       ),
-      DataCell(
+      const DataCell(
         Wrap(
           children: [
             Text(
-              stationData.process!,
-              style: const TextStyle(
+              // stationData.process!,
+              '',
+              style: TextStyle(
                 fontSize: 12,
               ),
             ),

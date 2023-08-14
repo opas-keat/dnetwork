@@ -34,6 +34,9 @@ class ManageCommissController extends GetxController {
   final commissPositionCommu = TextEditingController();
   final commissExp = TextEditingController();
 
+  final commissPositionCommuChips = <String>[].obs;
+  final commissExpChips = <String>[].obs;
+
   Future<bool> saveCommiss() async {
     talker.info('$logTitle:saveCommiss:');
     isLoading.value = true;
@@ -81,12 +84,12 @@ class ManageCommissController extends GetxController {
       district: addressController.selectedTambol.value.split('|').last,
       commissBirthYear: commissBirthYear.text,
       commissDate: commissDate.text,
-      commissExp: commissExp.text,
+      commissExp: commissExpChips.toString(),
       commissFirstName: commissFirstName.text,
       commissIdCard: commissIdCard.text,
       commissLocation: commissLocation.text,
       commissPosition: commissPosition.text,
-      commissPositionCommu: commissPositionCommu.text,
+      commissPositionCommu: commissPositionCommuChips.toString(),
       commissStationId: int.parse(commissStationId.text),
       commissStationName: commissStationName.text,
       commissSurName: commissSurName.text,
@@ -109,6 +112,34 @@ class ManageCommissController extends GetxController {
     commissStationName.text = "";
     commissSurName.text = "";
     commissTelephone.text = "";
+    update();
+  }
+
+  addPositionCommuToChip(String positionCommu) {
+    talker.debug('$logTitle::addPositionCommuToChip:$positionCommu');
+    commissPositionCommuChips.add(positionCommu);
+    talker.debug(
+        '$logTitle::addPositionCommuToChip:${commissPositionCommuChips.toString()}');
+    update();
+  }
+
+  deletePositionCommuToChip(String positionCommu) {
+    talker.debug('$logTitle::deletePositionCommuToChip:$positionCommu');
+    commissPositionCommuChips.remove(positionCommu);
+    update();
+  }
+
+  addCommissExpToChip(String commissExp) {
+    talker.debug('$logTitle::addCommissExpToChip:$commissExp');
+    commissExpChips.add(commissExp);
+    talker
+        .debug('$logTitle::addCommissExpToChip:${commissExpChips.toString()}');
+    update();
+  }
+
+  deleteCommissExpToChip(String commissExp) {
+    talker.debug('$logTitle::deleteCommissToChip:$commissExp');
+    commissExpChips.remove(commissExp);
     update();
   }
 }

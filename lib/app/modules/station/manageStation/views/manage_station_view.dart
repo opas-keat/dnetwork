@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../../responsive.dart';
+import '../../../../data/requests/station_service_request.dart';
 import '../../../../data/responses/station_service_response.dart';
 import '../../../../shared/constant.dart';
 import '../../../../shared/custom_text.dart';
@@ -94,6 +95,7 @@ class ManageStationDataTable extends StatelessWidget {
             columnSpacing: defaultPadding,
             dividerThickness: 2,
             showBottomBorder: true,
+            showCheckboxColumn: false,
             headingRowColor: MaterialStateProperty.resolveWith(
                 (states) => Colors.grey.shade200),
             columns: Responsive.isLargeScreen(context)
@@ -103,10 +105,16 @@ class ManageStationDataTable extends StatelessWidget {
             rows: List.generate(
               controller.stationList.obs.value.length,
               (index) => Responsive.isLargeScreen(context)
-                  ? StationDataRow(
-                      index, controller.stationList.obs.value[index])
-                  : StationDataRowLayoutSmall(
-                      index, controller.stationList.obs.value[index]),
+                  ? stationDataRow(
+                      index,
+                      controller.stationList.obs.value[index],
+                      controller,
+                    )
+                  : stationDataRowLayoutSmall(
+                      index,
+                      controller.stationList.obs.value[index],
+                      controller,
+                    ),
             ),
           )),
     );
@@ -145,7 +153,9 @@ class ManageStationDetail extends StatelessWidget {
                         const Spacer(flex: 1),
                         IconButton(
                           icon: const Icon(Icons.refresh_sharp),
-                          onPressed: () {},
+                          onPressed: () {
+                            controller.resetForm();
+                          },
                         ),
                         // const SizedBox(height: defaultPadding),
                         const Spacer(flex: 1),
@@ -159,7 +169,9 @@ class ManageStationDetail extends StatelessWidget {
                         const Spacer(flex: 1),
                         IconButton(
                           icon: const Icon(Icons.delete_sharp),
-                          onPressed: () {},
+                          onPressed: () {
+                            controller.deleteDataFromTable();
+                          },
                         ),
                       ],
                     ),
@@ -195,19 +207,21 @@ class ManageStationDetail extends StatelessWidget {
                       controller.update();
                     }
                   },
-                  child: Obx(() => SizedBox(
-                        height: 100,
-                        child: (controller.fileUpload.value.path.isNotEmpty)
-                            ? Image.network(
-                                controller.fileUpload.value.path,
-                                height: 100,
-                                fit: BoxFit.fitHeight,
-                              )
-                            : Image.network(
-                                'assets/images/undraw_Add_files_re_v09g.png',
-                                fit: BoxFit.fitHeight,
-                              ),
-                      )),
+                  child: Obx(
+                    () => SizedBox(
+                      height: 100,
+                      child: (controller.fileUpload.value.path.isNotEmpty)
+                          ? Image.network(
+                              controller.fileUpload.value.path,
+                              height: 100,
+                              fit: BoxFit.fitHeight,
+                            )
+                          : Image.network(
+                              'assets/images/undraw_Add_files_re_v09g.png',
+                              fit: BoxFit.fitHeight,
+                            ),
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -227,7 +241,7 @@ class ManageStationDetail extends StatelessWidget {
                 ),
                 const SizedBox(height: defaultPadding / 2),
                 TextFormField(
-                  controller: controller.tffName,
+                  controller: controller.stationName,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     fillColor: Colors.white.withOpacity(.8),
@@ -248,7 +262,7 @@ class ManageStationDetail extends StatelessWidget {
                 ),
                 const SizedBox(height: defaultPadding / 2),
                 TextFormField(
-                  controller: controller.tffLocaion,
+                  controller: controller.stationLocation,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     fillColor: Colors.white.withOpacity(.8),
@@ -270,7 +284,7 @@ class ManageStationDetail extends StatelessWidget {
                 ),
                 const SizedBox(height: defaultPadding / 2),
                 TextFormField(
-                  controller: controller.facebook,
+                  controller: controller.stationFacebook,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     fillColor: Colors.white.withOpacity(.8),
@@ -295,7 +309,7 @@ class ManageStationDetail extends StatelessWidget {
                   children: [
                     Expanded(
                       child: TextFormField(
-                        controller: controller.process,
+                        controller: controller.stationProcess,
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
                           fillColor: Colors.white.withOpacity(.8),
@@ -316,7 +330,9 @@ class ManageStationDetail extends StatelessWidget {
                     IconButton(
                       icon: const Icon(Icons.add_sharp),
                       onPressed: () {
-                        controller.addProcessToChip(controller.process.text);
+                        controller.addProcessToChip(
+                          controller.stationProcess.text,
+                        );
                       },
                     ),
                   ],
@@ -331,8 +347,9 @@ class ManageStationDetail extends StatelessWidget {
                         .map((chip) => Chip(
                               backgroundColor: Colors.blue.shade100,
                               label: Text(chip),
-                              onDeleted: () =>
-                                  controller.deleteProcessToChip(chip),
+                              onDeleted: () => controller.deleteProcessToChip(
+                                chip,
+                              ),
                             ))
                         .toList(),
                   ),
@@ -347,6 +364,7 @@ class ManageStationDetail extends StatelessWidget {
                   children: [
                     Expanded(
                       child: TextFormField(
+                        controller: controller.stationTraining,
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
                           fillColor: Colors.white.withOpacity(.8),
@@ -366,7 +384,11 @@ class ManageStationDetail extends StatelessWidget {
                     const SizedBox(width: defaultPadding / 2),
                     IconButton(
                       icon: const Icon(Icons.add_sharp),
-                      onPressed: () {},
+                      onPressed: () {
+                        controller.addTrainingToChip(
+                          controller.stationTraining.text,
+                        );
+                      },
                     ),
                     // Ink(
                     //   decoration: const ShapeDecoration(
@@ -380,6 +402,23 @@ class ManageStationDetail extends StatelessWidget {
                     //   ),
                     // ),
                   ],
+                ),
+                const SizedBox(height: defaultPadding / 2),
+                Obx(
+                  () => Wrap(
+                    alignment: WrapAlignment.start,
+                    spacing: 5.0,
+                    runSpacing: 5.0,
+                    children: controller.trainingChips.obs.value
+                        .map((chip) => Chip(
+                              backgroundColor: Colors.blue.shade100,
+                              label: Text(chip),
+                              onDeleted: () => controller.deleteTrainingToChip(
+                                chip,
+                              ),
+                            ))
+                        .toList(),
+                  ),
                 ),
                 const SizedBox(height: defaultPadding),
                 Row(
@@ -488,8 +527,16 @@ List<DataColumn> listColumnLayoutSmall = [
   ),
 ];
 
-DataRow StationDataRowLayoutSmall(int index, StationData stationData) {
+DataRow stationDataRowLayoutSmall(
+  int index,
+  StationData stationData,
+  ManageStationController controller,
+) {
   return DataRow(
+    selected: false,
+    onSelectChanged: (value) {
+      controller.selectDataFromTable(index);
+    },
     cells: [
       DataCell(
         Wrap(
@@ -549,8 +596,16 @@ List<DataColumn> listColumn = [
   ),
 ];
 
-DataRow StationDataRow(int index, StationData stationData) {
+DataRow stationDataRow(
+  int index,
+  StationData stationData,
+  ManageStationController controller,
+) {
   return DataRow(
+    selected: false,
+    onSelectChanged: (value) {
+      controller.selectDataFromTable(index);
+    },
     cells: [
       DataCell(
         Text(
@@ -588,7 +643,7 @@ DataRow StationDataRow(int index, StationData stationData) {
         Wrap(
           children: [
             Text(
-              stationData.province!,
+              stationData.province!.split('|').last,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -600,7 +655,7 @@ DataRow StationDataRow(int index, StationData stationData) {
         Wrap(
           children: [
             Text(
-              stationData.amphure!,
+              stationData.amphure!.split('|').last,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -612,7 +667,7 @@ DataRow StationDataRow(int index, StationData stationData) {
         Wrap(
           children: [
             Text(
-              stationData.district!,
+              stationData.district!.split('|').last,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -644,13 +699,12 @@ DataRow StationDataRow(int index, StationData stationData) {
           ],
         ),
       ),
-      const DataCell(
+      DataCell(
         Wrap(
           children: [
             Text(
-              // stationData.process!,
-              '',
-              style: TextStyle(
+              stationData.training!,
+              style: const TextStyle(
                 fontSize: 12,
               ),
             ),

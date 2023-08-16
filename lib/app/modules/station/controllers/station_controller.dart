@@ -54,7 +54,7 @@ class StationController extends GetxController {
           StationStatisticsData(
             name: item.name,
             address: '${item.province}/${item.amphure}/${item.district}',
-            totalCommiss: item.totalComiss,
+            totalCommiss: item.totalCommiss,
             totalMember: item.totalMember,
           ),
         );

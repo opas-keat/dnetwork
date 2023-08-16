@@ -41,8 +41,9 @@ class StationData {
   String? district;
   String? process;
   String? facebook;
-  int? totalComiss;
+  int? totalCommiss;
   int? totalMember;
+  String? training;
 
   StationData(
       {this.id,
@@ -53,8 +54,9 @@ class StationData {
       this.district,
       this.process,
       this.facebook,
-      this.totalComiss,
-      this.totalMember});
+      this.totalCommiss,
+      this.totalMember,
+      this.training});
 
   StationData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -65,8 +67,9 @@ class StationData {
     district = json['district'];
     process = json['process'];
     facebook = json['facebook'];
-    totalComiss = json['total_comiss'];
+    totalCommiss = json['total_commiss'];
     totalMember = json['total_member'];
+    training = json['training'];
   }
 
   Map<String, dynamic> toJson() {
@@ -79,8 +82,9 @@ class StationData {
     data['district'] = district;
     data['process'] = process;
     data['facebook'] = facebook;
-    data['total_comiss'] = totalComiss;
+    data['total_commiss'] = totalCommiss;
     data['total_member'] = totalMember;
+    data['training'] = training;
     return data;
   }
 }

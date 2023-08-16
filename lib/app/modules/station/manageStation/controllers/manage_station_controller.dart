@@ -23,21 +23,36 @@ class ManageStationController extends GetxController {
 
   RxString stationError = ''.obs;
 
-  final tffName = TextEditingController();
-  final tffLocaion = TextEditingController();
-  final tffProvince = TextEditingController();
-  // final amphureController = TextEditingController();
-  // final tambolController = TextEditingController();
-  final facebook = TextEditingController();
-  final process = TextEditingController();
-  final training = TextEditingController();
+  final stationName = TextEditingController();
+  final stationFacebook = TextEditingController();
+  final stationLocation = TextEditingController();
+  final stationProcess = TextEditingController();
+  final stationTraining = TextEditingController();
 
-  final processChips = <String>['ทดสอบ', 'ทดสอบ2'].obs;
+  final processChips = <String>[].obs;
+  final trainingChips = <String>[].obs;
+
+  int selectedIndexFromTable = 0;
 
   Future<bool> saveStation() async {
     talker.info('$logTitle:saveStation:');
     isLoading.value = true;
     try {
+      for (var station in stationList) {
+        stations.add(
+          Stations(
+            name: station.name,
+            location: station.location,
+            province: station.province!.split('|').last,
+            amphure: station.amphure!.split('|').last,
+            district: station.district!.split('|').last,
+            facebook: station.facebook,
+            process: station.process,
+            totalCommiss: 0,
+            totalMember: 0,
+          ),
+        );
+      }
       final result = await StationService().createStation(stations.obs.value);
       talker.debug('response message : ${result?.message}');
       if (result?.code == "000") {
@@ -53,38 +68,63 @@ class ManageStationController extends GetxController {
     }
   }
 
+  deleteDataFromTable() {
+    talker.info('$logTitle:deleteDataFromTable:$selectedIndexFromTable');
+    if (stations.length > selectedIndexFromTable &&
+        selectedIndexFromTable > -1) {
+      stations.removeAt(selectedIndexFromTable);
+      selectedIndexFromTable = -1;
+      resetForm();
+    }
+  }
+
+  selectDataFromTable(int index) {
+    selectedIndexFromTable = index;
+    talker.info('$logTitle:selectDataFromTable:$selectedIndexFromTable');
+    talker.debug(stationList[index].province);
+    talker.debug(stationList[index].amphure);
+    talker.debug(stationList[index].district);
+    stationName.text = stationList[index].name!;
+    stationLocation.text = stationList[index].location!;
+    addressController.selectedProvince.value = stationList[index].province!;
+    // addressController.selectedAmphure.value = stationList[index].amphure!;
+    // addressController.selectedTambol.value = stationList[index].district!;
+    stationFacebook.text = stationList[index].facebook!;
+    stationProcess.text = stationList[index].process!;
+    stationTraining.text = stationList[index].training!;
+    update();
+  }
+
   addToDataTable() {
     talker.info('$logTitle:addToDataTable:');
     stationList.add(
       StationData(
-        name: tffName.text,
-        province: addressController.selectedProvince.value.split('|').last,
-        amphure: addressController.selectedAmphure.value.split('|').last,
-        facebook: facebook.text,
-        process: processChips.first.toString(),
-        district: addressController.selectedTambol.value.split('|').last,
-        location: tffLocaion.text,
-        totalComiss: 0,
+        name: stationName.text,
+        location: stationLocation.text,
+        province: addressController.selectedProvince.value,
+        amphure: addressController.selectedAmphure.value,
+        district: addressController.selectedTambol.value,
+        facebook: stationFacebook.text,
+        process: processChips.first,
+        training: trainingChips.first,
+        totalCommiss: 0,
         totalMember: 0,
-      ),
-    );
-    stations.add(
-      Stations(
-        amphure: addressController.selectedAmphure.value.split('|').last,
-        district: addressController.selectedTambol.value.split('|').last,
-        location: tffLocaion.text,
-        name: tffName.text,
-        process: processChips.toString(),
-        province: addressController.selectedProvince.value.split('|').last,
-        totalComiss: 0,
       ),
     );
     resetForm();
   }
 
   resetForm() {
-    tffName.text = "";
-    tffLocaion.text = "";
+    stationName.text = "";
+    stationLocation.text = "";
+    addressController.selectedProvince.value = '0|';
+    addressController.selectedAmphure.value = '0|';
+    addressController.selectedTambol.value = '0|';
+    stationFacebook.text = "";
+    stationProcess.text = "";
+    stationTraining.text = "";
+    processChips.clear();
+    trainingChips.clear();
     update();
   }
 
@@ -98,6 +138,19 @@ class ManageStationController extends GetxController {
   deleteProcessToChip(String process) {
     talker.debug('$logTitle::deleteProcessToChip:$process');
     processChips.remove(process);
+    update();
+  }
+
+  addTrainingToChip(String training) {
+    talker.debug('$logTitle::addTrainingToChip:$training');
+    trainingChips.add(training);
+    talker.debug('$logTitle::addTrainingToChip:${trainingChips.toString()}');
+    update();
+  }
+
+  deleteTrainingToChip(String training) {
+    talker.debug('$logTitle::deleteTrainingToChip:$training');
+    trainingChips.remove(training);
     update();
   }
 

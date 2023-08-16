@@ -41,6 +41,10 @@ class LectuterData {
   String? province;
   String? lectuterFirstName;
   String? lectuterSurName;
+  String? lectuterPreName;
+  String? lectuterLine;
+  String? lectuterFacebook;
+  String? lectuterExp;
 
   LectuterData(
       {this.id,
@@ -50,7 +54,11 @@ class LectuterData {
       this.affiliate,
       this.province,
       this.lectuterFirstName,
-      this.lectuterSurName});
+      this.lectuterSurName,
+      this.lectuterPreName,
+      this.lectuterLine,
+      this.lectuterFacebook,
+      this.lectuterExp});
 
   LectuterData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -61,18 +69,26 @@ class LectuterData {
     province = json['province'];
     lectuterFirstName = json['lectuter_first_name'];
     lectuterSurName = json['lectuter_sur_name'];
+    lectuterPreName = json['lectuter_pre_name'];
+    lectuterLine = json['lectuter_line'];
+    lectuterFacebook = json['lectuter_facebook'];
+    lectuterExp = json['lectuter_exp'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['name'] = name;
-    data['telephone'] = telephone;
-    data['agency'] = agency;
-    data['affiliate'] = affiliate;
-    data['province'] = province;
-    data['lectuter_first_name'] = lectuterFirstName;
-    data['lectuter_sur_name'] = lectuterSurName;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['telephone'] = this.telephone;
+    data['agency'] = this.agency;
+    data['affiliate'] = this.affiliate;
+    data['province'] = this.province;
+    data['lectuter_first_name'] = this.lectuterFirstName;
+    data['lectuter_sur_name'] = this.lectuterSurName;
+    data['lectuter_pre_name'] = this.lectuterPreName;
+    data['lectuter_line'] = this.lectuterLine;
+    data['lectuter_facebook'] = this.lectuterFacebook;
+    data['lectuter_exp'] = this.lectuterExp;
     return data;
   }
 }

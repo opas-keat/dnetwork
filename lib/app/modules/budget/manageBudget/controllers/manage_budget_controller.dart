@@ -28,7 +28,6 @@ class ManageBudgetController extends GetxController {
   RxString budgetError = ''.obs;
 
   int selectedIndexFromTable = 0;
-  BudgetData selectedDataFromTable = BudgetData();
 
   @override
   void onInit() {
@@ -70,21 +69,22 @@ class ManageBudgetController extends GetxController {
 
   deleteDataFromTable() {
     talker.info('$logTitle:deleteDataFromTable:$selectedIndexFromTable');
-    talker.debug(selectedDataFromTable.budgetType);
-    talker.debug(selectedDataFromTable.budgetDate);
-    talker.debug(selectedDataFromTable.budgetBegin);
-    talker.debug(selectedDataFromTable.budgetUsed);
-    talker.debug(selectedDataFromTable.budgetRemain);
-    talker.debug(selectedDataFromTable.province);
-    if (budgetList.length > selectedIndexFromTable) {
+    if (budgetList.length > selectedIndexFromTable &&
+        selectedIndexFromTable > -1) {
+      talker.debug(budgetList[selectedIndexFromTable].budgetType);
+      talker.debug(budgetList[selectedIndexFromTable].budgetDate);
+      talker.debug(budgetList[selectedIndexFromTable].budgetBegin);
+      talker.debug(budgetList[selectedIndexFromTable].budgetUsed);
+      talker.debug(budgetList[selectedIndexFromTable].budgetRemain);
+      talker.debug(budgetList[selectedIndexFromTable].province);
       budgetList.removeAt(selectedIndexFromTable);
+      selectedIndexFromTable = -1;
+      resetForm();
     }
-    resetForm();
   }
 
-  selectDataFromTable(int index, BudgetData budgetData) {
+  selectDataFromTable(int index) {
     selectedIndexFromTable = index;
-    selectedDataFromTable = budgetData;
     talker.info('$logTitle:selectDataFromTable:$selectedIndexFromTable');
     talker.debug(budgetList[index].budgetType);
     talker.debug(budgetList[index].budgetDate);
@@ -118,16 +118,6 @@ class ManageBudgetController extends GetxController {
         province: addressController.selectedProvince.value,
       ),
     );
-    // budgets.add(
-    //   Budgets(
-    //     budgetBegin: int.parse(budgetBegin.text),
-    //     budgetDate: budgetDate.text,
-    //     budgetRemain: int.parse(budgetRemain.text),
-    //     budgetType: budgetType.text,
-    //     budgetUsed: int.parse(budgetUsed.text),
-    //     province: addressController.selectedProvince.value.split('|').last,
-    //   ),
-    // );
     resetForm();
   }
 
@@ -138,7 +128,6 @@ class ManageBudgetController extends GetxController {
     budgetUsed.text = "0";
     budgetRemain.text = "0";
     addressController.selectedProvince.value = '0|';
-    selectedDataFromTable = BudgetData();
     update();
   }
 }

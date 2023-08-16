@@ -23,6 +23,8 @@ class ManageLectuterController extends GetxController {
 
   RxString lectuterError = ''.obs;
 
+  int selectedIndexFromTable = 0;
+
   final lectuterPreName = TextEditingController();
   final lectuterFirstName = TextEditingController();
   final lectuterSurName = TextEditingController();
@@ -39,6 +41,22 @@ class ManageLectuterController extends GetxController {
     talker.info('$logTitle:saveLectuter:');
     isLoading.value = true;
     try {
+      for (var lectuter in lectuterList) {
+        lectuters.add(
+          Lectuters(
+            lectuterAffiliate: lectuter.affiliate,
+            lectuterAgency: lectuter.agency,
+            lectuterExp: lectuter.lectuterExp,
+            lectuterFacebook: lectuter.lectuterFacebook,
+            lectuterFirstName: lectuter.lectuterFirstName,
+            lectuterLine: lectuter.lectuterLine,
+            lectuterPreName: lectuter.lectuterPreName,
+            lectuterSurName: lectuter.lectuterSurName,
+            lectuterTelephone: lectuter.telephone,
+            province: lectuter.province!.split('|').last,
+          ),
+        );
+      }
       final result =
           await LectuterService().createLectuter(lectuters.obs.value);
       talker.debug('response message : ${result?.message}');
@@ -55,6 +73,30 @@ class ManageLectuterController extends GetxController {
     }
   }
 
+  deleteDataFromTable() {
+    if (lectuterList.length > selectedIndexFromTable &&
+        selectedIndexFromTable > -1) {
+      lectuterList.removeAt(selectedIndexFromTable);
+      selectedIndexFromTable = -1;
+      resetForm();
+    }
+  }
+
+  selectDataFromTable(int index) {
+    selectedIndexFromTable = index;
+    lectuterPreName.text = lectuterList[index].lectuterPreName!;
+    lectuterFirstName.text = lectuterList[index].lectuterFirstName!;
+    lectuterSurName.text = lectuterList[index].lectuterSurName!;
+    lectuterTelephone.text = lectuterList[index].telephone!;
+    lectuterLine.text = lectuterList[index].lectuterLine!;
+    lectuterFacebook.text = lectuterList[index].lectuterFacebook!;
+    lectuterAgency.text = lectuterList[index].agency!;
+    lectuterAffiliate.text = lectuterList[index].affiliate!;
+    lectuterExp.text = lectuterList[index].lectuterExp!;
+    addressController.selectedProvince.value = lectuterList[index].province!;
+    update();
+  }
+
   addToDataTable() {
     talker.info('$logTitle:addToDataTable:');
     lectuterList.add(
@@ -65,23 +107,27 @@ class ManageLectuterController extends GetxController {
         agency: lectuterAgency.text,
         affiliate: lectuterAffiliate.text,
         telephone: lectuterTelephone.text,
-        province: addressController.selectedProvince.value.split('|').last,
-      ),
-    );
-    lectuters.add(
-      Lectuters(
-        lectuterAffiliate: lectuterAffiliate.text,
-        lectuterAgency: lectuterAgency.text,
-        lectuterExp: lectuterExpChips.toString(),
+        province: addressController.selectedProvince.value,
+        lectuterExp: lectuterExp.text,
         lectuterFacebook: lectuterFacebook.text,
-        lectuterFirstName: lectuterFirstName.text,
         lectuterLine: lectuterLine.text,
         lectuterPreName: lectuterPreName.text,
-        lectuterSurName: lectuterSurName.text,
-        lectuterTelephone: lectuterTelephone.text,
-        province: addressController.selectedProvince.value.split('|').last,
       ),
     );
+    // lectuters.add(
+    //   Lectuters(
+    //     lectuterAffiliate: lectuterAffiliate.text,
+    //     lectuterAgency: lectuterAgency.text,
+    //     lectuterExp: lectuterExpChips.toString(),
+    //     lectuterFacebook: lectuterFacebook.text,
+    //     lectuterFirstName: lectuterFirstName.text,
+    //     lectuterLine: lectuterLine.text,
+    //     lectuterPreName: lectuterPreName.text,
+    //     lectuterSurName: lectuterSurName.text,
+    //     lectuterTelephone: lectuterTelephone.text,
+    //     province: addressController.selectedProvince.value.split('|').last,
+    //   ),
+    // );
     resetForm();
   }
 
@@ -95,6 +141,7 @@ class ManageLectuterController extends GetxController {
     lectuterAgency.text = "";
     lectuterAffiliate.text = "";
     lectuterExp.text = "";
+    addressController.selectedProvince.value = '0|';
     update();
   }
 

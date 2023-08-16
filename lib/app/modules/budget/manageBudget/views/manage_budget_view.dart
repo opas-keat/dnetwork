@@ -438,7 +438,7 @@ DataRow budgetDataRow(
   return DataRow(
     selected: false,
     onSelectChanged: (value) {
-      controller.selectDataFromTable(index, budgetData);
+      controller.selectDataFromTable(index);
     },
     cells: [
       DataCell(

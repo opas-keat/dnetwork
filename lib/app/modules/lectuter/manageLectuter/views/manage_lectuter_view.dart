@@ -61,6 +61,7 @@ class ManageLectuterView extends StatelessWidget {
                       columnSpacing: defaultPadding,
                       dividerThickness: 2,
                       showBottomBorder: true,
+                      showCheckboxColumn: false,
                       headingRowColor: MaterialStateProperty.resolveWith(
                           (states) => Colors.grey.shade200),
                       columns: listColumn,
@@ -69,7 +70,10 @@ class ManageLectuterView extends StatelessWidget {
                         controller.lectuterList.obs.value.length,
                         (index) => Responsive.isLargeScreen(context)
                             ? lectuterDataRow(
-                                index, controller.lectuterList.obs.value[index])
+                                index,
+                                controller.lectuterList.obs.value[index],
+                                controller,
+                              )
                             : lectuterDataRowLayoutSmall(index,
                                 controller.lectuterList.obs.value[index]),
                         // (index) => StationDataRow(
@@ -97,7 +101,9 @@ class ManageLectuterView extends StatelessWidget {
                                 const Spacer(flex: 1),
                                 IconButton(
                                   icon: const Icon(Icons.refresh_sharp),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    controller.resetForm();
+                                  },
                                 ),
                                 const Spacer(flex: 1),
                                 IconButton(
@@ -109,7 +115,9 @@ class ManageLectuterView extends StatelessWidget {
                                 const Spacer(flex: 1),
                                 IconButton(
                                   icon: const Icon(Icons.delete_sharp),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    controller.deleteDataFromTable();
+                                  },
                                 ),
                               ],
                             ),
@@ -532,10 +540,12 @@ List<DataColumn> listColumn = [
 ];
 
 DataRow lectuterDataRow(
-  int index,
-  LectuterData lectuterData,
-) {
+    int index, LectuterData lectuterData, ManageLectuterController controller) {
   return DataRow(
+    selected: false,
+    onSelectChanged: (value) {
+      controller.selectDataFromTable(index);
+    },
     cells: [
       DataCell(
         Text(

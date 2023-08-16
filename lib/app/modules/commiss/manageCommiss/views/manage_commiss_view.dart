@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../../responsive.dart';
-import '../../../../data/responses/commiss_service_response.dart';
+import '../../../../data/requests/commiss_service_request.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../../shared/constant.dart';
 import '../../../../shared/custom_text.dart';
@@ -60,19 +60,26 @@ class ManageCommissView extends StatelessWidget {
                       columnSpacing: defaultPadding,
                       dividerThickness: 2,
                       showBottomBorder: true,
+                      showCheckboxColumn: false,
                       headingRowColor: MaterialStateProperty.resolveWith(
                           (states) => Colors.grey.shade200),
                       columns: listColumn,
                       // rows: const [],
                       rows: List.generate(
-                        controller.commissList.obs.value.length,
+                        controller.commisss.obs.value.length,
                         (index) => Responsive.isLargeScreen(context)
                             ? commissDataRow(
-                                index, controller.commissList.obs.value[index])
+                                index,
+                                controller.commisss.obs.value[index],
+                                controller,
+                              )
                             : commissDataRowLayoutSmall(
-                                index, controller.commissList.obs.value[index]),
+                                index,
+                                controller.commisss.obs.value[index],
+                                controller,
+                              ),
                         // (index) => StationDataRow(
-                        //     index, controller.commissList.obs.value[index]),
+                        //     index, controller.commisss.obs.value[index]),
                       ),
                     ),
                   ),
@@ -96,7 +103,9 @@ class ManageCommissView extends StatelessWidget {
                                 const Spacer(flex: 1),
                                 IconButton(
                                   icon: const Icon(Icons.refresh_sharp),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    controller.resetForm();
+                                  },
                                 ),
                                 const Spacer(flex: 1),
                                 IconButton(
@@ -108,7 +117,9 @@ class ManageCommissView extends StatelessWidget {
                                 const Spacer(flex: 1),
                                 IconButton(
                                   icon: const Icon(Icons.delete_sharp),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    controller.deleteDataFromTable();
+                                  },
                                 ),
                               ],
                             ),
@@ -631,9 +642,14 @@ List<DataColumn> listColumn = [
 
 DataRow commissDataRow(
   int index,
-  CommissData commissData,
+  Commisss commisss,
+  ManageCommissController controller,
 ) {
   return DataRow(
+    selected: false,
+    onSelectChanged: (value) {
+      controller.selectDataFromTable(index);
+    },
     cells: [
       DataCell(
         Text(
@@ -647,7 +663,7 @@ DataRow commissDataRow(
         Wrap(
           children: [
             Text(
-              commissData.commissFirstName!,
+              commisss.commissFirstName!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -659,7 +675,7 @@ DataRow commissDataRow(
         Wrap(
           children: [
             Text(
-              commissData.commissSurName!,
+              commisss.commissSurName!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -671,7 +687,7 @@ DataRow commissDataRow(
         Wrap(
           children: [
             Text(
-              commissData.commissPosition!,
+              commisss.commissPosition!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -683,7 +699,7 @@ DataRow commissDataRow(
         Wrap(
           children: [
             Text(
-              commissData.commissDate!,
+              commisss.commissDate!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -695,7 +711,7 @@ DataRow commissDataRow(
         Wrap(
           children: [
             Text(
-              commissData.commissTelephone!,
+              commisss.commissTelephone!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -709,9 +725,14 @@ DataRow commissDataRow(
 
 DataRow commissDataRowLayoutSmall(
   int index,
-  CommissData commissData,
+  Commisss commisss,
+  ManageCommissController controller,
 ) {
   return DataRow(
+    selected: false,
+    onSelectChanged: (value) {
+      controller.selectDataFromTable(index);
+    },
     cells: [
       DataCell(
         Text(
@@ -725,7 +746,7 @@ DataRow commissDataRowLayoutSmall(
         Wrap(
           children: [
             Text(
-              commissData.commissFirstName!,
+              commisss.commissFirstName!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -737,7 +758,7 @@ DataRow commissDataRowLayoutSmall(
         Wrap(
           children: [
             Text(
-              commissData.commissSurName!,
+              commisss.commissSurName!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -749,7 +770,7 @@ DataRow commissDataRowLayoutSmall(
         Wrap(
           children: [
             Text(
-              commissData.commissPosition!,
+              commisss.commissPosition!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -761,7 +782,7 @@ DataRow commissDataRowLayoutSmall(
         Wrap(
           children: [
             Text(
-              commissData.commissDate!,
+              commisss.commissDate!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -773,7 +794,7 @@ DataRow commissDataRowLayoutSmall(
         Wrap(
           children: [
             Text(
-              commissData.commissTelephone!,
+              commisss.commissTelephone!,
               style: const TextStyle(
                 fontSize: 12,
               ),

@@ -61,6 +61,7 @@ class ManageTrainingView extends StatelessWidget {
                       columnSpacing: defaultPadding,
                       dividerThickness: 2,
                       showBottomBorder: true,
+                      showCheckboxColumn: false,
                       headingRowColor: MaterialStateProperty.resolveWith(
                           (states) => Colors.grey.shade200),
                       columns: listColumn,
@@ -69,9 +70,14 @@ class ManageTrainingView extends StatelessWidget {
                         controller.trainingList.obs.value.length,
                         (index) => Responsive.isLargeScreen(context)
                             ? trainingDataRow(
-                                index, controller.trainingList.obs.value[index])
-                            : trainingDataRowLayoutSmall(index,
-                                controller.trainingList.obs.value[index]),
+                                index,
+                                controller.trainingList.obs.value[index],
+                                controller,
+                              )
+                            : trainingDataRowLayoutSmall(
+                                index,
+                                controller.trainingList.obs.value[index],
+                              ),
                       ),
                     ),
                   ),
@@ -95,7 +101,9 @@ class ManageTrainingView extends StatelessWidget {
                                 const Spacer(flex: 1),
                                 IconButton(
                                   icon: const Icon(Icons.refresh_sharp),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    controller.resetForm();
+                                  },
                                 ),
                                 const Spacer(flex: 1),
                                 IconButton(
@@ -107,7 +115,9 @@ class ManageTrainingView extends StatelessWidget {
                                 const Spacer(flex: 1),
                                 IconButton(
                                   icon: const Icon(Icons.delete_sharp),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    controller.deleteDataFromTable();
+                                  },
                                 ),
                               ],
                             ),
@@ -415,8 +425,16 @@ List<DataColumn> listColumn = [
   ),
 ];
 
-DataRow trainingDataRow(int index, TrainingData trainingData) {
+DataRow trainingDataRow(
+  int index,
+  TrainingData trainingData,
+  ManageTrainingController controller,
+) {
   return DataRow(
+    selected: false,
+    onSelectChanged: (value) {
+      controller.selectDataFromTable(index);
+    },
     cells: [
       DataCell(
         Text(

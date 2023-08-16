@@ -34,6 +34,8 @@ class ManageVillageController extends GetxController {
 
   final typeActChips = <String>[].obs;
 
+  int selectedIndexFromTable = 0;
+
   @override
   void onInit() {
     super.onInit();
@@ -58,6 +60,28 @@ class ManageVillageController extends GetxController {
     }
   }
 
+  deleteDataFromTable() {
+    talker.info('$logTitle:deleteDataFromTable:$selectedIndexFromTable');
+    if (villageList.length > selectedIndexFromTable &&
+        selectedIndexFromTable > -1) {
+      villageList.removeAt(selectedIndexFromTable);
+      selectedIndexFromTable = -1;
+      resetForm();
+    }
+  }
+
+  selectDataFromTable(int index) {
+    selectedIndexFromTable = index;
+    talker.info('$logTitle:selectDataFromTable:$selectedIndexFromTable');
+    // budgetType.text = budgetList[index].budgetType!;
+    // budgetDate.text = budgetList[index].budgetDate!;
+    // budgetBegin.text = budgetList[index].budgetBegin!.toString();
+    // budgetUsed.text = budgetList[index].budgetUsed!.toString();
+    // budgetRemain.text = budgetList[index].budgetRemain!.toString();
+    // addressController.selectedProvince.value = budgetList[index].province!;
+    update();
+  }
+
   addDataToTable() {
     talker.info('$logTitle:addDataToTable:');
     talker.debug(villageName.text);
@@ -72,29 +96,29 @@ class ManageVillageController extends GetxController {
     talker.debug(election.text);
     villageList.add(VillageData(
       address:
-          "${addressController.selectedProvince.value.split('|').last}/${addressController.selectedAmphure.value.split('|').last}/${addressController.selectedTambol.value.split('|').last}",
+          "${addressController.selectedProvince.value}/${addressController.selectedAmphure.value}/${addressController.selectedTambol.value}",
       name: villageName.text,
       no: villageNo.text,
       total: int.parse(villageTotal.text),
     ));
-    villages.add(
-      Villages(
-        amphure: addressController.selectedAmphure.value.split('|').last,
-        district: addressController.selectedTambol.value.split('|').last,
-        election: election.text,
-        province: addressController.selectedProvince.value.split('|').last,
-        villageActYear: villageActYear.text,
-        villageActivity: villageActivity.text,
-        villageGoalAct2: villageGoalAct2.text,
-        villageGoalAct: int.parse(villageGoalAct.text),
-        villageName: villageName.text,
-        villageNo: villageNo.text,
-        villageTotal: int.parse(villageTotal.text),
-        villageTotalUsed: int.parse(villageTotalUsed.text),
-        villageTypeAct: typeActChips.toString(),
-        villageLocation: villageLocation.text,
-      ),
-    );
+    // villages.add(
+    //   Villages(
+    //     amphure: addressController.selectedAmphure.value.split('|').last,
+    //     district: addressController.selectedTambol.value.split('|').last,
+    //     election: election.text,
+    //     province: addressController.selectedProvince.value.split('|').last,
+    //     villageActYear: villageActYear.text,
+    //     villageActivity: villageActivity.text,
+    //     villageGoalAct2: villageGoalAct2.text,
+    //     villageGoalAct: int.parse(villageGoalAct.text),
+    //     villageName: villageName.text,
+    //     villageNo: villageNo.text,
+    //     villageTotal: int.parse(villageTotal.text),
+    //     villageTotalUsed: int.parse(villageTotalUsed.text),
+    //     villageTypeAct: typeActChips.toString(),
+    //     villageLocation: villageLocation.text,
+    //   ),
+    // );
     resetForm();
   }
 
@@ -109,14 +133,17 @@ class ManageVillageController extends GetxController {
     villageGoalAct2.text = "";
     villageTypeAct.text = "";
     election.text = "";
+    addressController.selectedProvince.value = '0|';
+    addressController.selectedAmphure.value = '0|';
+    addressController.selectedTambol.value = '0|';
     update();
   }
 
   addTypeActToChip(String typeAct) {
     talker.debug('$logTitle::addVillageTypeActToChip:$typeAct');
     typeActChips.add(typeAct);
-    talker.debug(
-        '$logTitle::addVillageTypeActToChip:${typeActChips.toString()}');
+    talker
+        .debug('$logTitle::addVillageTypeActToChip:${typeActChips.toString()}');
     update();
   }
 

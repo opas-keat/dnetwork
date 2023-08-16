@@ -27,6 +27,8 @@ class ManageTrainingController extends GetxController {
 
   RxString trainingError = ''.obs;
 
+  int selectedIndexFromTable = 0;
+
   @override
   void onInit() {
     super.onInit();
@@ -38,6 +40,18 @@ class ManageTrainingController extends GetxController {
     talker.info('$logTitle:saveTraining:');
     isLoading.value = true;
     try {
+      for (var budget in trainingList) {
+        trainings.add(
+          Trainings(
+            trainingDateForm: trainingDateForm.text,
+            trainingDateTo: trainingDateTo.text,
+            trainingName: trainingName.text,
+            trainingTotal: int.parse(trainingTotal.text),
+            trainingType: trainingType.text,
+            province: addressController.selectedProvince.value.split('|').last,
+          ),
+        );
+      }
       final result =
           await TrainingService().createTraining(trainings.obs.value);
       talker.debug('response message : ${result?.message}');
@@ -55,6 +69,34 @@ class ManageTrainingController extends GetxController {
     }
   }
 
+  deleteDataFromTable() {
+    talker.info('$logTitle:deleteDataFromTable:$selectedIndexFromTable');
+    if (trainingList.length > selectedIndexFromTable &&
+        selectedIndexFromTable > -1) {
+      trainingList.removeAt(selectedIndexFromTable);
+      selectedIndexFromTable = -1;
+      resetForm();
+    }
+  }
+
+  selectDataFromTable(int index) {
+    selectedIndexFromTable = index;
+    talker.info('$logTitle:selectDataFromTable:$selectedIndexFromTable');
+    talker.debug(trainingList[index].trainingDateForm);
+    talker.debug(trainingList[index].trainingDateTo);
+    talker.debug(trainingList[index].trainingName);
+    talker.debug(trainingList[index].trainingTotal);
+    talker.debug(trainingList[index].trainingType);
+    talker.debug(trainingList[index].province);
+    trainingDateForm.text = trainingList[index].trainingDateForm!;
+    trainingDateTo.text = trainingList[index].trainingDateTo!;
+    trainingName.text = trainingList[index].trainingName!;
+    trainingTotal.text = trainingList[index].trainingTotal!.toString();
+    trainingType.text = trainingList[index].trainingType!;
+    addressController.selectedProvince.value = trainingList[index].province!;
+    update();
+  }
+
   addDataToTable() {
     talker.info('$logTitle:addDataToTable:');
     talker.debug(trainingName.text);
@@ -69,19 +111,10 @@ class ManageTrainingController extends GetxController {
         trainingName: trainingName.text,
         trainingTotal: int.parse(trainingTotal.text),
         trainingType: trainingType.text,
-        province: addressController.selectedProvince.value.split('|').last,
+        province: addressController.selectedProvince.value,
       ),
     );
-    trainings.add(
-      Trainings(
-        trainingDateForm: trainingDateForm.text,
-        trainingDateTo: trainingDateTo.text,
-        trainingName: trainingName.text,
-        trainingTotal: int.parse(trainingTotal.text),
-        trainingType: trainingType.text,
-        province: addressController.selectedProvince.value.split('|').last,
-      ),
-    );
+
     resetForm();
   }
 
@@ -91,6 +124,7 @@ class ManageTrainingController extends GetxController {
     trainingDateTo.text = "";
     trainingType.text = "";
     trainingTotal.text = "0";
+    addressController.selectedProvince.value = '0|';
     update();
   }
 }

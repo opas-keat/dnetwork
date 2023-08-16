@@ -39,7 +39,7 @@ class ManageTrainingView extends StatelessWidget {
               ],
             )
           : null,
-      drawer: !Responsive.isLargeScreen(context) ? const MainDrawer() : null,
+      drawer: !Responsive.isLargeScreen(context) ? MainDrawer() : null,
       body: SafeArea(
         child: Row(
           children: [

@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../../responsive.dart';
-import '../../../../data/requests/station_service_request.dart';
 import '../../../../data/responses/station_service_response.dart';
 import '../../../../shared/constant.dart';
 import '../../../../shared/custom_text.dart';
@@ -38,7 +37,7 @@ class ManageStationView extends StatelessWidget {
               ],
             )
           : null,
-      drawer: !Responsive.isLargeScreen(context) ? const MainDrawer() : null,
+      drawer: !Responsive.isLargeScreen(context) ? MainDrawer() : null,
       body: SafeArea(
         child: Responsive.isLargeScreen(context)
             ? Row(

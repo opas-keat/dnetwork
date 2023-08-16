@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../data/models/module.dart';
+import '../modules/address/controllers/address_controller.dart';
 import 'constant.dart';
 import 'custom_text.dart';
 import 'utils.dart';
 
 class MainDrawer extends StatelessWidget {
-  const MainDrawer({super.key});
+  MainDrawer({super.key});
+  AddressController addressController = Get.put(AddressController());
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -42,6 +44,9 @@ class MainDrawer extends StatelessWidget {
                       ),
                       onTap: () {
                         talker.debug("edit: ${listModule[index].nameEn}");
+                        addressController.selectedProvince.value = '0|';
+                        addressController.selectedAmphure.value = '0|';
+                        addressController.selectedTambol.value = '0|';
                         Get.toNamed(listModule[index].url);
                       },
                     ),

@@ -22,7 +22,7 @@ class NewHomeView extends GetView<NewHomeController> {
       body: SafeArea(
         child: Row(
           children: [
-            const Expanded(
+            Expanded(
               child: MainDrawer(),
             ),
             Expanded(

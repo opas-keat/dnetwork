@@ -17,7 +17,7 @@ class ReportproblemView extends StatelessWidget {
       body: SafeArea(
         child: Row(
           children: [
-            const Expanded(
+            Expanded(
               child: MainDrawer(),
             ),
             Expanded(

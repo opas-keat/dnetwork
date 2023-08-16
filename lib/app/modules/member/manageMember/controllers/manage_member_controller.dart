@@ -39,7 +39,7 @@ class ManageMemberController extends GetxController {
 
   int selectedIndexFromTable = 0;
 
-  Future<bool> saveMember() async {
+  Future saveMember() async {
     talker.info('$logTitle:saveMember:');
     isLoading.value = true;
     try {
@@ -51,10 +51,8 @@ class ManageMemberController extends GetxController {
       isLoading.value = false;
       memberList.clear();
       resetForm();
-      return true;
     } catch (e) {
       talker.error('$e');
-      return false;
     }
   }
 
@@ -68,7 +66,7 @@ class ManageMemberController extends GetxController {
     }
   }
 
-  selectDataFromTable(int index) {
+  selectDataFromTable(int index) async {
     selectedIndexFromTable = index;
     talker.info('$logTitle:selectDataFromTable:$selectedIndexFromTable');
     talker.debug(members[index].memberStationId);
@@ -99,7 +97,11 @@ class ManageMemberController extends GetxController {
     memberPositionCommu.text = members[index].memberPositionCommu!;
     memberExp.text = members[index].memberExp!;
     addressController.selectedProvince.value = members[index].province!;
+    await addressController
+        .listAmphure(members[index].province!.split('|').first);
     addressController.selectedAmphure.value = members[index].amphure!;
+    await addressController
+        .listTambol(members[index].amphure!.split('|').first);
     addressController.selectedTambol.value = members[index].district!;
     update();
   }
@@ -165,7 +167,7 @@ class ManageMemberController extends GetxController {
     memberPositionCommuChips.clear();
     memberExpChips.clear();
     addressController.selectedProvince.value = '0|';
-    addressController.selectedAmphure.value = '0|';
+    addressController.selectedAmphure.value = "0|";
     addressController.selectedTambol.value = '0|';
     update();
   }

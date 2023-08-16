@@ -35,7 +35,7 @@ class AddressController extends GetxController {
     talker.info('$logTitle onReady');
   }
 
-  Future<bool> listProvince() async {
+  Future listProvince() async {
     talker.info('$logTitle listProvince');
     try {
       final result = await AddressService().listProvince();
@@ -45,10 +45,8 @@ class AddressController extends GetxController {
         provinceList.add("${item.pCode!}|${item.pName!}");
       }
       update();
-      return false;
     } catch (e) {
       talker.error('$e');
-      return false;
     }
   }
 
@@ -63,21 +61,23 @@ class AddressController extends GetxController {
     }
   }
 
-  Future<bool> listAmphure(String pCode) async {
+  Future listAmphure(String pCode) async {
     talker.info('$logTitle::listAmphure:$pCode');
     try {
       final result = await AddressService().listAmphureByPCode(pCode);
+      talker.debug(amphureList.toString());
       amphureList.clear();
+      talker.debug(amphureList.toString());
       amphureList.add("0|");
+      // selectedAmphure.value = "0|";
+      talker.debug(amphureList.toString());
       for (var item in result!.data!) {
         // talker.info('$logTitle::listAmphure:${item.aCode!}|${item.aName!}');
         amphureList.add("${item.aCode!}|${item.aName!}");
       }
       update();
-      return false;
     } catch (e) {
       talker.error('$e');
-      return false;
     }
   }
 
@@ -89,7 +89,7 @@ class AddressController extends GetxController {
     );
   }
 
-  Future<bool> listTambol(String aCode) async {
+  Future listTambol(String aCode) async {
     talker.info('$logTitle::listTambol:$aCode');
     try {
       final result = await AddressService().listTambolByACode(aCode);
@@ -102,10 +102,8 @@ class AddressController extends GetxController {
         tambolList.add("${item.tCode!}|${item.tName!}");
       }
       update();
-      return false;
     } catch (e) {
       talker.error('$e');
-      return false;
     }
   }
 

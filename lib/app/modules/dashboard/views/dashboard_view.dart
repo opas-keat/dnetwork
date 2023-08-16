@@ -39,7 +39,7 @@ class DashboardView extends StatelessWidget {
               ],
             )
           : null,
-      drawer: !Responsive.isLargeScreen(context) ? const MainDrawer() : null,
+      drawer: !Responsive.isLargeScreen(context) ? MainDrawer() : null,
       body: SafeArea(
         child: Responsive(
           smallScreen: Container(
@@ -70,7 +70,7 @@ class DashboardView extends StatelessWidget {
             children: [
               Expanded(
                 child: LayoutBuilder(
-                  builder: (context, constraints) => const MainDrawer(),
+                  builder: (context, constraints) => MainDrawer(),
                 ),
               ),
               Expanded(

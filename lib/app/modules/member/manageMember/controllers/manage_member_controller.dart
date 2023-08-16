@@ -37,6 +37,8 @@ class ManageMemberController extends GetxController {
   final memberPositionCommuChips = <String>[].obs;
   final memberExpChips = <String>[].obs;
 
+  int selectedIndexFromTable = 0;
+
   Future<bool> saveMember() async {
     talker.info('$logTitle:saveMember:');
     isLoading.value = true;
@@ -56,6 +58,52 @@ class ManageMemberController extends GetxController {
     }
   }
 
+  deleteDataFromTable() {
+    talker.info('$logTitle:deleteDataFromTable:$selectedIndexFromTable');
+    if (members.length > selectedIndexFromTable &&
+        selectedIndexFromTable > -1) {
+      members.removeAt(selectedIndexFromTable);
+      selectedIndexFromTable = -1;
+      resetForm();
+    }
+  }
+
+  selectDataFromTable(int index) {
+    selectedIndexFromTable = index;
+    talker.info('$logTitle:selectDataFromTable:$selectedIndexFromTable');
+    talker.debug(members[index].memberStationId);
+    talker.debug(members[index].memberStationName);
+    talker.debug(members[index].memberFirstName);
+    talker.debug(members[index].memberSurName);
+    talker.debug(members[index].memberIdCard);
+    talker.debug(members[index].memberBirthYear);
+    talker.debug(members[index].memberLocation);
+    talker.debug(members[index].memberDate);
+    talker.debug(members[index].memberTelephone);
+    talker.debug(members[index].memberPosition);
+    talker.debug(members[index].memberPositionCommu);
+    talker.debug(members[index].memberExp);
+    talker.debug(members[index].province);
+    talker.debug(members[index].amphure);
+    talker.debug(members[index].district);
+    memberStationId.text = members[index].memberStationId!.toString();
+    memberStationName.text = members[index].memberStationName!;
+    memberFirstName.text = members[index].memberFirstName!;
+    memberSurName.text = members[index].memberSurName!;
+    memberIdCard.text = members[index].memberIdCard!;
+    memberBirthYear.text = members[index].memberBirthYear!;
+    memberLocation.text = members[index].memberLocation!;
+    memberDate.text = members[index].memberDate!;
+    memberTelephone.text = members[index].memberTelephone!;
+    memberPosition.text = members[index].memberPosition!;
+    memberPositionCommu.text = members[index].memberPositionCommu!;
+    memberExp.text = members[index].memberExp!;
+    addressController.selectedProvince.value = members[index].province!;
+    addressController.selectedAmphure.value = members[index].amphure!;
+    addressController.selectedTambol.value = members[index].district!;
+    update();
+  }
+
   addDataToTable() {
     talker.info('$logTitle:addDataToTable:');
     talker.debug(memberStationId.text);
@@ -70,32 +118,34 @@ class ManageMemberController extends GetxController {
     talker.debug(memberPosition.text);
     talker.debug(memberPositionCommu.text);
     talker.debug(memberExp.text);
-    memberList.add(
-      MemberData(
-        memberFirstName: memberFirstName.text,
-        memberSurName: memberSurName.text,
-        memberPosition: memberPosition.text,
+    // memberList.add(
+    //   MemberData(
+    //     memberFirstName: memberFirstName.text,
+    //     memberSurName: memberSurName.text,
+    //     memberPosition: memberPosition.text,
+    //     memberDate: memberDate.text,
+    //     memberTelephone: memberTelephone.text,
+    //   ),
+    // );
+    members.add(
+      Members(
+        amphure: addressController.selectedAmphure.value,
+        district: addressController.selectedTambol.value,
+        memberBirthYear: memberBirthYear.text,
         memberDate: memberDate.text,
+        memberExp: memberExpChips.toString(),
+        memberFirstName: memberFirstName.text,
+        memberIdCard: memberIdCard.text,
+        memberLocation: memberLocation.text,
+        memberPosition: memberPosition.text,
+        memberPositionCommu: memberPositionCommuChips.toString(),
+        memberStationId: int.parse(memberStationId.text),
+        memberStationName: memberStationName.text,
+        memberSurName: memberSurName.text,
         memberTelephone: memberTelephone.text,
+        province: addressController.selectedProvince.value,
       ),
     );
-    members.add(Members(
-      amphure: addressController.selectedAmphure.value.split('|').last,
-      district: addressController.selectedTambol.value.split('|').last,
-      memberBirthYear: memberBirthYear.text,
-      memberDate: memberDate.text,
-      memberExp: memberExpChips.toString(),
-      memberFirstName: memberFirstName.text,
-      memberIdCard: memberIdCard.text,
-      memberLocation: memberLocation.text,
-      memberPosition: memberPosition.text,
-      memberPositionCommu: memberPositionCommuChips.toString(),
-      memberStationId: int.parse(memberStationId.text),
-      memberStationName: memberStationName.text,
-      memberSurName: memberSurName.text,
-      memberTelephone: memberTelephone.text,
-      province: addressController.selectedProvince.value.split('|').last,
-    ));
     resetForm();
   }
 
@@ -112,6 +162,11 @@ class ManageMemberController extends GetxController {
     memberStationName.text = "";
     memberSurName.text = "";
     memberTelephone.text = "";
+    memberPositionCommuChips.clear();
+    memberExpChips.clear();
+    addressController.selectedProvince.value = '0|';
+    addressController.selectedAmphure.value = '0|';
+    addressController.selectedTambol.value = '0|';
     update();
   }
 

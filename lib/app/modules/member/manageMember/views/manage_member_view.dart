@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../../responsive.dart';
-import '../../../../data/responses/member_service_response.dart';
+import '../../../../data/requests/member_service_request.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../../shared/constant.dart';
 import '../../../../shared/custom_text.dart';
@@ -61,19 +61,26 @@ class ManageMemberView extends StatelessWidget {
                       columnSpacing: defaultPadding,
                       dividerThickness: 2,
                       showBottomBorder: true,
+                      showCheckboxColumn: false,
                       headingRowColor: MaterialStateProperty.resolveWith(
                           (states) => Colors.grey.shade200),
                       columns: listColumn,
                       // rows: const [],
                       rows: List.generate(
-                        controller.memberList.obs.value.length,
+                        controller.members.obs.value.length,
                         (index) => Responsive.isLargeScreen(context)
                             ? memberDataRow(
-                                index, controller.memberList.obs.value[index])
+                                index,
+                                controller.members.obs.value[index],
+                                controller,
+                              )
                             : memberDataRowLayoutSmall(
-                                index, controller.memberList.obs.value[index]),
+                                index,
+                                controller.members.obs.value[index],
+                                controller,
+                              ),
                         // (index) => StationDataRow(
-                        //     index, controller.memberList.obs.value[index]),
+                        //     index, controller.members.obs.value[index]),
                       ),
                     ),
                   ),
@@ -97,7 +104,9 @@ class ManageMemberView extends StatelessWidget {
                                 const Spacer(flex: 1),
                                 IconButton(
                                   icon: const Icon(Icons.refresh_sharp),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    controller.resetForm();
+                                  },
                                 ),
                                 const Spacer(flex: 1),
                                 IconButton(
@@ -109,7 +118,9 @@ class ManageMemberView extends StatelessWidget {
                                 const Spacer(flex: 1),
                                 IconButton(
                                   icon: const Icon(Icons.delete_sharp),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    controller.deleteDataFromTable();
+                                  },
                                 ),
                               ],
                             ),
@@ -632,9 +643,14 @@ List<DataColumn> listColumn = [
 
 DataRow memberDataRow(
   int index,
-  MemberData memberData,
+  Members members,
+  ManageMemberController controller,
 ) {
   return DataRow(
+    selected: false,
+    onSelectChanged: (value) {
+      controller.selectDataFromTable(index);
+    },
     cells: [
       DataCell(
         Text(
@@ -648,7 +664,7 @@ DataRow memberDataRow(
         Wrap(
           children: [
             Text(
-              memberData.memberFirstName!,
+              members.memberFirstName!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -660,7 +676,7 @@ DataRow memberDataRow(
         Wrap(
           children: [
             Text(
-              memberData.memberSurName!,
+              members.memberSurName!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -672,7 +688,7 @@ DataRow memberDataRow(
         Wrap(
           children: [
             Text(
-              memberData.memberPosition!,
+              members.memberPosition!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -684,7 +700,7 @@ DataRow memberDataRow(
         Wrap(
           children: [
             Text(
-              memberData.memberDate!,
+              members.memberDate!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -696,7 +712,7 @@ DataRow memberDataRow(
         Wrap(
           children: [
             Text(
-              memberData.memberTelephone!,
+              members.memberTelephone!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -710,7 +726,8 @@ DataRow memberDataRow(
 
 DataRow memberDataRowLayoutSmall(
   int index,
-  MemberData memberData,
+  Members members,
+  ManageMemberController controller,
 ) {
   return DataRow(
     cells: [
@@ -726,7 +743,7 @@ DataRow memberDataRowLayoutSmall(
         Wrap(
           children: [
             Text(
-              memberData.memberFirstName!,
+              members.memberFirstName!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -738,7 +755,7 @@ DataRow memberDataRowLayoutSmall(
         Wrap(
           children: [
             Text(
-              memberData.memberSurName!,
+              members.memberSurName!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -750,7 +767,7 @@ DataRow memberDataRowLayoutSmall(
         Wrap(
           children: [
             Text(
-              memberData.memberPosition!,
+              members.memberPosition!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -762,7 +779,7 @@ DataRow memberDataRowLayoutSmall(
         Wrap(
           children: [
             Text(
-              memberData.memberDate!,
+              members.memberDate!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -774,7 +791,7 @@ DataRow memberDataRowLayoutSmall(
         Wrap(
           children: [
             Text(
-              memberData.memberTelephone!,
+              members.memberTelephone!,
               style: const TextStyle(
                 fontSize: 12,
               ),

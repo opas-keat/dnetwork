@@ -177,6 +177,8 @@ class ManageNetworkController extends GetxController {
     networkStationName.text = "";
     networkSurName.text = "";
     networkTelephone.text = "";
+    networkPositionCommuChips.clear();
+    networkExpChips.clear();
     addressController.selectedProvince.value = '0|';
     addressController.selectedAmphure.value = '0|';
     addressController.selectedTambol.value = '0|';

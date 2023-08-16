@@ -62,6 +62,7 @@ class ManageBudgetView extends StatelessWidget {
                       columnSpacing: defaultPadding,
                       dividerThickness: 2,
                       showBottomBorder: true,
+                      showCheckboxColumn: false,
                       headingRowColor: MaterialStateProperty.resolveWith(
                           (states) => Colors.grey.shade200),
                       columns: listColumn,
@@ -70,7 +71,9 @@ class ManageBudgetView extends StatelessWidget {
                         controller.budgetList.obs.value.length,
                         (index) => Responsive.isLargeScreen(context)
                             ? budgetDataRow(
-                                index, controller.budgetList.obs.value[index])
+                                index,
+                                controller.budgetList.obs.value[index],
+                                controller)
                             : budgetDataRowLayoutSmall(
                                 index, controller.budgetList.obs.value[index]),
                         // (index) => StationDataRow(
@@ -98,7 +101,9 @@ class ManageBudgetView extends StatelessWidget {
                                 const Spacer(flex: 1),
                                 IconButton(
                                   icon: const Icon(Icons.refresh_sharp),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    controller.resetForm();
+                                  },
                                 ),
                                 const Spacer(flex: 1),
                                 IconButton(
@@ -110,7 +115,9 @@ class ManageBudgetView extends StatelessWidget {
                                 const Spacer(flex: 1),
                                 IconButton(
                                   icon: const Icon(Icons.delete_sharp),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    controller.deleteDataFromTable();
+                                  },
                                 ),
                               ],
                             ),
@@ -423,8 +430,16 @@ List<DataColumn> listColumn = [
   ),
 ];
 
-DataRow budgetDataRow(int index, BudgetData budgetData) {
+DataRow budgetDataRow(
+  int index,
+  BudgetData budgetData,
+  ManageBudgetController controller,
+) {
   return DataRow(
+    selected: false,
+    onSelectChanged: (value) {
+      controller.selectDataFromTable(index, budgetData);
+    },
     cells: [
       DataCell(
         Text(
@@ -496,7 +511,7 @@ DataRow budgetDataRow(int index, BudgetData budgetData) {
       ),
       DataCell(
         Text(
-          budgetData.province!,
+          budgetData.province!.split('|').last,
           style: const TextStyle(
             fontSize: 12,
           ),

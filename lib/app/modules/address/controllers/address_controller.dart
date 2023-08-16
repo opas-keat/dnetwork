@@ -52,13 +52,15 @@ class AddressController extends GetxController {
     }
   }
 
-  updateSelectedProvince(String province) {
+  updateSelectedProvince(String province, bool showAmphure) {
     talker.info('$logTitle updateSelectedProvince:${province}');
     selectedProvince.value = province;
     talker.info('$logTitle updateSelectedProvince::pCode:${province}');
-    listAmphure(
-      province.split('|').first,
-    );
+    if (showAmphure) {
+      listAmphure(
+        province.split('|').first,
+      );
+    }
   }
 
   Future<bool> listAmphure(String pCode) async {

@@ -64,7 +64,7 @@ class AddressView extends StatelessWidget {
                     value: controller.selectedProvince.value,
                     isDense: true,
                     onChanged: (newValue) {
-                      controller.updateSelectedProvince(newValue!);
+                      controller.updateSelectedProvince(newValue!, showAmphure);
                     },
                     items: controller.provinceList.obs.value.map((item) {
                       return DropdownMenuItem<String>(

@@ -27,6 +27,9 @@ class ManageBudgetController extends GetxController {
 
   RxString budgetError = ''.obs;
 
+  int selectedIndexFromTable = 0;
+  BudgetData selectedDataFromTable = BudgetData();
+
   @override
   void onInit() {
     super.onInit();
@@ -38,6 +41,18 @@ class ManageBudgetController extends GetxController {
     talker.info('$logTitle:saveBudget:');
     isLoading.value = true;
     try {
+      for (var budget in budgetList) {
+        budgets.add(
+          Budgets(
+            budgetBegin: budget.budgetBegin,
+            budgetDate: budget.budgetDate,
+            budgetRemain: budget.budgetRemain,
+            budgetType: budget.budgetType,
+            budgetUsed: budget.budgetUsed,
+            province: budget.province!.split('|').last,
+          ),
+        );
+      }
       final result = await BudgetService().createBudget(budgets.obs.value);
       talker.debug('response message : ${result?.message}');
       if (result?.code == "000") {
@@ -51,6 +66,39 @@ class ManageBudgetController extends GetxController {
       talker.error('$e');
       return false;
     }
+  }
+
+  deleteDataFromTable() {
+    talker.info('$logTitle:deleteDataFromTable:$selectedIndexFromTable');
+    talker.debug(selectedDataFromTable.budgetType);
+    talker.debug(selectedDataFromTable.budgetDate);
+    talker.debug(selectedDataFromTable.budgetBegin);
+    talker.debug(selectedDataFromTable.budgetUsed);
+    talker.debug(selectedDataFromTable.budgetRemain);
+    talker.debug(selectedDataFromTable.province);
+    if (budgetList.length > selectedIndexFromTable) {
+      budgetList.removeAt(selectedIndexFromTable);
+    }
+    resetForm();
+  }
+
+  selectDataFromTable(int index, BudgetData budgetData) {
+    selectedIndexFromTable = index;
+    selectedDataFromTable = budgetData;
+    talker.info('$logTitle:selectDataFromTable:$selectedIndexFromTable');
+    talker.debug(budgetList[index].budgetType);
+    talker.debug(budgetList[index].budgetDate);
+    talker.debug(budgetList[index].budgetBegin);
+    talker.debug(budgetList[index].budgetUsed);
+    talker.debug(budgetList[index].budgetRemain);
+    talker.debug(budgetList[index].province);
+    budgetType.text = budgetList[index].budgetType!;
+    budgetDate.text = budgetList[index].budgetDate!;
+    budgetBegin.text = budgetList[index].budgetBegin!.toString();
+    budgetUsed.text = budgetList[index].budgetUsed!.toString();
+    budgetRemain.text = budgetList[index].budgetRemain!.toString();
+    addressController.selectedProvince.value = budgetList[index].province!;
+    update();
   }
 
   addDataToTable() {
@@ -67,19 +115,19 @@ class ManageBudgetController extends GetxController {
         budgetRemain: int.parse(budgetRemain.text),
         budgetType: budgetType.text,
         budgetUsed: int.parse(budgetUsed.text),
-        province: addressController.selectedProvince.value.split('|').last,
+        province: addressController.selectedProvince.value,
       ),
     );
-    budgets.add(
-      Budgets(
-        budgetBegin: int.parse(budgetBegin.text),
-        budgetDate: budgetDate.text,
-        budgetRemain: int.parse(budgetRemain.text),
-        budgetType: budgetType.text,
-        budgetUsed: int.parse(budgetUsed.text),
-        province: addressController.selectedProvince.value.split('|').last,
-      ),
-    );
+    // budgets.add(
+    //   Budgets(
+    //     budgetBegin: int.parse(budgetBegin.text),
+    //     budgetDate: budgetDate.text,
+    //     budgetRemain: int.parse(budgetRemain.text),
+    //     budgetType: budgetType.text,
+    //     budgetUsed: int.parse(budgetUsed.text),
+    //     province: addressController.selectedProvince.value.split('|').last,
+    //   ),
+    // );
     resetForm();
   }
 
@@ -89,6 +137,8 @@ class ManageBudgetController extends GetxController {
     budgetBegin.text = "0";
     budgetUsed.text = "0";
     budgetRemain.text = "0";
+    addressController.selectedProvince.value = '0|';
+    selectedDataFromTable = BudgetData();
     update();
   }
 }

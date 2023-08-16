@@ -40,14 +40,14 @@ class ManageTrainingController extends GetxController {
     talker.info('$logTitle:saveTraining:');
     isLoading.value = true;
     try {
-      for (var budget in trainingList) {
+      for (var training in trainingList) {
         trainings.add(
           Trainings(
-            trainingDateForm: trainingDateForm.text,
-            trainingDateTo: trainingDateTo.text,
-            trainingName: trainingName.text,
-            trainingTotal: int.parse(trainingTotal.text),
-            trainingType: trainingType.text,
+            trainingDateForm: training.trainingDateForm,
+            trainingDateTo: training.trainingDateTo,
+            trainingName: training.trainingName,
+            trainingTotal: training.trainingTotal,
+            trainingType: training.trainingType,
             province: addressController.selectedProvince.value.split('|').last,
           ),
         );

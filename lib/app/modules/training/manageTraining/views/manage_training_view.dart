@@ -496,7 +496,7 @@ DataRow trainingDataRow(
         Wrap(
           children: [
             Text(
-              trainingData.province!,
+              trainingData.province!.split('|').last,
               style: const TextStyle(
                 fontSize: 12,
               ),

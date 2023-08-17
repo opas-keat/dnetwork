@@ -6,12 +6,12 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../../responsive.dart';
-import '../../../../data/requests/commiss_service_request.dart';
 import '../../../../data/responses/commiss_service_response.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../../shared/constant.dart';
 import '../../../../shared/custom_text.dart';
 import '../../../../shared/main_drawer.dart';
+import '../../../../shared/search_station.dart';
 import '../../../../shared/utils.dart';
 import '../../../address/views/address_view.dart';
 import '../controllers/manage_commiss_controller.dart';
@@ -202,6 +202,13 @@ class ManageCommissView extends StatelessWidget {
                               contentPadding:
                                   const EdgeInsets.fromLTRB(12, 14, 12, 12),
                             ),
+                            onTap: () async {
+                              controller.commissStationName.text =
+                                  await Get.dialog(
+                                SearchStation(),
+                                barrierDismissible: false,
+                              );
+                            },
                           ),
                           const SizedBox(height: defaultPadding),
                           AddressView(showPostCode: false),

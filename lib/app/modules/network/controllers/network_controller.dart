@@ -53,10 +53,10 @@ class NetworkController extends GetxController {
       for (final item in result!.data!) {
         listNetworkStatistics.add(
           NetworkStatisticsData(
-            name: item.name,
-            address: item.address,
-            telephone: item.telephone,
-            position: item.position,
+            name: "${item.networkFirstName!} ${item.networkSurName!}",
+            address: "${item.province}/${item.amphure}/${item.district}",
+            telephone: item.networkTelephone,
+            position: item.networkPosition,
             networkDate: item.networkDate,
             networkLocation: item.networkLocation,
           ),

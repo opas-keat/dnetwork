@@ -58,30 +58,39 @@ class ManageVillageView extends StatelessWidget {
                         ),
                       ),
                     ),
-                    child: Obx(() => DataTable2(
-                          columnSpacing: defaultPadding,
-                          dividerThickness: 2,
-                          showBottomBorder: true,
-                          headingRowColor: MaterialStateProperty.resolveWith(
-                              (states) => Colors.grey.shade200),
-                          columns: listColumn,
-                          // rows: const [],
-                          rows: List.generate(
-                            controller.villageList.obs.value.length,
-                            (index) => Responsive.isLargeScreen(context)
-                                ? villageDataRow(index,
-                                    controller.villageList.obs.value[index])
-                                : villageDataRowLayoutSmall(index,
-                                    controller.villageList.obs.value[index]),
-                            // (index) => StationDataRow(
-                            //     index, controller.villageList.obs.value[index]),
-                          ),
-                          // rows: List.generate(
-                          //   controller.stationList.value.length,
-                          //   (index) => StationDataRow(
-                          //       index, controller.stationList.value[index]),
-                          // ),
-                        )),
+                    child: Obx(
+                      () => DataTable2(
+                        columnSpacing: defaultPadding,
+                        dividerThickness: 2,
+                        showBottomBorder: true,
+                        showCheckboxColumn: false,
+                        headingRowColor: MaterialStateProperty.resolveWith(
+                            (states) => Colors.grey.shade200),
+                        columns: listColumn,
+                        // rows: const [],
+                        rows: List.generate(
+                          controller.villageList.obs.value.length,
+                          (index) => Responsive.isLargeScreen(context)
+                              ? villageDataRow(
+                                  index,
+                                  controller.villageList.obs.value[index],
+                                  controller,
+                                )
+                              : villageDataRowLayoutSmall(
+                                  index,
+                                  controller.villageList.obs.value[index],
+                                  controller,
+                                ),
+                          // (index) => StationDataRow(
+                          //     index, controller.villageList.obs.value[index]),
+                        ),
+                        // rows: List.generate(
+                        //   controller.stationList.value.length,
+                        //   (index) => StationDataRow(
+                        //       index, controller.stationList.value[index]),
+                        // ),
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -103,7 +112,9 @@ class ManageVillageView extends StatelessWidget {
                                 const Spacer(flex: 1),
                                 IconButton(
                                   icon: const Icon(Icons.refresh_sharp),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    controller.resetForm();
+                                  },
                                 ),
                                 const Spacer(flex: 1),
                                 IconButton(
@@ -115,7 +126,9 @@ class ManageVillageView extends StatelessWidget {
                                 const Spacer(flex: 1),
                                 IconButton(
                                   icon: const Icon(Icons.delete_sharp),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    controller.deleteDataFromTable();
+                                  },
                                 ),
                               ],
                             ),
@@ -465,8 +478,13 @@ List<DataColumn> listColumn = [
 DataRow villageDataRow(
   int index,
   VillageData villageData,
+  ManageVillageController controller,
 ) {
   return DataRow(
+    selected: false,
+    onSelectChanged: (value) {
+      controller.selectDataFromTable(index);
+    },
     cells: [
       DataCell(
         Text(
@@ -480,7 +498,7 @@ DataRow villageDataRow(
         Wrap(
           children: [
             Text(
-              villageData.name!,
+              villageData.villageName!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -492,7 +510,7 @@ DataRow villageDataRow(
         Wrap(
           children: [
             Text(
-              villageData.no!,
+              villageData.villageNo!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -504,7 +522,7 @@ DataRow villageDataRow(
         Wrap(
           children: [
             Text(
-              villageData.address!,
+              "${villageData.province}/${villageData.amphure}/${villageData.district}",
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -516,7 +534,7 @@ DataRow villageDataRow(
         Wrap(
           children: [
             Text(
-              formatterItem.format(villageData.total),
+              formatterItem.format(villageData.villageTotal),
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -531,6 +549,7 @@ DataRow villageDataRow(
 DataRow villageDataRowLayoutSmall(
   int index,
   VillageData villageData,
+  ManageVillageController controller,
 ) {
   return DataRow(
     cells: [
@@ -546,7 +565,7 @@ DataRow villageDataRowLayoutSmall(
         Wrap(
           children: [
             Text(
-              villageData.name!,
+              villageData.villageName!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -558,7 +577,7 @@ DataRow villageDataRowLayoutSmall(
         Wrap(
           children: [
             Text(
-              villageData.no!,
+              villageData.villageNo!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -570,7 +589,7 @@ DataRow villageDataRowLayoutSmall(
         Wrap(
           children: [
             Text(
-              villageData.address!,
+              "${villageData.province}/${villageData.amphure}/${villageData.district}",
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -582,7 +601,7 @@ DataRow villageDataRowLayoutSmall(
         Wrap(
           children: [
             Text(
-              formatterItem.format(villageData.total),
+              formatterItem.format(villageData.villageTotal),
               style: const TextStyle(
                 fontSize: 12,
               ),

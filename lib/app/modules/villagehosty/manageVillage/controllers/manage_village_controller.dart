@@ -45,6 +45,26 @@ class ManageVillageController extends GetxController {
     talker.info('$logTitle:saveVillage:');
     isLoading.value = true;
     try {
+      for (var village in villageList) {
+        villages.add(
+          Villages(
+            amphure: village.amphure!.split('|').last,
+            district: village.district!.split('|').last,
+            province: village.province!.split('|').last,
+            election: village.election,
+            villageActYear: village.villageActYear,
+            villageActivity: village.villageActivity,
+            villageGoalAct2: village.villageGoalAct2,
+            villageGoalAct: village.villageGoalAct,
+            villageLocation: village.villageLocation,
+            villageName: village.villageName,
+            villageNo: village.villageNo,
+            villageTotal: village.villageTotal,
+            villageTotalUsed: village.villageTotalUsed,
+            villageTypeAct: village.villageTypeAct,
+          ),
+        );
+      }
       final result = await VillageService().createVillage(villages.obs.value);
       talker.debug('response message : ${result?.message}');
       if (result?.code == "000") {
@@ -52,6 +72,7 @@ class ManageVillageController extends GetxController {
       }
       isLoading.value = false;
       villageList.clear();
+      villages.clear();
       resetForm();
       return true;
     } catch (e) {
@@ -70,15 +91,27 @@ class ManageVillageController extends GetxController {
     }
   }
 
-  selectDataFromTable(int index) {
+  selectDataFromTable(int index) async {
     selectedIndexFromTable = index;
     talker.info('$logTitle:selectDataFromTable:$selectedIndexFromTable');
-    // budgetType.text = budgetList[index].budgetType!;
-    // budgetDate.text = budgetList[index].budgetDate!;
-    // budgetBegin.text = budgetList[index].budgetBegin!.toString();
-    // budgetUsed.text = budgetList[index].budgetUsed!.toString();
-    // budgetRemain.text = budgetList[index].budgetRemain!.toString();
-    // addressController.selectedProvince.value = budgetList[index].province!;
+    election.text = villageList[index].election!;
+    villageActYear.text = villageList[index].villageActYear!;
+    villageActivity.text = villageList[index].villageActivity!;
+    villageGoalAct2.text = villageList[index].villageGoalAct2!;
+    villageGoalAct.text = villageList[index].villageGoalAct!.toString();
+    villageLocation.text = villageList[index].villageLocation!;
+    villageName.text = villageList[index].villageName!;
+    villageNo.text = villageList[index].villageNo!;
+    villageTotal.text = villageList[index].villageTotal!.toString();
+    villageTotalUsed.text = villageList[index].villageTotalUsed!.toString();
+    villageTypeAct.text = villageList[index].villageTypeAct!;
+    addressController.selectedProvince.value = villageList[index].province!;
+    await addressController
+        .listAmphure(villageList[index].province!.split('|').first);
+    addressController.selectedAmphure.value = villageList[index].amphure!;
+    await addressController
+        .listTambol(villageList[index].amphure!.split('|').first);
+    addressController.selectedTambol.value = villageList[index].district!;
     update();
   }
 
@@ -94,13 +127,24 @@ class ManageVillageController extends GetxController {
     talker.debug(villageGoalAct2.text);
     talker.debug(villageTypeAct.text);
     talker.debug(election.text);
-    villageList.add(VillageData(
-      address:
-          "${addressController.selectedProvince.value}/${addressController.selectedAmphure.value}/${addressController.selectedTambol.value}",
-      name: villageName.text,
-      no: villageNo.text,
-      total: int.parse(villageTotal.text),
-    ));
+    villageList.add(
+      VillageData(
+        amphure: addressController.selectedAmphure.value,
+        district: addressController.selectedTambol.value,
+        election: election.text,
+        province: addressController.selectedProvince.value,
+        villageActYear: villageActYear.text,
+        villageActivity: villageActivity.text,
+        villageGoalAct2: villageGoalAct2.text,
+        villageGoalAct: int.parse(villageGoalAct.text),
+        villageLocation: villageLocation.text,
+        villageName: villageName.text,
+        villageNo: villageNo.text,
+        villageTotal: int.parse(villageTotal.text),
+        villageTotalUsed: int.parse(villageTotalUsed.text),
+        villageTypeAct: villageTypeAct.text,
+      ),
+    );
     // villages.add(
     //   Villages(
     //     amphure: addressController.selectedAmphure.value.split('|').last,
@@ -131,8 +175,10 @@ class ManageVillageController extends GetxController {
     villageActYear.text = "";
     villageGoalAct.text = "0";
     villageGoalAct2.text = "";
+    villageLocation.text = "";
     villageTypeAct.text = "";
     election.text = "";
+    typeActChips.clear();
     addressController.selectedProvince.value = '0|';
     addressController.selectedAmphure.value = '0|';
     addressController.selectedTambol.value = '0|';

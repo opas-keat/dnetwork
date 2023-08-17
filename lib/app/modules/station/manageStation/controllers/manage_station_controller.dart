@@ -60,6 +60,7 @@ class ManageStationController extends GetxController {
       }
       isLoading.value = false;
       stationList.clear();
+      stations.clear();
       resetForm();
       return true;
     } catch (e) {

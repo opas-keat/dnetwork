@@ -34,28 +34,73 @@ class VillageServiceResponse {
 
 class VillageData {
   int? id;
-  String? name;
-  String? no;
-  String? address;
-  int? total;
+  String? villageName;
+  String? villageNo;
+  int? villageTotal;
+  int? villageTotalUsed;
+  String? villageActivity;
+  String? villageActYear;
+  int? villageGoalAct;
+  String? villageGoalAct2;
+  String? villageTypeAct;
+  String? villageLocation;
+  String? election;
+  String? province;
+  String? amphure;
+  String? district;
 
-  VillageData({this.id, this.name, this.no, this.address, this.total});
+  VillageData(
+      {this.id,
+      this.villageName,
+      this.villageNo,
+      this.villageTotal,
+      this.villageTotalUsed,
+      this.villageActivity,
+      this.villageActYear,
+      this.villageGoalAct,
+      this.villageGoalAct2,
+      this.villageTypeAct,
+      this.villageLocation,
+      this.election,
+      this.province,
+      this.amphure,
+      this.district});
 
   VillageData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    name = json['name'];
-    no = json['no'];
-    address = json['address'];
-    total = json['total'];
+    villageName = json['village_name'];
+    villageNo = json['village_no'];
+    villageTotal = json['village_total'];
+    villageTotalUsed = json['village_total_used'];
+    villageActivity = json['village_activity'];
+    villageActYear = json['village_act_year'];
+    villageGoalAct = json['village_goal_act'];
+    villageGoalAct2 = json['village_goal_act2'];
+    villageTypeAct = json['village_type_act'];
+    villageLocation = json['village_location'];
+    election = json['election'];
+    province = json['province'];
+    amphure = json['amphure'];
+    district = json['district'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
-    data['name'] = name;
-    data['no'] = no;
-    data['address'] = address;
-    data['total'] = total;
+    data['village_name'] = villageName;
+    data['village_no'] = villageNo;
+    data['village_total'] = villageTotal;
+    data['village_total_used'] = villageTotalUsed;
+    data['village_activity'] = villageActivity;
+    data['village_act_year'] = villageActYear;
+    data['village_goal_act'] = villageGoalAct;
+    data['village_goal_act2'] = villageGoalAct2;
+    data['village_type_act'] = villageTypeAct;
+    data['village_location'] = villageLocation;
+    data['election'] = election;
+    data['province'] = province;
+    data['amphure'] = amphure;
+    data['district'] = district;
     return data;
   }
 }

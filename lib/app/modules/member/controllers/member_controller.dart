@@ -53,10 +53,10 @@ class MemberController extends GetxController {
       for (final item in result!.data!) {
         listMemberStatistics.add(
           MemberStatisticsData(
-            name: item.name,
-            address: item.address,
-            telephone: item.telephone,
-            position: item.position,
+            name: "${item.memberFirstName!} ${item.memberSurName!}",
+            address: "${item.province}/${item.amphure}/${item.district}",
+            telephone: item.memberTelephone,
+            position: item.memberPosition,
             memberDate: item.memberDate,
             memberLocation: item.memberLocation,
           ),

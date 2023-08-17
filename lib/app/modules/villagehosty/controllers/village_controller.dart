@@ -49,10 +49,10 @@ class VillageController extends GetxController {
       for (final item in result!.data!) {
         listVillageStatistics.add(
           VillageStatisticsData(
-            name: item.name,
-            no: item.no,
-            address: item.address,
-            total: item.total,
+            name: item.villageName,
+            no: item.villageNo,
+            address: "${item.province}/${item.amphure}/${item.district}",
+            total: item.villageTotal,
           ),
         );
       }

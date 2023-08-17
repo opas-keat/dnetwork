@@ -34,10 +34,6 @@ class MemberServiceResponse {
 
 class MemberData {
   int? id;
-  String? name;
-  String? telephone;
-  String? address;
-  String? position;
   int? memberStationId;
   String? memberStationName;
   String? province;
@@ -56,10 +52,6 @@ class MemberData {
 
   MemberData(
       {this.id,
-      this.name,
-      this.telephone,
-      this.address,
-      this.position,
       this.memberStationId,
       this.memberStationName,
       this.province,
@@ -78,10 +70,6 @@ class MemberData {
 
   MemberData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    name = json['name'];
-    telephone = json['telephone'];
-    address = json['address'];
-    position = json['position'];
     memberStationId = json['member_station_id'];
     memberStationName = json['member_station_name'];
     province = json['province'];
@@ -102,10 +90,6 @@ class MemberData {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
-    data['name'] = name;
-    data['telephone'] = telephone;
-    data['address'] = address;
-    data['position'] = position;
     data['member_station_id'] = memberStationId;
     data['member_station_name'] = memberStationName;
     data['province'] = province;

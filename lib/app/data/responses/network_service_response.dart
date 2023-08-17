@@ -16,15 +16,15 @@ class NetworkServiceResponse {
     if (json['data'] != null) {
       data = <NetworkData>[];
       json['data'].forEach((v) {
-        data!.add(NetworkData.fromJson(v));
+        data!.add(new NetworkData.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['code'] = code;
-    data['message'] = message;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['code'] = this.code;
+    data['message'] = this.message;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
@@ -34,18 +34,17 @@ class NetworkServiceResponse {
 
 class NetworkData {
   int? id;
-  String? name;
-  String? telephone;
-  String? address;
-  String? position;
   int? networkStationId;
   String? networkStationName;
+  String? province;
+  String? amphure;
+  String? district;
   String? networkFirstName;
   String? networkSurName;
   String? networkIdCard;
   String? networkBirthYear;
-  String? networkDate;
   String? networkLocation;
+  String? networkDate;
   String? networkTelephone;
   String? networkPosition;
   String? networkPositionCommu;
@@ -53,18 +52,17 @@ class NetworkData {
 
   NetworkData(
       {this.id,
-      this.name,
-      this.telephone,
-      this.address,
-      this.position,
       this.networkStationId,
       this.networkStationName,
+      this.province,
+      this.amphure,
+      this.district,
       this.networkFirstName,
       this.networkSurName,
       this.networkIdCard,
       this.networkBirthYear,
-      this.networkDate,
       this.networkLocation,
+      this.networkDate,
       this.networkTelephone,
       this.networkPosition,
       this.networkPositionCommu,
@@ -72,18 +70,17 @@ class NetworkData {
 
   NetworkData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    name = json['name'];
-    telephone = json['telephone'];
-    address = json['address'];
-    position = json['position'];
     networkStationId = json['network_station_id'];
     networkStationName = json['network_station_name'];
+    province = json['province'];
+    amphure = json['amphure'];
+    district = json['district'];
     networkFirstName = json['network_first_name'];
     networkSurName = json['network_sur_name'];
     networkIdCard = json['network_id_card'];
     networkBirthYear = json['network_birth_year'];
-    networkDate = json['network_date'];
     networkLocation = json['network_location'];
+    networkDate = json['network_date'];
     networkTelephone = json['network_telephone'];
     networkPosition = json['network_position'];
     networkPositionCommu = json['network_position_commu'];
@@ -91,24 +88,23 @@ class NetworkData {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['name'] = name;
-    data['telephone'] = telephone;
-    data['address'] = address;
-    data['position'] = position;
-    data['network_station_id'] = networkStationId;
-    data['network_station_name'] = networkStationName;
-    data['network_first_name'] = networkFirstName;
-    data['network_sur_name'] = networkSurName;
-    data['network_id_card'] = networkIdCard;
-    data['network_birth_year'] = networkBirthYear;
-    data['network_date'] = networkDate;
-    data['network_location'] = networkLocation;
-    data['network_telephone'] = networkTelephone;
-    data['network_position'] = networkPosition;
-    data['network_position_commu'] = networkPositionCommu;
-    data['network_exp'] = networkExp;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['network_station_id'] = this.networkStationId;
+    data['network_station_name'] = this.networkStationName;
+    data['province'] = this.province;
+    data['amphure'] = this.amphure;
+    data['district'] = this.district;
+    data['network_first_name'] = this.networkFirstName;
+    data['network_sur_name'] = this.networkSurName;
+    data['network_id_card'] = this.networkIdCard;
+    data['network_birth_year'] = this.networkBirthYear;
+    data['network_location'] = this.networkLocation;
+    data['network_date'] = this.networkDate;
+    data['network_telephone'] = this.networkTelephone;
+    data['network_position'] = this.networkPosition;
+    data['network_position_commu'] = this.networkPositionCommu;
+    data['network_exp'] = this.networkExp;
     return data;
   }
 }

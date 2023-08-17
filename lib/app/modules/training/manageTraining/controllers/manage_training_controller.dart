@@ -60,6 +60,7 @@ class ManageTrainingController extends GetxController {
       }
       isLoading.value = false;
       trainingList.clear();
+      trainings.clear();
       resetForm();
       return true;
     } catch (e) {

@@ -65,6 +65,7 @@ class ManageLectuterController extends GetxController {
       }
       isLoading.value = false;
       lectuterList.clear();
+      lectuters.clear();
       resetForm();
       return true;
     } catch (e) {

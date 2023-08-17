@@ -43,6 +43,27 @@ class ManageMemberController extends GetxController {
     talker.info('$logTitle:saveMember:');
     isLoading.value = true;
     try {
+      for (var member in memberList) {
+        members.add(
+          Members(
+            amphure: member.amphure!.split('|').last,
+            district: member.district!.split('|').last,
+            province: member.province!.split('|').last,
+            memberBirthYear: member.memberBirthYear,
+            memberDate: member.memberDate,
+            memberExp: member.memberExp,
+            memberFirstName: member.memberFirstName,
+            memberIdCard: member.memberIdCard,
+            memberLocation: member.memberLocation,
+            memberPosition: member.memberPosition,
+            memberPositionCommu: member.memberPositionCommu,
+            memberStationId: member.memberStationId,
+            memberStationName: member.memberStationName,
+            memberSurName: member.memberSurName,
+            memberTelephone: member.memberTelephone,
+          ),
+        );
+      }
       final result = await MemberService().createMember(members.obs.value);
       talker.debug('response message : ${result?.message}');
       if (result?.code == "000") {
@@ -50,6 +71,7 @@ class ManageMemberController extends GetxController {
       }
       isLoading.value = false;
       memberList.clear();
+      members.clear();
       resetForm();
     } catch (e) {
       talker.error('$e');
@@ -60,7 +82,7 @@ class ManageMemberController extends GetxController {
     talker.info('$logTitle:deleteDataFromTable:$selectedIndexFromTable');
     if (members.length > selectedIndexFromTable &&
         selectedIndexFromTable > -1) {
-      members.removeAt(selectedIndexFromTable);
+      memberList.removeAt(selectedIndexFromTable);
       selectedIndexFromTable = -1;
       resetForm();
     }
@@ -69,40 +91,40 @@ class ManageMemberController extends GetxController {
   selectDataFromTable(int index) async {
     selectedIndexFromTable = index;
     talker.info('$logTitle:selectDataFromTable:$selectedIndexFromTable');
-    talker.debug(members[index].memberStationId);
-    talker.debug(members[index].memberStationName);
-    talker.debug(members[index].memberFirstName);
-    talker.debug(members[index].memberSurName);
-    talker.debug(members[index].memberIdCard);
-    talker.debug(members[index].memberBirthYear);
-    talker.debug(members[index].memberLocation);
-    talker.debug(members[index].memberDate);
-    talker.debug(members[index].memberTelephone);
-    talker.debug(members[index].memberPosition);
-    talker.debug(members[index].memberPositionCommu);
-    talker.debug(members[index].memberExp);
-    talker.debug(members[index].province);
-    talker.debug(members[index].amphure);
-    talker.debug(members[index].district);
-    memberStationId.text = members[index].memberStationId!.toString();
-    memberStationName.text = members[index].memberStationName!;
-    memberFirstName.text = members[index].memberFirstName!;
-    memberSurName.text = members[index].memberSurName!;
-    memberIdCard.text = members[index].memberIdCard!;
-    memberBirthYear.text = members[index].memberBirthYear!;
-    memberLocation.text = members[index].memberLocation!;
-    memberDate.text = members[index].memberDate!;
-    memberTelephone.text = members[index].memberTelephone!;
-    memberPosition.text = members[index].memberPosition!;
-    memberPositionCommu.text = members[index].memberPositionCommu!;
-    memberExp.text = members[index].memberExp!;
-    addressController.selectedProvince.value = members[index].province!;
+    talker.debug(memberList[index].memberStationId);
+    talker.debug(memberList[index].memberStationName);
+    talker.debug(memberList[index].memberFirstName);
+    talker.debug(memberList[index].memberSurName);
+    talker.debug(memberList[index].memberIdCard);
+    talker.debug(memberList[index].memberBirthYear);
+    talker.debug(memberList[index].memberLocation);
+    talker.debug(memberList[index].memberDate);
+    talker.debug(memberList[index].memberTelephone);
+    talker.debug(memberList[index].memberPosition);
+    talker.debug(memberList[index].memberPositionCommu);
+    talker.debug(memberList[index].memberExp);
+    talker.debug(memberList[index].province);
+    talker.debug(memberList[index].amphure);
+    talker.debug(memberList[index].district);
+    memberStationId.text = memberList[index].memberStationId!.toString();
+    memberStationName.text = memberList[index].memberStationName!;
+    memberFirstName.text = memberList[index].memberFirstName!;
+    memberSurName.text = memberList[index].memberSurName!;
+    memberIdCard.text = memberList[index].memberIdCard!;
+    memberBirthYear.text = memberList[index].memberBirthYear!;
+    memberLocation.text = memberList[index].memberLocation!;
+    memberDate.text = memberList[index].memberDate!;
+    memberTelephone.text = memberList[index].memberTelephone!;
+    memberPosition.text = memberList[index].memberPosition!;
+    memberPositionCommu.text = memberList[index].memberPositionCommu!;
+    memberExp.text = memberList[index].memberExp!;
+    addressController.selectedProvince.value = memberList[index].province!;
     await addressController
-        .listAmphure(members[index].province!.split('|').first);
-    addressController.selectedAmphure.value = members[index].amphure!;
+        .listAmphure(memberList[index].province!.split('|').first);
+    addressController.selectedAmphure.value = memberList[index].amphure!;
     await addressController
-        .listTambol(members[index].amphure!.split('|').first);
-    addressController.selectedTambol.value = members[index].district!;
+        .listTambol(memberList[index].amphure!.split('|').first);
+    addressController.selectedTambol.value = memberList[index].district!;
     update();
   }
 
@@ -120,34 +142,44 @@ class ManageMemberController extends GetxController {
     talker.debug(memberPosition.text);
     talker.debug(memberPositionCommu.text);
     talker.debug(memberExp.text);
-    // memberList.add(
-    //   MemberData(
-    //     memberFirstName: memberFirstName.text,
-    //     memberSurName: memberSurName.text,
-    //     memberPosition: memberPosition.text,
-    //     memberDate: memberDate.text,
-    //     memberTelephone: memberTelephone.text,
-    //   ),
-    // );
-    members.add(
-      Members(
-        amphure: addressController.selectedAmphure.value,
-        district: addressController.selectedTambol.value,
-        memberBirthYear: memberBirthYear.text,
-        memberDate: memberDate.text,
-        memberExp: memberExpChips.toString(),
-        memberFirstName: memberFirstName.text,
-        memberIdCard: memberIdCard.text,
-        memberLocation: memberLocation.text,
-        memberPosition: memberPosition.text,
-        memberPositionCommu: memberPositionCommuChips.toString(),
+    memberList.add(
+      MemberData(
         memberStationId: int.parse(memberStationId.text),
         memberStationName: memberStationName.text,
+        memberFirstName: memberFirstName.text,
         memberSurName: memberSurName.text,
+        memberIdCard: memberIdCard.text,
+        memberBirthYear: memberBirthYear.text,
+        memberLocation: memberLocation.text,
+        memberDate: memberDate.text,
         memberTelephone: memberTelephone.text,
+        memberPosition: memberPosition.text,
+        memberPositionCommu: memberPositionCommu.text,
+        memberExp: memberExp.text,
+        amphure: addressController.selectedAmphure.value,
+        district: addressController.selectedTambol.value,
         province: addressController.selectedProvince.value,
       ),
     );
+    // members.add(
+    //   Members(
+    //     amphure: addressController.selectedAmphure.value,
+    //     district: addressController.selectedTambol.value,
+    //     memberBirthYear: memberBirthYear.text,
+    //     memberDate: memberDate.text,
+    //     memberExp: memberExpChips.toString(),
+    //     memberFirstName: memberFirstName.text,
+    //     memberIdCard: memberIdCard.text,
+    //     memberLocation: memberLocation.text,
+    //     memberPosition: memberPosition.text,
+    //     memberPositionCommu: memberPositionCommuChips.toString(),
+    //     memberStationId: int.parse(memberStationId.text),
+    //     memberStationName: memberStationName.text,
+    //     memberSurName: memberSurName.text,
+    //     memberTelephone: memberTelephone.text,
+    //     province: addressController.selectedProvince.value,
+    //   ),
+    // );
     resetForm();
   }
 

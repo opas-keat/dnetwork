@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../../../responsive.dart';
 import '../../../../data/requests/network_service_request.dart';
+import '../../../../data/responses/network_service_response.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../../shared/constant.dart';
 import '../../../../shared/custom_text.dart';
@@ -66,16 +67,16 @@ class ManageNetworkView extends StatelessWidget {
                       columns: listColumn,
                       // rows: const [],
                       rows: List.generate(
-                        controller.networks.obs.value.length,
+                        controller.networkList.obs.value.length,
                         (index) => Responsive.isLargeScreen(context)
                             ? networkDataRow(
                                 index,
-                                controller.networks.obs.value[index],
+                                controller.networkList.obs.value[index],
                                 controller,
                               )
                             : networkDataRowLayoutSmall(
                                 index,
-                                controller.networks.obs.value[index],
+                                controller.networkList.obs.value[index],
                                 controller,
                               ),
                         // (index) => StationDataRow(
@@ -642,7 +643,7 @@ List<DataColumn> listColumn = [
 
 DataRow networkDataRow(
   int index,
-  Networks networks,
+  NetworkData networkData,
   ManageNetworkController controller,
 ) {
   return DataRow(
@@ -663,7 +664,7 @@ DataRow networkDataRow(
         Wrap(
           children: [
             Text(
-              networks.networkFirstName!,
+              networkData.networkFirstName!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -675,7 +676,7 @@ DataRow networkDataRow(
         Wrap(
           children: [
             Text(
-              networks.networkSurName!,
+              networkData.networkSurName!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -687,7 +688,7 @@ DataRow networkDataRow(
         Wrap(
           children: [
             Text(
-              networks.networkPosition!,
+              networkData.networkPosition!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -699,7 +700,7 @@ DataRow networkDataRow(
         Wrap(
           children: [
             Text(
-              networks.networkDate!,
+              networkData.networkDate!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -711,7 +712,7 @@ DataRow networkDataRow(
         Wrap(
           children: [
             Text(
-              networks.networkTelephone!,
+              networkData.networkTelephone!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -725,7 +726,7 @@ DataRow networkDataRow(
 
 DataRow networkDataRowLayoutSmall(
   int index,
-  Networks networks,
+  NetworkData networkData,
   ManageNetworkController controller,
 ) {
   return DataRow(
@@ -742,7 +743,7 @@ DataRow networkDataRowLayoutSmall(
         Wrap(
           children: [
             Text(
-              networks.networkFirstName!,
+              networkData.networkFirstName!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -754,7 +755,7 @@ DataRow networkDataRowLayoutSmall(
         Wrap(
           children: [
             Text(
-              networks.networkSurName!,
+              networkData.networkSurName!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -766,7 +767,7 @@ DataRow networkDataRowLayoutSmall(
         Wrap(
           children: [
             Text(
-              networks.networkPosition!,
+              networkData.networkPosition!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -778,7 +779,7 @@ DataRow networkDataRowLayoutSmall(
         Wrap(
           children: [
             Text(
-              networks.networkDate!,
+              networkData.networkDate!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -790,7 +791,7 @@ DataRow networkDataRowLayoutSmall(
         Wrap(
           children: [
             Text(
-              networks.networkTelephone!,
+              networkData.networkTelephone!,
               style: const TextStyle(
                 fontSize: 12,
               ),

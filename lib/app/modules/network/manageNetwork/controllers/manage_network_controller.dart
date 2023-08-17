@@ -50,6 +50,27 @@ class ManageNetworkController extends GetxController {
     talker.info('$logTitle:saveNetwork:');
     isLoading.value = true;
     try {
+      for (var network in networkList) {
+        networks.add(
+          Networks(
+            amphure: network.amphure!.split('|').last,
+            district: network.district!.split('|').last,
+            province: network.province!.split('|').last,
+            networkBirthYear: network.networkBirthYear,
+            networkDate: network.networkDate,
+            networkExp: network.networkExp,
+            networkFirstName: network.networkFirstName,
+            networkIdCard: network.networkIdCard,
+            networkLocation: network.networkLocation,
+            networkPosition: network.networkPosition,
+            networkPositionCommu: network.networkPositionCommu,
+            networkStationId: network.networkStationId,
+            networkStationName: network.networkStationName,
+            networkSurName: network.networkSurName,
+            networkTelephone: network.networkTelephone,
+          ),
+        );
+      }
       final result = await NetworkService().createNetwork(networks.obs.value);
       talker.debug('response message : ${result?.message}');
       if (result?.code == "000") {
@@ -57,6 +78,7 @@ class ManageNetworkController extends GetxController {
       }
       isLoading.value = false;
       networkList.clear();
+      networks.clear();
       resetForm();
       return true;
     } catch (e) {
@@ -67,47 +89,51 @@ class ManageNetworkController extends GetxController {
 
   deleteDataFromTable() {
     talker.info('$logTitle:deleteDataFromTable:$selectedIndexFromTable');
-    if (networks.length > selectedIndexFromTable &&
+    if (networkList.length > selectedIndexFromTable &&
         selectedIndexFromTable > -1) {
-      networks.removeAt(selectedIndexFromTable);
+      networkList.removeAt(selectedIndexFromTable);
       selectedIndexFromTable = -1;
       resetForm();
     }
   }
 
-  selectDataFromTable(int index) {
+  selectDataFromTable(int index) async {
     selectedIndexFromTable = index;
     talker.info('$logTitle:selectDataFromTable:$selectedIndexFromTable');
-    talker.debug(networks[index].networkStationId);
-    talker.debug(networks[index].networkStationName);
-    talker.debug(networks[index].networkFirstName);
-    talker.debug(networks[index].networkSurName);
-    talker.debug(networks[index].networkIdCard);
-    talker.debug(networks[index].networkBirthYear);
-    talker.debug(networks[index].networkLocation);
-    talker.debug(networks[index].networkDate);
-    talker.debug(networks[index].networkTelephone);
-    talker.debug(networks[index].networkPosition);
-    talker.debug(networks[index].networkPositionCommu);
-    talker.debug(networks[index].networkExp);
-    talker.debug(networks[index].province);
-    talker.debug(networks[index].amphure);
-    talker.debug(networks[index].district);
-    networkStationId.text = networks[index].networkStationId!.toString();
-    networkStationName.text = networks[index].networkStationName!;
-    networkFirstName.text = networks[index].networkFirstName!;
-    networkSurName.text = networks[index].networkSurName!;
-    networkIdCard.text = networks[index].networkIdCard!;
-    networkBirthYear.text = networks[index].networkBirthYear!;
-    networkLocation.text = networks[index].networkLocation!;
-    networkDate.text = networks[index].networkDate!;
-    networkTelephone.text = networks[index].networkTelephone!;
-    networkPosition.text = networks[index].networkPosition!;
-    networkPositionCommu.text = networks[index].networkPositionCommu!;
-    networkExp.text = networks[index].networkExp!;
-    addressController.selectedProvince.value = networks[index].province!;
-    addressController.selectedAmphure.value = networks[index].amphure!;
-    addressController.selectedTambol.value = networks[index].district!;
+    talker.debug(networkList[index].networkStationId);
+    talker.debug(networkList[index].networkStationName);
+    talker.debug(networkList[index].networkFirstName);
+    talker.debug(networkList[index].networkSurName);
+    talker.debug(networkList[index].networkIdCard);
+    talker.debug(networkList[index].networkBirthYear);
+    talker.debug(networkList[index].networkLocation);
+    talker.debug(networkList[index].networkDate);
+    talker.debug(networkList[index].networkTelephone);
+    talker.debug(networkList[index].networkPosition);
+    talker.debug(networkList[index].networkPositionCommu);
+    talker.debug(networkList[index].networkExp);
+    talker.debug(networkList[index].province);
+    talker.debug(networkList[index].amphure);
+    talker.debug(networkList[index].district);
+    networkStationId.text = networkList[index].networkStationId!.toString();
+    networkStationName.text = networkList[index].networkStationName!;
+    networkFirstName.text = networkList[index].networkFirstName!;
+    networkSurName.text = networkList[index].networkSurName!;
+    networkIdCard.text = networkList[index].networkIdCard!;
+    networkBirthYear.text = networkList[index].networkBirthYear!;
+    networkLocation.text = networkList[index].networkLocation!;
+    networkDate.text = networkList[index].networkDate!;
+    networkTelephone.text = networkList[index].networkTelephone!;
+    networkPosition.text = networkList[index].networkPosition!;
+    networkPositionCommu.text = networkList[index].networkPositionCommu!;
+    networkExp.text = networkList[index].networkExp!;
+    addressController.selectedProvince.value = networkList[index].province!;
+    await addressController
+        .listAmphure(networkList[index].province!.split('|').first);
+    addressController.selectedAmphure.value = networkList[index].amphure!;
+    await addressController
+        .listTambol(networkList[index].amphure!.split('|').first);
+    addressController.selectedTambol.value = networkList[index].district!;
     update();
   }
 
@@ -125,42 +151,44 @@ class ManageNetworkController extends GetxController {
     talker.debug(networkPosition.text);
     talker.debug(networkPositionCommu.text);
     talker.debug(networkExp.text);
-    // networkList.add(
-    //   NetworkData(
-    //     networkStationId: int.parse(networkStationId.text),
-    //     networkStationName: networkStationName.text,
-    //     networkFirstName: networkFirstName.text,
-    //     networkSurName: networkSurName.text,
-    //     networkIdCard: networkIdCard.text,
-    //     networkBirthYear: networkBirthYear.text,
-    //     networkLocation: networkLocation.text,
-    //     networkDate: networkDate.text,
-    //     networkTelephone: networkTelephone.text,
-    //     networkPosition: networkPosition.text,
-    //     networkPositionCommu: networkPositionCommu.text,
-    //     networkExp: networkExp.text,
-
-    //   ),
-    // );
-    networks.add(
-      Networks(
-        amphure: addressController.selectedAmphure.value,
-        district: addressController.selectedTambol.value,
-        networkBirthYear: networkBirthYear.text,
-        networkDate: networkDate.text,
-        networkExp: networkExpChips.toString(),
-        networkFirstName: networkFirstName.text,
-        networkIdCard: networkIdCard.text,
-        networkLocation: networkLocation.text,
-        networkPosition: networkPosition.text,
-        networkPositionCommu: networkPositionCommuChips.toString(),
+    networkList.add(
+      NetworkData(
         networkStationId: int.parse(networkStationId.text),
         networkStationName: networkStationName.text,
+        networkFirstName: networkFirstName.text,
         networkSurName: networkSurName.text,
+        networkIdCard: networkIdCard.text,
+        networkBirthYear: networkBirthYear.text,
+        networkLocation: networkLocation.text,
+        networkDate: networkDate.text,
         networkTelephone: networkTelephone.text,
+        networkPosition: networkPosition.text,
+        networkPositionCommu: networkPositionCommu.text,
+        networkExp: networkExp.text,
+        amphure: addressController.selectedAmphure.value,
+        district: addressController.selectedTambol.value,
         province: addressController.selectedProvince.value,
       ),
     );
+    // networks.add(
+    //   Networks(
+    //     amphure: addressController.selectedAmphure.value,
+    //     district: addressController.selectedTambol.value,
+    //     networkBirthYear: networkBirthYear.text,
+    //     networkDate: networkDate.text,
+    //     networkExp: networkExpChips.toString(),
+    //     networkFirstName: networkFirstName.text,
+    //     networkIdCard: networkIdCard.text,
+    //     networkLocation: networkLocation.text,
+    //     networkPosition: networkPosition.text,
+    //     networkPositionCommu: networkPositionCommuChips.toString(),
+    //     networkStationId: int.parse(networkStationId.text),
+    //     networkStationName: networkStationName.text,
+    //     networkSurName: networkSurName.text,
+    //     networkTelephone: networkTelephone.text,
+    //     province: addressController.selectedProvince.value,
+    //   ),
+    // );
     resetForm();
   }
 

@@ -59,6 +59,7 @@ class ManageBudgetController extends GetxController {
       }
       isLoading.value = false;
       budgetList.clear();
+      budgets.clear();
       resetForm();
       return true;
     } catch (e) {

@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../../../responsive.dart';
 import '../../../../data/requests/member_service_request.dart';
+import '../../../../data/responses/member_service_response.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../../shared/constant.dart';
 import '../../../../shared/custom_text.dart';
@@ -67,16 +68,16 @@ class ManageMemberView extends StatelessWidget {
                       columns: listColumn,
                       // rows: const [],
                       rows: List.generate(
-                        controller.members.obs.value.length,
+                        controller.memberList.obs.value.length,
                         (index) => Responsive.isLargeScreen(context)
                             ? memberDataRow(
                                 index,
-                                controller.members.obs.value[index],
+                                controller.memberList.obs.value[index],
                                 controller,
                               )
                             : memberDataRowLayoutSmall(
                                 index,
-                                controller.members.obs.value[index],
+                                controller.memberList.obs.value[index],
                                 controller,
                               ),
                         // (index) => StationDataRow(
@@ -643,7 +644,7 @@ List<DataColumn> listColumn = [
 
 DataRow memberDataRow(
   int index,
-  Members members,
+  MemberData memberData,
   ManageMemberController controller,
 ) {
   return DataRow(
@@ -664,7 +665,7 @@ DataRow memberDataRow(
         Wrap(
           children: [
             Text(
-              members.memberFirstName!,
+              memberData.memberFirstName!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -676,7 +677,7 @@ DataRow memberDataRow(
         Wrap(
           children: [
             Text(
-              members.memberSurName!,
+              memberData.memberSurName!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -688,7 +689,7 @@ DataRow memberDataRow(
         Wrap(
           children: [
             Text(
-              members.memberPosition!,
+              memberData.memberPosition!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -700,7 +701,7 @@ DataRow memberDataRow(
         Wrap(
           children: [
             Text(
-              members.memberDate!,
+              memberData.memberDate!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -712,7 +713,7 @@ DataRow memberDataRow(
         Wrap(
           children: [
             Text(
-              members.memberTelephone!,
+              memberData.memberTelephone!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -726,7 +727,7 @@ DataRow memberDataRow(
 
 DataRow memberDataRowLayoutSmall(
   int index,
-  Members members,
+  MemberData memberData,
   ManageMemberController controller,
 ) {
   return DataRow(
@@ -743,7 +744,7 @@ DataRow memberDataRowLayoutSmall(
         Wrap(
           children: [
             Text(
-              members.memberFirstName!,
+              memberData.memberFirstName!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -755,7 +756,7 @@ DataRow memberDataRowLayoutSmall(
         Wrap(
           children: [
             Text(
-              members.memberSurName!,
+              memberData.memberSurName!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -767,7 +768,7 @@ DataRow memberDataRowLayoutSmall(
         Wrap(
           children: [
             Text(
-              members.memberPosition!,
+              memberData.memberPosition!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -779,7 +780,7 @@ DataRow memberDataRowLayoutSmall(
         Wrap(
           children: [
             Text(
-              members.memberDate!,
+              memberData.memberDate!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -791,7 +792,7 @@ DataRow memberDataRowLayoutSmall(
         Wrap(
           children: [
             Text(
-              members.memberTelephone!,
+              memberData.memberTelephone!,
               style: const TextStyle(
                 fontSize: 12,
               ),

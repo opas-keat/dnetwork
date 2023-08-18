@@ -23,6 +23,7 @@ class ManageStationController extends GetxController {
 
   RxString stationError = ''.obs;
 
+  final formKey = GlobalKey<FormState>();
   final stationName = TextEditingController();
   final stationFacebook = TextEditingController();
   final stationLocation = TextEditingController();
@@ -33,6 +34,25 @@ class ManageStationController extends GetxController {
   final trainingChips = <String>[].obs;
 
   int selectedIndexFromTable = 0;
+
+  @override
+  void onInit() {
+    talker.info('$logTitle:onInit:');
+    super.onInit();
+  }
+
+  @override
+  void onReady() {
+    talker.info('$logTitle:onReady:');
+    // processChips.add("[ff,sds]");
+    super.onReady();
+  }
+
+  @override
+  void onClose() {
+    talker.info('$logTitle:onClose:');
+    super.onReady();
+  }
 
   Future<bool> saveStation() async {
     talker.info('$logTitle:saveStation:');
@@ -50,6 +70,7 @@ class ManageStationController extends GetxController {
             process: station.process,
             totalCommiss: 0,
             totalMember: 0,
+            training: station.training,
           ),
         );
       }
@@ -61,6 +82,9 @@ class ManageStationController extends GetxController {
       isLoading.value = false;
       stationList.clear();
       stations.clear();
+      addressController.selectedProvince.value = '0|';
+      addressController.selectedAmphure.value = '0|';
+      addressController.selectedTambol.value = '0|';
       resetForm();
       return true;
     } catch (e) {
@@ -71,9 +95,9 @@ class ManageStationController extends GetxController {
 
   deleteDataFromTable() {
     talker.info('$logTitle:deleteDataFromTable:$selectedIndexFromTable');
-    if (stations.length > selectedIndexFromTable &&
+    if (stationList.length > selectedIndexFromTable &&
         selectedIndexFromTable > -1) {
-      stations.removeAt(selectedIndexFromTable);
+      stationList.removeAt(selectedIndexFromTable);
       selectedIndexFromTable = -1;
       resetForm();
     }
@@ -82,45 +106,86 @@ class ManageStationController extends GetxController {
   selectDataFromTable(int index) {
     selectedIndexFromTable = index;
     talker.info('$logTitle:selectDataFromTable:$selectedIndexFromTable');
-    talker.debug(stationList[index].province);
-    talker.debug(stationList[index].amphure);
-    talker.debug(stationList[index].district);
+    processChips.clear();
+    trainingChips.clear();
+    // talker.debug(stationList[index].province);
+    // talker.debug(stationList[index].amphure);
+    // talker.debug(stationList[index].district);
+    // talker.debug(stationList[index].process!.split('|').length);
+    // talker.debug(stationList[index].process!.toString());
     stationName.text = stationList[index].name!;
     stationLocation.text = stationList[index].location!;
     addressController.selectedProvince.value = stationList[index].province!;
-    // addressController.selectedAmphure.value = stationList[index].amphure!;
-    // addressController.selectedTambol.value = stationList[index].district!;
+    addressController.selectedAmphure.value = stationList[index].amphure!;
+    addressController.selectedTambol.value = stationList[index].district!;
     stationFacebook.text = stationList[index].facebook!;
-    stationProcess.text = stationList[index].process!;
-    stationTraining.text = stationList[index].training!;
+    if (stationList[index].process!.isNotEmpty) {
+      processChips.addAll(stationList[index].process!.split('|'));
+    }
+    if (stationList[index].training!.isNotEmpty) {
+      trainingChips.addAll(stationList[index].training!.split('|'));
+    }
     update();
   }
 
   addToDataTable() {
     talker.info('$logTitle:addToDataTable:');
-    stationList.add(
-      StationData(
-        name: stationName.text,
-        location: stationLocation.text,
-        province: addressController.selectedProvince.value,
-        amphure: addressController.selectedAmphure.value,
-        district: addressController.selectedTambol.value,
-        facebook: stationFacebook.text,
-        process: processChips.first,
-        training: trainingChips.first,
-        totalCommiss: 0,
-        totalMember: 0,
-      ),
-    );
-    resetForm();
+    final isValid = formKey.currentState!.validate();
+    if (isValid) {
+      talker.debug(stationName.text);
+      talker.debug(stationLocation.text);
+      talker.debug(addressController.selectedProvince.value);
+      talker.debug(addressController.selectedAmphure.value);
+      talker.debug(addressController.selectedTambol.value);
+      talker.debug(stationFacebook.text);
+      talker.debug(processChips.join());
+      if (addressController.selectedProvince.value != '0|' &&
+          addressController.selectedAmphure.value != '0|' &&
+          addressController.selectedTambol.value != '0|') {
+        if (stationProcess.text.isNotEmpty) {
+          processChips.add(stationProcess.text);
+        }
+        if (stationTraining.text.isNotEmpty) {
+          trainingChips.add(stationTraining.text);
+        }
+        stationList.add(
+          StationData(
+            name: stationName.text,
+            location: stationLocation.text,
+            province: addressController.selectedProvince.value,
+            amphure: addressController.selectedAmphure.value,
+            district: addressController.selectedTambol.value,
+            facebook: stationFacebook.text,
+            process: processChips.join('|'),
+            training: trainingChips.join('|'),
+            totalCommiss: 0,
+            totalMember: 0,
+          ),
+        );
+        resetForm();
+      } else {
+        // talker.info('กรุณเลือก จังหวัด/อำเภอ/ตำบล');
+        Get.dialog(
+          AlertDialog(
+            content: const Text('กรุณาเลือก จังหวัด/อำเภอ/ตำบล'),
+            actions: [
+              TextButton(
+                child: const Text("ปิด"),
+                onPressed: () => Get.back(),
+              ),
+            ],
+          ),
+        );
+      }
+    }
   }
 
   resetForm() {
     stationName.text = "";
     stationLocation.text = "";
-    addressController.selectedProvince.value = '0|';
-    addressController.selectedAmphure.value = '0|';
-    addressController.selectedTambol.value = '0|';
+    // addressController.selectedProvince.value = '0|';
+    // addressController.selectedAmphure.value = '0|';
+    // addressController.selectedTambol.value = '0|';
     stationFacebook.text = "";
     stationProcess.text = "";
     stationTraining.text = "";
@@ -132,6 +197,7 @@ class ManageStationController extends GetxController {
   addProcessToChip(String process) {
     talker.debug('$logTitle::addProcessToChip:$process');
     processChips.add(process);
+    stationProcess.text = "";
     talker.debug('$logTitle::addProcessToChip:${processChips.toString()}');
     update();
   }
@@ -145,6 +211,7 @@ class ManageStationController extends GetxController {
   addTrainingToChip(String training) {
     talker.debug('$logTitle::addTrainingToChip:$training');
     trainingChips.add(training);
+    stationTraining.text = "";
     talker.debug('$logTitle::addTrainingToChip:${trainingChips.toString()}');
     update();
   }

@@ -26,9 +26,18 @@ class AddressView extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (showProvince) ...[
-          CustomText(
-            text: "จังหวัด",
-            color: Colors.black87.withOpacity(.9),
+          Wrap(
+            direction: Axis.horizontal,
+            children: [
+              CustomText(
+                text: "จังหวัด",
+                color: Colors.black87.withOpacity(.9),
+              ),
+              CustomText(
+                text: "\*",
+                color: Colors.red.withOpacity(.9),
+              ),
+            ],
           ),
           const SizedBox(height: defaultPadding / 2),
           // TextFormField(
@@ -44,80 +53,91 @@ class AddressView extends StatelessWidget {
           //     contentPadding: EdgeInsets.fromLTRB(12, 14, 12, 12),
           //   ),
           // ),
-          Obx(() => InputDecorator(
-                decoration: InputDecoration(
-                  fillColor: Colors.white.withOpacity(.8),
-                  filled: true,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(defaultPadding / 2),
-                    borderSide:
-                        const BorderSide(color: Colors.black54, width: 1),
-                  ),
-                  isCollapsed: true,
-                  contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
+          Obx(
+            () => InputDecorator(
+              decoration: InputDecoration(
+                fillColor: Colors.white.withOpacity(.8),
+                filled: true,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(defaultPadding / 2),
+                  borderSide: const BorderSide(color: Colors.black54, width: 1),
                 ),
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton<String>(
-                    elevation: 0,
-                    // value: null,
-                    // value: controller.provinceList.obs.value[0],
-                    value: controller.selectedProvince.value,
-                    isDense: true,
-                    onChanged: (newValue) {
-                      controller.updateSelectedProvince(newValue!, showAmphure);
-                    },
-                    items: controller.provinceList.obs.value.map((item) {
-                      return DropdownMenuItem<String>(
-                        value: item,
-                        child: Text(
-                          item.split('|').last,
-                          textScaleFactor: 0.9,
-                        ),
-                      );
-                    }).toList(),
-                  ),
+                isCollapsed: true,
+                contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
+              ),
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton<String>(
+                  elevation: 0,
+                  // value: null,
+                  // value: controller.provinceList.obs.value[0],
+                  value: controller.selectedProvince.value,
+                  isDense: true,
+                  onChanged: (newValue) {
+                    controller.updateSelectedProvince(newValue!, showAmphure);
+                  },
+                  items: controller.provinceList.obs.value.map((item) {
+                    return DropdownMenuItem<String>(
+                      value: item,
+                      child: Text(
+                        item.split('|').last,
+                        textScaleFactor: 0.9,
+                      ),
+                    );
+                  }).toList(),
                 ),
-              )),
+              ),
+            ),
+          ),
         ],
         if (showAmphure) ...[
           const SizedBox(height: defaultPadding),
-          CustomText(
-            text: "อำเภอ",
-            color: Colors.black87.withOpacity(.9),
+          Wrap(
+            direction: Axis.horizontal,
+            children: [
+              CustomText(
+                text: "อำเภอ",
+                color: Colors.black87.withOpacity(.9),
+              ),
+              CustomText(
+                text: "\*",
+                color: Colors.red.withOpacity(.9),
+              ),
+            ],
           ),
           const SizedBox(height: defaultPadding / 2),
-          Obx(() => InputDecorator(
-                decoration: InputDecoration(
-                  fillColor: Colors.white.withOpacity(.8),
-                  filled: true,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(defaultPadding / 2),
-                    borderSide:
-                        const BorderSide(color: Colors.black54, width: 1),
-                  ),
-                  isCollapsed: true,
-                  contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
+          Obx(
+            () => InputDecorator(
+              decoration: InputDecoration(
+                fillColor: Colors.white.withOpacity(.8),
+                filled: true,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(defaultPadding / 2),
+                  borderSide: const BorderSide(color: Colors.black54, width: 1),
                 ),
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton<String>(
-                    elevation: 0,
-                    value: controller.selectedAmphure.value,
-                    isDense: true,
-                    onChanged: (newValue) {
-                      controller.updateSelectedAmphure(newValue!);
-                    },
-                    items: controller.amphureList.obs.value.map((item) {
-                      return DropdownMenuItem<String>(
-                        value: item,
-                        child: Text(
-                          item.split('|').last,
-                          textScaleFactor: 0.9,
-                        ),
-                      );
-                    }).toList(),
-                  ),
+                isCollapsed: true,
+                contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
+              ),
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton<String>(
+                  elevation: 0,
+                  value: controller.selectedAmphure.value,
+                  isDense: true,
+                  onChanged: (newValue) {
+                    controller.updateSelectedAmphure(newValue!);
+                  },
+                  items: controller.amphureList.obs.value.map((item) {
+                    return DropdownMenuItem<String>(
+                      value: item,
+                      child: Text(
+                        item.split('|').last,
+                        textScaleFactor: 0.9,
+                      ),
+                    );
+                  }).toList(),
                 ),
-              )),
+              ),
+            ),
+          ),
         ],
         // const SizedBox(height: defaultPadding / 2),
         // TextFormField(
@@ -135,9 +155,18 @@ class AddressView extends StatelessWidget {
         // ),
         if (showTambol) ...[
           const SizedBox(height: defaultPadding),
-          CustomText(
-            text: "ตำบล",
-            color: Colors.black87.withOpacity(.9),
+          Wrap(
+            direction: Axis.horizontal,
+            children: [
+              CustomText(
+                text: "ตำบล",
+                color: Colors.black87.withOpacity(.9),
+              ),
+              CustomText(
+                text: "\*",
+                color: Colors.red.withOpacity(.9),
+              ),
+            ],
           ),
           const SizedBox(height: defaultPadding / 2),
           // TextFormField(
@@ -153,38 +182,39 @@ class AddressView extends StatelessWidget {
           //     contentPadding: EdgeInsets.fromLTRB(12, 14, 12, 12),
           //   ),
           // ),
-          Obx(() => InputDecorator(
-                decoration: InputDecoration(
-                  fillColor: Colors.white.withOpacity(.8),
-                  filled: true,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(defaultPadding / 2),
-                    borderSide:
-                        const BorderSide(color: Colors.black54, width: 1),
-                  ),
-                  isCollapsed: true,
-                  contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
+          Obx(
+            () => InputDecorator(
+              decoration: InputDecoration(
+                fillColor: Colors.white.withOpacity(.8),
+                filled: true,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(defaultPadding / 2),
+                  borderSide: const BorderSide(color: Colors.black54, width: 1),
                 ),
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton<String>(
-                    elevation: 0,
-                    value: controller.selectedTambol.value,
-                    isDense: true,
-                    onChanged: (newValue) {
-                      controller.updateSelectedTambol(newValue!);
-                    },
-                    items: controller.tambolList.obs.value.map((item) {
-                      return DropdownMenuItem<String>(
-                        value: item,
-                        child: Text(
-                          item.split('|').last,
-                          textScaleFactor: 0.9,
-                        ),
-                      );
-                    }).toList(),
-                  ),
+                isCollapsed: true,
+                contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
+              ),
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton<String>(
+                  elevation: 0,
+                  value: controller.selectedTambol.value,
+                  isDense: true,
+                  onChanged: (newValue) {
+                    controller.updateSelectedTambol(newValue!);
+                  },
+                  items: controller.tambolList.obs.value.map((item) {
+                    return DropdownMenuItem<String>(
+                      value: item,
+                      child: Text(
+                        item.split('|').last,
+                        textScaleFactor: 0.9,
+                      ),
+                    );
+                  }).toList(),
                 ),
-              )),
+              ),
+            ),
+          ),
         ],
         const SizedBox(height: defaultPadding),
         if (showPostCode) ...[

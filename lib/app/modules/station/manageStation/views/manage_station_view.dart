@@ -234,24 +234,49 @@ class ManageStationDetail extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CustomText(
-                  text: "ชื่อ ศส.ปชต.",
-                  color: Colors.black87.withOpacity(.9),
+                Wrap(
+                  direction: Axis.horizontal,
+                  children: [
+                    CustomText(
+                      text: "ชื่อ ศส.ปชต.",
+                      color: Colors.black87.withOpacity(.9),
+                    ),
+                    CustomText(
+                      text: "\*",
+                      color: Colors.red.withOpacity(.9),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: defaultPadding / 2),
-                TextFormField(
-                  controller: controller.stationName,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    fillColor: Colors.white.withOpacity(.8),
-                    filled: true,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(defaultPadding / 2),
-                      borderSide:
-                          const BorderSide(color: Colors.black54, width: 1),
+                Form(
+                  key: controller.formKey,
+                  child: TextFormField(
+                    controller: controller.stationName,
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                      fillColor: Colors.white.withOpacity(.8),
+                      filled: true,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(defaultPadding / 2),
+                        borderSide:
+                            const BorderSide(color: Colors.black54, width: 1),
+                      ),
+                      isCollapsed: true,
+                      contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
                     ),
-                    isCollapsed: true,
-                    contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    // validator: (value) {
+                    //   if (GetUtils.isNull(value))
+                    //     return "is not valid";
+                    //   else
+                    //     return null;
+                    // },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'กรุณากรอก ชื่อ ศส.ปชต.';
+                      }
+                      return null;
+                    },
                   ),
                 ),
                 const SizedBox(height: defaultPadding),
@@ -497,6 +522,9 @@ class ManageStationDetail extends StatelessWidget {
               ),
               ElevatedButton.icon(
                 onPressed: () {
+                  controller.addressController.selectedProvince.value = '0|';
+                  controller.addressController.selectedAmphure.value = '0|';
+                  controller.addressController.selectedTambol.value = '0|';
                   Get.toNamed(Routes.STATION);
                 },
                 style: ElevatedButton.styleFrom(
@@ -687,27 +715,55 @@ DataRow stationDataRow(
         ),
       ),
       DataCell(
+        // Wrap(
+        //   children: [
+        //     Text(
+        //       stationData.process!.split('|').first,
+        //       style: const TextStyle(
+        //         fontSize: 12,
+        //       ),
+        //     ),
+        //   ],
+        // ),
         Wrap(
-          children: [
-            Text(
-              stationData.process!,
-              style: const TextStyle(
-                fontSize: 12,
-              ),
-            ),
-          ],
+          spacing: 5.0,
+          runSpacing: 5.0,
+          direction: Axis.vertical,
+          children: stationData.process!
+              .split('|')
+              .map((chip) => Text(
+                    chip,
+                    style: const TextStyle(
+                      fontSize: 12,
+                    ),
+                  ))
+              .toList(),
         ),
       ),
       DataCell(
+        // Wrap(
+        //   children: [
+        //     Text(
+        //       stationData.training!.split('|').first,
+        //       style: const TextStyle(
+        //         fontSize: 12,
+        //       ),
+        //     ),
+        //   ],
+        // ),
         Wrap(
-          children: [
-            Text(
-              stationData.training!,
-              style: const TextStyle(
-                fontSize: 12,
-              ),
-            ),
-          ],
+          spacing: 5.0,
+          runSpacing: 5.0,
+          direction: Axis.vertical,
+          children: stationData.training!
+              .split('|')
+              .map((chip) => Text(
+                    chip,
+                    style: const TextStyle(
+                      fontSize: 12,
+                    ),
+                  ))
+              .toList(),
         ),
       ),
     ],

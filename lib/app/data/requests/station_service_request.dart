@@ -7,15 +7,15 @@ class StationServiceRequest {
     if (json['stations'] != null) {
       stations = <Stations>[];
       json['stations'].forEach((v) {
-        stations!.add(new Stations.fromJson(v));
+        stations!.add(Stations.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.stations != null) {
-      data['stations'] = this.stations!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    if (stations != null) {
+      data['stations'] = stations!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -31,6 +31,7 @@ class Stations {
   String? district;
   String? location;
   String? facebook;
+  String? training;
 
   Stations(
       {this.name,
@@ -41,7 +42,8 @@ class Stations {
       this.amphure,
       this.district,
       this.location,
-      this.facebook});
+      this.facebook,
+      this.training});
 
   Stations.fromJson(Map<String, dynamic> json) {
     name = json['name'];
@@ -53,19 +55,21 @@ class Stations {
     district = json['district'];
     location = json['location'];
     facebook = json['facebook'];
+    training = json['training'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['total_commiss'] = this.totalCommiss;
-    data['total_member'] = this.totalMember;
-    data['process'] = this.process;
-    data['province'] = this.province;
-    data['amphure'] = this.amphure;
-    data['district'] = this.district;
-    data['location'] = this.location;
-    data['facebook'] = this.facebook;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['name'] = name;
+    data['total_commiss'] = totalCommiss;
+    data['total_member'] = totalMember;
+    data['process'] = process;
+    data['province'] = province;
+    data['amphure'] = amphure;
+    data['district'] = district;
+    data['location'] = location;
+    data['facebook'] = facebook;
+    data['training'] = training;
     return data;
   }
 }

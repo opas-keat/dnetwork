@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../api/api_params.dart';
+import '../../../../api/services/commiss_position_commu_service.dart';
 import '../../../../api/services/commiss_position_service.dart';
 import '../../../../api/services/commiss_service.dart';
 import '../../../../data/requests/commiss_service_request.dart';
@@ -22,6 +23,8 @@ class ManageCommissController extends GetxController {
   final commisss = <Commisss>[].obs;
   final commissPositionList = <String>[].obs;
   Rx<String> selectedCommissPosition = "".obs;
+  final commissPositionCommuList = <String>[].obs;
+  Rx<String> selectedCommissPositionCommu = "".obs;
 
   RxString commissError = ''.obs;
 
@@ -52,6 +55,7 @@ class ManageCommissController extends GetxController {
     super.onInit();
     talker.info('$logTitle onInit');
     listCommissPosition();
+    listCommissPositionCommu();
   }
 
   @override
@@ -121,6 +125,8 @@ class ManageCommissController extends GetxController {
   selectDataFromTable(int index) async {
     selectedIndexFromTable = index;
     talker.info('$logTitle:selectDataFromTable:$selectedIndexFromTable');
+    commissPositionCommuChips.clear();
+    commissExpChips.clear();
     talker.debug(commissList[index].commissStationId);
     talker.debug(commissList[index].commissStationName);
     talker.debug(commissList[index].commissFirstName);
@@ -146,11 +152,22 @@ class ManageCommissController extends GetxController {
     commissDate.text = commissList[index].commissDate!;
     commissTelephone.text = commissList[index].commissTelephone!;
     // commissPosition.text = commissList[index].commissPosition!;
-    commissPositionCommu.text = commissList[index].commissPositionCommu!;
-    commissExp.text = commissList[index].commissExp!;
+    selectedCommissPosition.value = commissList[index].commissPosition!;
+
+    // commissPositionCommu.text = commissList[index].commissPositionCommu!;
+    // commissExp.text = commissList[index].commissExp!;
     commissAmphure.text = commissList[index].district!;
     commissTambol.text = commissList[index].amphure!;
     commissProvince.text = commissList[index].province!;
+    if (commissList[index].commissPositionCommu!.isNotEmpty) {
+      commissPositionCommuChips
+          .addAll(commissList[index].commissPositionCommu!.split('|'));
+      selectedCommissPositionCommu.value =
+          commissList[index].commissPositionCommu!.split('|').first;
+    }
+    if (commissList[index].commissExp!.isNotEmpty) {
+      commissExpChips.addAll(commissList[index].commissExp!.split('|'));
+    }
     // addressController.selectedProvince.value = commissList[index].province!;
     // await addressController
     //     .listAmphure(commissList[index].province!.split('|').first);
@@ -189,7 +206,7 @@ class ManageCommissController extends GetxController {
           commissDate: commissDate.text,
           commissTelephone: commissTelephone.text,
           commissPosition: selectedCommissPosition.value,
-          commissPositionCommu: commissPositionCommu.text,
+          commissPositionCommu: commissPositionCommuChips.join('|'),
           commissExp: commissExp.text,
           amphure: commissAmphure.text,
           district: commissTambol.text,
@@ -237,14 +254,18 @@ class ManageCommissController extends GetxController {
     // addressController.selectedProvince.value = '0|';
     // addressController.selectedAmphure.value = '0|';
     // addressController.selectedTambol.value = '0|';
+    selectedCommissPosition.value = '';
+    selectedCommissPositionCommu.value = '';
     update();
   }
 
   addPositionCommuToChip(String positionCommu) {
-    talker.debug('$logTitle::addPositionCommuToChip:$positionCommu');
-    commissPositionCommuChips.add(positionCommu);
+    talker.debug(
+        '$logTitle::addPositionCommuToChip:${selectedCommissPositionCommu.value}');
+    commissPositionCommuChips.add(selectedCommissPositionCommu.value);
     talker.debug(
         '$logTitle::addPositionCommuToChip:${commissPositionCommuChips.toString()}');
+    // selectedCommissPositionCommu.value = '';
     update();
   }
 
@@ -281,6 +302,26 @@ class ManageCommissController extends GetxController {
       commissPositionList.add("");
       for (var item in result!.data!) {
         commissPositionList.add(item.name!);
+      }
+      // update();
+    } catch (e) {
+      talker.error('$e');
+    }
+  }
+
+  Future listCommissPositionCommu() async {
+    talker.info('$logTitle::listCommissPositionCommu');
+    Map<String, String> qParams = {
+      "offset": "0",
+      "limit": queryParamLimit,
+      "order": queryParamOrderBy,
+    };
+    try {
+      final result = await CommissPositionCommuService().list(qParams);
+      commissPositionCommuList.clear();
+      commissPositionCommuList.add("");
+      for (var item in result!.data!) {
+        commissPositionCommuList.add(item.name!);
       }
       // update();
     } catch (e) {

@@ -13,7 +13,6 @@ import '../../../../shared/custom_text.dart';
 import '../../../../shared/main_drawer.dart';
 import '../../../../shared/search_station.dart';
 import '../../../../shared/utils.dart';
-import '../../../address/views/address_view.dart';
 import '../controllers/manage_commiss_controller.dart';
 
 class ManageCommissView extends StatelessWidget {
@@ -697,21 +696,64 @@ class ManageCommissView extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Expanded(
-                                  child: TextFormField(
-                                    controller: controller.commissPositionCommu,
-                                    keyboardType: TextInputType.text,
-                                    decoration: InputDecoration(
-                                      fillColor: Colors.white.withOpacity(.8),
-                                      filled: true,
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(
-                                            defaultPadding / 2),
-                                        borderSide: const BorderSide(
-                                            color: Colors.black54, width: 1),
+                                  //   child: TextFormField(
+                                  //     controller: controller.commissPositionCommu,
+                                  //     keyboardType: TextInputType.text,
+                                  //     decoration: InputDecoration(
+                                  //       fillColor: Colors.white.withOpacity(.8),
+                                  //       filled: true,
+                                  //       border: OutlineInputBorder(
+                                  //         borderRadius: BorderRadius.circular(
+                                  //             defaultPadding / 2),
+                                  //         borderSide: const BorderSide(
+                                  //             color: Colors.black54, width: 1),
+                                  //       ),
+                                  //       isCollapsed: true,
+                                  //       contentPadding: const EdgeInsets.fromLTRB(
+                                  //           12, 14, 12, 12),
+                                  //     ),
+                                  //   ),
+                                  child: Obx(
+                                    () => DropdownButtonFormField<String>(
+                                      decoration: InputDecoration(
+                                        fillColor: Colors.white.withOpacity(.8),
+                                        filled: true,
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(
+                                              defaultPadding / 2),
+                                          borderSide: const BorderSide(
+                                              color: Colors.black54, width: 1),
+                                        ),
+                                        isCollapsed: true,
+                                        contentPadding:
+                                            const EdgeInsets.fromLTRB(
+                                                12, 14, 12, 12),
                                       ),
-                                      isCollapsed: true,
-                                      contentPadding: const EdgeInsets.fromLTRB(
-                                          12, 14, 12, 12),
+                                      value: controller
+                                          .selectedCommissPositionCommu.value,
+                                      onChanged: (newValue) {
+                                        controller.selectedCommissPositionCommu
+                                            .value = newValue!;
+                                      },
+                                      autovalidateMode:
+                                          AutovalidateMode.onUserInteraction,
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'กรุณาเลือก ตำแหน่งอื่นในชุมชน';
+                                        }
+                                        return null;
+                                      },
+                                      items: controller
+                                          .commissPositionCommuList.obs.value
+                                          .map((item) {
+                                        return DropdownMenuItem<String>(
+                                          value: item,
+                                          child: Text(
+                                            item,
+                                            textScaleFactor: 0.9,
+                                          ),
+                                        );
+                                      }).toList(),
                                     ),
                                   ),
                                 ),

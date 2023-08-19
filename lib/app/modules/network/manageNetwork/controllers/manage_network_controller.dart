@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../../api/api_params.dart';
+import '../../../../api/services/commiss_position_commu_service.dart';
+import '../../../../api/services/commiss_position_service.dart';
 import '../../../../api/services/network_service.dart';
 import '../../../../data/requests/network_service_request.dart';
 import '../../../../data/responses/network_service_response.dart';
 import '../../../../shared/utils.dart';
-import '../../../address/controllers/address_controller.dart';
 
 class ManageNetworkController extends GetxController {
   final logTitle = "ManageNetworkController";
   RxBool isLoading = true.obs;
-  AddressController addressController = Get.put(AddressController());
+  // AddressController addressController = Get.put(AddressController());
 
   Rx<String> filePath = ''.obs;
   Rx<XFile> fileUpload = XFile('').obs;
@@ -19,8 +21,14 @@ class ManageNetworkController extends GetxController {
   final networkList = <NetworkData>[].obs;
   final networks = <Networks>[].obs;
 
+  final networkPositionList = <String>[].obs;
+  Rx<String> selectedNetworkPosition = "".obs;
+  final networkPositionCommuList = <String>[].obs;
+  Rx<String> selectedNetworkPositionCommu = "".obs;
+
   RxString networkError = ''.obs;
 
+  final formKey = GlobalKey<FormState>();
   final networkStationId = TextEditingController(text: "0");
   final networkStationName = TextEditingController();
   final networkFirstName = TextEditingController();
@@ -33,29 +41,46 @@ class ManageNetworkController extends GetxController {
   final networkPosition = TextEditingController();
   final networkPositionCommu = TextEditingController();
   final networkExp = TextEditingController();
+  final networkProvince = TextEditingController();
+  final networkAmphure = TextEditingController();
+  final networkTambol = TextEditingController();
 
   final networkPositionCommuChips = <String>[].obs;
   final networkExpChips = <String>[].obs;
 
-  int selectedIndexFromTable = 0;
+  int selectedIndexFromTable = -1;
 
   @override
   void onInit() {
     super.onInit();
-    // isLoading.value = true;
-    // talker.debug(window.sessionStorage["token"]);
+    talker.info('$logTitle onInit');
+    listNetworkPosition();
+    listNetworkPositionCommu();
   }
 
-  Future<bool> saveNetwork() async {
+  @override
+  void onReady() {
+    super.onReady();
+    talker.info('$logTitle onReady');
+    update();
+  }
+
+  @override
+  void onClose() {
+    talker.info('$logTitle onClose');
+    super.onClose();
+  }
+
+  Future saveNetwork() async {
     talker.info('$logTitle:saveNetwork:');
     isLoading.value = true;
     try {
       for (var network in networkList) {
         networks.add(
           Networks(
-            amphure: network.amphure!.split('|').last,
-            district: network.district!.split('|').last,
-            province: network.province!.split('|').last,
+            amphure: network.amphure,
+            district: network.district,
+            province: network.province,
             networkBirthYear: network.networkBirthYear,
             networkDate: network.networkDate,
             networkExp: network.networkExp,
@@ -80,10 +105,8 @@ class ManageNetworkController extends GetxController {
       networkList.clear();
       networks.clear();
       resetForm();
-      return true;
     } catch (e) {
       talker.error('$e');
-      return false;
     }
   }
 
@@ -99,6 +122,8 @@ class ManageNetworkController extends GetxController {
 
   selectDataFromTable(int index) async {
     selectedIndexFromTable = index;
+    networkPositionCommuChips.clear();
+    networkExpChips.clear();
     talker.info('$logTitle:selectDataFromTable:$selectedIndexFromTable');
     talker.debug(networkList[index].networkStationId);
     talker.debug(networkList[index].networkStationName);
@@ -124,17 +149,22 @@ class ManageNetworkController extends GetxController {
     networkLocation.text = networkList[index].networkLocation!;
     networkDate.text = networkList[index].networkDate!;
     networkTelephone.text = networkList[index].networkTelephone!;
-    networkPosition.text = networkList[index].networkPosition!;
-    networkPositionCommu.text = networkList[index].networkPositionCommu!;
-    networkExp.text = networkList[index].networkExp!;
-    addressController.selectedProvince.value = networkList[index].province!;
-    await addressController
-        .listAmphure(networkList[index].province!.split('|').first);
-    addressController.selectedAmphure.value = networkList[index].amphure!;
-    await addressController
-        .listTambol(networkList[index].amphure!.split('|').first);
-    addressController.selectedTambol.value = networkList[index].district!;
+    selectedNetworkPosition.value = networkList[index].networkPosition!;
+
+    networkAmphure.text = networkList[index].district!;
+    networkTambol.text = networkList[index].amphure!;
+    networkProvince.text = networkList[index].province!;
+    if (networkList[index].networkPositionCommu!.isNotEmpty) {
+      networkPositionCommuChips
+          .addAll(networkList[index].networkPositionCommu!.split('|'));
+      selectedNetworkPositionCommu.value =
+          networkList[index].networkPositionCommu!.split('|').first;
+    }
+    if (networkList[index].networkExp!.isNotEmpty) {
+      networkExpChips.addAll(networkList[index].networkExp!.split('|'));
+    }
     update();
+    networkList.refresh();
   }
 
   addDataToTable() {
@@ -151,25 +181,30 @@ class ManageNetworkController extends GetxController {
     talker.debug(networkPosition.text);
     talker.debug(networkPositionCommu.text);
     talker.debug(networkExp.text);
-    networkList.add(
-      NetworkData(
-        networkStationId: int.parse(networkStationId.text),
-        networkStationName: networkStationName.text,
-        networkFirstName: networkFirstName.text,
-        networkSurName: networkSurName.text,
-        networkIdCard: networkIdCard.text,
-        networkBirthYear: networkBirthYear.text,
-        networkLocation: networkLocation.text,
-        networkDate: networkDate.text,
-        networkTelephone: networkTelephone.text,
-        networkPosition: networkPosition.text,
-        networkPositionCommu: networkPositionCommu.text,
-        networkExp: networkExp.text,
-        amphure: addressController.selectedAmphure.value,
-        district: addressController.selectedTambol.value,
-        province: addressController.selectedProvince.value,
-      ),
-    );
+    final isValid = formKey.currentState!.validate();
+    if (isValid) {
+      networkList.add(
+        NetworkData(
+          networkStationId: int.parse(networkStationId.text),
+          networkStationName: networkStationName.text,
+          networkFirstName: networkFirstName.text,
+          networkSurName: networkSurName.text,
+          networkIdCard: networkIdCard.text,
+          networkBirthYear: networkBirthYear.text,
+          networkLocation: networkLocation.text,
+          networkDate: networkDate.text,
+          networkTelephone: networkTelephone.text,
+          networkPosition: selectedNetworkPosition.value,
+          networkPositionCommu: networkPositionCommuChips.join('|'),
+          networkExp: networkExp.text,
+          amphure: networkAmphure.text,
+          district: networkTambol.text,
+          province: networkProvince.text,
+        ),
+      );
+      resetForm();
+    }
+
     // networks.add(
     //   Networks(
     //     amphure: addressController.selectedAmphure.value,
@@ -189,7 +224,6 @@ class ManageNetworkController extends GetxController {
     //     province: addressController.selectedProvince.value,
     //   ),
     // );
-    resetForm();
   }
 
   resetForm() {
@@ -199,45 +233,88 @@ class ManageNetworkController extends GetxController {
     networkFirstName.text = "";
     networkIdCard.text = "";
     networkLocation.text = "";
-    networkPosition.text = "";
+    // networkPosition.text = "";
     networkPositionCommu.text = "";
-    networkStationId.text = "0";
-    networkStationName.text = "";
+    // networkStationId.text = "0";
+    // networkStationName.text = "";
     networkSurName.text = "";
     networkTelephone.text = "";
     networkPositionCommuChips.clear();
     networkExpChips.clear();
-    addressController.selectedProvince.value = '0|';
-    addressController.selectedAmphure.value = '0|';
-    addressController.selectedTambol.value = '0|';
+    // addressController.selectedProvince.value = '0|';
+    // addressController.selectedAmphure.value = '0|';
+    // addressController.selectedTambol.value = '0|';
+    selectedNetworkPosition.value = '';
+    selectedNetworkPositionCommu.value = '';
     update();
   }
 
   addPositionCommuToChip(String positionCommu) {
-    talker.debug('$logTitle::addPositionCommuToChip:$positionCommu');
-    networkPositionCommuChips.add(positionCommu);
     talker.debug(
-        '$logTitle::addPositionCommuToChip:${networkPositionCommuChips.toString()}');
-    update();
+        '$logTitle::addPositionCommuToChip:${selectedNetworkPositionCommu.value}');
+    networkPositionCommuChips.add(selectedNetworkPositionCommu.value);
+    talker.debug(
+        '$logTitle::addPositionCommuToChip:${networkPositionCommuChips.join("|")}');
+    networkPositionCommuChips.refresh();
   }
 
   deletePositionCommuToChip(String positionCommu) {
     talker.debug('$logTitle::deletePositionCommuToChip:$positionCommu');
     networkPositionCommuChips.remove(positionCommu);
-    update();
+    networkPositionCommuChips.refresh();
   }
 
-  addNetworkExpToChip(String networkExp) {
+  addNetworkExpToChip(String exp) {
     talker.debug('$logTitle::addNetworkExpToChip:$networkExp');
-    networkExpChips.add(networkExp);
-    talker
-        .debug('$logTitle::addNetworkExpToChip:${networkExpChips.toString()}');
-    update();
+    networkExpChips.add(exp);
+    talker.debug('$logTitle::addNetworkExpToChip:${networkExpChips.toString()}');
+    networkExp.text = '';
+    networkExpChips.refresh();
   }
 
   deleteNetworkExpToChip(String networkExp) {
     talker.debug('$logTitle::deleteNetworkToChip:$networkExp');
     networkExpChips.remove(networkExp);
-    update();
+    networkExpChips.refresh();
+  }
+
+  Future listNetworkPosition() async {
+    talker.info('$logTitle::listNetworkPosition');
+    Map<String, String> qParams = {
+      "offset": "0",
+      "limit": queryParamLimit,
+      "order": queryParamOrderBy,
+    };
+    try {
+      final result = await CommissPositionService().list(qParams);
+      networkPositionList.clear();
+      networkPositionList.add("");
+      for (var item in result!.data!) {
+        networkPositionList.add(item.name!);
+      }
+      // update();
+    } catch (e) {
+      talker.error('$e');
+    }
+  }
+
+  Future listNetworkPositionCommu() async {
+    talker.info('$logTitle::listNetworkPositionCommu');
+    Map<String, String> qParams = {
+      "offset": "0",
+      "limit": queryParamLimit,
+      "order": queryParamOrderBy,
+    };
+    try {
+      final result = await CommissPositionCommuService().list(qParams);
+      networkPositionCommuList.clear();
+      networkPositionCommuList.add("");
+      for (var item in result!.data!) {
+        networkPositionCommuList.add(item.name!);
+      }
+      // update();
+    } catch (e) {
+      talker.error('$e');
+    }
   }
 }

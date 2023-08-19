@@ -163,16 +163,6 @@ class ManageMemberController extends GetxController {
     if (memberList[index].memberExp!.isNotEmpty) {
       memberExpChips.addAll(memberList[index].memberExp!.split('|'));
     }
-    // memberPosition.text = memberList[index].memberPosition!;
-    // memberPositionCommu.text = memberList[index].memberPositionCommu!;
-    // memberExp.text = memberList[index].memberExp!;
-    // addressController.selectedProvince.value = memberList[index].province!;
-    // await addressController
-    //     .listAmphure(memberList[index].province!.split('|').first);
-    // addressController.selectedAmphure.value = memberList[index].amphure!;
-    // await addressController
-    //     .listTambol(memberList[index].amphure!.split('|').first);
-    // addressController.selectedTambol.value = memberList[index].district!;
     update();
     memberList.refresh();
   }

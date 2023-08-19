@@ -6,12 +6,12 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../../responsive.dart';
-import '../../../../data/requests/network_service_request.dart';
 import '../../../../data/responses/network_service_response.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../../shared/constant.dart';
 import '../../../../shared/custom_text.dart';
 import '../../../../shared/main_drawer.dart';
+import '../../../../shared/search_station.dart';
 import '../../../../shared/utils.dart';
 import '../../../address/views/address_view.dart';
 import '../controllers/manage_network_controller.dart';
@@ -173,362 +173,657 @@ class ManageNetworkView extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: defaultPadding),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: defaultPadding),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CustomText(
-                            text: "ชื่อ ศส.ปชต.",
-                            color: Colors.black87.withOpacity(.9),
-                          ),
-                          const SizedBox(height: defaultPadding / 2),
-                          TextFormField(
-                            controller: controller.networkStationName,
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                              fillColor: Colors.white.withOpacity(.8),
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(defaultPadding / 2),
-                                borderSide: const BorderSide(
-                                    color: Colors.black54, width: 1),
-                              ),
-                              isCollapsed: true,
-                              contentPadding:
-                                  const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                  Form(
+                    key: controller.formKey,
+                    child: Expanded(
+                      child: SingleChildScrollView(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: defaultPadding),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Wrap(
+                              direction: Axis.horizontal,
+                              children: [
+                                CustomText(
+                                  text: "ชื่อ ศส.ปชต.",
+                                  color: Colors.black87.withOpacity(.9),
+                                ),
+                                CustomText(
+                                  text: "*",
+                                  color: Colors.red.withOpacity(.9),
+                                ),
+                              ],
                             ),
-                          ),
-                          const SizedBox(height: defaultPadding),
-                          AddressView(showPostCode: false),
-                          // CustomText(
-                          //   text: "คำนำหน้า",
-                          //   color: Colors.black87.withOpacity(.9),
-                          // ),
-                          // const SizedBox(height: defaultPadding / 2),
-                          // TextFormField(
-                          //   keyboardType: TextInputType.text,
-                          //   decoration: InputDecoration(
-                          //     fillColor: Colors.white.withOpacity(.8),
-                          //     filled: true,
-                          //     border: OutlineInputBorder(
-                          //       borderRadius:
-                          //           BorderRadius.circular(defaultPadding / 2),
-                          //       borderSide: const BorderSide(
-                          //           color: Colors.black54, width: 1),
-                          //     ),
-                          //     isCollapsed: true,
-                          //     contentPadding:
-                          //         const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                          //   ),
-                          // ),
-                          const SizedBox(height: defaultPadding),
-                          CustomText(
-                            text: "ชื่อ",
-                            color: Colors.black87.withOpacity(.9),
-                          ),
-                          const SizedBox(height: defaultPadding / 2),
-                          TextFormField(
-                            controller: controller.networkFirstName,
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                              fillColor: Colors.white.withOpacity(.8),
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(defaultPadding / 2),
-                                borderSide: const BorderSide(
-                                    color: Colors.black54, width: 1),
+                            const SizedBox(height: defaultPadding / 2),
+                            TextFormField(
+                              controller: controller.networkStationName,
+                              keyboardType: TextInputType.text,
+                              decoration: InputDecoration(
+                                fillColor: Colors.white.withOpacity(.8),
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(defaultPadding / 2),
+                                  borderSide: const BorderSide(
+                                      color: Colors.black54, width: 1),
+                                ),
+                                isCollapsed: true,
+                                contentPadding:
+                                    const EdgeInsets.fromLTRB(12, 14, 12, 12),
                               ),
-                              isCollapsed: true,
-                              contentPadding:
-                                  const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                              onTap: () async {
+                                final result = await Get.dialog(
+                                  SearchStation(),
+                                  barrierDismissible: false,
+                                );
+                                controller.networkStationName.text =
+                                    result.name;
+                                controller.networkProvince.text =
+                                    result.address.split('/').first;
+                                controller.networkAmphure.text =
+                                    result.address.split('/')[1];
+                                controller.networkTambol.text =
+                                    result.address.split('/').last;
+                              },
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'กรุณาเลือก ชื่อ ศส.ปชต.';
+                                }
+                                return null;
+                              },
                             ),
-                          ),
-                          const SizedBox(height: defaultPadding),
-                          CustomText(
-                            text: "นามสกุล",
-                            color: Colors.black87.withOpacity(.9),
-                          ),
-                          const SizedBox(height: defaultPadding / 2),
-                          TextFormField(
-                            controller: controller.networkSurName,
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                              fillColor: Colors.white.withOpacity(.8),
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(defaultPadding / 2),
-                                borderSide: const BorderSide(
-                                    color: Colors.black54, width: 1),
+                            const SizedBox(height: defaultPadding),
+                            Wrap(
+                              direction: Axis.horizontal,
+                              children: [
+                                CustomText(
+                                  text: "จังหวัด",
+                                  color: Colors.black87.withOpacity(.9),
+                                ),
+                                CustomText(
+                                  text: "*",
+                                  color: Colors.red.withOpacity(.9),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: defaultPadding / 2),
+                            TextFormField(
+                              controller: controller.networkProvince,
+                              keyboardType: TextInputType.text,
+                              enabled: false,
+                              decoration: InputDecoration(
+                                fillColor: Colors.white.withOpacity(.8),
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(defaultPadding / 2),
+                                  borderSide: const BorderSide(
+                                      color: Colors.black54, width: 1),
+                                ),
+                                isCollapsed: true,
+                                contentPadding:
+                                    const EdgeInsets.fromLTRB(12, 14, 12, 12),
                               ),
-                              isCollapsed: true,
-                              contentPadding:
-                                  const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                              style: const TextStyle(color: Colors.black),
+                              // autovalidateMode:
+                              //     AutovalidateMode.onUserInteraction,
+                              // validator: (value) {
+                              //   if (value == null || value.isEmpty) {
+                              //     return 'กรุณากรอก จังหวัด';
+                              //   }
+                              //   return null;
+                              // },
                             ),
-                          ),
-                          const SizedBox(height: defaultPadding),
-                          CustomText(
-                            text: "เลขที่บัตรประชาชน",
-                            color: Colors.black87.withOpacity(.9),
-                          ),
-                          const SizedBox(height: defaultPadding / 2),
-                          TextFormField(
-                            controller: controller.networkIdCard,
-                            keyboardType: TextInputType.number,
-                            inputFormatters: <TextInputFormatter>[
-                              FilteringTextInputFormatter.digitsOnly,
-                              LengthLimitingTextInputFormatter(13),
-                            ],
-                            decoration: InputDecoration(
-                              fillColor: Colors.white.withOpacity(.8),
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(defaultPadding / 2),
-                                borderSide: const BorderSide(
-                                    color: Colors.black54, width: 1),
+                            const SizedBox(height: defaultPadding),
+                            Wrap(
+                              direction: Axis.horizontal,
+                              children: [
+                                CustomText(
+                                  text: "อำเภอ",
+                                  color: Colors.black87.withOpacity(.9),
+                                ),
+                                CustomText(
+                                  text: "*",
+                                  color: Colors.red.withOpacity(.9),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: defaultPadding / 2),
+                            TextFormField(
+                              controller: controller.networkAmphure,
+                              keyboardType: TextInputType.text,
+                              enabled: false,
+                              decoration: InputDecoration(
+                                fillColor: Colors.white.withOpacity(.8),
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(defaultPadding / 2),
+                                  borderSide: const BorderSide(
+                                      color: Colors.black54, width: 1),
+                                ),
+                                isCollapsed: true,
+                                contentPadding:
+                                    const EdgeInsets.fromLTRB(12, 14, 12, 12),
                               ),
-                              isCollapsed: true,
-                              contentPadding:
-                                  const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                              style: const TextStyle(color: Colors.black),
                             ),
-                          ),
-                          const SizedBox(height: defaultPadding),
-                          CustomText(
-                            text: "ว/ด/ป เกิด",
-                            color: Colors.black87.withOpacity(.9),
-                          ),
-                          const SizedBox(height: defaultPadding / 2),
-                          TextFormField(
-                            controller: controller.networkBirthYear,
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                              fillColor: Colors.white.withOpacity(.8),
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(defaultPadding / 2),
-                                borderSide: const BorderSide(
-                                    color: Colors.black54, width: 1),
+                            const SizedBox(height: defaultPadding),
+                            Wrap(
+                              direction: Axis.horizontal,
+                              children: [
+                                CustomText(
+                                  text: "ตำบล",
+                                  color: Colors.black87.withOpacity(.9),
+                                ),
+                                CustomText(
+                                  text: "*",
+                                  color: Colors.red.withOpacity(.9),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: defaultPadding / 2),
+                            TextFormField(
+                              controller: controller.networkTambol,
+                              keyboardType: TextInputType.text,
+                              enabled: false,
+                              decoration: InputDecoration(
+                                fillColor: Colors.white.withOpacity(.8),
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(defaultPadding / 2),
+                                  borderSide: const BorderSide(
+                                      color: Colors.black54, width: 1),
+                                ),
+                                isCollapsed: true,
+                                contentPadding:
+                                    const EdgeInsets.fromLTRB(12, 14, 12, 12),
                               ),
-                              isCollapsed: true,
-                              contentPadding:
-                                  const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                              style: const TextStyle(color: Colors.black),
                             ),
-                          ),
-                          const SizedBox(height: defaultPadding),
-                          CustomText(
-                            text: "ที่อยู่",
-                            color: Colors.black87.withOpacity(.9),
-                          ),
-                          const SizedBox(height: defaultPadding / 2),
-                          TextFormField(
-                            controller: controller.networkLocation,
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                              fillColor: Colors.white.withOpacity(.8),
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(defaultPadding / 2),
-                                borderSide: const BorderSide(
-                                    color: Colors.black54, width: 1),
+                            // AddressView(showPostCode: false),
+                            // CustomText(
+                            //   text: "คำนำหน้า",
+                            //   color: Colors.black87.withOpacity(.9),
+                            // ),
+                            // const SizedBox(height: defaultPadding / 2),
+                            // TextFormField(
+                            //   keyboardType: TextInputType.text,
+                            //   decoration: InputDecoration(
+                            //     fillColor: Colors.white.withOpacity(.8),
+                            //     filled: true,
+                            //     border: OutlineInputBorder(
+                            //       borderRadius:
+                            //           BorderRadius.circular(defaultPadding / 2),
+                            //       borderSide: const BorderSide(
+                            //           color: Colors.black54, width: 1),
+                            //     ),
+                            //     isCollapsed: true,
+                            //     contentPadding:
+                            //         const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                            //   ),
+                            // ),
+                            const SizedBox(height: defaultPadding),
+                            Wrap(
+                              direction: Axis.horizontal,
+                              children: [
+                                CustomText(
+                                  text: "ชื่อ",
+                                  color: Colors.black87.withOpacity(.9),
+                                ),
+                                CustomText(
+                                  text: "*",
+                                  color: Colors.red.withOpacity(.9),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: defaultPadding / 2),
+                            TextFormField(
+                              controller: controller.networkFirstName,
+                              keyboardType: TextInputType.text,
+                              decoration: InputDecoration(
+                                fillColor: Colors.white.withOpacity(.8),
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(defaultPadding / 2),
+                                  borderSide: const BorderSide(
+                                      color: Colors.black54, width: 1),
+                                ),
+                                isCollapsed: true,
+                                contentPadding:
+                                    const EdgeInsets.fromLTRB(12, 14, 12, 12),
                               ),
-                              isCollapsed: true,
-                              contentPadding:
-                                  const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'กรุณากรอก ชื่อ';
+                                }
+                                return null;
+                              },
                             ),
-                          ),
-                          const SizedBox(height: defaultPadding),
-                          CustomText(
-                            text: "ว/ด/ป ที่แต่งตั้ง",
-                            color: Colors.black87.withOpacity(.9),
-                          ),
-                          const SizedBox(height: defaultPadding / 2),
-                          TextFormField(
-                            controller: controller.networkDate,
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                              fillColor: Colors.white.withOpacity(.8),
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(defaultPadding / 2),
-                                borderSide: const BorderSide(
-                                    color: Colors.black54, width: 1),
+                            const SizedBox(height: defaultPadding),
+                            Wrap(
+                              direction: Axis.horizontal,
+                              children: [
+                                CustomText(
+                                  text: "นามสกุล",
+                                  color: Colors.black87.withOpacity(.9),
+                                ),
+                                CustomText(
+                                  text: "*",
+                                  color: Colors.red.withOpacity(.9),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: defaultPadding / 2),
+                            TextFormField(
+                              controller: controller.networkSurName,
+                              keyboardType: TextInputType.text,
+                              decoration: InputDecoration(
+                                fillColor: Colors.white.withOpacity(.8),
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(defaultPadding / 2),
+                                  borderSide: const BorderSide(
+                                      color: Colors.black54, width: 1),
+                                ),
+                                isCollapsed: true,
+                                contentPadding:
+                                    const EdgeInsets.fromLTRB(12, 14, 12, 12),
                               ),
-                              isCollapsed: true,
-                              contentPadding:
-                                  const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'กรุณากรอก นามสกุล';
+                                }
+                                return null;
+                              },
                             ),
-                          ),
-                          const SizedBox(height: defaultPadding),
-                          CustomText(
-                            text: "เบอร์โทร",
-                            color: Colors.black87.withOpacity(.9),
-                          ),
-                          const SizedBox(height: defaultPadding / 2),
-                          TextFormField(
-                            controller: controller.networkTelephone,
-                            keyboardType: TextInputType.number,
-                            inputFormatters: <TextInputFormatter>[
-                              FilteringTextInputFormatter.digitsOnly,
-                              LengthLimitingTextInputFormatter(10),
-                            ],
-                            decoration: InputDecoration(
-                              fillColor: Colors.white.withOpacity(.8),
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(defaultPadding / 2),
-                                borderSide: const BorderSide(
-                                    color: Colors.black54, width: 1),
+                            const SizedBox(height: defaultPadding),
+                            CustomText(
+                              text: "เลขที่บัตรประชาชน",
+                              color: Colors.black87.withOpacity(.9),
+                            ),
+                            const SizedBox(height: defaultPadding / 2),
+                            TextFormField(
+                              controller: controller.networkIdCard,
+                              keyboardType: TextInputType.number,
+                              inputFormatters: <TextInputFormatter>[
+                                FilteringTextInputFormatter.digitsOnly,
+                                LengthLimitingTextInputFormatter(13),
+                              ],
+                              decoration: InputDecoration(
+                                fillColor: Colors.white.withOpacity(.8),
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(defaultPadding / 2),
+                                  borderSide: const BorderSide(
+                                      color: Colors.black54, width: 1),
+                                ),
+                                isCollapsed: true,
+                                contentPadding:
+                                    const EdgeInsets.fromLTRB(12, 14, 12, 12),
                               ),
-                              isCollapsed: true,
-                              contentPadding:
-                                  const EdgeInsets.fromLTRB(12, 14, 12, 12),
                             ),
-                          ),
-                          const SizedBox(height: defaultPadding),
-                          CustomText(
-                            text: "ตำแหน่งใน ศส.ปชต.",
-                            color: Colors.black87.withOpacity(.9),
-                          ),
-                          const SizedBox(height: defaultPadding / 2),
-                          TextFormField(
-                            controller: controller.networkPosition,
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                              fillColor: Colors.white.withOpacity(.8),
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(defaultPadding / 2),
-                                borderSide: const BorderSide(
-                                    color: Colors.black54, width: 1),
+                            const SizedBox(height: defaultPadding),
+                            CustomText(
+                              text: "ว/ด/ป เกิด",
+                              color: Colors.black87.withOpacity(.9),
+                            ),
+                            const SizedBox(height: defaultPadding / 2),
+                            TextFormField(
+                              controller: controller.networkBirthYear,
+                              keyboardType: TextInputType.text,
+                              decoration: InputDecoration(
+                                fillColor: Colors.white.withOpacity(.8),
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(defaultPadding / 2),
+                                  borderSide: const BorderSide(
+                                      color: Colors.black54, width: 1),
+                                ),
+                                isCollapsed: true,
+                                contentPadding:
+                                    const EdgeInsets.fromLTRB(12, 14, 12, 12),
                               ),
-                              isCollapsed: true,
-                              contentPadding:
-                                  const EdgeInsets.fromLTRB(12, 14, 12, 12),
                             ),
-                          ),
-                          const SizedBox(height: defaultPadding),
-                          CustomText(
-                            text: "ตำแหน่งอื่นในชุมชน",
-                            color: Colors.black87.withOpacity(.9),
-                          ),
-                          const SizedBox(height: defaultPadding / 2),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: TextFormField(
-                                  controller: controller.networkPositionCommu,
-                                  keyboardType: TextInputType.text,
-                                  decoration: InputDecoration(
-                                    fillColor: Colors.white.withOpacity(.8),
-                                    filled: true,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(
-                                          defaultPadding / 2),
-                                      borderSide: const BorderSide(
-                                          color: Colors.black54, width: 1),
+                            const SizedBox(height: defaultPadding),
+                            CustomText(
+                              text: "ที่อยู่",
+                              color: Colors.black87.withOpacity(.9),
+                            ),
+                            const SizedBox(height: defaultPadding / 2),
+                            TextFormField(
+                              controller: controller.networkLocation,
+                              keyboardType: TextInputType.text,
+                              decoration: InputDecoration(
+                                fillColor: Colors.white.withOpacity(.8),
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(defaultPadding / 2),
+                                  borderSide: const BorderSide(
+                                      color: Colors.black54, width: 1),
+                                ),
+                                isCollapsed: true,
+                                contentPadding:
+                                    const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                              ),
+                            ),
+                            const SizedBox(height: defaultPadding),
+                            Wrap(
+                              direction: Axis.horizontal,
+                              children: [
+                                CustomText(
+                                  text: "ว/ด/ป ที่แต่งตั้ง",
+                                  color: Colors.black87.withOpacity(.9),
+                                ),
+                                CustomText(
+                                  text: "*",
+                                  color: Colors.red.withOpacity(.9),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: defaultPadding / 2),
+                            TextFormField(
+                              controller: controller.networkDate,
+                              keyboardType: TextInputType.text,
+                              decoration: InputDecoration(
+                                fillColor: Colors.white.withOpacity(.8),
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(defaultPadding / 2),
+                                  borderSide: const BorderSide(
+                                      color: Colors.black54, width: 1),
+                                ),
+                                isCollapsed: true,
+                                contentPadding:
+                                    const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                              ),
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'กรุณากรอก ว/ด/ป ที่แต่งตั้ง';
+                                }
+                                return null;
+                              },
+                            ),
+                            const SizedBox(height: defaultPadding),
+                            Wrap(
+                              direction: Axis.horizontal,
+                              children: [
+                                CustomText(
+                                  text: "เบอร์โทร",
+                                  color: Colors.black87.withOpacity(.9),
+                                ),
+                                CustomText(
+                                  text: "*",
+                                  color: Colors.red.withOpacity(.9),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: defaultPadding / 2),
+                            TextFormField(
+                              controller: controller.networkTelephone,
+                              keyboardType: TextInputType.number,
+                              inputFormatters: <TextInputFormatter>[
+                                FilteringTextInputFormatter.digitsOnly,
+                                LengthLimitingTextInputFormatter(10),
+                              ],
+                              decoration: InputDecoration(
+                                fillColor: Colors.white.withOpacity(.8),
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(defaultPadding / 2),
+                                  borderSide: const BorderSide(
+                                      color: Colors.black54, width: 1),
+                                ),
+                                isCollapsed: true,
+                                contentPadding:
+                                    const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                              ),
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'กรุณากรอก เบอร์โทร';
+                                }
+                                return null;
+                              },
+                            ),
+                            const SizedBox(height: defaultPadding),
+                            Wrap(
+                              direction: Axis.horizontal,
+                              children: [
+                                CustomText(
+                                  text: "ตำแหน่งใน ศส.ปชต.",
+                                  color: Colors.black87.withOpacity(.9),
+                                ),
+                                CustomText(
+                                  text: "*",
+                                  color: Colors.red.withOpacity(.9),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: defaultPadding / 2),
+                            Obx(
+                              () => DropdownButtonFormField<String>(
+                                decoration: InputDecoration(
+                                  fillColor: Colors.white.withOpacity(.8),
+                                  filled: true,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(
+                                        defaultPadding / 2),
+                                    borderSide: const BorderSide(
+                                        color: Colors.black54, width: 1),
+                                  ),
+                                  isCollapsed: true,
+                                  contentPadding:
+                                      const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                                ),
+                                value: controller.selectedNetworkPosition.value,
+                                onChanged: (newValue) {
+                                  controller.selectedNetworkPosition.value =
+                                      newValue!;
+                                },
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'กรุณาเลือก ตำแหน่งใน ศส.ปชต.';
+                                  }
+                                  return null;
+                                },
+                                items: controller.networkPositionList.obs.value
+                                    .map((item) {
+                                  return DropdownMenuItem<String>(
+                                    value: item,
+                                    child: Text(
+                                      item,
+                                      textScaleFactor: 0.9,
                                     ),
-                                    isCollapsed: true,
-                                    contentPadding: const EdgeInsets.fromLTRB(
-                                        12, 14, 12, 12),
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                            // TextFormField(
+                            //   controller: controller.networkPosition,
+                            //   keyboardType: TextInputType.text,
+                            //   decoration: InputDecoration(
+                            //     fillColor: Colors.white.withOpacity(.8),
+                            //     filled: true,
+                            //     border: OutlineInputBorder(
+                            //       borderRadius:
+                            //           BorderRadius.circular(defaultPadding / 2),
+                            //       borderSide: const BorderSide(
+                            //           color: Colors.black54, width: 1),
+                            //     ),
+                            //     isCollapsed: true,
+                            //     contentPadding:
+                            //         const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                            //   ),
+                            // ),
+                            const SizedBox(height: defaultPadding),
+                            CustomText(
+                              text: "ตำแหน่งอื่นในชุมชน",
+                              color: Colors.black87.withOpacity(.9),
+                            ),
+                            const SizedBox(height: defaultPadding / 2),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Obx(
+                                    () => DropdownButtonFormField<String>(
+                                      decoration: InputDecoration(
+                                        fillColor: Colors.white.withOpacity(.8),
+                                        filled: true,
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(
+                                              defaultPadding / 2),
+                                          borderSide: const BorderSide(
+                                              color: Colors.black54, width: 1),
+                                        ),
+                                        isCollapsed: true,
+                                        contentPadding:
+                                            const EdgeInsets.fromLTRB(
+                                                12, 14, 12, 12),
+                                      ),
+                                      value: controller
+                                          .selectedNetworkPositionCommu.value,
+                                      onChanged: (newValue) {
+                                        controller.selectedNetworkPositionCommu
+                                            .value = newValue!;
+                                      },
+                                      items: controller
+                                          .networkPositionCommuList.obs.value
+                                          .map((item) {
+                                        return DropdownMenuItem<String>(
+                                          value: item,
+                                          child: Text(
+                                            item,
+                                            textScaleFactor: 0.9,
+                                          ),
+                                        );
+                                      }).toList(),
+                                    ),
+                                  ),
+                                  // child: TextFormField(
+                                  //   controller: controller.networkPositionCommu,
+                                  //   keyboardType: TextInputType.text,
+                                  //   decoration: InputDecoration(
+                                  //     fillColor: Colors.white.withOpacity(.8),
+                                  //     filled: true,
+                                  //     border: OutlineInputBorder(
+                                  //       borderRadius: BorderRadius.circular(
+                                  //           defaultPadding / 2),
+                                  //       borderSide: const BorderSide(
+                                  //           color: Colors.black54, width: 1),
+                                  //     ),
+                                  //     isCollapsed: true,
+                                  //     contentPadding: const EdgeInsets.fromLTRB(
+                                  //         12, 14, 12, 12),
+                                  //   ),
+                                  // ),
+                                ),
+                                const SizedBox(width: defaultPadding / 2),
+                                IconButton(
+                                  icon: const Icon(Icons.add_sharp),
+                                  onPressed: () {
+                                    controller.addPositionCommuToChip(
+                                        controller.networkPositionCommu.text);
+                                  },
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: defaultPadding / 2),
+                            Obx(
+                              () => Wrap(
+                                alignment: WrapAlignment.start,
+                                spacing: 5.0,
+                                runSpacing: 5.0,
+                                children: controller
+                                    .networkPositionCommuChips.obs.value
+                                    .map((chip) => Chip(
+                                          backgroundColor: Colors.blue.shade100,
+                                          label: Text(chip),
+                                          onDeleted: () => controller
+                                              .deletePositionCommuToChip(chip),
+                                        ))
+                                    .toList(),
+                              ),
+                            ),
+                            const SizedBox(height: defaultPadding),
+                            CustomText(
+                              text: "ประสบการณ์มีส่วนร่วมในการเลือกตั้ง",
+                              color: Colors.black87.withOpacity(.9),
+                            ),
+                            const SizedBox(height: defaultPadding / 2),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: TextFormField(
+                                    controller: controller.networkExp,
+                                    keyboardType: TextInputType.text,
+                                    decoration: InputDecoration(
+                                      fillColor: Colors.white.withOpacity(.8),
+                                      filled: true,
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(
+                                            defaultPadding / 2),
+                                        borderSide: const BorderSide(
+                                            color: Colors.black54, width: 1),
+                                      ),
+                                      isCollapsed: true,
+                                      contentPadding: const EdgeInsets.fromLTRB(
+                                          12, 14, 12, 12),
+                                    ),
                                   ),
                                 ),
-                              ),
-                              const SizedBox(width: defaultPadding / 2),
-                              IconButton(
-                                icon: const Icon(Icons.add_sharp),
-                                onPressed: () {
-                                  controller.addPositionCommuToChip(
-                                      controller.networkPositionCommu.text);
-                                },
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: defaultPadding / 2),
-                          Obx(
-                            () => Wrap(
-                              alignment: WrapAlignment.start,
-                              spacing: 5.0,
-                              runSpacing: 5.0,
-                              children: controller
-                                  .networkPositionCommuChips.obs.value
-                                  .map((chip) => Chip(
-                                        backgroundColor: Colors.blue.shade100,
-                                        label: Text(chip),
-                                        onDeleted: () => controller
-                                            .deletePositionCommuToChip(chip),
-                                      ))
-                                  .toList(),
-                            ),
-                          ),
-                          const SizedBox(height: defaultPadding),
-                          CustomText(
-                            text: "ประสบการณ์มีส่วนร่วมในการเลือกตั้ง",
-                            color: Colors.black87.withOpacity(.9),
-                          ),
-                          const SizedBox(height: defaultPadding / 2),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: TextFormField(
-                                  controller: controller.networkExp,
-                                  keyboardType: TextInputType.text,
-                                  decoration: InputDecoration(
-                                    fillColor: Colors.white.withOpacity(.8),
-                                    filled: true,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(
-                                          defaultPadding / 2),
-                                      borderSide: const BorderSide(
-                                          color: Colors.black54, width: 1),
-                                    ),
-                                    isCollapsed: true,
-                                    contentPadding: const EdgeInsets.fromLTRB(
-                                        12, 14, 12, 12),
-                                  ),
+                                const SizedBox(width: defaultPadding / 2),
+                                IconButton(
+                                  icon: const Icon(Icons.add_sharp),
+                                  onPressed: () {
+                                    controller.addNetworkExpToChip(
+                                        controller.networkExp.text);
+                                  },
                                 ),
-                              ),
-                              const SizedBox(width: defaultPadding / 2),
-                              IconButton(
-                                icon: const Icon(Icons.add_sharp),
-                                onPressed: () {
-                                  controller.addNetworkExpToChip(
-                                      controller.networkExp.text);
-                                },
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: defaultPadding / 2),
-                          Obx(
-                            () => Wrap(
-                              alignment: WrapAlignment.start,
-                              spacing: 5.0,
-                              runSpacing: 5.0,
-                              children: controller.networkExpChips.obs.value
-                                  .map((chip) => Chip(
-                                        backgroundColor: Colors.blue.shade100,
-                                        label: Text(chip),
-                                        onDeleted: () => controller
-                                            .deleteNetworkExpToChip(chip),
-                                      ))
-                                  .toList(),
+                              ],
                             ),
-                          ),
-                          const SizedBox(height: defaultPadding),
-                        ],
+                            const SizedBox(height: defaultPadding / 2),
+                            Obx(
+                              () => Wrap(
+                                alignment: WrapAlignment.start,
+                                spacing: 5.0,
+                                runSpacing: 5.0,
+                                children: controller.networkExpChips.obs.value
+                                    .map((chip) => Chip(
+                                          backgroundColor: Colors.blue.shade100,
+                                          label: Text(chip),
+                                          onDeleted: () => controller
+                                              .deleteNetworkExpToChip(chip),
+                                        ))
+                                    .toList(),
+                              ),
+                            ),
+                            const SizedBox(height: defaultPadding),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -646,8 +941,19 @@ DataRow networkDataRow(
   NetworkData networkData,
   ManageNetworkController controller,
 ) {
-  return DataRow(
-    selected: false,
+  return DataRow.byIndex(
+    index: index + 1,
+    color: MaterialStateProperty.resolveWith(
+      (states) {
+        if ((index) == controller.selectedIndexFromTable) {
+          return Colors.amber.shade200;
+        } else if (index % 2 == 0) {
+          return Colors.blue[50];
+        } else {
+          return Colors.white;
+        }
+      },
+    ),
     onSelectChanged: (value) {
       controller.selectDataFromTable(index);
     },
@@ -729,7 +1035,19 @@ DataRow networkDataRowLayoutSmall(
   NetworkData networkData,
   ManageNetworkController controller,
 ) {
-  return DataRow(
+  return DataRow.byIndex(
+    index: index + 1,
+    color: MaterialStateProperty.resolveWith(
+      (states) {
+        if ((index) == controller.selectedIndexFromTable) {
+          return Colors.amber.shade200;
+        } else if (index % 2 == 0) {
+          return Colors.blue[50];
+        } else {
+          return Colors.white;
+        }
+      },
+    ),
     cells: [
       DataCell(
         Text(

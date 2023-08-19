@@ -14,7 +14,7 @@ import '../../../address/controllers/address_controller.dart';
 class ManageCommissController extends GetxController {
   final logTitle = "ManageCommissController";
   RxBool isLoading = true.obs;
-  AddressController addressController = Get.put(AddressController());
+  // AddressController addressController = Get.put(AddressController());
 
   Rx<String> filePath = ''.obs;
   Rx<XFile> fileUpload = XFile('').obs;
@@ -48,7 +48,7 @@ class ManageCommissController extends GetxController {
   final commissPositionCommuChips = <String>[].obs;
   final commissExpChips = <String>[].obs;
 
-  int selectedIndexFromTable = 0;
+  int selectedIndexFromTable = -1;
 
   @override
   void onInit() {
@@ -113,7 +113,7 @@ class ManageCommissController extends GetxController {
   }
 
   deleteDataFromTable() {
-    talker.info('$logTitle:deleteDataFromTable:$selectedIndexFromTable');
+    talker.info('$logTitle:deleteDataFromTable:${selectedIndexFromTable}');
     if (commissList.length > selectedIndexFromTable &&
         selectedIndexFromTable > -1) {
       commissList.removeAt(selectedIndexFromTable);
@@ -176,6 +176,7 @@ class ManageCommissController extends GetxController {
     //     .listTambol(commissList[index].amphure!.split('|').first);
     // addressController.selectedTambol.value = commissList[index].district!;
     update();
+    commissList.refresh();
   }
 
   addDataToTable() {

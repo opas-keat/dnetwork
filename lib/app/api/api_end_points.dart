@@ -21,6 +21,7 @@ class ApiEndPoints {
   static const lectuter = "/lectuter";
   // ---- budget ----
   static const budget = "/budget";
+  static const budgetType = "/budget_type";
   // ---- training ----
   static const training = "/training";
   static const trainingType = "/training_type";

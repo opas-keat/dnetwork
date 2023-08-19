@@ -66,7 +66,7 @@ class ManageTrainingController extends GetxController {
             trainingName: training.trainingName,
             trainingTotal: training.trainingTotal,
             trainingType: training.trainingType,
-            province: addressController.selectedProvince.value.split('|').last,
+            province: training.province!.split('|').last,
           ),
         );
       }

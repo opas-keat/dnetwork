@@ -3,7 +3,9 @@ import 'package:frontend/app/data/responses/budget_service_response.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../../api/api_params.dart';
 import '../../../../api/services/budget_service.dart';
+import '../../../../api/services/budget_type_service.dart';
 import '../../../../data/requests/budget_service_request.dart';
 import '../../../../shared/utils.dart';
 import '../../../address/controllers/address_controller.dart';
@@ -16,24 +18,40 @@ class ManageBudgetController extends GetxController {
   Rx<String> filePath = ''.obs;
   Rx<XFile> fileUpload = XFile('').obs;
 
+  final formKey = GlobalKey<FormState>();
   final budgetDate = TextEditingController();
   final budgetType = TextEditingController();
-  final budgetBegin = TextEditingController(text: '0');
-  final budgetUsed = TextEditingController(text: '0');
-  final budgetRemain = TextEditingController(text: '0');
+  final budgetBegin = TextEditingController();
+  final budgetUsed = TextEditingController();
+  final budgetRemain = TextEditingController();
 
   final budgetList = <BudgetData>[].obs;
   final budgets = <Budgets>[].obs;
+  final budgetTypeList = <String>[].obs;
+  Rx<String> selectedBudgetType = "".obs;
 
   RxString budgetError = ''.obs;
 
-  int selectedIndexFromTable = 0;
+  int selectedIndexFromTable = -1;
 
   @override
   void onInit() {
     super.onInit();
-    // isLoading.value = true;
-    // talker.debug(window.sessionStorage["token"]);
+    talker.info('$logTitle onInit');
+    listBudgetType();
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+    talker.info('$logTitle onReady');
+    update();
+  }
+
+  @override
+  void onClose() {
+    talker.info('$logTitle onClose');
+    super.onClose();
   }
 
   Future<bool> saveBudget() async {
@@ -60,6 +78,7 @@ class ManageBudgetController extends GetxController {
       isLoading.value = false;
       budgetList.clear();
       budgets.clear();
+      addressController.selectedProvince.value = '0|';
       resetForm();
       return true;
     } catch (e) {
@@ -72,12 +91,6 @@ class ManageBudgetController extends GetxController {
     talker.info('$logTitle:deleteDataFromTable:$selectedIndexFromTable');
     if (budgetList.length > selectedIndexFromTable &&
         selectedIndexFromTable > -1) {
-      talker.debug(budgetList[selectedIndexFromTable].budgetType);
-      talker.debug(budgetList[selectedIndexFromTable].budgetDate);
-      talker.debug(budgetList[selectedIndexFromTable].budgetBegin);
-      talker.debug(budgetList[selectedIndexFromTable].budgetUsed);
-      talker.debug(budgetList[selectedIndexFromTable].budgetRemain);
-      talker.debug(budgetList[selectedIndexFromTable].province);
       budgetList.removeAt(selectedIndexFromTable);
       selectedIndexFromTable = -1;
       resetForm();
@@ -93,13 +106,15 @@ class ManageBudgetController extends GetxController {
     talker.debug(budgetList[index].budgetUsed);
     talker.debug(budgetList[index].budgetRemain);
     talker.debug(budgetList[index].province);
-    budgetType.text = budgetList[index].budgetType!;
+    // budgetType.text = budgetList[index].budgetType!;
+    selectedBudgetType.value = budgetList[index].budgetType!;
     budgetDate.text = budgetList[index].budgetDate!;
     budgetBegin.text = budgetList[index].budgetBegin!.toString();
     budgetUsed.text = budgetList[index].budgetUsed!.toString();
     budgetRemain.text = budgetList[index].budgetRemain!.toString();
     addressController.selectedProvince.value = budgetList[index].province!;
     update();
+    budgetList.refresh();
   }
 
   addDataToTable() {
@@ -109,26 +124,64 @@ class ManageBudgetController extends GetxController {
     talker.debug(budgetBegin.text);
     talker.debug(budgetUsed.text);
     talker.debug(budgetRemain.text);
-    budgetList.add(
-      BudgetData(
-        budgetBegin: int.parse(budgetBegin.text),
-        budgetDate: budgetDate.text,
-        budgetRemain: int.parse(budgetRemain.text),
-        budgetType: budgetType.text,
-        budgetUsed: int.parse(budgetUsed.text),
-        province: addressController.selectedProvince.value,
-      ),
-    );
-    resetForm();
+    final isValid = formKey.currentState!.validate();
+    if (isValid) {
+      if (addressController.selectedProvince.value != '0|') {
+        budgetList.add(
+          BudgetData(
+            budgetBegin: int.parse(budgetBegin.text),
+            budgetDate: budgetDate.text,
+            budgetRemain: int.parse(budgetRemain.text),
+            budgetType: selectedBudgetType.value,
+            budgetUsed: int.parse(budgetUsed.text),
+            province: addressController.selectedProvince.value,
+          ),
+        );
+        resetForm();
+      } else {
+        Get.dialog(
+          AlertDialog(
+            content: const Text('กรุณาเลือก จังหวัด'),
+            actions: [
+              TextButton(
+                child: const Text("ปิด"),
+                onPressed: () => Get.back(),
+              ),
+            ],
+          ),
+        );
+      }
+    }
   }
 
   resetForm() {
     budgetDate.text = "";
     budgetType.text = "";
-    budgetBegin.text = "0";
-    budgetUsed.text = "0";
-    budgetRemain.text = "0";
-    addressController.selectedProvince.value = '0|';
+    budgetBegin.text = "";
+    budgetUsed.text = "";
+    budgetRemain.text = "";
+    selectedBudgetType.value = '';
+    // addressController.selectedProvince.value = '0|';
     update();
+  }
+
+  Future listBudgetType() async {
+    talker.info('$logTitle::listBudgetType');
+    Map<String, String> qParams = {
+      "offset": "0",
+      "limit": queryParamLimit,
+      "order": queryParamOrderBy,
+    };
+    try {
+      final result = await BudgetTypeService().list(qParams);
+      budgetTypeList.clear();
+      budgetTypeList.add("");
+      for (var item in result!.data!) {
+        budgetTypeList.add(item.name!);
+      }
+      // update();
+    } catch (e) {
+      talker.error('$e');
+    }
   }
 }

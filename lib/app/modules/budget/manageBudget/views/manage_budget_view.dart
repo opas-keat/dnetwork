@@ -73,9 +73,13 @@ class ManageBudgetView extends StatelessWidget {
                             ? budgetDataRow(
                                 index,
                                 controller.budgetList.obs.value[index],
-                                controller)
+                                controller,
+                              )
                             : budgetDataRowLayoutSmall(
-                                index, controller.budgetList.obs.value[index]),
+                                index,
+                                controller.budgetList.obs.value[index],
+                                controller,
+                              ),
                         // (index) => StationDataRow(
                         //     index, controller.budgetList.obs.value[index]),
                       ),
@@ -168,157 +172,279 @@ class ManageBudgetView extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: defaultPadding),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: defaultPadding),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CustomText(
-                            text: "ประเภทงบประมาณ",
-                            color: Colors.black87.withOpacity(.9),
-                          ),
-                          const SizedBox(height: defaultPadding / 2),
-                          TextFormField(
-                            controller: controller.budgetType,
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                              fillColor: Colors.white.withOpacity(.8),
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(defaultPadding / 2),
-                                borderSide: const BorderSide(
-                                    color: Colors.black54, width: 1),
-                              ),
-                              isCollapsed: true,
-                              contentPadding:
-                                  const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                  Form(
+                    key: controller.formKey,
+                    child: Expanded(
+                      child: SingleChildScrollView(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: defaultPadding),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Wrap(
+                              direction: Axis.horizontal,
+                              children: [
+                                CustomText(
+                                  text: "ประเภทงบประมาณ",
+                                  color: Colors.black87.withOpacity(.9),
+                                ),
+                                CustomText(
+                                  text: "*",
+                                  color: Colors.red.withOpacity(.9),
+                                ),
+                              ],
                             ),
-                          ),
-                          const SizedBox(height: defaultPadding),
-                          CustomText(
-                            text: "วันที่รับงบประมาณ",
-                            color: Colors.black87.withOpacity(.9),
-                          ),
-                          const SizedBox(height: defaultPadding / 2),
-                          TextFormField(
-                            controller: controller.budgetDate,
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                              fillColor: Colors.white.withOpacity(.8),
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(defaultPadding / 2),
-                                borderSide: const BorderSide(
-                                    color: Colors.black54, width: 1),
+                            const SizedBox(height: defaultPadding / 2),
+                            Obx(
+                              () => DropdownButtonFormField<String>(
+                                isDense: true,
+                                isExpanded: true,
+                                decoration: InputDecoration(
+                                  fillColor: Colors.white.withOpacity(.8),
+                                  filled: true,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(
+                                        defaultPadding / 2),
+                                    borderSide: const BorderSide(
+                                        color: Colors.black54, width: 1),
+                                  ),
+                                  isCollapsed: true,
+                                  contentPadding:
+                                      const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                                ),
+                                value: controller.selectedBudgetType.value,
+                                onChanged: (newValue) {
+                                  controller.selectedBudgetType.value =
+                                      newValue!;
+                                },
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'กรุณาเลือก ประเภทงบประมาณ';
+                                  }
+                                  return null;
+                                },
+                                items: controller.budgetTypeList.obs.value
+                                    .map((item) {
+                                  return DropdownMenuItem<String>(
+                                    value: item,
+                                    child: Text(
+                                      item,
+                                      textScaleFactor: 0.9,
+                                    ),
+                                  );
+                                }).toList(),
                               ),
-                              isCollapsed: true,
-                              contentPadding:
-                                  const EdgeInsets.fromLTRB(12, 14, 12, 12),
                             ),
-                          ),
-                          const SizedBox(height: defaultPadding),
-                          CustomText(
-                            text: "งบต้น",
-                            color: Colors.black87.withOpacity(.9),
-                          ),
-                          const SizedBox(height: defaultPadding / 2),
-                          TextFormField(
-                            controller: controller.budgetBegin,
-                            keyboardType: TextInputType.number,
-                            inputFormatters: <TextInputFormatter>[
-                              FilteringTextInputFormatter.digitsOnly
-                            ],
-                            decoration: InputDecoration(
-                              fillColor: Colors.white.withOpacity(.8),
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(defaultPadding / 2),
-                                borderSide: const BorderSide(
-                                    color: Colors.black54, width: 1),
-                              ),
-                              isCollapsed: true,
-                              contentPadding:
-                                  const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                            // TextFormField(
+                            //   controller: controller.budgetType,
+                            //   keyboardType: TextInputType.text,
+                            //   decoration: InputDecoration(
+                            //     fillColor: Colors.white.withOpacity(.8),
+                            //     filled: true,
+                            //     border: OutlineInputBorder(
+                            //       borderRadius:
+                            //           BorderRadius.circular(defaultPadding / 2),
+                            //       borderSide: const BorderSide(
+                            //           color: Colors.black54, width: 1),
+                            //     ),
+                            //     isCollapsed: true,
+                            //     contentPadding:
+                            //         const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                            //   ),
+                            // ),
+                            const SizedBox(height: defaultPadding),
+                            Wrap(
+                              direction: Axis.horizontal,
+                              children: [
+                                CustomText(
+                                  text: "วันที่รับงบประมาณ",
+                                  color: Colors.black87.withOpacity(.9),
+                                ),
+                                CustomText(
+                                  text: "*",
+                                  color: Colors.red.withOpacity(.9),
+                                ),
+                              ],
                             ),
-                          ),
-                          const SizedBox(height: defaultPadding),
-                          CustomText(
-                            text: "งบที่ใช้ไป",
-                            color: Colors.black87.withOpacity(.9),
-                          ),
-                          const SizedBox(height: defaultPadding / 2),
-                          TextFormField(
-                            controller: controller.budgetUsed,
-                            keyboardType: TextInputType.number,
-                            inputFormatters: <TextInputFormatter>[
-                              FilteringTextInputFormatter.digitsOnly
-                            ],
-                            decoration: InputDecoration(
-                              fillColor: Colors.white.withOpacity(.8),
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(defaultPadding / 2),
-                                borderSide: const BorderSide(
-                                    color: Colors.black54, width: 1),
+                            const SizedBox(height: defaultPadding / 2),
+                            TextFormField(
+                              controller: controller.budgetDate,
+                              keyboardType: TextInputType.text,
+                              decoration: InputDecoration(
+                                fillColor: Colors.white.withOpacity(.8),
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(defaultPadding / 2),
+                                  borderSide: const BorderSide(
+                                      color: Colors.black54, width: 1),
+                                ),
+                                isCollapsed: true,
+                                contentPadding:
+                                    const EdgeInsets.fromLTRB(12, 14, 12, 12),
                               ),
-                              isCollapsed: true,
-                              contentPadding:
-                                  const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'กรุณากรอก วันที่รับงบประมาณ';
+                                }
+                                return null;
+                              },
                             ),
-                          ),
-                          const SizedBox(height: defaultPadding),
-                          CustomText(
-                            text: "งบคงเหลือ",
-                            color: Colors.black87.withOpacity(.9),
-                          ),
-                          const SizedBox(height: defaultPadding / 2),
-                          TextFormField(
-                            controller: controller.budgetRemain,
-                            keyboardType: TextInputType.number,
-                            inputFormatters: <TextInputFormatter>[
-                              FilteringTextInputFormatter.digitsOnly
-                            ],
-                            decoration: InputDecoration(
-                              fillColor: Colors.white.withOpacity(.8),
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(defaultPadding / 2),
-                                borderSide: const BorderSide(
-                                    color: Colors.black54, width: 1),
-                              ),
-                              isCollapsed: true,
-                              contentPadding:
-                                  const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                            const SizedBox(height: defaultPadding),
+                            Wrap(
+                              direction: Axis.horizontal,
+                              children: [
+                                CustomText(
+                                  text: "งบต้น",
+                                  color: Colors.black87.withOpacity(.9),
+                                ),
+                                CustomText(
+                                  text: "*",
+                                  color: Colors.red.withOpacity(.9),
+                                ),
+                              ],
                             ),
-                          ),
-                          const SizedBox(height: defaultPadding),
-                          AddressView(
-                              showAmphure: false,
-                              showTambol: false,
-                              showPostCode: false),
-                          Row(
-                            children: [
-                              CustomText(
-                                text: "เอกสารแนบ",
-                                color: Colors.black87.withOpacity(.9),
+                            const SizedBox(height: defaultPadding / 2),
+                            TextFormField(
+                              controller: controller.budgetBegin,
+                              keyboardType: TextInputType.number,
+                              inputFormatters: <TextInputFormatter>[
+                                FilteringTextInputFormatter.digitsOnly
+                              ],
+                              decoration: InputDecoration(
+                                fillColor: Colors.white.withOpacity(.8),
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(defaultPadding / 2),
+                                  borderSide: const BorderSide(
+                                      color: Colors.black54, width: 1),
+                                ),
+                                isCollapsed: true,
+                                contentPadding:
+                                    const EdgeInsets.fromLTRB(12, 14, 12, 12),
                               ),
-                              const SizedBox(width: defaultPadding / 2),
-                              IconButton(
-                                icon: const Icon(Icons.add_sharp),
-                                onPressed: () {},
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'กรุณากรอก งบต้น';
+                                }
+                                return null;
+                              },
+                            ),
+                            const SizedBox(height: defaultPadding),
+                            Wrap(
+                              direction: Axis.horizontal,
+                              children: [
+                                CustomText(
+                                  text: "งบที่ใช้ไป",
+                                  color: Colors.black87.withOpacity(.9),
+                                ),
+                                CustomText(
+                                  text: "*",
+                                  color: Colors.red.withOpacity(.9),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: defaultPadding / 2),
+                            TextFormField(
+                              controller: controller.budgetUsed,
+                              keyboardType: TextInputType.number,
+                              inputFormatters: <TextInputFormatter>[
+                                FilteringTextInputFormatter.digitsOnly
+                              ],
+                              decoration: InputDecoration(
+                                fillColor: Colors.white.withOpacity(.8),
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(defaultPadding / 2),
+                                  borderSide: const BorderSide(
+                                      color: Colors.black54, width: 1),
+                                ),
+                                isCollapsed: true,
+                                contentPadding:
+                                    const EdgeInsets.fromLTRB(12, 14, 12, 12),
                               ),
-                            ],
-                          ),
-                          const SizedBox(height: defaultPadding),
-                        ],
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'กรุณากรอก งบต้น';
+                                }
+                                return null;
+                              },
+                            ),
+                            const SizedBox(height: defaultPadding),
+                            Wrap(
+                              direction: Axis.horizontal,
+                              children: [
+                                CustomText(
+                                  text: "งบคงเหลือ",
+                                  color: Colors.black87.withOpacity(.9),
+                                ),
+                                CustomText(
+                                  text: "*",
+                                  color: Colors.red.withOpacity(.9),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: defaultPadding / 2),
+                            TextFormField(
+                              controller: controller.budgetRemain,
+                              keyboardType: TextInputType.number,
+                              inputFormatters: <TextInputFormatter>[
+                                FilteringTextInputFormatter.digitsOnly
+                              ],
+                              decoration: InputDecoration(
+                                fillColor: Colors.white.withOpacity(.8),
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(defaultPadding / 2),
+                                  borderSide: const BorderSide(
+                                      color: Colors.black54, width: 1),
+                                ),
+                                isCollapsed: true,
+                                contentPadding:
+                                    const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                              ),
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'กรุณากรอก งบคงเหลือ';
+                                }
+                                return null;
+                              },
+                            ),
+                            const SizedBox(height: defaultPadding),
+                            AddressView(
+                                showAmphure: false,
+                                showTambol: false,
+                                showPostCode: false),
+                            Row(
+                              children: [
+                                CustomText(
+                                  text: "เอกสารแนบ",
+                                  color: Colors.black87.withOpacity(.9),
+                                ),
+                                const SizedBox(width: defaultPadding / 2),
+                                IconButton(
+                                  icon: const Icon(Icons.add_sharp),
+                                  onPressed: () {},
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: defaultPadding),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -435,8 +561,19 @@ DataRow budgetDataRow(
   BudgetData budgetData,
   ManageBudgetController controller,
 ) {
-  return DataRow(
-    selected: false,
+  return DataRow.byIndex(
+    index: index + 1,
+    color: MaterialStateProperty.resolveWith(
+      (states) {
+        if ((index) == controller.selectedIndexFromTable) {
+          return Colors.amber.shade200;
+        } else if (index % 2 == 0) {
+          return Colors.blue[50];
+        } else {
+          return Colors.white;
+        }
+      },
+    ),
     onSelectChanged: (value) {
       controller.selectDataFromTable(index);
     },
@@ -521,8 +658,24 @@ DataRow budgetDataRow(
   );
 }
 
-DataRow budgetDataRowLayoutSmall(int index, BudgetData budgetData) {
-  return DataRow(
+DataRow budgetDataRowLayoutSmall(
+  int index,
+  BudgetData budgetData,
+  ManageBudgetController controller,
+) {
+  return DataRow.byIndex(
+    index: index + 1,
+    color: MaterialStateProperty.resolveWith(
+      (states) {
+        if ((index) == controller.selectedIndexFromTable) {
+          return Colors.amber.shade200;
+        } else if (index % 2 == 0) {
+          return Colors.blue[50];
+        } else {
+          return Colors.white;
+        }
+      },
+    ),
     cells: [
       DataCell(
         Text(

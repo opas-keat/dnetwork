@@ -75,13 +75,12 @@ class SearchStation extends StatelessWidget {
                               onTap: () {
                                 Get.back(
                                     result: controller.listStationStatistics.obs
-                                        .value[index].name);
+                                        .value[index]);
                               },
                               selectedColor: primaryColor,
                               selectedTileColor: primaryColor,
                               title: CustomText(
                                 maxLine: 2,
-                                // scale: 0.9,
                                 text:
                                     '${controller.listStationStatistics.obs.value[index].name}',
                               ),

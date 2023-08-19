@@ -242,7 +242,7 @@ class ManageStationDetail extends StatelessWidget {
                       color: Colors.black87.withOpacity(.9),
                     ),
                     CustomText(
-                      text: "\*",
+                      text: "*",
                       color: Colors.red.withOpacity(.9),
                     ),
                   ],

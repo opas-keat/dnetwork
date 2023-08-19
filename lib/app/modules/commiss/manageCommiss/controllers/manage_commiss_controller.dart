@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../../api/api_params.dart';
+import '../../../../api/services/commiss_position_service.dart';
 import '../../../../api/services/commiss_service.dart';
 import '../../../../data/requests/commiss_service_request.dart';
 import '../../../../data/responses/commiss_service_response.dart';
@@ -18,9 +20,12 @@ class ManageCommissController extends GetxController {
 
   final commissList = <CommissData>[].obs;
   final commisss = <Commisss>[].obs;
+  final commissPositionList = <String>[].obs;
+  Rx<String> selectedCommissPosition = "".obs;
 
   RxString commissError = ''.obs;
 
+  final formKey = GlobalKey<FormState>();
   final commissStationId = TextEditingController(text: "0");
   final commissStationName = TextEditingController();
   final commissFirstName = TextEditingController();
@@ -30,14 +35,37 @@ class ManageCommissController extends GetxController {
   final commissLocation = TextEditingController();
   final commissDate = TextEditingController();
   final commissTelephone = TextEditingController();
-  final commissPosition = TextEditingController();
+  // final commissPosition = TextEditingController();
   final commissPositionCommu = TextEditingController();
   final commissExp = TextEditingController();
+  final commissProvince = TextEditingController();
+  final commissAmphure = TextEditingController();
+  final commissTambol = TextEditingController();
 
   final commissPositionCommuChips = <String>[].obs;
   final commissExpChips = <String>[].obs;
 
   int selectedIndexFromTable = 0;
+
+  @override
+  void onInit() {
+    super.onInit();
+    talker.info('$logTitle onInit');
+    listCommissPosition();
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+    talker.info('$logTitle onReady');
+    update();
+  }
+
+  @override
+  void onClose() {
+    talker.info('$logTitle onClose');
+    super.onClose();
+  }
 
   Future<bool> saveCommiss() async {
     talker.info('$logTitle:saveCommiss:');
@@ -46,9 +74,9 @@ class ManageCommissController extends GetxController {
       for (var commiss in commissList) {
         commisss.add(
           Commisss(
-            amphure: commiss.amphure!.split('|').last,
-            district: commiss.district!.split('|').last,
-            province: commiss.province!.split('|').last,
+            amphure: commiss.amphure,
+            district: commiss.district,
+            province: commiss.province,
             commissBirthYear: commiss.commissBirthYear,
             commissDate: commiss.commissDate,
             commissExp: commiss.commissExp,
@@ -117,16 +145,19 @@ class ManageCommissController extends GetxController {
     commissLocation.text = commissList[index].commissLocation!;
     commissDate.text = commissList[index].commissDate!;
     commissTelephone.text = commissList[index].commissTelephone!;
-    commissPosition.text = commissList[index].commissPosition!;
+    // commissPosition.text = commissList[index].commissPosition!;
     commissPositionCommu.text = commissList[index].commissPositionCommu!;
     commissExp.text = commissList[index].commissExp!;
-    addressController.selectedProvince.value = commissList[index].province!;
-    await addressController
-        .listAmphure(commissList[index].province!.split('|').first);
-    addressController.selectedAmphure.value = commissList[index].amphure!;
-    await addressController
-        .listTambol(commissList[index].amphure!.split('|').first);
-    addressController.selectedTambol.value = commissList[index].district!;
+    commissAmphure.text = commissList[index].district!;
+    commissTambol.text = commissList[index].amphure!;
+    commissProvince.text = commissList[index].province!;
+    // addressController.selectedProvince.value = commissList[index].province!;
+    // await addressController
+    //     .listAmphure(commissList[index].province!.split('|').first);
+    // addressController.selectedAmphure.value = commissList[index].amphure!;
+    // await addressController
+    //     .listTambol(commissList[index].amphure!.split('|').first);
+    // addressController.selectedTambol.value = commissList[index].district!;
     update();
   }
 
@@ -141,28 +172,32 @@ class ManageCommissController extends GetxController {
     talker.debug(commissLocation.text);
     talker.debug(commissDate.text);
     talker.debug(commissTelephone.text);
-    talker.debug(commissPosition.text);
+    talker.debug(selectedCommissPosition);
     talker.debug(commissPositionCommu.text);
     talker.debug(commissExp.text);
-    commissList.add(
-      CommissData(
-        commissStationId: int.parse(commissStationId.text),
-        commissStationName: commissStationName.text,
-        commissFirstName: commissFirstName.text,
-        commissSurName: commissSurName.text,
-        commissIdCard: commissIdCard.text,
-        commissBirthYear: commissBirthYear.text,
-        commissLocation: commissLocation.text,
-        commissDate: commissDate.text,
-        commissTelephone: commissTelephone.text,
-        commissPosition: commissPosition.text,
-        commissPositionCommu: commissPositionCommu.text,
-        commissExp: commissExp.text,
-        amphure: addressController.selectedAmphure.value,
-        district: addressController.selectedTambol.value,
-        province: addressController.selectedProvince.value,
-      ),
-    );
+    final isValid = formKey.currentState!.validate();
+    if (isValid) {
+      commissList.add(
+        CommissData(
+          commissStationId: int.parse(commissStationId.text),
+          commissStationName: commissStationName.text,
+          commissFirstName: commissFirstName.text,
+          commissSurName: commissSurName.text,
+          commissIdCard: commissIdCard.text,
+          commissBirthYear: commissBirthYear.text,
+          commissLocation: commissLocation.text,
+          commissDate: commissDate.text,
+          commissTelephone: commissTelephone.text,
+          commissPosition: selectedCommissPosition.value,
+          commissPositionCommu: commissPositionCommu.text,
+          commissExp: commissExp.text,
+          amphure: commissAmphure.text,
+          district: commissTambol.text,
+          province: commissProvince.text,
+        ),
+      );
+      resetForm();
+    }
     // commisss.add(
     //   Commisss(
     //     amphure: addressController.selectedAmphure.value,
@@ -182,7 +217,6 @@ class ManageCommissController extends GetxController {
     //     province: addressController.selectedProvince.value,
     //   ),
     // );
-    resetForm();
   }
 
   resetForm() {
@@ -192,17 +226,17 @@ class ManageCommissController extends GetxController {
     commissFirstName.text = "";
     commissIdCard.text = "";
     commissLocation.text = "";
-    commissPosition.text = "";
+    // commissPosition.text = "";
     commissPositionCommu.text = "";
-    commissStationId.text = "0";
-    commissStationName.text = "";
+    // commissStationId.text = "0";
+    // commissStationName.text = "";
     commissSurName.text = "";
     commissTelephone.text = "";
     commissPositionCommuChips.clear();
     commissExpChips.clear();
-    addressController.selectedProvince.value = '0|';
-    addressController.selectedAmphure.value = '0|';
-    addressController.selectedTambol.value = '0|';
+    // addressController.selectedProvince.value = '0|';
+    // addressController.selectedAmphure.value = '0|';
+    // addressController.selectedTambol.value = '0|';
     update();
   }
 
@@ -232,5 +266,25 @@ class ManageCommissController extends GetxController {
     talker.debug('$logTitle::deleteCommissToChip:$commissExp');
     commissExpChips.remove(commissExp);
     update();
+  }
+
+  Future listCommissPosition() async {
+    talker.info('$logTitle::listCommissPosition');
+    Map<String, String> qParams = {
+      "offset": "0",
+      "limit": queryParamLimit,
+      "order": queryParamOrderBy,
+    };
+    try {
+      final result = await CommissPositionService().list(qParams);
+      commissPositionList.clear();
+      commissPositionList.add("");
+      for (var item in result!.data!) {
+        commissPositionList.add(item.name!);
+      }
+      // update();
+    } catch (e) {
+      talker.error('$e');
+    }
   }
 }

@@ -9,7 +9,7 @@ import 'utils.dart';
 
 class MainDrawer extends StatelessWidget {
   MainDrawer({super.key});
-  AddressController addressController = Get.put(AddressController());
+  final AddressController addressController = Get.put(AddressController());
   @override
   Widget build(BuildContext context) {
     return SizedBox(

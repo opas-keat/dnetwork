@@ -22,6 +22,8 @@ class StationController extends GetxController {
   final facebook = TextEditingController();
   final process = TextEditingController();
 
+  final selectedStation = StationStatisticsData();
+
   @override
   void onInit() {
     super.onInit();

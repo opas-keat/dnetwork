@@ -13,7 +13,6 @@ import '../../../../shared/custom_text.dart';
 import '../../../../shared/main_drawer.dart';
 import '../../../../shared/search_station.dart';
 import '../../../../shared/utils.dart';
-import '../../../address/views/address_view.dart';
 import '../controllers/manage_network_controller.dart';
 
 class ManageNetworkView extends StatelessWidget {

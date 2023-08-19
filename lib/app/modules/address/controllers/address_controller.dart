@@ -35,6 +35,12 @@ class AddressController extends GetxController {
     talker.info('$logTitle onReady');
   }
 
+  @override
+  void onClose() {
+    talker.info('$logTitle:onClose:');
+    super.onReady();
+  }
+
   Future listProvince() async {
     talker.info('$logTitle listProvince');
     try {
@@ -69,13 +75,13 @@ class AddressController extends GetxController {
       amphureList.clear();
       talker.debug(amphureList.toString());
       amphureList.add("0|");
-      // selectedAmphure.value = "0|";
+      selectedAmphure.value = "0|";
       talker.debug(amphureList.toString());
       for (var item in result!.data!) {
         // talker.info('$logTitle::listAmphure:${item.aCode!}|${item.aName!}');
         amphureList.add("${item.aCode!}|${item.aName!}");
       }
-      update();
+      amphureList.refresh();
     } catch (e) {
       talker.error('$e');
     }
@@ -97,11 +103,12 @@ class AddressController extends GetxController {
       // selectedTambol.value = tambolList[0];
       tambolList.clear();
       tambolList.add("0|");
+      selectedTambol.value = "0|";
       for (var item in result!.data!) {
         // talker.info('$logTitle::listTambol:${item.tCode!}|${item.tName!}');
         tambolList.add("${item.tCode!}|${item.tName!}");
       }
-      update();
+      tambolList.refresh();
     } catch (e) {
       talker.error('$e');
     }

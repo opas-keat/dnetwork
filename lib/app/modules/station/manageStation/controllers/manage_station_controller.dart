@@ -33,7 +33,7 @@ class ManageStationController extends GetxController {
   final processChips = <String>[].obs;
   final trainingChips = <String>[].obs;
 
-  int selectedIndexFromTable = 0;
+  int selectedIndexFromTable = -1;
 
   @override
   void onInit() {
@@ -126,6 +126,7 @@ class ManageStationController extends GetxController {
       trainingChips.addAll(stationList[index].training!.split('|'));
     }
     update();
+    stationList.refresh();
   }
 
   addToDataTable() {

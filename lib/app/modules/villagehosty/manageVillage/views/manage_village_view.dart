@@ -84,11 +84,6 @@ class ManageVillageView extends StatelessWidget {
                           // (index) => StationDataRow(
                           //     index, controller.villageList.obs.value[index]),
                         ),
-                        // rows: List.generate(
-                        //   controller.stationList.value.length,
-                        //   (index) => StationDataRow(
-                        //       index, controller.stationList.value[index]),
-                        // ),
                       ),
                     ),
                   ),
@@ -181,188 +176,286 @@ class ManageVillageView extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: defaultPadding),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: defaultPadding),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CustomText(
-                            text: "ชื่อหมู่บ้าน",
-                            color: Colors.black87.withOpacity(.9),
-                          ),
-                          const SizedBox(height: defaultPadding / 2),
-                          TextFormField(
-                            controller: controller.villageName,
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                              fillColor: Colors.white.withOpacity(.8),
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(defaultPadding / 2),
-                                borderSide: const BorderSide(
-                                    color: Colors.black54, width: 1),
-                              ),
-                              isCollapsed: true,
-                              contentPadding:
-                                  const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                  Form(
+                    key: controller.formKey,
+                    child: Expanded(
+                      child: SingleChildScrollView(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: defaultPadding),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Wrap(
+                              direction: Axis.horizontal,
+                              children: [
+                                CustomText(
+                                  text: "ชื่อหมู่บ้าน",
+                                  color: Colors.black87.withOpacity(.9),
+                                ),
+                                CustomText(
+                                  text: "*",
+                                  color: Colors.red.withOpacity(.9),
+                                ),
+                              ],
                             ),
-                          ),
-                          const SizedBox(height: defaultPadding),
-                          CustomText(
-                            text: "บ้านเลขที่/หมู่บ้าน",
-                            color: Colors.black87.withOpacity(.9),
-                          ),
-                          const SizedBox(height: defaultPadding / 2),
-                          TextFormField(
-                            controller: controller.villageNo,
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                              fillColor: Colors.white.withOpacity(.8),
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(defaultPadding / 2),
-                                borderSide: const BorderSide(
-                                    color: Colors.black54, width: 1),
+                            const SizedBox(height: defaultPadding / 2),
+                            TextFormField(
+                              controller: controller.villageName,
+                              keyboardType: TextInputType.text,
+                              decoration: InputDecoration(
+                                fillColor: Colors.white.withOpacity(.8),
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(defaultPadding / 2),
+                                  borderSide: const BorderSide(
+                                      color: Colors.black54, width: 1),
+                                ),
+                                isCollapsed: true,
+                                contentPadding:
+                                    const EdgeInsets.fromLTRB(12, 14, 12, 12),
                               ),
-                              isCollapsed: true,
-                              contentPadding:
-                                  const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'กรุณากรอก ชื่อหมู่บ้าน';
+                                }
+                                return null;
+                              },
                             ),
-                          ),
-                          const SizedBox(height: defaultPadding),
-                          AddressView(showPostCode: false),
-                          CustomText(
-                            text: "จำนวนครัวเรือน",
-                            color: Colors.black87.withOpacity(.9),
-                          ),
-                          const SizedBox(height: defaultPadding / 2),
-                          TextFormField(
-                            controller: controller.villageTotal,
-                            keyboardType: TextInputType.number,
-                            inputFormatters: <TextInputFormatter>[
-                              FilteringTextInputFormatter.digitsOnly
-                            ],
-                            decoration: InputDecoration(
-                              fillColor: Colors.white.withOpacity(.8),
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(defaultPadding / 2),
-                                borderSide: const BorderSide(
-                                    color: Colors.black54, width: 1),
+                            const SizedBox(height: defaultPadding),
+                            CustomText(
+                              text: "บ้านเลขที่/หมู่บ้าน",
+                              color: Colors.black87.withOpacity(.9),
+                            ),
+                            const SizedBox(height: defaultPadding / 2),
+                            TextFormField(
+                              controller: controller.villageNo,
+                              keyboardType: TextInputType.text,
+                              decoration: InputDecoration(
+                                fillColor: Colors.white.withOpacity(.8),
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(defaultPadding / 2),
+                                  borderSide: const BorderSide(
+                                      color: Colors.black54, width: 1),
+                                ),
+                                isCollapsed: true,
+                                contentPadding:
+                                    const EdgeInsets.fromLTRB(12, 14, 12, 12),
                               ),
-                              isCollapsed: true,
-                              contentPadding:
-                                  const EdgeInsets.fromLTRB(12, 14, 12, 12),
                             ),
-                          ),
-                          const SizedBox(height: defaultPadding),
-                          CustomText(
-                            text: "Facebook/Location",
-                            color: Colors.black87.withOpacity(.9),
-                          ),
-                          const SizedBox(height: defaultPadding / 2),
-                          TextFormField(
-                            controller: controller.villageLocation,
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                              fillColor: Colors.white.withOpacity(.8),
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(defaultPadding / 2),
-                                borderSide: const BorderSide(
-                                    color: Colors.black54, width: 1),
+                            const SizedBox(height: defaultPadding),
+                            AddressView(showPostCode: false),
+                            CustomText(
+                              text: "จำนวนครัวเรือน",
+                              color: Colors.black87.withOpacity(.9),
+                            ),
+                            const SizedBox(height: defaultPadding / 2),
+                            TextFormField(
+                              controller: controller.villageTotal,
+                              keyboardType: TextInputType.number,
+                              inputFormatters: <TextInputFormatter>[
+                                FilteringTextInputFormatter.digitsOnly
+                              ],
+                              decoration: InputDecoration(
+                                fillColor: Colors.white.withOpacity(.8),
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(defaultPadding / 2),
+                                  borderSide: const BorderSide(
+                                      color: Colors.black54, width: 1),
+                                ),
+                                isCollapsed: true,
+                                contentPadding:
+                                    const EdgeInsets.fromLTRB(12, 14, 12, 12),
                               ),
-                              isCollapsed: true,
-                              contentPadding:
-                                  const EdgeInsets.fromLTRB(12, 14, 12, 12),
                             ),
-                          ),
-                          const SizedBox(height: defaultPadding),
-                          CustomText(
-                            text: "รูปแบบกิจกรรม",
-                            color: Colors.black87.withOpacity(.9),
-                          ),
-                          const SizedBox(height: defaultPadding / 2),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: TextFormField(
-                                  controller: controller.villageTypeAct,
-                                  keyboardType: TextInputType.text,
-                                  decoration: InputDecoration(
-                                    fillColor: Colors.white.withOpacity(.8),
-                                    filled: true,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(
-                                          defaultPadding / 2),
-                                      borderSide: const BorderSide(
-                                          color: Colors.black54, width: 1),
-                                    ),
-                                    isCollapsed: true,
-                                    contentPadding: const EdgeInsets.fromLTRB(
-                                        12, 14, 12, 12),
+                            const SizedBox(height: defaultPadding),
+                            CustomText(
+                              text: "Facebook/Location",
+                              color: Colors.black87.withOpacity(.9),
+                            ),
+                            const SizedBox(height: defaultPadding / 2),
+                            TextFormField(
+                              controller: controller.villageLocation,
+                              keyboardType: TextInputType.text,
+                              decoration: InputDecoration(
+                                fillColor: Colors.white.withOpacity(.8),
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(defaultPadding / 2),
+                                  borderSide: const BorderSide(
+                                      color: Colors.black54, width: 1),
+                                ),
+                                isCollapsed: true,
+                                contentPadding:
+                                    const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                              ),
+                            ),
+                            const SizedBox(height: defaultPadding),
+                            // CustomText(
+                            //   text: "รูปแบบกิจกรรม",
+                            //   color: Colors.black87.withOpacity(.9),
+                            // ),
+                            // const SizedBox(height: defaultPadding / 2),
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            //   children: [
+                            //     Expanded(
+                            //       child: TextFormField(
+                            //         controller: controller.villageTypeAct,
+                            //         keyboardType: TextInputType.text,
+                            //         decoration: InputDecoration(
+                            //           fillColor: Colors.white.withOpacity(.8),
+                            //           filled: true,
+                            //           border: OutlineInputBorder(
+                            //             borderRadius: BorderRadius.circular(
+                            //                 defaultPadding / 2),
+                            //             borderSide: const BorderSide(
+                            //                 color: Colors.black54, width: 1),
+                            //           ),
+                            //           isCollapsed: true,
+                            //           contentPadding: const EdgeInsets.fromLTRB(
+                            //               12, 14, 12, 12),
+                            //         ),
+                            //       ),
+                            //     ),
+                            //     const SizedBox(width: defaultPadding / 2),
+                            //     IconButton(
+                            //       icon: const Icon(Icons.add_sharp),
+                            //       onPressed: () {
+                            //         controller.addTypeActToChip(
+                            //             controller.villageTypeAct.text);
+                            //       },
+                            //     ),
+                            //   ],
+                            // ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      CustomText(
+                                        text: "รูปแบบกิจกรรม",
+                                        color: Colors.black87.withOpacity(.9),
+                                      ),
+                                      const SizedBox(
+                                          height: defaultPadding / 2),
+                                      TextFormField(
+                                        controller: controller.villageTypeAct,
+                                        keyboardType: TextInputType.text,
+                                        decoration: InputDecoration(
+                                          fillColor:
+                                              Colors.white.withOpacity(.8),
+                                          filled: true,
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(
+                                                defaultPadding / 2),
+                                            borderSide: const BorderSide(
+                                                color: Colors.black54,
+                                                width: 1),
+                                          ),
+                                          isCollapsed: true,
+                                          contentPadding:
+                                              const EdgeInsets.fromLTRB(
+                                                  12, 14, 12, 12),
+                                        ),
+                                      ),
+                                      const SizedBox(height: defaultPadding),
+                                      CustomText(
+                                        text: "รายละเอียด",
+                                        color: Colors.black87.withOpacity(.9),
+                                      ),
+                                      const SizedBox(
+                                          height: defaultPadding / 2),
+                                      TextFormField(
+                                        controller: controller.villageGoalAct2,
+                                        keyboardType: TextInputType.text,
+                                        maxLines: 3,
+                                        decoration: InputDecoration(
+                                          fillColor:
+                                              Colors.white.withOpacity(.8),
+                                          filled: true,
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(
+                                                defaultPadding / 2),
+                                            borderSide: const BorderSide(
+                                                color: Colors.black54,
+                                                width: 1),
+                                          ),
+                                          isCollapsed: true,
+                                          contentPadding:
+                                              const EdgeInsets.fromLTRB(
+                                                  12, 14, 12, 12),
+                                        ),
+                                      ),
+                                      const SizedBox(height: defaultPadding),
+                                    ],
                                   ),
                                 ),
-                              ),
-                              const SizedBox(width: defaultPadding / 2),
-                              IconButton(
-                                icon: const Icon(Icons.add_sharp),
-                                onPressed: () {
-                                  controller.addTypeActToChip(
-                                      controller.villageTypeAct.text);
-                                },
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: defaultPadding / 2),
-                          Obx(
-                            () => Wrap(
-                              alignment: WrapAlignment.start,
-                              spacing: 5.0,
-                              runSpacing: 5.0,
-                              children: controller.typeActChips.obs.value
-                                  .map((chip) => Chip(
-                                        backgroundColor: Colors.blue.shade100,
-                                        label: Text(chip),
-                                        onDeleted: () => controller
-                                            .deleteTypeActToChip(chip),
-                                      ))
-                                  .toList(),
+                                const SizedBox(width: defaultPadding / 2),
+                                IconButton(
+                                  icon: const Icon(Icons.add_sharp),
+                                  onPressed: () {
+                                    controller.addTypeActToChip(
+                                      controller.villageTypeAct.text,
+                                      controller.villageGoalAct2.text,
+                                    );
+                                  },
+                                ),
+                              ],
                             ),
-                          ),
-                          const SizedBox(height: defaultPadding),
-                          CustomText(
-                            text: "รายละเอียด",
-                            color: Colors.black87.withOpacity(.9),
-                          ),
-                          const SizedBox(height: defaultPadding / 2),
-                          TextFormField(
-                            controller: controller.villageGoalAct2,
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                              fillColor: Colors.white.withOpacity(.8),
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(defaultPadding / 2),
-                                borderSide: const BorderSide(
-                                    color: Colors.black54, width: 1),
+                            const SizedBox(height: defaultPadding / 2),
+                            Obx(
+                              () => Wrap(
+                                alignment: WrapAlignment.start,
+                                spacing: 5.0,
+                                runSpacing: 5.0,
+                                children: controller.typeActChips.obs.value
+                                    .map((chip) => Chip(
+                                          backgroundColor: Colors.blue.shade100,
+                                          label: Text(chip),
+                                          onDeleted: () => controller
+                                              .deleteTypeActToChip(chip),
+                                        ))
+                                    .toList(),
                               ),
-                              isCollapsed: true,
-                              contentPadding:
-                                  const EdgeInsets.fromLTRB(12, 14, 12, 12),
                             ),
-                          ),
-                          const SizedBox(height: defaultPadding),
-                        ],
+                            const SizedBox(height: defaultPadding),
+                            // CustomText(
+                            //   text: "รายละเอียด",
+                            //   color: Colors.black87.withOpacity(.9),
+                            // ),
+                            // const SizedBox(height: defaultPadding / 2),
+                            // TextFormField(
+                            //   controller: controller.villageGoalAct2,
+                            //   keyboardType: TextInputType.text,
+                            //   decoration: InputDecoration(
+                            //     fillColor: Colors.white.withOpacity(.8),
+                            //     filled: true,
+                            //     border: OutlineInputBorder(
+                            //       borderRadius:
+                            //           BorderRadius.circular(defaultPadding / 2),
+                            //       borderSide: const BorderSide(
+                            //           color: Colors.black54, width: 1),
+                            //     ),
+                            //     isCollapsed: true,
+                            //     contentPadding:
+                            //         const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                            //   ),
+                            // ),
+                            // const SizedBox(height: defaultPadding),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -480,8 +573,19 @@ DataRow villageDataRow(
   VillageData villageData,
   ManageVillageController controller,
 ) {
-  return DataRow(
-    selected: false,
+  return DataRow.byIndex(
+    index: index + 1,
+    color: MaterialStateProperty.resolveWith(
+      (states) {
+        if ((index) == controller.selectedIndexFromTable) {
+          return Colors.amber.shade200;
+        } else if (index % 2 == 0) {
+          return Colors.blue[50];
+        } else {
+          return Colors.white;
+        }
+      },
+    ),
     onSelectChanged: (value) {
       controller.selectDataFromTable(index);
     },
@@ -551,7 +655,22 @@ DataRow villageDataRowLayoutSmall(
   VillageData villageData,
   ManageVillageController controller,
 ) {
-  return DataRow(
+  return DataRow.byIndex(
+    index: index + 1,
+    color: MaterialStateProperty.resolveWith(
+      (states) {
+        if ((index) == controller.selectedIndexFromTable) {
+          return Colors.amber.shade200;
+        } else if (index % 2 == 0) {
+          return Colors.blue[50];
+        } else {
+          return Colors.white;
+        }
+      },
+    ),
+    onSelectChanged: (value) {
+      controller.selectDataFromTable(index);
+    },
     cells: [
       DataCell(
         Text(

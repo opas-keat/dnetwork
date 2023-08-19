@@ -190,36 +190,33 @@ class ManageStationDetail extends StatelessWidget {
             // const Spacer(flex: 1),
             Expanded(
               // flex: 1,
-              child: Container(
-                // color: Colors.white,
-                child: InkWell(
-                  hoverColor: Colors.white,
-                  onTap: () async {
-                    final ImagePicker picker = ImagePicker();
-                    final XFile? pickedFile = await picker.pickImage(
-                      source: ImageSource.gallery,
-                      maxHeight: 640,
-                      maxWidth: 480,
-                    );
-                    if (pickedFile != null) {
-                      controller.fileUpload.value = pickedFile;
-                      controller.update();
-                    }
-                  },
-                  child: Obx(
-                    () => SizedBox(
-                      height: 100,
-                      child: (controller.fileUpload.value.path.isNotEmpty)
-                          ? Image.network(
-                              controller.fileUpload.value.path,
-                              height: 100,
-                              fit: BoxFit.fitHeight,
-                            )
-                          : Image.network(
-                              'assets/images/undraw_Add_files_re_v09g.png',
-                              fit: BoxFit.fitHeight,
-                            ),
-                    ),
+              child: InkWell(
+                hoverColor: Colors.white,
+                onTap: () async {
+                  final ImagePicker picker = ImagePicker();
+                  final XFile? pickedFile = await picker.pickImage(
+                    source: ImageSource.gallery,
+                    maxHeight: 640,
+                    maxWidth: 480,
+                  );
+                  if (pickedFile != null) {
+                    controller.fileUpload.value = pickedFile;
+                    controller.update();
+                  }
+                },
+                child: Obx(
+                  () => SizedBox(
+                    height: 100,
+                    child: (controller.fileUpload.value.path.isNotEmpty)
+                        ? Image.network(
+                            controller.fileUpload.value.path,
+                            height: 100,
+                            fit: BoxFit.fitHeight,
+                          )
+                        : Image.network(
+                            'assets/images/undraw_Add_files_re_v09g.png',
+                            fit: BoxFit.fitHeight,
+                          ),
                   ),
                 ),
               ),
@@ -559,8 +556,19 @@ DataRow stationDataRowLayoutSmall(
   StationData stationData,
   ManageStationController controller,
 ) {
-  return DataRow(
-    selected: false,
+  return DataRow.byIndex(
+    index: index + 1,
+    color: MaterialStateProperty.resolveWith(
+      (states) {
+        if ((index) == controller.selectedIndexFromTable) {
+          return Colors.amber.shade200;
+        } else if (index % 2 == 0) {
+          return Colors.blue[50];
+        } else {
+          return Colors.white;
+        }
+      },
+    ),
     onSelectChanged: (value) {
       controller.selectDataFromTable(index);
     },
@@ -628,8 +636,19 @@ DataRow stationDataRow(
   StationData stationData,
   ManageStationController controller,
 ) {
-  return DataRow(
-    selected: false,
+  return DataRow.byIndex(
+    index: index + 1,
+    color: MaterialStateProperty.resolveWith(
+      (states) {
+        if ((index) == controller.selectedIndexFromTable) {
+          return Colors.amber.shade200;
+        } else if (index % 2 == 0) {
+          return Colors.blue[50];
+        } else {
+          return Colors.white;
+        }
+      },
+    ),
     onSelectChanged: (value) {
       controller.selectDataFromTable(index);
     },

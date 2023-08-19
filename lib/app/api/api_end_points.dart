@@ -23,6 +23,7 @@ class ApiEndPoints {
   static const budget = "/budget";
   // ---- training ----
   static const training = "/training";
+  static const trainingType = "/training_type";
   // ---- member ----
   static const member = "/member";
   // ---- network ----

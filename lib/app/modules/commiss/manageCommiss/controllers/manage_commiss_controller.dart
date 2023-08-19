@@ -9,11 +9,12 @@ import '../../../../api/services/commiss_service.dart';
 import '../../../../data/requests/commiss_service_request.dart';
 import '../../../../data/responses/commiss_service_response.dart';
 import '../../../../shared/utils.dart';
+import '../../../address/controllers/address_controller.dart';
 
 class ManageCommissController extends GetxController {
   final logTitle = "ManageCommissController";
   RxBool isLoading = true.obs;
-  // AddressController addressController = Get.put(AddressController());
+  AddressController addressController = Get.put(AddressController());
 
   Rx<String> filePath = ''.obs;
   Rx<XFile> fileUpload = XFile('').obs;

@@ -77,6 +77,7 @@ class ManageTrainingView extends StatelessWidget {
                             : trainingDataRowLayoutSmall(
                                 index,
                                 controller.trainingList.obs.value[index],
+                                controller,
                               ),
                       ),
                     ),
@@ -168,151 +169,255 @@ class ManageTrainingView extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: defaultPadding),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: defaultPadding),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CustomText(
-                            text: "ชื่อโครงการฝึกอบรม",
-                            color: Colors.black87.withOpacity(.9),
-                          ),
-                          const SizedBox(height: defaultPadding / 2),
-                          TextFormField(
-                            controller: controller.trainingName,
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                              fillColor: Colors.white.withOpacity(.8),
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(defaultPadding / 2),
-                                borderSide: const BorderSide(
-                                    color: Colors.black54, width: 1),
-                              ),
-                              isCollapsed: true,
-                              contentPadding:
-                                  const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                  Form(
+                    key: controller.formKey,
+                    child: Expanded(
+                      child: SingleChildScrollView(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: defaultPadding),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Wrap(
+                              direction: Axis.horizontal,
+                              children: [
+                                CustomText(
+                                  text: "ชื่อโครงการฝึกอบรม",
+                                  color: Colors.black87.withOpacity(.9),
+                                ),
+                                CustomText(
+                                  text: "*",
+                                  color: Colors.red.withOpacity(.9),
+                                ),
+                              ],
                             ),
-                          ),
-                          const SizedBox(height: defaultPadding),
-                          CustomText(
-                            text: "วันที่เริ่ม",
-                            color: Colors.black87.withOpacity(.9),
-                          ),
-                          const SizedBox(height: defaultPadding / 2),
-                          TextFormField(
-                            controller: controller.trainingDateForm,
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                              fillColor: Colors.white.withOpacity(.8),
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(defaultPadding / 2),
-                                borderSide: const BorderSide(
-                                    color: Colors.black54, width: 1),
+                            const SizedBox(height: defaultPadding / 2),
+                            TextFormField(
+                              controller: controller.trainingName,
+                              keyboardType: TextInputType.text,
+                              decoration: InputDecoration(
+                                fillColor: Colors.white.withOpacity(.8),
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(defaultPadding / 2),
+                                  borderSide: const BorderSide(
+                                      color: Colors.black54, width: 1),
+                                ),
+                                isCollapsed: true,
+                                contentPadding:
+                                    const EdgeInsets.fromLTRB(12, 14, 12, 12),
                               ),
-                              isCollapsed: true,
-                              contentPadding:
-                                  const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'กรุณากรอก ชื่อโครงการฝึกอบรม';
+                                }
+                                return null;
+                              },
                             ),
-                          ),
-                          const SizedBox(height: defaultPadding),
-                          CustomText(
-                            text: "วันที่สิ้นสุด",
-                            color: Colors.black87.withOpacity(.9),
-                          ),
-                          const SizedBox(height: defaultPadding / 2),
-                          TextFormField(
-                            controller: controller.trainingDateTo,
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                              fillColor: Colors.white.withOpacity(.8),
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(defaultPadding / 2),
-                                borderSide: const BorderSide(
-                                    color: Colors.black54, width: 1),
+                            const SizedBox(height: defaultPadding),
+                            Wrap(
+                              direction: Axis.horizontal,
+                              children: [
+                                CustomText(
+                                  text: "วันที่เริ่ม",
+                                  color: Colors.black87.withOpacity(.9),
+                                ),
+                                CustomText(
+                                  text: "*",
+                                  color: Colors.red.withOpacity(.9),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: defaultPadding / 2),
+                            TextFormField(
+                              controller: controller.trainingDateForm,
+                              keyboardType: TextInputType.text,
+                              decoration: InputDecoration(
+                                fillColor: Colors.white.withOpacity(.8),
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(defaultPadding / 2),
+                                  borderSide: const BorderSide(
+                                      color: Colors.black54, width: 1),
+                                ),
+                                isCollapsed: true,
+                                contentPadding:
+                                    const EdgeInsets.fromLTRB(12, 14, 12, 12),
                               ),
-                              isCollapsed: true,
-                              contentPadding:
-                                  const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'กรุณากรอก วันที่เริ่ม';
+                                }
+                                return null;
+                              },
                             ),
-                          ),
-                          const SizedBox(height: defaultPadding),
-                          CustomText(
-                            text: "ประเภทการฝึกอบรม",
-                            color: Colors.black87.withOpacity(.9),
-                          ),
-                          const SizedBox(height: defaultPadding / 2),
-                          TextFormField(
-                            controller: controller.trainingType,
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                              fillColor: Colors.white.withOpacity(.8),
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(defaultPadding / 2),
-                                borderSide: const BorderSide(
-                                    color: Colors.black54, width: 1),
+                            const SizedBox(height: defaultPadding),
+                            Wrap(
+                              direction: Axis.horizontal,
+                              children: [
+                                CustomText(
+                                  text: "วันที่สิ้นสุด",
+                                  color: Colors.black87.withOpacity(.9),
+                                ),
+                                CustomText(
+                                  text: "*",
+                                  color: Colors.red.withOpacity(.9),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: defaultPadding / 2),
+                            TextFormField(
+                              controller: controller.trainingDateTo,
+                              keyboardType: TextInputType.text,
+                              decoration: InputDecoration(
+                                fillColor: Colors.white.withOpacity(.8),
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(defaultPadding / 2),
+                                  borderSide: const BorderSide(
+                                      color: Colors.black54, width: 1),
+                                ),
+                                isCollapsed: true,
+                                contentPadding:
+                                    const EdgeInsets.fromLTRB(12, 14, 12, 12),
                               ),
-                              isCollapsed: true,
-                              contentPadding:
-                                  const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'กรุณากรอก วันที่สิ้นสุด';
+                                }
+                                return null;
+                              },
                             ),
-                          ),
-                          const SizedBox(height: defaultPadding),
-                          AddressView(
+                            const SizedBox(height: defaultPadding),
+                            Wrap(
+                              direction: Axis.horizontal,
+                              children: [
+                                CustomText(
+                                  text: "ประเภทการฝึกอบรม",
+                                  color: Colors.black87.withOpacity(.9),
+                                ),
+                                CustomText(
+                                  text: "*",
+                                  color: Colors.red.withOpacity(.9),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: defaultPadding / 2),
+                            Obx(
+                              () => DropdownButtonFormField<String>(
+                                decoration: InputDecoration(
+                                  fillColor: Colors.white.withOpacity(.8),
+                                  filled: true,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(
+                                        defaultPadding / 2),
+                                    borderSide: const BorderSide(
+                                        color: Colors.black54, width: 1),
+                                  ),
+                                  isCollapsed: true,
+                                  contentPadding:
+                                      const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                                ),
+                                value: controller.selectedTrainingType.value,
+                                onChanged: (newValue) {
+                                  controller.selectedTrainingType.value =
+                                      newValue!;
+                                },
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'กรุณาเลือก ตำแหน่งใน ศส.ปชต.';
+                                  }
+                                  return null;
+                                },
+                                items: controller.trainingTypeList.obs.value
+                                    .map((item) {
+                                  return DropdownMenuItem<String>(
+                                    value: item,
+                                    child: Text(
+                                      item,
+                                      textScaleFactor: 0.9,
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                            // TextFormField(
+                            //   controller: controller.trainingType,
+                            //   keyboardType: TextInputType.text,
+                            //   decoration: InputDecoration(
+                            //     fillColor: Colors.white.withOpacity(.8),
+                            //     filled: true,
+                            //     border: OutlineInputBorder(
+                            //       borderRadius:
+                            //           BorderRadius.circular(defaultPadding / 2),
+                            //       borderSide: const BorderSide(
+                            //           color: Colors.black54, width: 1),
+                            //     ),
+                            //     isCollapsed: true,
+                            //     contentPadding:
+                            //         const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                            //   ),
+                            // ),
+                            const SizedBox(height: defaultPadding),
+                            AddressView(
                               showAmphure: false,
                               showTambol: false,
-                              showPostCode: false),
-                          CustomText(
-                            text: "จำนวนผู้อบรม",
-                            color: Colors.black87.withOpacity(.9),
-                          ),
-                          const SizedBox(height: defaultPadding / 2),
-                          TextFormField(
-                            controller: controller.trainingTotal,
-                            keyboardType: TextInputType.number,
-                            inputFormatters: <TextInputFormatter>[
-                              FilteringTextInputFormatter.digitsOnly
-                            ],
-                            decoration: InputDecoration(
-                              fillColor: Colors.white.withOpacity(.8),
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(defaultPadding / 2),
-                                borderSide: const BorderSide(
-                                    color: Colors.black54, width: 1),
-                              ),
-                              isCollapsed: true,
-                              contentPadding:
-                                  const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                              showPostCode: false,
                             ),
-                          ),
-                          const SizedBox(height: defaultPadding),
-                          Row(
-                            children: [
-                              CustomText(
-                                text: "เอกสารแนบ",
-                                color: Colors.black87.withOpacity(.9),
+                            CustomText(
+                              text: "จำนวนผู้อบรม",
+                              color: Colors.black87.withOpacity(.9),
+                            ),
+                            const SizedBox(height: defaultPadding / 2),
+                            TextFormField(
+                              controller: controller.trainingTotal,
+                              keyboardType: TextInputType.number,
+                              inputFormatters: <TextInputFormatter>[
+                                FilteringTextInputFormatter.digitsOnly
+                              ],
+                              decoration: InputDecoration(
+                                fillColor: Colors.white.withOpacity(.8),
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(defaultPadding / 2),
+                                  borderSide: const BorderSide(
+                                      color: Colors.black54, width: 1),
+                                ),
+                                isCollapsed: true,
+                                contentPadding:
+                                    const EdgeInsets.fromLTRB(12, 14, 12, 12),
                               ),
-                              const SizedBox(width: defaultPadding / 2),
-                              IconButton(
-                                icon: const Icon(Icons.add_sharp),
-                                onPressed: () {},
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: defaultPadding),
-                        ],
+                            ),
+                            const SizedBox(height: defaultPadding),
+                            Row(
+                              children: [
+                                CustomText(
+                                  text: "เอกสารแนบ",
+                                  color: Colors.black87.withOpacity(.9),
+                                ),
+                                const SizedBox(width: defaultPadding / 2),
+                                IconButton(
+                                  icon: const Icon(Icons.add_sharp),
+                                  onPressed: () {},
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: defaultPadding),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -430,8 +535,19 @@ DataRow trainingDataRow(
   TrainingData trainingData,
   ManageTrainingController controller,
 ) {
-  return DataRow(
-    selected: false,
+  return DataRow.byIndex(
+    index: index + 1,
+    color: MaterialStateProperty.resolveWith(
+      (states) {
+        if ((index) == controller.selectedIndexFromTable) {
+          return Colors.amber.shade200;
+        } else if (index % 2 == 0) {
+          return Colors.blue[50];
+        } else {
+          return Colors.white;
+        }
+      },
+    ),
     onSelectChanged: (value) {
       controller.selectDataFromTable(index);
     },
@@ -519,8 +635,21 @@ DataRow trainingDataRow(
 DataRow trainingDataRowLayoutSmall(
   int index,
   TrainingData trainingData,
+  ManageTrainingController controller,
 ) {
-  return DataRow(
+  return DataRow.byIndex(
+    index: index + 1,
+    color: MaterialStateProperty.resolveWith(
+      (states) {
+        if ((index) == controller.selectedIndexFromTable) {
+          return Colors.amber.shade200;
+        } else if (index % 2 == 0) {
+          return Colors.blue[50];
+        } else {
+          return Colors.white;
+        }
+      },
+    ),
     cells: [
       DataCell(
         Text(

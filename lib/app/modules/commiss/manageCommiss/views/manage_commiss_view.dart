@@ -61,16 +61,6 @@ class ManageCommissView extends StatelessWidget {
                       dividerThickness: 2,
                       showBottomBorder: true,
                       showCheckboxColumn: false,
-                      dataRowColor: MaterialStateProperty.resolveWith<Color?>(
-                          (Set<MaterialState> states) {
-                        if (states.contains(MaterialState.selected)) {
-                          return Theme.of(context)
-                              .colorScheme
-                              .primary
-                              .withOpacity(0.08);
-                        }
-                        return null; // Use the default value.
-                      }),
                       headingRowColor: MaterialStateProperty.resolveWith(
                           (states) => Colors.grey.shade200),
                       columns: listColumn,
@@ -961,7 +951,6 @@ DataRow commissDataRow(
   ManageCommissController controller,
 ) {
   return DataRow.byIndex(
-    // selected: false,
     index: index + 1,
     color: MaterialStateProperty.resolveWith(
       (states) {
@@ -1055,8 +1044,19 @@ DataRow commissDataRowLayoutSmall(
   CommissData commissData,
   ManageCommissController controller,
 ) {
-  return DataRow(
-    // selected: false,
+  return DataRow.byIndex(
+    index: index + 1,
+    color: MaterialStateProperty.resolveWith(
+      (states) {
+        if ((index) == controller.selectedIndexFromTable) {
+          return Colors.amber.shade200;
+        } else if (index % 2 == 0) {
+          return Colors.blue[50];
+        } else {
+          return Colors.white;
+        }
+      },
+    ),
     onSelectChanged: (value) {
       controller.selectDataFromTable(index);
     },

@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../../api/api_params.dart';
+import '../../../../api/services/commiss_position_commu_service.dart';
+import '../../../../api/services/commiss_position_service.dart';
 import '../../../../api/services/member_service.dart';
 import '../../../../data/requests/member_service_request.dart';
 import '../../../../data/responses/member_service_response.dart';
 import '../../../../shared/utils.dart';
-import '../../../address/controllers/address_controller.dart';
 
 class ManageMemberController extends GetxController {
   final logTitle = "ManageMemberController";
   RxBool isLoading = true.obs;
-  AddressController addressController = Get.put(AddressController());
+  // AddressController addressController = Get.put(AddressController());
 
   Rx<String> filePath = ''.obs;
   Rx<XFile> fileUpload = XFile('').obs;
@@ -19,8 +21,14 @@ class ManageMemberController extends GetxController {
   final memberList = <MemberData>[].obs;
   final members = <Members>[].obs;
 
+  final memberPositionList = <String>[].obs;
+  Rx<String> selectedMemberPosition = "".obs;
+  final memberPositionCommuList = <String>[].obs;
+  Rx<String> selectedMemberPositionCommu = "".obs;
+
   RxString memberError = ''.obs;
 
+  final formKey = GlobalKey<FormState>();
   final memberStationId = TextEditingController(text: "0");
   final memberStationName = TextEditingController();
   final memberFirstName = TextEditingController();
@@ -33,11 +41,35 @@ class ManageMemberController extends GetxController {
   final memberPosition = TextEditingController();
   final memberPositionCommu = TextEditingController();
   final memberExp = TextEditingController();
+  final memberProvince = TextEditingController();
+  final memberAmphure = TextEditingController();
+  final memberTambol = TextEditingController();
 
   final memberPositionCommuChips = <String>[].obs;
   final memberExpChips = <String>[].obs;
 
-  int selectedIndexFromTable = 0;
+  int selectedIndexFromTable = -1;
+
+  @override
+  void onInit() {
+    super.onInit();
+    talker.info('$logTitle onInit');
+    listMemberPosition();
+    listMemberPositionCommu();
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+    talker.info('$logTitle onReady');
+    update();
+  }
+
+  @override
+  void onClose() {
+    talker.info('$logTitle onClose');
+    super.onClose();
+  }
 
   Future saveMember() async {
     talker.info('$logTitle:saveMember:');
@@ -46,9 +78,9 @@ class ManageMemberController extends GetxController {
       for (var member in memberList) {
         members.add(
           Members(
-            amphure: member.amphure!.split('|').last,
-            district: member.district!.split('|').last,
-            province: member.province!.split('|').last,
+            amphure: member.amphure,
+            district: member.district,
+            province: member.province,
             memberBirthYear: member.memberBirthYear,
             memberDate: member.memberDate,
             memberExp: member.memberExp,
@@ -80,7 +112,7 @@ class ManageMemberController extends GetxController {
 
   deleteDataFromTable() {
     talker.info('$logTitle:deleteDataFromTable:$selectedIndexFromTable');
-    if (members.length > selectedIndexFromTable &&
+    if (memberList.length > selectedIndexFromTable &&
         selectedIndexFromTable > -1) {
       memberList.removeAt(selectedIndexFromTable);
       selectedIndexFromTable = -1;
@@ -90,6 +122,8 @@ class ManageMemberController extends GetxController {
 
   selectDataFromTable(int index) async {
     selectedIndexFromTable = index;
+    memberPositionCommuChips.clear();
+    memberExpChips.clear();
     talker.info('$logTitle:selectDataFromTable:$selectedIndexFromTable');
     talker.debug(memberList[index].memberStationId);
     talker.debug(memberList[index].memberStationName);
@@ -115,17 +149,32 @@ class ManageMemberController extends GetxController {
     memberLocation.text = memberList[index].memberLocation!;
     memberDate.text = memberList[index].memberDate!;
     memberTelephone.text = memberList[index].memberTelephone!;
-    memberPosition.text = memberList[index].memberPosition!;
-    memberPositionCommu.text = memberList[index].memberPositionCommu!;
-    memberExp.text = memberList[index].memberExp!;
-    addressController.selectedProvince.value = memberList[index].province!;
-    await addressController
-        .listAmphure(memberList[index].province!.split('|').first);
-    addressController.selectedAmphure.value = memberList[index].amphure!;
-    await addressController
-        .listTambol(memberList[index].amphure!.split('|').first);
-    addressController.selectedTambol.value = memberList[index].district!;
+    selectedMemberPosition.value = memberList[index].memberPosition!;
+
+    memberAmphure.text = memberList[index].district!;
+    memberTambol.text = memberList[index].amphure!;
+    memberProvince.text = memberList[index].province!;
+    if (memberList[index].memberPositionCommu!.isNotEmpty) {
+      memberPositionCommuChips
+          .addAll(memberList[index].memberPositionCommu!.split('|'));
+      selectedMemberPositionCommu.value =
+          memberList[index].memberPositionCommu!.split('|').first;
+    }
+    if (memberList[index].memberExp!.isNotEmpty) {
+      memberExpChips.addAll(memberList[index].memberExp!.split('|'));
+    }
+    // memberPosition.text = memberList[index].memberPosition!;
+    // memberPositionCommu.text = memberList[index].memberPositionCommu!;
+    // memberExp.text = memberList[index].memberExp!;
+    // addressController.selectedProvince.value = memberList[index].province!;
+    // await addressController
+    //     .listAmphure(memberList[index].province!.split('|').first);
+    // addressController.selectedAmphure.value = memberList[index].amphure!;
+    // await addressController
+    //     .listTambol(memberList[index].amphure!.split('|').first);
+    // addressController.selectedTambol.value = memberList[index].district!;
     update();
+    memberList.refresh();
   }
 
   addDataToTable() {
@@ -142,25 +191,30 @@ class ManageMemberController extends GetxController {
     talker.debug(memberPosition.text);
     talker.debug(memberPositionCommu.text);
     talker.debug(memberExp.text);
-    memberList.add(
-      MemberData(
-        memberStationId: int.parse(memberStationId.text),
-        memberStationName: memberStationName.text,
-        memberFirstName: memberFirstName.text,
-        memberSurName: memberSurName.text,
-        memberIdCard: memberIdCard.text,
-        memberBirthYear: memberBirthYear.text,
-        memberLocation: memberLocation.text,
-        memberDate: memberDate.text,
-        memberTelephone: memberTelephone.text,
-        memberPosition: memberPosition.text,
-        memberPositionCommu: memberPositionCommu.text,
-        memberExp: memberExp.text,
-        amphure: addressController.selectedAmphure.value,
-        district: addressController.selectedTambol.value,
-        province: addressController.selectedProvince.value,
-      ),
-    );
+    final isValid = formKey.currentState!.validate();
+    if (isValid) {
+      memberList.add(
+        MemberData(
+          memberStationId: int.parse(memberStationId.text),
+          memberStationName: memberStationName.text,
+          memberFirstName: memberFirstName.text,
+          memberSurName: memberSurName.text,
+          memberIdCard: memberIdCard.text,
+          memberBirthYear: memberBirthYear.text,
+          memberLocation: memberLocation.text,
+          memberDate: memberDate.text,
+          memberTelephone: memberTelephone.text,
+          memberPosition: selectedMemberPosition.value,
+          memberPositionCommu: memberPositionCommuChips.join('|'),
+          memberExp: memberExp.text,
+          amphure: memberAmphure.text,
+          district: memberTambol.text,
+          province: memberProvince.text,
+        ),
+      );
+      resetForm();
+    }
+
     // members.add(
     //   Members(
     //     amphure: addressController.selectedAmphure.value,
@@ -180,7 +234,6 @@ class ManageMemberController extends GetxController {
     //     province: addressController.selectedProvince.value,
     //   ),
     // );
-    resetForm();
   }
 
   resetForm() {
@@ -190,44 +243,88 @@ class ManageMemberController extends GetxController {
     memberFirstName.text = "";
     memberIdCard.text = "";
     memberLocation.text = "";
-    memberPosition.text = "";
+    // memberPosition.text = "";
     memberPositionCommu.text = "";
-    memberStationId.text = "0";
-    memberStationName.text = "";
+    // memberStationId.text = "0";
+    // memberStationName.text = "";
     memberSurName.text = "";
     memberTelephone.text = "";
     memberPositionCommuChips.clear();
     memberExpChips.clear();
-    addressController.selectedProvince.value = '0|';
-    addressController.selectedAmphure.value = "0|";
-    addressController.selectedTambol.value = '0|';
+    // addressController.selectedProvince.value = '0|';
+    // addressController.selectedAmphure.value = '0|';
+    // addressController.selectedTambol.value = '0|';
+    selectedMemberPosition.value = '';
+    selectedMemberPositionCommu.value = '';
     update();
   }
 
   addPositionCommuToChip(String positionCommu) {
-    talker.debug('$logTitle::addPositionCommuToChip:$positionCommu');
-    memberPositionCommuChips.add(positionCommu);
     talker.debug(
-        '$logTitle::addPositionCommuToChip:${memberPositionCommuChips.toString()}');
-    update();
+        '$logTitle::addPositionCommuToChip:${selectedMemberPositionCommu.value}');
+    memberPositionCommuChips.add(selectedMemberPositionCommu.value);
+    talker.debug(
+        '$logTitle::addPositionCommuToChip:${memberPositionCommuChips.join("|")}');
+    memberPositionCommuChips.refresh();
   }
 
   deletePositionCommuToChip(String positionCommu) {
     talker.debug('$logTitle::deletePositionCommuToChip:$positionCommu');
     memberPositionCommuChips.remove(positionCommu);
-    update();
+    memberPositionCommuChips.refresh();
   }
 
-  addCommissExpToChip(String memberExp) {
-    talker.debug('$logTitle::addCommissExpToChip:$memberExp');
-    memberExpChips.add(memberExp);
-    talker.debug('$logTitle::addCommissExpToChip:${memberExpChips.toString()}');
-    update();
+  addMemberExpToChip(String exp) {
+    talker.debug('$logTitle::addMemberExpToChip:$memberExp');
+    memberExpChips.add(exp);
+    talker.debug('$logTitle::addMemberExpToChip:${memberExpChips.toString()}');
+    memberExp.text = '';
+    memberExpChips.refresh();
   }
 
-  deleteCommissExpToChip(String memberExp) {
-    talker.debug('$logTitle::deleteCommissToChip:$memberExp');
+  deleteMemberExpToChip(String memberExp) {
+    talker.debug('$logTitle::deleteMemberToChip:$memberExp');
     memberExpChips.remove(memberExp);
-    update();
+    memberExpChips.refresh();
+  }
+
+  Future listMemberPosition() async {
+    talker.info('$logTitle::listMemberPosition');
+    Map<String, String> qParams = {
+      "offset": "0",
+      "limit": queryParamLimit,
+      "order": queryParamOrderBy,
+    };
+    try {
+      final result = await CommissPositionService().list(qParams);
+      memberPositionList.clear();
+      memberPositionList.add("");
+      for (var item in result!.data!) {
+        memberPositionList.add(item.name!);
+      }
+      // update();
+    } catch (e) {
+      talker.error('$e');
+    }
+  }
+
+  Future listMemberPositionCommu() async {
+    talker.info('$logTitle::listMemberPositionCommu');
+    Map<String, String> qParams = {
+      "offset": "0",
+      "limit": queryParamLimit,
+      "order": queryParamOrderBy,
+    };
+    try {
+      final result = await CommissPositionCommuService().list(qParams);
+      memberPositionCommuList.clear();
+      memberPositionCommuList.add("");
+      for (var item in result!.data!) {
+        memberPositionCommuList.add(item.name!);
+      }
+      // update();
+    } catch (e) {
+      talker.error('$e');
+    }
   }
 }

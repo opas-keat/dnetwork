@@ -265,7 +265,7 @@ class ManageMemberController extends GetxController {
   }
 
   addMemberExpToChip(String exp) {
-    talker.debug('$logTitle::addMemberExpToChip:$memberExp');
+    talker.debug('$logTitle::addMemberExpToChip:$exp');
     memberExpChips.add(exp);
     talker.debug('$logTitle::addMemberExpToChip:${memberExpChips.toString()}');
     memberExp.text = '';

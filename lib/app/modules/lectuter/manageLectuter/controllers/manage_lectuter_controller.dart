@@ -23,8 +23,7 @@ class ManageLectuterController extends GetxController {
 
   RxString lectuterError = ''.obs;
 
-  int selectedIndexFromTable = 0;
-
+  final formKey = GlobalKey<FormState>();
   final lectuterPreName = TextEditingController();
   final lectuterFirstName = TextEditingController();
   final lectuterSurName = TextEditingController();
@@ -36,6 +35,26 @@ class ManageLectuterController extends GetxController {
   final lectuterExp = TextEditingController();
 
   final lectuterExpChips = <String>[].obs;
+
+  int selectedIndexFromTable = -1;
+
+  @override
+  void onInit() {
+    super.onInit();
+    talker.info('$logTitle onInit');
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+    talker.info('$logTitle onReady');
+  }
+
+  @override
+  void onClose() {
+    talker.info('$logTitle onClose');
+    super.onClose();
+  }
 
   Future<bool> saveLectuter() async {
     talker.info('$logTitle:saveLectuter:');
@@ -66,6 +85,7 @@ class ManageLectuterController extends GetxController {
       isLoading.value = false;
       lectuterList.clear();
       lectuters.clear();
+      addressController.selectedProvince.value = '0|';
       resetForm();
       return true;
     } catch (e) {
@@ -85,6 +105,7 @@ class ManageLectuterController extends GetxController {
 
   selectDataFromTable(int index) {
     selectedIndexFromTable = index;
+    lectuterExpChips.clear();
     lectuterPreName.text = lectuterList[index].lectuterPreName!;
     lectuterFirstName.text = lectuterList[index].lectuterFirstName!;
     lectuterSurName.text = lectuterList[index].lectuterSurName!;
@@ -93,28 +114,39 @@ class ManageLectuterController extends GetxController {
     lectuterFacebook.text = lectuterList[index].lectuterFacebook!;
     lectuterAgency.text = lectuterList[index].agency!;
     lectuterAffiliate.text = lectuterList[index].affiliate!;
-    lectuterExp.text = lectuterList[index].lectuterExp!;
+    // lectuterExp.text = lectuterList[index].lectuterExp!;
     addressController.selectedProvince.value = lectuterList[index].province!;
+    if (lectuterList[index].lectuterExp!.isNotEmpty) {
+      lectuterExpChips.addAll(lectuterList[index].lectuterExp!.split('|'));
+    }
     update();
+    lectuterList.refresh();
   }
 
   addToDataTable() {
     talker.info('$logTitle:addToDataTable:');
-    lectuterList.add(
-      LectuterData(
-        name: lectuterPreName.text,
-        lectuterFirstName: lectuterFirstName.text,
-        lectuterSurName: lectuterSurName.text,
-        agency: lectuterAgency.text,
-        affiliate: lectuterAffiliate.text,
-        telephone: lectuterTelephone.text,
-        province: addressController.selectedProvince.value,
-        lectuterExp: lectuterExp.text,
-        lectuterFacebook: lectuterFacebook.text,
-        lectuterLine: lectuterLine.text,
-        lectuterPreName: lectuterPreName.text,
-      ),
-    );
+    final isValid = formKey.currentState!.validate();
+    if (isValid) {
+      if (lectuterExp.text.isNotEmpty) {
+        lectuterExpChips.add(lectuterExp.text);
+      }
+      lectuterList.add(
+        LectuterData(
+          name: lectuterPreName.text,
+          lectuterFirstName: lectuterFirstName.text,
+          lectuterSurName: lectuterSurName.text,
+          agency: lectuterAgency.text,
+          affiliate: lectuterAffiliate.text,
+          telephone: lectuterTelephone.text,
+          province: addressController.selectedProvince.value,
+          lectuterExp: lectuterExpChips.join('|'),
+          lectuterFacebook: lectuterFacebook.text,
+          lectuterLine: lectuterLine.text,
+          lectuterPreName: lectuterPreName.text,
+        ),
+      );
+      resetForm();
+    }
     // lectuters.add(
     //   Lectuters(
     //     lectuterAffiliate: lectuterAffiliate.text,
@@ -129,7 +161,6 @@ class ManageLectuterController extends GetxController {
     //     province: addressController.selectedProvince.value.split('|').last,
     //   ),
     // );
-    resetForm();
   }
 
   resetForm() {
@@ -142,21 +173,23 @@ class ManageLectuterController extends GetxController {
     lectuterAgency.text = "";
     lectuterAffiliate.text = "";
     lectuterExp.text = "";
-    addressController.selectedProvince.value = '0|';
+    lectuterExpChips.clear();
+    // addressController.selectedProvince.value = '0|';
     update();
   }
 
-  addLectuterExpToChip(String lectuterExp) {
-    talker.debug('$logTitle::addLectuterExpToChip:$lectuterExp');
-    lectuterExpChips.add(lectuterExp);
+  addLectuterExpToChip(String exp) {
+    talker.debug('$logTitle::addLectuterExpToChip:$exp');
+    lectuterExpChips.add(exp);
     talker.debug(
         '$logTitle::addLectuterExpToChip:${lectuterExpChips.toString()}');
-    update();
+    lectuterExp.text = "";
+    lectuterExpChips.refresh();
   }
 
   deleteLectuterExpToChip(String lectuterExp) {
     talker.debug('$logTitle::deleteLectuterExpToChip:$lectuterExp');
     lectuterExpChips.remove(lectuterExp);
-    update();
+    lectuterExpChips.refresh();
   }
 }

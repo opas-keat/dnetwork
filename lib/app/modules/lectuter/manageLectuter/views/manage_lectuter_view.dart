@@ -74,8 +74,11 @@ class ManageLectuterView extends StatelessWidget {
                                 controller.lectuterList.obs.value[index],
                                 controller,
                               )
-                            : lectuterDataRowLayoutSmall(index,
-                                controller.lectuterList.obs.value[index]),
+                            : lectuterDataRowLayoutSmall(
+                                index,
+                                controller.lectuterList.obs.value[index],
+                                controller,
+                              ),
                         // (index) => StationDataRow(
                         //     index, controller.commissList.obs.value[index]),
                       ),
@@ -170,263 +173,317 @@ class ManageLectuterView extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: defaultPadding),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: defaultPadding),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          AddressView(
-                            showPostCode: false,
-                            showAmphure: false,
-                            showTambol: false,
-                          ),
-                          CustomText(
-                            text: "คำนำหน้า",
-                            color: Colors.black87.withOpacity(.9),
-                          ),
-                          const SizedBox(height: defaultPadding / 2),
-                          TextFormField(
-                            controller: controller.lectuterPreName,
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                              fillColor: Colors.white.withOpacity(.8),
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(defaultPadding / 2),
-                                borderSide: const BorderSide(
-                                    color: Colors.black54, width: 1),
-                              ),
-                              isCollapsed: true,
-                              contentPadding:
-                                  const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                  Form(
+                    key: controller.formKey,
+                    child: Expanded(
+                      child: SingleChildScrollView(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: defaultPadding),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            AddressView(
+                              showPostCode: false,
+                              showAmphure: false,
+                              showTambol: false,
                             ),
-                          ),
-                          const SizedBox(height: defaultPadding),
-                          CustomText(
-                            text: "ชื่อ",
-                            color: Colors.black87.withOpacity(.9),
-                          ),
-                          const SizedBox(height: defaultPadding / 2),
-                          TextFormField(
-                            controller: controller.lectuterFirstName,
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                              fillColor: Colors.white.withOpacity(.8),
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(defaultPadding / 2),
-                                borderSide: const BorderSide(
-                                    color: Colors.black54, width: 1),
-                              ),
-                              isCollapsed: true,
-                              contentPadding:
-                                  const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                            CustomText(
+                              text: "คำนำหน้า",
+                              color: Colors.black87.withOpacity(.9),
                             ),
-                          ),
-                          const SizedBox(height: defaultPadding),
-                          CustomText(
-                            text: "นามสกุล",
-                            color: Colors.black87.withOpacity(.9),
-                          ),
-                          const SizedBox(height: defaultPadding / 2),
-                          TextFormField(
-                            controller: controller.lectuterSurName,
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                              fillColor: Colors.white.withOpacity(.8),
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(defaultPadding / 2),
-                                borderSide: const BorderSide(
-                                    color: Colors.black54, width: 1),
+                            const SizedBox(height: defaultPadding / 2),
+                            TextFormField(
+                              controller: controller.lectuterPreName,
+                              keyboardType: TextInputType.text,
+                              decoration: InputDecoration(
+                                fillColor: Colors.white.withOpacity(.8),
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(defaultPadding / 2),
+                                  borderSide: const BorderSide(
+                                      color: Colors.black54, width: 1),
+                                ),
+                                isCollapsed: true,
+                                contentPadding:
+                                    const EdgeInsets.fromLTRB(12, 14, 12, 12),
                               ),
-                              isCollapsed: true,
-                              contentPadding:
-                                  const EdgeInsets.fromLTRB(12, 14, 12, 12),
                             ),
-                          ),
-                          const SizedBox(height: defaultPadding),
-                          CustomText(
-                            text: "เบอร์โทร",
-                            color: Colors.black87.withOpacity(.9),
-                          ),
-                          const SizedBox(height: defaultPadding / 2),
-                          TextFormField(
-                            controller: controller.lectuterTelephone,
-                            keyboardType: TextInputType.number,
-                            inputFormatters: <TextInputFormatter>[
-                              FilteringTextInputFormatter.digitsOnly,
-                              LengthLimitingTextInputFormatter(10),
-                            ],
-                            decoration: InputDecoration(
-                              fillColor: Colors.white.withOpacity(.8),
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(defaultPadding / 2),
-                                borderSide: const BorderSide(
-                                    color: Colors.black54, width: 1),
+                            const SizedBox(height: defaultPadding),
+                            Wrap(
+                              direction: Axis.horizontal,
+                              children: [
+                                CustomText(
+                                  text: "ชื่อ",
+                                  color: Colors.black87.withOpacity(.9),
+                                ),
+                                CustomText(
+                                  text: "*",
+                                  color: Colors.red.withOpacity(.9),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: defaultPadding / 2),
+                            TextFormField(
+                              controller: controller.lectuterFirstName,
+                              keyboardType: TextInputType.text,
+                              decoration: InputDecoration(
+                                fillColor: Colors.white.withOpacity(.8),
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(defaultPadding / 2),
+                                  borderSide: const BorderSide(
+                                      color: Colors.black54, width: 1),
+                                ),
+                                isCollapsed: true,
+                                contentPadding:
+                                    const EdgeInsets.fromLTRB(12, 14, 12, 12),
                               ),
-                              isCollapsed: true,
-                              contentPadding:
-                                  const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'กรุณากรอก ชื่อ';
+                                }
+                                return null;
+                              },
                             ),
-                          ),
-                          const SizedBox(height: defaultPadding),
-                          CustomText(
-                            text: "LINE ID",
-                            color: Colors.black87.withOpacity(.9),
-                          ),
-                          const SizedBox(height: defaultPadding / 2),
-                          TextFormField(
-                            controller: controller.lectuterLine,
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                              fillColor: Colors.white.withOpacity(.8),
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(defaultPadding / 2),
-                                borderSide: const BorderSide(
-                                    color: Colors.black54, width: 1),
+                            const SizedBox(height: defaultPadding),
+                            Wrap(
+                              direction: Axis.horizontal,
+                              children: [
+                                CustomText(
+                                  text: "นามสกุล",
+                                  color: Colors.black87.withOpacity(.9),
+                                ),
+                                CustomText(
+                                  text: "*",
+                                  color: Colors.red.withOpacity(.9),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: defaultPadding / 2),
+                            TextFormField(
+                              controller: controller.lectuterSurName,
+                              keyboardType: TextInputType.text,
+                              decoration: InputDecoration(
+                                fillColor: Colors.white.withOpacity(.8),
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(defaultPadding / 2),
+                                  borderSide: const BorderSide(
+                                      color: Colors.black54, width: 1),
+                                ),
+                                isCollapsed: true,
+                                contentPadding:
+                                    const EdgeInsets.fromLTRB(12, 14, 12, 12),
                               ),
-                              isCollapsed: true,
-                              contentPadding:
-                                  const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'กรุณากรอก นามสกุล';
+                                }
+                                return null;
+                              },
                             ),
-                          ),
-                          const SizedBox(height: defaultPadding),
-                          CustomText(
-                            text: "Facebook",
-                            color: Colors.black87.withOpacity(.9),
-                          ),
-                          const SizedBox(height: defaultPadding / 2),
-                          TextFormField(
-                            controller: controller.lectuterFacebook,
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                              fillColor: Colors.white.withOpacity(.8),
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(defaultPadding / 2),
-                                borderSide: const BorderSide(
-                                    color: Colors.black54, width: 1),
+                            const SizedBox(height: defaultPadding),
+                            Wrap(
+                              direction: Axis.horizontal,
+                              children: [
+                                CustomText(
+                                  text: "เบอร์โทร",
+                                  color: Colors.black87.withOpacity(.9),
+                                ),
+                                CustomText(
+                                  text: "*",
+                                  color: Colors.red.withOpacity(.9),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: defaultPadding / 2),
+                            TextFormField(
+                              controller: controller.lectuterTelephone,
+                              keyboardType: TextInputType.number,
+                              inputFormatters: <TextInputFormatter>[
+                                FilteringTextInputFormatter.digitsOnly,
+                                LengthLimitingTextInputFormatter(10),
+                              ],
+                              decoration: InputDecoration(
+                                fillColor: Colors.white.withOpacity(.8),
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(defaultPadding / 2),
+                                  borderSide: const BorderSide(
+                                      color: Colors.black54, width: 1),
+                                ),
+                                isCollapsed: true,
+                                contentPadding:
+                                    const EdgeInsets.fromLTRB(12, 14, 12, 12),
                               ),
-                              isCollapsed: true,
-                              contentPadding:
-                                  const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'กรุณากรอก เบอร์โทร';
+                                }
+                                return null;
+                              },
                             ),
-                          ),
-                          const SizedBox(height: defaultPadding),
-                          CustomText(
-                            text: "หน่วยงาน",
-                            color: Colors.black87.withOpacity(.9),
-                          ),
-                          const SizedBox(height: defaultPadding / 2),
-                          TextFormField(
-                            controller: controller.lectuterAgency,
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                              fillColor: Colors.white.withOpacity(.8),
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(defaultPadding / 2),
-                                borderSide: const BorderSide(
-                                    color: Colors.black54, width: 1),
+                            const SizedBox(height: defaultPadding),
+                            CustomText(
+                              text: "LINE ID",
+                              color: Colors.black87.withOpacity(.9),
+                            ),
+                            const SizedBox(height: defaultPadding / 2),
+                            TextFormField(
+                              controller: controller.lectuterLine,
+                              keyboardType: TextInputType.text,
+                              decoration: InputDecoration(
+                                fillColor: Colors.white.withOpacity(.8),
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(defaultPadding / 2),
+                                  borderSide: const BorderSide(
+                                      color: Colors.black54, width: 1),
+                                ),
+                                isCollapsed: true,
+                                contentPadding:
+                                    const EdgeInsets.fromLTRB(12, 14, 12, 12),
                               ),
-                              isCollapsed: true,
-                              contentPadding:
-                                  const EdgeInsets.fromLTRB(12, 14, 12, 12),
                             ),
-                          ),
-                          const SizedBox(height: defaultPadding),
-                          CustomText(
-                            text: "สังกัดวิทยากร",
-                            color: Colors.black87.withOpacity(.9),
-                          ),
-                          const SizedBox(height: defaultPadding / 2),
-                          TextFormField(
-                            controller: controller.lectuterAffiliate,
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                              fillColor: Colors.white.withOpacity(.8),
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(defaultPadding / 2),
-                                borderSide: const BorderSide(
-                                    color: Colors.black54, width: 1),
+                            const SizedBox(height: defaultPadding),
+                            CustomText(
+                              text: "Facebook",
+                              color: Colors.black87.withOpacity(.9),
+                            ),
+                            const SizedBox(height: defaultPadding / 2),
+                            TextFormField(
+                              controller: controller.lectuterFacebook,
+                              keyboardType: TextInputType.text,
+                              decoration: InputDecoration(
+                                fillColor: Colors.white.withOpacity(.8),
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(defaultPadding / 2),
+                                  borderSide: const BorderSide(
+                                      color: Colors.black54, width: 1),
+                                ),
+                                isCollapsed: true,
+                                contentPadding:
+                                    const EdgeInsets.fromLTRB(12, 14, 12, 12),
                               ),
-                              isCollapsed: true,
-                              contentPadding:
-                                  const EdgeInsets.fromLTRB(12, 14, 12, 12),
                             ),
-                          ),
-                          const SizedBox(height: defaultPadding),
-                          CustomText(
-                            text: "ประสบการณ์การเป็นวิทยากร",
-                            color: Colors.black87.withOpacity(.9),
-                          ),
-                          const SizedBox(height: defaultPadding / 2),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: TextFormField(
-                                  controller: controller.lectuterExp,
-                                  keyboardType: TextInputType.text,
-                                  decoration: InputDecoration(
-                                    fillColor: Colors.white.withOpacity(.8),
-                                    filled: true,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(
-                                          defaultPadding / 2),
-                                      borderSide: const BorderSide(
-                                          color: Colors.black54, width: 1),
+                            const SizedBox(height: defaultPadding),
+                            CustomText(
+                              text: "หน่วยงาน",
+                              color: Colors.black87.withOpacity(.9),
+                            ),
+                            const SizedBox(height: defaultPadding / 2),
+                            TextFormField(
+                              controller: controller.lectuterAgency,
+                              keyboardType: TextInputType.text,
+                              decoration: InputDecoration(
+                                fillColor: Colors.white.withOpacity(.8),
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(defaultPadding / 2),
+                                  borderSide: const BorderSide(
+                                      color: Colors.black54, width: 1),
+                                ),
+                                isCollapsed: true,
+                                contentPadding:
+                                    const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                              ),
+                            ),
+                            const SizedBox(height: defaultPadding),
+                            CustomText(
+                              text: "สังกัดวิทยากร",
+                              color: Colors.black87.withOpacity(.9),
+                            ),
+                            const SizedBox(height: defaultPadding / 2),
+                            TextFormField(
+                              controller: controller.lectuterAffiliate,
+                              keyboardType: TextInputType.text,
+                              decoration: InputDecoration(
+                                fillColor: Colors.white.withOpacity(.8),
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(defaultPadding / 2),
+                                  borderSide: const BorderSide(
+                                      color: Colors.black54, width: 1),
+                                ),
+                                isCollapsed: true,
+                                contentPadding:
+                                    const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                              ),
+                            ),
+                            const SizedBox(height: defaultPadding),
+                            CustomText(
+                              text: "ประสบการณ์การเป็นวิทยากร",
+                              color: Colors.black87.withOpacity(.9),
+                            ),
+                            const SizedBox(height: defaultPadding / 2),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: TextFormField(
+                                    controller: controller.lectuterExp,
+                                    keyboardType: TextInputType.text,
+                                    decoration: InputDecoration(
+                                      fillColor: Colors.white.withOpacity(.8),
+                                      filled: true,
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(
+                                            defaultPadding / 2),
+                                        borderSide: const BorderSide(
+                                            color: Colors.black54, width: 1),
+                                      ),
+                                      isCollapsed: true,
+                                      contentPadding: const EdgeInsets.fromLTRB(
+                                          12, 14, 12, 12),
                                     ),
-                                    isCollapsed: true,
-                                    contentPadding: const EdgeInsets.fromLTRB(
-                                        12, 14, 12, 12),
                                   ),
                                 ),
-                              ),
-                              const SizedBox(width: defaultPadding / 2),
-                              IconButton(
-                                icon: const Icon(Icons.add_sharp),
-                                onPressed: () {
-                                  controller.addLectuterExpToChip(
-                                    controller.lectuterExp.text,
-                                  );
-                                },
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: defaultPadding / 2),
-                          Obx(
-                            () => Wrap(
-                              alignment: WrapAlignment.start,
-                              spacing: 5.0,
-                              runSpacing: 5.0,
-                              children: controller.lectuterExpChips.obs.value
-                                  .map((chip) => Chip(
-                                        backgroundColor: Colors.blue.shade100,
-                                        label: Text(chip),
-                                        onDeleted: () => controller
-                                            .deleteLectuterExpToChip(chip),
-                                      ))
-                                  .toList(),
+                                const SizedBox(width: defaultPadding / 2),
+                                IconButton(
+                                  icon: const Icon(Icons.add_sharp),
+                                  onPressed: () {
+                                    controller.addLectuterExpToChip(
+                                      controller.lectuterExp.text,
+                                    );
+                                  },
+                                ),
+                              ],
                             ),
-                          ),
-                          const SizedBox(height: defaultPadding),
-                        ],
+                            const SizedBox(height: defaultPadding / 2),
+                            Obx(
+                              () => Wrap(
+                                alignment: WrapAlignment.start,
+                                spacing: 5.0,
+                                runSpacing: 5.0,
+                                children: controller.lectuterExpChips.obs.value
+                                    .map((chip) => Chip(
+                                          backgroundColor: Colors.blue.shade100,
+                                          label: Text(chip),
+                                          onDeleted: () => controller
+                                              .deleteLectuterExpToChip(chip),
+                                        ))
+                                    .toList(),
+                              ),
+                            ),
+                            const SizedBox(height: defaultPadding),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -540,9 +597,23 @@ List<DataColumn> listColumn = [
 ];
 
 DataRow lectuterDataRow(
-    int index, LectuterData lectuterData, ManageLectuterController controller) {
-  return DataRow(
-    selected: false,
+  int index,
+  LectuterData lectuterData,
+  ManageLectuterController controller,
+) {
+  return DataRow.byIndex(
+    index: index + 1,
+    color: MaterialStateProperty.resolveWith(
+      (states) {
+        if ((index) == controller.selectedIndexFromTable) {
+          return Colors.amber.shade200;
+        } else if (index % 2 == 0) {
+          return Colors.blue[50];
+        } else {
+          return Colors.white;
+        }
+      },
+    ),
     onSelectChanged: (value) {
       controller.selectDataFromTable(index);
     },
@@ -634,8 +705,21 @@ DataRow lectuterDataRow(
 DataRow lectuterDataRowLayoutSmall(
   int index,
   LectuterData lectuterData,
+  ManageLectuterController controller,
 ) {
-  return DataRow(
+  return DataRow.byIndex(
+    index: index + 1,
+    color: MaterialStateProperty.resolveWith(
+      (states) {
+        if ((index) == controller.selectedIndexFromTable) {
+          return Colors.amber.shade200;
+        } else if (index % 2 == 0) {
+          return Colors.blue[50];
+        } else {
+          return Colors.white;
+        }
+      },
+    ),
     cells: [
       DataCell(
         Text(

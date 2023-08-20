@@ -8,6 +8,7 @@ import '../../../shared/custom_text.dart';
 import '../../../shared/info_card.dart';
 import '../../../shared/main_chart.dart';
 import '../../address/controllers/address_controller.dart';
+import '../controllers/budget_controller.dart';
 import 'budget_statistics.dart';
 
 class BudgetLayoutLarge extends StatelessWidget {
@@ -15,9 +16,11 @@ class BudgetLayoutLarge extends StatelessWidget {
     super.key,
   });
   final AddressController addressController = Get.put(AddressController());
+  // final BudgetController controller = Get.put(BudgetController());
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(BudgetController());
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -85,10 +88,14 @@ class BudgetLayoutLarge extends StatelessWidget {
         Expanded(
           child: Padding(
             padding: const EdgeInsets.only(left: defaultPadding / 2),
-            child: MainChart(
-              header: "สถิติข้อมูล งบประมาณ รับ-จ่าย",
-              subHeader: "ประเภทงบประมาณ",
-              listSummaryChart: summaryBudgetChart,
+            child: GetBuilder<BudgetController>(
+              builder: (_) => controller.isLoadingChart.value
+                  ? const Center(child: CircularProgressIndicator())
+                  : MainChart(
+                      header: "สถิติข้อมูล งบประมาณ รับ-จ่าย",
+                      subHeader: "ประเภทงบประมาณ",
+                      listSummaryChart: controller.summaryBudgetChart.obs.value,
+                    ),
             ),
           ),
         ),

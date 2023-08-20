@@ -20,7 +20,7 @@ List<SummaryChart> summaryBudgetChart = [
     icon: Icons.edit_document,
     color: const Color(0xFFFFCF26),
     name: "งานช่วยเหลือ",
-    value: 0,
+    value: 10,
   ),
   SummaryChart(
     icon: Icons.edit_document,

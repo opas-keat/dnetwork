@@ -1,6 +1,7 @@
 library service;
 
-import 'dart:math';
+import 'dart:math' as math;
+import 'dart:ui' as ui;
 
 import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
@@ -9,12 +10,17 @@ import 'package:talker_flutter/talker_flutter.dart';
 final formatterPrice = NumberFormat('#,###,##0.00');
 final formatterItem = NumberFormat('#,###,##0.##');
 
-final _random = Random();
+final _random = math.Random();
 int randomValue() {
   int min = 0;
   int max = 5;
   return min + _random.nextInt(max - min);
   // return int next(int min, int max) => min + _random.nextInt(max - min);
+}
+
+randomColor() {
+  return ui.Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
+      .withOpacity(1.0);
 }
 
 final talker = Talker(

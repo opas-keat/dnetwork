@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 
 import '../../../api/api_params.dart';
 import '../../../api/services/budget_service.dart';
+import '../../../api/services/budget_type_service.dart';
+import '../../../data/models/summary_chart.dart';
 import '../../../data/responses/budget_service_response.dart';
 import '../../../shared/utils.dart';
 import '../../address/controllers/address_controller.dart';
@@ -11,6 +13,7 @@ class BudgetController extends GetxController {
   final logTitle = "BudgetController";
   RxBool isLoading = true.obs;
   RxBool isLoadingAdd = true.obs;
+  RxBool isLoadingChart = true.obs;
   AddressController addressController = Get.put(AddressController());
 
   final listBudgetStatistics = <BudgetData>[].obs;
@@ -21,14 +24,57 @@ class BudgetController extends GetxController {
   final budgetType = TextEditingController(text: "");
   // final province = TextEditingController();
 
+  final summaryBudgetChart = <SummaryChart>[].obs;
+
   @override
   void onInit() {
     super.onInit();
-    // isLoading.value = true;
-    // listBudgetStatistics.value = listBudgetStatisticsData;
-    // update();
-    // getBudget();
+    talker.info('$logTitle onInit');
     listBudget();
+    listBudgetType();
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+    talker.info('$logTitle onReady');
+    update();
+  }
+
+  @override
+  void onClose() {
+    talker.info('$logTitle onClose');
+    super.onClose();
+  }
+
+  listBudgetType() async {
+    talker.info('$logTitle::listBudget');
+    isLoadingChart.value = true;
+    Map<String, String> qParams = {
+      "offset": "0",
+      "limit": queryParamLimit,
+      "order": queryParamOrderBy,
+      "province": addressController.selectedProvince.value.split('|').last,
+    };
+    try {
+      final result = await BudgetTypeService().list(qParams);
+      summaryBudgetChart.clear();
+      for (final item in result!.data!) {
+        summaryBudgetChart.add(
+          SummaryChart(
+            icon: Icons.edit_document,
+            color: randomColor(),
+            name: item.name!,
+            value: item.totalData!,
+          ),
+        );
+      }
+      isLoadingChart.value = false;
+      summaryBudgetChart.refresh();
+      // update();
+    } catch (e) {
+      talker.error('$e');
+    }
   }
 
   listBudget() async {

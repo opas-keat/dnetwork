@@ -12,9 +12,23 @@ class InfoCardController extends GetxController {
 
   @override
   void onInit() {
-    super.onInit();
+    talker.info('$logTitle onInit');
     isLoading.value = true;
     getSummaryInfo();
+    super.onInit();
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+    talker.info('$logTitle onReady');
+    // update();
+  }
+
+  @override
+  void onClose() {
+    talker.info('$logTitle onClose');
+    super.onClose();
   }
 
   getSummaryInfo() async {

@@ -119,7 +119,8 @@ class ManageLectuterController extends GetxController {
     lectuterLine.text = lectuterList[index].lectuterLine!;
     lectuterFacebook.text = lectuterList[index].lectuterFacebook!;
     lectuterAgency.text = lectuterList[index].agency!;
-    lectuterAffiliate.text = lectuterList[index].affiliate!;
+    selectedLectuterAffiliate.value = lectuterList[index].affiliate!;
+    // lectuterAffiliate.text = lectuterList[index].affiliate!;
     // lectuterExp.text = lectuterList[index].lectuterExp!;
     addressController.selectedProvince.value = lectuterList[index].province!;
     if (lectuterList[index].lectuterExp!.isNotEmpty) {
@@ -142,7 +143,7 @@ class ManageLectuterController extends GetxController {
           lectuterFirstName: lectuterFirstName.text,
           lectuterSurName: lectuterSurName.text,
           agency: lectuterAgency.text,
-          affiliate: lectuterAffiliate.text,
+          affiliate: selectedLectuterAffiliate.value,
           telephone: lectuterTelephone.text,
           province: addressController.selectedProvince.value,
           lectuterExp: lectuterExpChips.join('|'),
@@ -177,7 +178,8 @@ class ManageLectuterController extends GetxController {
     lectuterLine.text = "";
     lectuterFacebook.text = "";
     lectuterAgency.text = "";
-    lectuterAffiliate.text = "";
+    // lectuterAffiliate.text = "";
+    selectedLectuterAffiliate.value = "";
     lectuterExp.text = "";
     lectuterExpChips.clear();
     // addressController.selectedProvince.value = '0|';

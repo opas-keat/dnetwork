@@ -19,6 +19,7 @@ class ApiEndPoints {
   static const village = "/village";
   // ---- lectuter ----
   static const lectuter = "/lectuter";
+  static const lectuterAffiliate = "/lectuter_affiliate";
   // ---- budget ----
   static const budget = "/budget";
   static const budgetType = "/budget_type";

@@ -315,6 +315,8 @@ class ManageTrainingView extends StatelessWidget {
                             const SizedBox(height: defaultPadding / 2),
                             Obx(
                               () => DropdownButtonFormField<String>(
+                                isDense: true,
+                                isExpanded: true,
                                 decoration: InputDecoration(
                                   fillColor: Colors.white.withOpacity(.8),
                                   filled: true,

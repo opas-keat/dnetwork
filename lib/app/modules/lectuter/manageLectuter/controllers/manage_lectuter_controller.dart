@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../../api/api_params.dart';
+import '../../../../api/services/lectuter_affiliate_service.dart';
 import '../../../../api/services/lectuter_service.dart';
 import '../../../../data/requests/lectuter_service_request.dart';
 import '../../../../data/responses/lectuter_service_response.dart';
@@ -15,6 +17,9 @@ class ManageLectuterController extends GetxController {
 
   Rx<String> filePath = ''.obs;
   Rx<XFile> fileUpload = XFile('').obs;
+
+  final lectuterAffiliateList = <String>[].obs;
+  Rx<String> selectedLectuterAffiliate = "".obs;
 
   final lectuterList = <LectuterData>[].obs;
   final processList = [].obs;
@@ -42,6 +47,7 @@ class ManageLectuterController extends GetxController {
   void onInit() {
     super.onInit();
     talker.info('$logTitle onInit');
+    listLectuterAffiliate();
   }
 
   @override
@@ -191,5 +197,25 @@ class ManageLectuterController extends GetxController {
     talker.debug('$logTitle::deleteLectuterExpToChip:$lectuterExp');
     lectuterExpChips.remove(lectuterExp);
     lectuterExpChips.refresh();
+  }
+
+  Future listLectuterAffiliate() async {
+    talker.info('$logTitle::listLectuterAffiliate');
+    Map<String, String> qParams = {
+      "offset": "0",
+      "limit": queryParamLimit,
+      "order": queryParamOrderBy,
+    };
+    try {
+      final result = await LectuterAffiliateService().list(qParams);
+      lectuterAffiliateList.clear();
+      lectuterAffiliateList.add("");
+      for (var item in result!.data!) {
+        lectuterAffiliateList.add(item.name!);
+      }
+      // update();
+    } catch (e) {
+      talker.error('$e');
+    }
   }
 }

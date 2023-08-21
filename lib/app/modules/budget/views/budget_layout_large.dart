@@ -15,7 +15,6 @@ class BudgetLayoutLarge extends StatelessWidget {
     super.key,
   });
   final AddressController addressController = Get.put(AddressController());
-  // final BudgetController controller = Get.put(BudgetController());
 
   @override
   Widget build(BuildContext context) {

@@ -409,23 +409,67 @@ class ManageLectuterView extends StatelessWidget {
                               color: Colors.black87.withOpacity(.9),
                             ),
                             const SizedBox(height: defaultPadding / 2),
-                            TextFormField(
-                              controller: controller.lectuterAffiliate,
-                              keyboardType: TextInputType.text,
-                              decoration: InputDecoration(
-                                fillColor: Colors.white.withOpacity(.8),
-                                filled: true,
-                                border: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.circular(defaultPadding / 2),
-                                  borderSide: const BorderSide(
-                                      color: Colors.black54, width: 1),
+                            Obx(
+                              () => DropdownButtonFormField<String>(
+                                isDense: true,
+                                isExpanded: true,
+                                decoration: InputDecoration(
+                                  fillColor: Colors.white.withOpacity(.8),
+                                  filled: true,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(
+                                        defaultPadding / 2),
+                                    borderSide: const BorderSide(
+                                        color: Colors.black54, width: 1),
+                                  ),
+                                  isCollapsed: true,
+                                  contentPadding:
+                                      const EdgeInsets.fromLTRB(12, 14, 12, 12),
                                 ),
-                                isCollapsed: true,
-                                contentPadding:
-                                    const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                                value:
+                                    controller.selectedLectuterAffiliate.value,
+                                onChanged: (newValue) {
+                                  controller.selectedLectuterAffiliate.value =
+                                      newValue!;
+                                },
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'กรุณาเลือก สังกัดวิทยากร';
+                                  }
+                                  return null;
+                                },
+                                items: controller
+                                    .lectuterAffiliateList.obs.value
+                                    .map((item) {
+                                  return DropdownMenuItem<String>(
+                                    value: item,
+                                    child: Text(
+                                      item,
+                                      textScaleFactor: 0.9,
+                                    ),
+                                  );
+                                }).toList(),
                               ),
                             ),
+                            // TextFormField(
+                            //   controller: controller.lectuterAffiliate,
+                            //   keyboardType: TextInputType.text,
+                            //   decoration: InputDecoration(
+                            //     fillColor: Colors.white.withOpacity(.8),
+                            //     filled: true,
+                            //     border: OutlineInputBorder(
+                            //       borderRadius:
+                            //           BorderRadius.circular(defaultPadding / 2),
+                            //       borderSide: const BorderSide(
+                            //           color: Colors.black54, width: 1),
+                            //     ),
+                            //     isCollapsed: true,
+                            //     contentPadding:
+                            //         const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                            //   ),
+                            // ),
                             const SizedBox(height: defaultPadding),
                             CustomText(
                               text: "ประสบการณ์การเป็นวิทยากร",

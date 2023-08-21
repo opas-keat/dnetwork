@@ -525,46 +525,6 @@ class ManageNetworkView extends StatelessWidget {
                               direction: Axis.horizontal,
                               children: [
                                 CustomText(
-                                  text: "ว/ด/ป ที่แต่งตั้ง",
-                                  color: Colors.black87.withOpacity(.9),
-                                ),
-                                CustomText(
-                                  text: "*",
-                                  color: Colors.red.withOpacity(.9),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: defaultPadding / 2),
-                            TextFormField(
-                              controller: controller.networkDate,
-                              keyboardType: TextInputType.text,
-                              decoration: InputDecoration(
-                                fillColor: Colors.white.withOpacity(.8),
-                                filled: true,
-                                border: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.circular(defaultPadding / 2),
-                                  borderSide: const BorderSide(
-                                      color: Colors.black54, width: 1),
-                                ),
-                                isCollapsed: true,
-                                contentPadding:
-                                    const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                              ),
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'กรุณากรอก ว/ด/ป ที่แต่งตั้ง';
-                                }
-                                return null;
-                              },
-                            ),
-                            const SizedBox(height: defaultPadding),
-                            Wrap(
-                              direction: Axis.horizontal,
-                              children: [
-                                CustomText(
                                   text: "เบอร์โทร",
                                   color: Colors.black87.withOpacity(.9),
                                 ),
@@ -609,6 +569,46 @@ class ManageNetworkView extends StatelessWidget {
                               direction: Axis.horizontal,
                               children: [
                                 CustomText(
+                                  text: "ว/ด/ป ที่แต่งตั้ง",
+                                  color: Colors.black87.withOpacity(.9),
+                                ),
+                                CustomText(
+                                  text: "*",
+                                  color: Colors.red.withOpacity(.9),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: defaultPadding / 2),
+                            TextFormField(
+                              controller: controller.networkDate,
+                              keyboardType: TextInputType.text,
+                              decoration: InputDecoration(
+                                fillColor: Colors.white.withOpacity(.8),
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(defaultPadding / 2),
+                                  borderSide: const BorderSide(
+                                      color: Colors.black54, width: 1),
+                                ),
+                                isCollapsed: true,
+                                contentPadding:
+                                    const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                              ),
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'กรุณากรอก ว/ด/ป ที่แต่งตั้ง';
+                                }
+                                return null;
+                              },
+                            ),
+                            const SizedBox(height: defaultPadding),
+                            Wrap(
+                              direction: Axis.horizontal,
+                              children: [
+                                CustomText(
                                   text: "ตำแหน่งใน ศส.ปชต.",
                                   color: Colors.black87.withOpacity(.9),
                                 ),
@@ -621,6 +621,8 @@ class ManageNetworkView extends StatelessWidget {
                             const SizedBox(height: defaultPadding / 2),
                             Obx(
                               () => DropdownButtonFormField<String>(
+                                isDense: true,
+                                isExpanded: true,
                                 decoration: InputDecoration(
                                   fillColor: Colors.white.withOpacity(.8),
                                   filled: true,
@@ -688,6 +690,8 @@ class ManageNetworkView extends StatelessWidget {
                                 Expanded(
                                   child: Obx(
                                     () => DropdownButtonFormField<String>(
+                                      isDense: true,
+                                      isExpanded: true,
                                       decoration: InputDecoration(
                                         fillColor: Colors.white.withOpacity(.8),
                                         filled: true,

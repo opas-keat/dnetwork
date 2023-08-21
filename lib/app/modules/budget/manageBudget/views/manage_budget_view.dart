@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../../responsive.dart';
 import '../../../../data/responses/budget_service_response.dart';
@@ -104,16 +105,16 @@ class ManageBudgetView extends StatelessWidget {
                               children: [
                                 const Spacer(flex: 1),
                                 IconButton(
-                                  icon: const Icon(Icons.refresh_sharp),
+                                  icon: const Icon(Icons.add_sharp),
                                   onPressed: () {
-                                    controller.resetForm();
+                                    controller.addDataToTable();
                                   },
                                 ),
                                 const Spacer(flex: 1),
                                 IconButton(
-                                  icon: const Icon(Icons.add_sharp),
+                                  icon: const Icon(Icons.edit_sharp),
                                   onPressed: () {
-                                    controller.addDataToTable();
+                                    controller.editData();
                                   },
                                 ),
                                 const Spacer(flex: 1),
@@ -273,6 +274,21 @@ class ManageBudgetView extends StatelessWidget {
                             TextFormField(
                               controller: controller.budgetDate,
                               keyboardType: TextInputType.text,
+                              readOnly: true,
+                              onTap: () async {
+                                DateTime? newDateTime = await showDatePicker(
+                                    context: context,
+                                    initialDate:
+                                        DateTime.now(), //get today's date
+                                    firstDate: DateTime(
+                                        2000), //DateTime.now() - not to allow to choose before today.
+                                    lastDate: DateTime(2101));
+                                if (newDateTime != null) {
+                                  controller.budgetDate.text =
+                                      DateFormat('dd/MM/yyyy')
+                                          .format(newDateTime);
+                                }
+                              },
                               decoration: InputDecoration(
                                 fillColor: Colors.white.withOpacity(.8),
                                 filled: true,
@@ -455,33 +471,36 @@ class ManageBudgetView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         ElevatedButton.icon(
-                          onPressed: () async {
-                            Get.dialog(
-                              const Center(
-                                child: CircularProgressIndicator(),
-                              ),
-                              barrierDismissible: false,
-                            );
-                            final result = await controller.saveBudget();
-                            Get.back();
-                            result
-                                ? Get.offAllNamed(Routes.BUDGET)
-                                : Get.snackbar(
-                                    'Error',
-                                    controller.budgetError.value,
-                                    backgroundColor: accentColor,
-                                    snackPosition: SnackPosition.BOTTOM,
-                                    colorText: Colors.white,
-                                    icon: const Icon(
-                                      Icons.lock_person_outlined,
-                                      color: Colors.white,
-                                    ),
-                                    isDismissible: true,
-                                    margin: const EdgeInsets.all(
-                                      defaultPadding,
-                                    ),
-                                  );
+                          onPressed: () {
+                            Get.offAllNamed(Routes.BUDGET);
                           },
+                          // onPressed: () async {
+                          //   Get.dialog(
+                          //     const Center(
+                          //       child: CircularProgressIndicator(),
+                          //     ),
+                          //     barrierDismissible: false,
+                          //   );
+                          //   final result = await controller.saveBudget();
+                          //   Get.back();
+                          //   result
+                          //       ? Get.offAllNamed(Routes.BUDGET)
+                          //       : Get.snackbar(
+                          //           'Error',
+                          //           controller.budgetError.value,
+                          //           backgroundColor: accentColor,
+                          //           snackPosition: SnackPosition.BOTTOM,
+                          //           colorText: Colors.white,
+                          //           icon: const Icon(
+                          //             Icons.lock_person_outlined,
+                          //             color: Colors.white,
+                          //           ),
+                          //           isDismissible: true,
+                          //           margin: const EdgeInsets.all(
+                          //             defaultPadding,
+                          //           ),
+                          //         );
+                          // },
                           style: ElevatedButton.styleFrom(
                             padding: const EdgeInsets.symmetric(
                                 vertical: defaultPadding,

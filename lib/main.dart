@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -7,6 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'app/routes/app_pages.dart';
 import 'app/shared/constant.dart';
 import 'app/shared/page_not_found.dart';
+
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,9 +23,17 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       defaultTransition: Transition.noTransition,
       title: "d-network",
-      // localizationsDelegates: GlobalMaterialLocalizations.delegates,
+      localizationsDelegates: GlobalMaterialLocalizations.delegates,
+      supportedLocales: const [
+        Locale('th', 'TH'),
+      ],
+      // localizationsDelegates: [
+      //   GlobalMaterialLocalizations.delegate,
+      //   GlobalWidgetsLocalizations.delegate,
+      // ],
       // supportedLocales: const [
-      //   Locale('th', 'TH'),
+      //   Locale('en', 'US'), // English
+      //   Locale('th', 'TH'), // Thai
       // ],
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,

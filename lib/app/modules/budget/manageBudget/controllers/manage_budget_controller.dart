@@ -58,33 +58,38 @@ class ManageBudgetController extends GetxController {
     talker.info('$logTitle:saveBudget:');
     isLoading.value = true;
     try {
-      for (var budget in budgetList) {
-        budgets.add(
-          Budgets(
-            budgetBegin: budget.budgetBegin,
-            budgetDate: budget.budgetDate,
-            budgetRemain: budget.budgetRemain,
-            budgetType: budget.budgetType,
-            budgetUsed: budget.budgetUsed,
-            province: budget.province!.split('|').last,
-          ),
-        );
-      }
+      // for (var budget in budgetList) {
+      //   budgets.add(
+      //     Budgets(
+      //       budgetBegin: budget.budgetBegin,
+      //       budgetDate: budget.budgetDate,
+      //       budgetRemain: budget.budgetRemain,
+      //       budgetType: budget.budgetType,
+      //       budgetUsed: budget.budgetUsed,
+      //       province: budget.province!.split('|').last,
+      //     ),
+      //   );
+      // }
       final result = await BudgetService().createBudget(budgets.obs.value);
       talker.debug('response message : ${result?.message}');
       if (result?.code == "000") {
+        isLoading.value = false;
+        // budgetList.clear();
+        budgets.clear();
+        addressController.selectedProvince.value = '0|';
+        resetForm();
         return true;
       }
-      isLoading.value = false;
-      budgetList.clear();
-      budgets.clear();
-      addressController.selectedProvince.value = '0|';
-      resetForm();
+
       return true;
     } catch (e) {
       talker.error('$e');
       return false;
     }
+  }
+
+  editData() {
+    talker.info('$logTitle:editData:$selectedIndexFromTable');
   }
 
   deleteDataFromTable() {
@@ -137,7 +142,18 @@ class ManageBudgetController extends GetxController {
             province: addressController.selectedProvince.value,
           ),
         );
-        resetForm();
+        budgets.add(
+          Budgets(
+            budgetBegin: int.parse(budgetBegin.text),
+            budgetDate: budgetDate.text,
+            budgetRemain: int.parse(budgetRemain.text),
+            budgetType: selectedBudgetType.value,
+            budgetUsed: int.parse(budgetUsed.text),
+            province: addressController.selectedProvince.value.split('|').last,
+          ),
+        );
+        saveBudget();
+        // resetForm();
       } else {
         Get.dialog(
           AlertDialog(

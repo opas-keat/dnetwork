@@ -106,22 +106,30 @@ class ManageBudgetView extends StatelessWidget {
                                 const Spacer(flex: 1),
                                 IconButton(
                                   icon: const Icon(Icons.add_sharp),
-                                  onPressed: () {
-                                    controller.addDataToTable();
+                                  onPressed: () async {
+                                    // controller.addDataToTable();
+                                    Get.dialog(
+                                      const Center(
+                                        child: CircularProgressIndicator(),
+                                      ),
+                                      barrierDismissible: false,
+                                    );
+                                    await controller.save();
+                                    Get.back();
                                   },
                                 ),
                                 const Spacer(flex: 1),
                                 IconButton(
                                   icon: const Icon(Icons.edit_sharp),
-                                  onPressed: () {
-                                    controller.editData();
+                                  onPressed: () async {
+                                    await controller.editData();
                                   },
                                 ),
                                 const Spacer(flex: 1),
                                 IconButton(
                                   icon: const Icon(Icons.delete_sharp),
-                                  onPressed: () {
-                                    controller.deleteDataFromTable();
+                                  onPressed: () async {
+                                    await controller.deleteDataFromTable();
                                   },
                                 ),
                               ],
@@ -442,9 +450,10 @@ class ManageBudgetView extends StatelessWidget {
                             ),
                             const SizedBox(height: defaultPadding),
                             AddressView(
-                                showAmphure: false,
-                                showTambol: false,
-                                showPostCode: false),
+                              showAmphure: false,
+                              showTambol: false,
+                              showPostCode: false,
+                            ),
                             Row(
                               children: [
                                 CustomText(
@@ -471,36 +480,36 @@ class ManageBudgetView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         ElevatedButton.icon(
-                          onPressed: () {
-                            Get.offAllNamed(Routes.BUDGET);
-                          },
-                          // onPressed: () async {
-                          //   Get.dialog(
-                          //     const Center(
-                          //       child: CircularProgressIndicator(),
-                          //     ),
-                          //     barrierDismissible: false,
-                          //   );
-                          //   final result = await controller.saveBudget();
-                          //   Get.back();
-                          //   result
-                          //       ? Get.offAllNamed(Routes.BUDGET)
-                          //       : Get.snackbar(
-                          //           'Error',
-                          //           controller.budgetError.value,
-                          //           backgroundColor: accentColor,
-                          //           snackPosition: SnackPosition.BOTTOM,
-                          //           colorText: Colors.white,
-                          //           icon: const Icon(
-                          //             Icons.lock_person_outlined,
-                          //             color: Colors.white,
-                          //           ),
-                          //           isDismissible: true,
-                          //           margin: const EdgeInsets.all(
-                          //             defaultPadding,
-                          //           ),
-                          //         );
+                          // onPressed: () {
+                          //   Get.offAllNamed(Routes.BUDGET);
                           // },
+                          onPressed: () async {
+                            Get.dialog(
+                              const Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                              barrierDismissible: false,
+                            );
+                            final result = await controller.save();
+                            Get.back();
+                            result
+                                ? Get.offAllNamed(Routes.BUDGET)
+                                : Get.snackbar(
+                                    'Error',
+                                    controller.budgetError.value,
+                                    backgroundColor: accentColor,
+                                    snackPosition: SnackPosition.BOTTOM,
+                                    colorText: Colors.white,
+                                    icon: const Icon(
+                                      Icons.lock_person_outlined,
+                                      color: Colors.white,
+                                    ),
+                                    isDismissible: true,
+                                    margin: const EdgeInsets.all(
+                                      defaultPadding,
+                                    ),
+                                  );
+                          },
                           style: ElevatedButton.styleFrom(
                             padding: const EdgeInsets.symmetric(
                                 vertical: defaultPadding,
@@ -516,6 +525,8 @@ class ManageBudgetView extends StatelessWidget {
                         ),
                         ElevatedButton.icon(
                           onPressed: () {
+                            controller
+                                .addressController.selectedProvince.value = '';
                             Get.toNamed(Routes.BUDGET);
                           },
                           style: ElevatedButton.styleFrom(
@@ -593,8 +604,9 @@ DataRow budgetDataRow(
         }
       },
     ),
-    onSelectChanged: (value) {
-      controller.selectDataFromTable(index);
+    onSelectChanged: (value) async {
+      // controller.selectDataFromTable(index);
+      await controller.selectDataFromTable(index, budgetData.id!);
     },
     cells: [
       DataCell(

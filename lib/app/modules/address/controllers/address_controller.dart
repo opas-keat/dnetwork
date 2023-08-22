@@ -6,16 +6,22 @@ import '../../../shared/utils.dart';
 class AddressController extends GetxController {
   final logTitle = "AddressController";
   RxBool isLoading = true.obs;
-  final selectedProvince = '0|'.obs;
-  final selectedAmphure = '0|'.obs;
-  final selectedTambol = '0|'.obs;
+  // final selectedProvince = '0|'.obs;
+  // final selectedAmphure = '0|'.obs;
+  // final selectedTambol = '0|'.obs;
+  final selectedProvince = ''.obs;
+  final selectedAmphure = ''.obs;
+  final selectedTambol = ''.obs;
   // final selectedProvince = ''.obs;
   // Rx<AmphureData> selectedAmphure = AmphureData().obs;
   // Rx<TambolData> selectedTambol = TambolData().obs;
   // Rx<Province> selectedProvince = Province().obs;
-  final provinceList = <String>["0|"].obs;
-  final amphureList = <String>["0|"].obs;
-  final tambolList = <String>["0|"].obs;
+  // final provinceList = <String>["0|"].obs;
+  // final amphureList = <String>["0|"].obs;
+  // final tambolList = <String>["0|"].obs;
+  final provinceList = <String>[""].obs;
+  final amphureList = <String>[""].obs;
+  final tambolList = <String>[""].obs;
 
   @override
   void onInit() {
@@ -46,41 +52,42 @@ class AddressController extends GetxController {
     try {
       final result = await AddressService().listProvince();
       provinceList.clear();
-      provinceList.add("0|");
+      provinceList.add("");
       for (var item in result!.data!) {
-        provinceList.add("${item.pCode!}|${item.pName!}");
+        provinceList.add(item.pName!);
       }
-      update();
+      provinceList.refresh();
     } catch (e) {
       talker.error('$e');
     }
   }
 
   updateSelectedProvince(String province, bool showAmphure) {
-    talker.info('$logTitle updateSelectedProvince:${province}');
+    talker.info('$logTitle updateSelectedProvince:$province');
     selectedProvince.value = province;
-    talker.info('$logTitle updateSelectedProvince::pCode:${province}');
+    talker.info('$logTitle updateSelectedProvince::pName:$province');
     if (showAmphure) {
-      listAmphure(
-        province.split('|').first,
-      );
+      listAmphure();
     }
   }
 
-  Future listAmphure(String pCode) async {
-    talker.info('$logTitle::listAmphure:$pCode');
+  Future listAmphure() async {
+    talker.info('$logTitle::listAmphure:${selectedProvince.value}');
     try {
-      final result = await AddressService().listAmphureByPCode(pCode);
-      talker.debug(amphureList.toString());
       amphureList.clear();
-      talker.debug(amphureList.toString());
-      amphureList.add("0|");
-      selectedAmphure.value = "0|";
-      talker.debug(amphureList.toString());
+      amphureList.add("");
+      selectedAmphure.value = "";
+      final result =
+          await AddressService().listAmphureByPName(selectedProvince.value);
       for (var item in result!.data!) {
-        // talker.info('$logTitle::listAmphure:${item.aCode!}|${item.aName!}');
-        amphureList.add("${item.aCode!}|${item.aName!}");
+        amphureList.add(item.aName!);
       }
+      // talker.debug(amphureList.toString());
+      // talker.debug(amphureList.toString());
+      // for (var item in result!.data!) {
+      //   // talker.info('$logTitle::listAmphure:${item.aCode!}|${item.aName!}');
+      //   amphureList.add(item.aName!);
+      // }
       amphureList.refresh();
     } catch (e) {
       talker.error('$e');
@@ -88,25 +95,26 @@ class AddressController extends GetxController {
   }
 
   updateSelectedAmphure(String amphure) {
-    talker.info('$logTitle updateSelectedAmphure:${amphure}');
+    talker.info('$logTitle updateSelectedAmphure:$amphure');
     selectedAmphure.value = amphure;
-    listTambol(
-      amphure.split('|').first,
-    );
+    listTambol();
   }
 
-  Future listTambol(String aCode) async {
-    talker.info('$logTitle::listTambol:$aCode');
+  Future listTambol() async {
+    talker.info('$logTitle::listTambol:${selectedAmphure.value}');
     try {
-      final result = await AddressService().listTambolByACode(aCode);
+      final result = await AddressService().listTambolByPNameAName(
+        selectedProvince.value,
+        selectedAmphure.value,
+      );
       // tambolList.addAll(result!.data!);
       // selectedTambol.value = tambolList[0];
       tambolList.clear();
-      tambolList.add("0|");
-      selectedTambol.value = "0|";
+      tambolList.add("");
+      selectedTambol.value = "";
       for (var item in result!.data!) {
         // talker.info('$logTitle::listTambol:${item.tCode!}|${item.tName!}');
-        tambolList.add("${item.tCode!}|${item.tName!}");
+        tambolList.add(item.tName!);
       }
       tambolList.refresh();
     } catch (e) {
@@ -115,7 +123,7 @@ class AddressController extends GetxController {
   }
 
   updateSelectedTambol(String tName) {
-    talker.info('$logTitle updateSelectedTambol:${tName}');
+    talker.info('$logTitle updateSelectedTambol:$tName');
     selectedTambol.value = tName;
     update();
   }

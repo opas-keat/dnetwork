@@ -79,7 +79,8 @@ class AddressView extends StatelessWidget {
                     return DropdownMenuItem<String>(
                       value: item,
                       child: Text(
-                        item.split('|').last,
+                        // item.split('|').last,
+                        item,
                         textScaleFactor: 0.9,
                       ),
                     );
@@ -129,7 +130,8 @@ class AddressView extends StatelessWidget {
                     return DropdownMenuItem<String>(
                       value: item,
                       child: Text(
-                        item.split('|').last,
+                        // item.split('|').last,
+                        item,
                         textScaleFactor: 0.9,
                       ),
                     );

@@ -95,6 +95,50 @@ class ApiUtils {
     return result;
   }
 
+  Future<Response> put({
+    required String url,
+    data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+  }) async {
+    //Sending FormData:
+    //FormData formData = FormData.fromMap({"name": ""});
+    // options!.headers = secureHeaders;
+    // options!.headers?['Authorization'] =
+    //     'Bearer: ${window.sessionStorage["token"]}';
+    var opts = Options(
+      headers: {
+        "Authorization": 'Bearer ${window.sessionStorage["token"]}',
+      },
+    );
+    var result = await _dio.put(
+      url,
+      data: data,
+      queryParameters: queryParameters,
+      options: opts,
+    );
+    return result;
+  }
+
+  Future<Response> delete({
+    required String url,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+  }) async {
+    var opts = Options(
+      headers: {
+        "Authorization": 'Bearer ${window.sessionStorage["token"]}',
+      },
+    );
+    var result = await _dio.delete(
+      url,
+      queryParameters: queryParameters,
+      options: opts,
+    );
+    // talker.error(result);
+    return result;
+  }
+
   String handleError(dynamic error) {
     String errorDescription = "";
 

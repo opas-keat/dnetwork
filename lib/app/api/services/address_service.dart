@@ -54,6 +54,25 @@ class AddressService {
     return null;
   }
 
+  Future<AmphureServiceResponse?> listAmphureByPName(String pName) async {
+    try {
+      final response = await apiUtils.get(
+        url:
+            '${Api.ectApiContext}${Api.ectApiVersion}${ApiEndPoints.amphures}?pName=$pName',
+        options: Options(
+          headers: apiUtils.secureHeaders,
+        ),
+      );
+      AmphureServiceResponse amphureServiceResponse =
+          AmphureServiceResponse.fromJson(jsonDecode(response.toString()));
+      // talker.debug("amphureServiceResponse $amphureServiceResponse");
+      return amphureServiceResponse;
+    } catch (e) {
+      talker.error(e);
+    }
+    return null;
+  }
+
   Future<TambolServiceResponse?> listTambolByACode(String aCode) async {
     try {
       final response = await apiUtils.get(
@@ -68,6 +87,26 @@ class AddressService {
       TambolServiceResponse tambolServiceResponse =
           TambolServiceResponse.fromJson(jsonDecode(response.toString()));
       // talker.debug("tambolServiceResponse $tambolServiceResponse");
+      return tambolServiceResponse;
+    } catch (e) {
+      talker.error(e);
+    }
+    return null;
+  }
+
+  Future<TambolServiceResponse?> listTambolByPNameAName(
+      String pName, String aName) async {
+    try {
+      final response = await apiUtils.get(
+        url:
+            '${Api.ectApiContext}${Api.ectApiVersion}${ApiEndPoints.tambols}?pName=$pName&aName=$aName',
+        options: Options(
+          headers: apiUtils.secureHeaders,
+        ),
+      );
+      TambolServiceResponse tambolServiceResponse =
+          TambolServiceResponse.fromJson(jsonDecode(response.toString()));
+      // talker.debug("amphureServiceResponse $amphureServiceResponse");
       return tambolServiceResponse;
     } catch (e) {
       talker.error(e);

@@ -79,7 +79,7 @@ class AmphureServiceResponse {
 }
 
 class AmphureData {
-  String? id;
+  int? id;
   String? aCode;
   String? aName;
   String? pCode;
@@ -136,7 +136,7 @@ class TambolServiceResponse {
 }
 
 class TambolData {
-  String? id;
+  int? id;
   String? tCode;
   String? tName;
   String? zipCode;

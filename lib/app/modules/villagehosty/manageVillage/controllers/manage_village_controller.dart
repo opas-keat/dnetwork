@@ -128,11 +128,11 @@ class ManageVillageController extends GetxController {
       typeActChips.addAll(villageList[index].villageTypeAct!.split('|'));
     }
     addressController.selectedProvince.value = villageList[index].province!;
-    await addressController
-        .listAmphure(villageList[index].province!.split('|').first);
-    addressController.selectedAmphure.value = villageList[index].amphure!;
-    await addressController
-        .listTambol(villageList[index].amphure!.split('|').first);
+    // await addressController
+    //     .listAmphure(villageList[index].province!.split('|').first);
+    // addressController.selectedAmphure.value = villageList[index].amphure!;
+    // await addressController
+    //     .listTambol(villageList[index].amphure!.split('|').first);
     addressController.selectedTambol.value = villageList[index].district!;
     update();
     villageList.refresh();

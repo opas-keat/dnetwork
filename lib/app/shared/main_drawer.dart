@@ -44,9 +44,9 @@ class MainDrawer extends StatelessWidget {
                       ),
                       onTap: () {
                         talker.debug("edit: ${listModule[index].nameEn}");
-                        addressController.selectedProvince.value = '0|';
-                        addressController.selectedAmphure.value = '0|';
-                        addressController.selectedTambol.value = '0|';
+                        addressController.selectedProvince.value = '';
+                        addressController.selectedAmphure.value = '';
+                        addressController.selectedTambol.value = '';
                         Get.toNamed(listModule[index].url);
                       },
                     ),

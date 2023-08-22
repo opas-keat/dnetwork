@@ -22,6 +22,7 @@ class VillageServiceRequest {
 }
 
 class Villages {
+  int? id;
   String? villageName;
   String? villageNo;
   int? villageTotal;
@@ -38,6 +39,7 @@ class Villages {
   String? villageLocation;
 
   Villages({
+    this.id,
     this.villageName,
     this.villageNo,
     this.villageTotal,
@@ -55,6 +57,7 @@ class Villages {
   });
 
   Villages.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
     villageName = json['village_name'];
     villageNo = json['village_no'];
     villageTotal = json['village_total'];
@@ -73,6 +76,7 @@ class Villages {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
     data['village_name'] = villageName;
     data['village_no'] = villageNo;
     data['village_total'] = villageTotal;

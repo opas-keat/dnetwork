@@ -44,7 +44,7 @@ class VillageController extends GetxController {
       "village_no": villageNo.text,
     };
     try {
-      final result = await VillageService().listVillage(qParams);
+      final result = await VillageService().list(qParams);
       listVillageStatistics.clear();
       for (final item in result!.data!) {
         listVillageStatistics.add(

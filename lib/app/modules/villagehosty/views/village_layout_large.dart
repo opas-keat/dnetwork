@@ -82,7 +82,7 @@ class VillageLayoutLarge extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(left: defaultPadding / 2),
             child: MainChart(
-              header: "สถิติข้อมูลภาคีเครือข่าย ศส.ปชต.",
+              header: "สถิติข้อมูลหมู่บ้าน วิถี ประชาธิปไตย",
               subHeader: "ระดับจังหวัด",
               listSummaryChart: summaryVillageChart,
             ),

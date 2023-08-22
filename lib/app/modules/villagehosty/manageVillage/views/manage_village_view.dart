@@ -106,16 +106,29 @@ class ManageVillageView extends StatelessWidget {
                               children: [
                                 const Spacer(flex: 1),
                                 IconButton(
-                                  icon: const Icon(Icons.refresh_sharp),
-                                  onPressed: () {
-                                    controller.resetForm();
+                                  icon: const Icon(Icons.add_sharp),
+                                  // onPressed: () {
+                                  //   controller.addDataToTable();
+                                  // },
+                                  onPressed: () async {
+                                    Get.dialog(
+                                      const Center(
+                                        child: CircularProgressIndicator(),
+                                      ),
+                                      barrierDismissible: false,
+                                    );
+                                    await controller.save();
+                                    Get.back();
                                   },
                                 ),
                                 const Spacer(flex: 1),
                                 IconButton(
-                                  icon: const Icon(Icons.add_sharp),
-                                  onPressed: () {
-                                    controller.addDataToTable();
+                                  icon: const Icon(Icons.edit_sharp),
+                                  // onPressed: () {
+                                  //   controller.resetForm();
+                                  // },
+                                  onPressed: () async {
+                                    await controller.editData();
                                   },
                                 ),
                                 const Spacer(flex: 1),
@@ -473,7 +486,8 @@ class ManageVillageView extends StatelessWidget {
                               ),
                               barrierDismissible: false,
                             );
-                            final result = await controller.saveVillage();
+                            // final result = await controller.saveVillage();
+                            final result = await controller.save();
                             Get.back();
                             result
                                 ? Get.offAllNamed(Routes.VILLAGEHOSTY)
@@ -508,6 +522,12 @@ class ManageVillageView extends StatelessWidget {
                         ),
                         ElevatedButton.icon(
                           onPressed: () {
+                            controller
+                                .addressController.selectedProvince.value = '';
+                            controller.addressController.selectedAmphure.value =
+                                '';
+                            controller.addressController.selectedTambol.value =
+                                '';
                             Get.toNamed(Routes.VILLAGEHOSTY);
                           },
                           style: ElevatedButton.styleFrom(
@@ -587,7 +607,7 @@ DataRow villageDataRow(
       },
     ),
     onSelectChanged: (value) {
-      controller.selectDataFromTable(index);
+      controller.selectDataFromTable(index, villageData.id!);
     },
     cells: [
       DataCell(
@@ -669,7 +689,7 @@ DataRow villageDataRowLayoutSmall(
       },
     ),
     onSelectChanged: (value) {
-      controller.selectDataFromTable(index);
+      controller.selectDataFromTable(index, villageData.id!);
     },
     cells: [
       DataCell(

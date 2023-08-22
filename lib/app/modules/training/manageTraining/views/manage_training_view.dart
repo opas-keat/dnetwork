@@ -472,6 +472,8 @@ class ManageTrainingView extends StatelessWidget {
                         ),
                         ElevatedButton.icon(
                           onPressed: () {
+                            controller
+                                .addressController.selectedProvince.value = '';
                             Get.toNamed(Routes.TRAINING);
                           },
                           style: ElevatedButton.styleFrom(

@@ -134,10 +134,19 @@ class BudgetLayoutSmall extends StatelessWidget {
           ),
         ),
         const SizedBox(height: defaultPadding / 2),
-        MainChart(
-          header: "สถิติข้อมูล งบประมาณ รับ-จ่าย",
-          subHeader: "ประเภทงบประมาณ",
-          listSummaryChart: summaryBudgetChart,
+        // MainChart(
+        //   header: "สถิติข้อมูล งบประมาณ รับ-จ่าย",
+        //   subHeader: "ประเภทงบประมาณ",
+        //   listSummaryChart: summaryBudgetChart,
+        // ),
+        GetBuilder<BudgetController>(
+          builder: (_) => controller.isLoadingChart.value
+              ? const Center(child: CircularProgressIndicator())
+              : MainChart(
+                  header: "สถิติข้อมูล งบประมาณ รับ-จ่าย",
+                  subHeader: "ประเภทงบประมาณ",
+                  listSummaryChart: controller.summaryBudgetChart.obs.value,
+                ),
         ),
       ],
     );

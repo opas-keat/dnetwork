@@ -22,6 +22,7 @@ class TrainingServiceRequest {
 }
 
 class Trainings {
+  int? id;
   String? trainingName;
   String? trainingDateForm;
   String? trainingDateTo;
@@ -30,7 +31,8 @@ class Trainings {
   String? province;
 
   Trainings(
-      {this.trainingName,
+      {this.id,
+      this.trainingName,
       this.trainingDateForm,
       this.trainingDateTo,
       this.trainingType,
@@ -38,6 +40,7 @@ class Trainings {
       this.province});
 
   Trainings.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
     trainingName = json['training_name'];
     trainingDateForm = json['training_date_form'];
     trainingDateTo = json['training_date_to'];
@@ -48,6 +51,7 @@ class Trainings {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
     data['training_name'] = trainingName;
     data['training_date_form'] = trainingDateForm;
     data['training_date_to'] = trainingDateTo;

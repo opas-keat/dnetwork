@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 
 import '../../../api/api_params.dart';
 import '../../../api/services/training_service.dart';
+import '../../../api/services/training_type_service.dart';
+import '../../../data/models/summary_chart.dart';
 import '../../../data/models/training_statistics_data.dart';
 import '../../../shared/utils.dart';
 import '../../address/controllers/address_controller.dart';
@@ -11,6 +13,7 @@ class TrainingController extends GetxController {
   final logTitle = "TrainingController";
   RxBool isLoading = true.obs;
   RxBool isLoadingAddTraining = true.obs;
+  RxBool isLoadingChart = true.obs;
   AddressController addressController = Get.put(AddressController());
 
   final listTrainingStatistics = <TrainingStatisticsData>[].obs;
@@ -22,14 +25,43 @@ class TrainingController extends GetxController {
   final trainingDateTo = TextEditingController(text: "");
   final trainingType = TextEditingController(text: "");
 
+  final summaryChart = <SummaryChart>[].obs;
+
   @override
   void onInit() {
     super.onInit();
-    // isLoading.value = true;
-    // listTrainingStatistics.value = listTrainingStatisticsData;
-    // update();
-    // getTraining();
+    talker.info('$logTitle onInit');
     listTraining();
+    listTrainingType();
+  }
+
+  listTrainingType() async {
+    talker.info('$logTitle::listTrainingType');
+    isLoadingChart.value = true;
+    Map<String, String> qParams = {
+      "offset": "0",
+      "limit": queryParamLimit,
+      "order": queryParamOrderBy,
+      "province": addressController.selectedProvince.value,
+    };
+    try {
+      final result = await TrainingTypeService().list(qParams);
+      summaryChart.clear();
+      for (final item in result!.data!) {
+        summaryChart.add(
+          SummaryChart(
+            icon: Icons.edit_document,
+            color: randomColor(),
+            name: item.name!,
+            value: item.totalData!,
+          ),
+        );
+      }
+      isLoadingChart.value = false;
+      summaryChart.refresh();
+    } catch (e) {
+      talker.error('$e');
+    }
   }
 
   listTraining() async {
@@ -40,14 +72,14 @@ class TrainingController extends GetxController {
       "offset": "0",
       "limit": queryParamLimit,
       "order": queryParamOrderBy,
-      "province": addressController.selectedProvince.value.split('|').last,
+      "province": addressController.selectedProvince.value,
       "training_name": trainingName.text,
       "training_date_form": trainingDateForm.text,
       "training_date_to": trainingDateTo.text,
       "training_type": trainingType.text,
     };
     try {
-      final result = await TrainingService().listTraining(qParams);
+      final result = await TrainingService().list(qParams);
       listTrainingStatistics.clear();
       for (final item in result!.data!) {
         listTrainingStatistics.add(

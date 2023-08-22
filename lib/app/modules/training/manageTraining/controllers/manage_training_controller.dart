@@ -70,8 +70,7 @@ class ManageTrainingController extends GetxController {
           ),
         );
       }
-      final result =
-          await TrainingService().createTraining(trainings.obs.value);
+      final result = await TrainingService().create(trainings.obs.value);
       talker.debug('response message : ${result?.message}');
       if (result?.code == "000") {
         return true;

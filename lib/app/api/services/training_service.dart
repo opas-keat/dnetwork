@@ -47,7 +47,7 @@ class TrainingService {
     }
   }
 
-  Future<TrainingServiceResponse?> updateTraining(
+  Future<TrainingServiceResponse?> update(
     List<Trainings> listTrainings,
   ) async {
     talker.debug(TrainingServiceRequest(trainings: listTrainings).toJson());

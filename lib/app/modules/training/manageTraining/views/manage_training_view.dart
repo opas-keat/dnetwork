@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../../responsive.dart';
 import '../../../../data/responses/training_service_response.dart';
@@ -101,16 +102,30 @@ class ManageTrainingView extends StatelessWidget {
                               children: [
                                 const Spacer(flex: 1),
                                 IconButton(
-                                  icon: const Icon(Icons.refresh_sharp),
-                                  onPressed: () {
-                                    controller.resetForm();
+                                  icon: const Icon(Icons.add_sharp),
+                                  // onPressed: () {
+                                  //   controller.addDataToTable();
+                                  // },
+                                  onPressed: () async {
+                                    // controller.addDataToTable();
+                                    Get.dialog(
+                                      const Center(
+                                        child: CircularProgressIndicator(),
+                                      ),
+                                      barrierDismissible: false,
+                                    );
+                                    await controller.save();
+                                    Get.back();
                                   },
                                 ),
                                 const Spacer(flex: 1),
                                 IconButton(
-                                  icon: const Icon(Icons.add_sharp),
-                                  onPressed: () {
-                                    controller.addDataToTable();
+                                  icon: const Icon(Icons.edit_sharp),
+                                  // onPressed: () {
+                                  //   controller.resetForm();
+                                  // },
+                                  onPressed: () async {
+                                    await controller.editData();
                                   },
                                 ),
                                 const Spacer(flex: 1),
@@ -236,6 +251,21 @@ class ManageTrainingView extends StatelessWidget {
                             TextFormField(
                               controller: controller.trainingDateForm,
                               keyboardType: TextInputType.text,
+                              readOnly: true,
+                              onTap: () async {
+                                DateTime? newDateTime = await showDatePicker(
+                                    context: context,
+                                    initialDate:
+                                        DateTime.now(), //get today's date
+                                    firstDate: DateTime(
+                                        2000), //DateTime.now() - not to allow to choose before today.
+                                    lastDate: DateTime(2101));
+                                if (newDateTime != null) {
+                                  controller.trainingDateForm.text =
+                                      DateFormat('dd/MM/yyyy')
+                                          .format(newDateTime);
+                                }
+                              },
                               decoration: InputDecoration(
                                 fillColor: Colors.white.withOpacity(.8),
                                 filled: true,
@@ -258,6 +288,31 @@ class ManageTrainingView extends StatelessWidget {
                                 return null;
                               },
                             ),
+                            // TextFormField(
+                            //   controller: controller.trainingDateForm,
+                            //   keyboardType: TextInputType.text,
+                            //   decoration: InputDecoration(
+                            //     fillColor: Colors.white.withOpacity(.8),
+                            //     filled: true,
+                            //     border: OutlineInputBorder(
+                            //       borderRadius:
+                            //           BorderRadius.circular(defaultPadding / 2),
+                            //       borderSide: const BorderSide(
+                            //           color: Colors.black54, width: 1),
+                            //     ),
+                            //     isCollapsed: true,
+                            //     contentPadding:
+                            //         const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                            //   ),
+                            //   autovalidateMode:
+                            //       AutovalidateMode.onUserInteraction,
+                            //   validator: (value) {
+                            //     if (value == null || value.isEmpty) {
+                            //       return 'กรุณากรอก วันที่เริ่ม';
+                            //     }
+                            //     return null;
+                            //   },
+                            // ),
                             const SizedBox(height: defaultPadding),
                             Wrap(
                               direction: Axis.horizontal,
@@ -276,6 +331,21 @@ class ManageTrainingView extends StatelessWidget {
                             TextFormField(
                               controller: controller.trainingDateTo,
                               keyboardType: TextInputType.text,
+                              readOnly: true,
+                              onTap: () async {
+                                DateTime? newDateTime = await showDatePicker(
+                                    context: context,
+                                    initialDate:
+                                        DateTime.now(), //get today's date
+                                    firstDate: DateTime(
+                                        2000), //DateTime.now() - not to allow to choose before today.
+                                    lastDate: DateTime(2101));
+                                if (newDateTime != null) {
+                                  controller.trainingDateTo.text =
+                                      DateFormat('dd/MM/yyyy')
+                                          .format(newDateTime);
+                                }
+                              },
                               decoration: InputDecoration(
                                 fillColor: Colors.white.withOpacity(.8),
                                 filled: true,
@@ -298,6 +368,31 @@ class ManageTrainingView extends StatelessWidget {
                                 return null;
                               },
                             ),
+                            // TextFormField(
+                            //   controller: controller.trainingDateTo,
+                            //   keyboardType: TextInputType.text,
+                            //   decoration: InputDecoration(
+                            //     fillColor: Colors.white.withOpacity(.8),
+                            //     filled: true,
+                            //     border: OutlineInputBorder(
+                            //       borderRadius:
+                            //           BorderRadius.circular(defaultPadding / 2),
+                            //       borderSide: const BorderSide(
+                            //           color: Colors.black54, width: 1),
+                            //     ),
+                            //     isCollapsed: true,
+                            //     contentPadding:
+                            //         const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                            //   ),
+                            //   autovalidateMode:
+                            //       AutovalidateMode.onUserInteraction,
+                            //   validator: (value) {
+                            //     if (value == null || value.isEmpty) {
+                            //       return 'กรุณากรอก วันที่สิ้นสุด';
+                            //     }
+                            //     return null;
+                            //   },
+                            // ),
                             const SizedBox(height: defaultPadding),
                             Wrap(
                               direction: Axis.horizontal,
@@ -437,7 +532,8 @@ class ManageTrainingView extends StatelessWidget {
                               ),
                               barrierDismissible: false,
                             );
-                            final result = await controller.saveTraining();
+                            // final result = await controller.saveTraining();
+                            final result = await controller.save();
                             Get.back();
                             result
                                 ? Get.offAllNamed(Routes.TRAINING)
@@ -553,7 +649,7 @@ DataRow trainingDataRow(
       },
     ),
     onSelectChanged: (value) {
-      controller.selectDataFromTable(index);
+      controller.selectDataFromTable(index, trainingData.id!);
     },
     cells: [
       DataCell(

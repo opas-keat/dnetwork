@@ -103,18 +103,26 @@ class ManageLectuterView extends StatelessWidget {
                               children: [
                                 const Spacer(flex: 1),
                                 IconButton(
-                                  icon: const Icon(Icons.refresh_sharp),
-                                  onPressed: () {
-                                    controller.resetForm();
+                                  icon: const Icon(Icons.add_sharp),
+                                  onPressed: () async {
+                                    // controller.addDataToTable();
+                                    Get.dialog(
+                                      const Center(
+                                        child: CircularProgressIndicator(),
+                                      ),
+                                      barrierDismissible: false,
+                                    );
+                                    await controller.save();
+                                    Get.back();
                                   },
                                 ),
                                 const Spacer(flex: 1),
                                 IconButton(
-                                  icon: const Icon(Icons.add_sharp),
-                                  onPressed: () {
-                                    controller.addToDataTable();
+                                  icon: const Icon(Icons.edit_sharp),
+                                  onPressed: () async {
+                                    await controller.editData();
                                   },
-                                ),
+                                ),                                
                                 const Spacer(flex: 1),
                                 IconButton(
                                   icon: const Icon(Icons.delete_sharp),
@@ -545,7 +553,8 @@ class ManageLectuterView extends StatelessWidget {
                               ),
                               barrierDismissible: false,
                             );
-                            final result = await controller.saveLectuter();
+                            // final result = await controller.saveLectuter();
+                            final result = await controller.save();
                             Get.back();
                             result
                                 ? Get.offAllNamed(Routes.LECTUTER)
@@ -580,6 +589,8 @@ class ManageLectuterView extends StatelessWidget {
                         ),
                         ElevatedButton.icon(
                           onPressed: () {
+                            controller
+                                .addressController.selectedProvince.value = '';
                             Get.toNamed(Routes.LECTUTER);
                           },
                           style: ElevatedButton.styleFrom(
@@ -658,8 +669,9 @@ DataRow lectuterDataRow(
         }
       },
     ),
-    onSelectChanged: (value) {
-      controller.selectDataFromTable(index);
+    onSelectChanged: (value) async {
+      // controller.selectDataFromTable(index);
+      await controller.selectDataFromTable(index, lectuterData.id!);
     },
     cells: [
       DataCell(
@@ -710,7 +722,7 @@ DataRow lectuterDataRow(
         Wrap(
           children: [
             Text(
-              lectuterData.agency!,
+              lectuterData.lectuterAgency!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -722,7 +734,7 @@ DataRow lectuterDataRow(
         Wrap(
           children: [
             Text(
-              lectuterData.affiliate!,
+              lectuterData.lectuterAffiliate!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -734,7 +746,7 @@ DataRow lectuterDataRow(
         Wrap(
           children: [
             Text(
-              lectuterData.telephone!,
+              lectuterData.lectuterTelephone!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -813,7 +825,7 @@ DataRow lectuterDataRowLayoutSmall(
         Wrap(
           children: [
             Text(
-              lectuterData.agency!,
+              lectuterData.lectuterAgency!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -825,7 +837,7 @@ DataRow lectuterDataRowLayoutSmall(
         Wrap(
           children: [
             Text(
-              lectuterData.affiliate!,
+              lectuterData.lectuterAffiliate!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -837,7 +849,7 @@ DataRow lectuterDataRowLayoutSmall(
         Wrap(
           children: [
             Text(
-              lectuterData.telephone!,
+              lectuterData.lectuterTelephone!,
               style: const TextStyle(
                 fontSize: 12,
               ),

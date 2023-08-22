@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/app/modules/lectuter/controllers/lectuter_controller.dart';
 import 'package:get/get.dart';
 
-import '../../../data/models/summary_chart.dart';
 import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
@@ -16,6 +16,7 @@ class LectuterLayoutLarge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(LectuterController());
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -81,11 +82,20 @@ class LectuterLayoutLarge extends StatelessWidget {
         Expanded(
           child: Padding(
             padding: const EdgeInsets.only(left: defaultPadding / 2),
-            child: MainChart(
-              header: "สถิติข้อมูลวิทยากรประชาธิปไตย",
-              subHeader: "สังกัดวิทยากร",
-              listSummaryChart: summaryLectuterChart,
+            child: GetBuilder<LectuterController>(
+              builder: (_) => controller.isLoadingChart.value
+                  ? const Center(child: CircularProgressIndicator())
+                  : MainChart(
+                      header: "สถิติข้อมูลวิทยากรของ ศส.ปชต.",
+                      subHeader: "ประเภทวิทยากร",
+                      listSummaryChart: controller.summaryChart.obs.value,
+                    ),
             ),
+            // child: MainChart(
+            //   header: "สถิติข้อมูลวิทยากรประชาธิปไตย",
+            //   subHeader: "สังกัดวิทยากร",
+            //   listSummaryChart: summaryLectuterChart,
+            // ),
           ),
         ),
       ],

@@ -9,6 +9,7 @@ import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/info_card.dart';
 import '../../../shared/main_chart.dart';
+import '../controllers/lectuter_controller.dart';
 
 class LectuterLayoutSmall extends StatelessWidget {
   const LectuterLayoutSmall({
@@ -17,6 +18,7 @@ class LectuterLayoutSmall extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(LectuterController());
     return Column(
       children: [
         const Row(
@@ -111,11 +113,20 @@ class LectuterLayoutSmall extends StatelessWidget {
           ),
         ),
         const SizedBox(height: defaultPadding / 2),
-        MainChart(
-          header: "สถิติข้อมูลวิทยากรประชาธิปไตย",
-          subHeader: "สังกัดวิทยากร",
-          listSummaryChart: summaryLectuterChart,
+        GetBuilder<LectuterController>(
+          builder: (_) => controller.isLoadingChart.value
+              ? const Center(child: CircularProgressIndicator())
+              : MainChart(
+                  header: "สถิติข้อมูลวิทยากรของ ศส.ปชต.",
+                  subHeader: "ประเภทวิทยากร",
+                  listSummaryChart: controller.summaryChart.obs.value,
+                ),
         ),
+        // MainChart(
+        //   header: "สถิติข้อมูลวิทยากรประชาธิปไตย",
+        //   subHeader: "สังกัดวิทยากร",
+        //   listSummaryChart: summaryLectuterChart,
+        // ),
       ],
     );
   }

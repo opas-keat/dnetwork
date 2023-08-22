@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/app/api/services/lectuter_affiliate_service.dart';
 import 'package:get/get.dart';
 
 import '../../../api/api_params.dart';
 import '../../../api/services/lectuter_service.dart';
 import '../../../data/models/lectuter_statistics_data.dart';
+import '../../../data/models/summary_chart.dart';
 import '../../../shared/utils.dart';
 import '../../address/controllers/address_controller.dart';
 
@@ -11,6 +13,7 @@ class LectuterController extends GetxController {
   final logTitle = "LectuterController";
   RxBool isLoading = true.obs;
   RxBool isLoadingAdd = true.obs;
+  RxBool isLoadingChart = true.obs;
   AddressController addressController = Get.put(AddressController());
 
   final listLectuterStatistics = [].obs;
@@ -27,14 +30,42 @@ class LectuterController extends GetxController {
   final lectuterAffiliate = TextEditingController();
   final lectuterExp = TextEditingController();
 
+  final summaryChart = <SummaryChart>[].obs;
+
   @override
   void onInit() {
     super.onInit();
-    // isLoading.value = true;
-    // listLectuterStatistics.value = listLectuterStatisticsData;
-    // update();
-    // getLectuter();
     listLectuter();
+    listLectuterAffiliate();
+  }
+
+  listLectuterAffiliate() async {
+    talker.info('$logTitle::listLectuterAffiliate');
+    isLoadingChart.value = true;
+    Map<String, String> qParams = {
+      "offset": "0",
+      "limit": queryParamLimit,
+      "order": queryParamOrderBy,
+      "province": addressController.selectedProvince.value,
+    };
+    try {
+      final result = await LectuterAffiliateService().list(qParams);
+      summaryChart.clear();
+      for (final item in result!.data!) {
+        summaryChart.add(
+          SummaryChart(
+            icon: Icons.edit_document,
+            color: randomColor(),
+            name: item.name!,
+            value: item.totalData!,
+          ),
+        );
+      }
+      isLoadingChart.value = false;
+      summaryChart.refresh();
+    } catch (e) {
+      talker.error('$e');
+    }
   }
 
   listLectuter() async {
@@ -54,15 +85,15 @@ class LectuterController extends GetxController {
       // "district": addressController.selectedTambol.value,
     };
     try {
-      final result = await LectuterService().listLectuter(qParams);
+      final result = await LectuterService().list(qParams);
       listLectuterStatistics.clear();
       for (final item in result!.data!) {
         listLectuterStatistics.add(
           LectuterStatisticsData(
             name: item.name,
-            telephone: item.telephone,
-            agency: item.agency,
-            affiliate: item.affiliate,
+            telephone: item.lectuterTelephone,
+            agency: item.lectuterAgency,
+            affiliate: item.lectuterAffiliate,
             province: item.province,
           ),
         );

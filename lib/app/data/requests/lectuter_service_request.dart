@@ -22,6 +22,7 @@ class LectuterServiceRequest {
 }
 
 class Lectuters {
+  int? id;
   String? lectuterPreName;
   String? lectuterFirstName;
   String? lectuterSurName;
@@ -34,7 +35,8 @@ class Lectuters {
   String? province;
 
   Lectuters(
-      {this.lectuterPreName,
+      {this.id,
+      this.lectuterPreName,
       this.lectuterFirstName,
       this.lectuterSurName,
       this.lectuterTelephone,
@@ -46,6 +48,7 @@ class Lectuters {
       this.province});
 
   Lectuters.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
     lectuterPreName = json['lectuter_pre_name'];
     lectuterFirstName = json['lectuter_first_name'];
     lectuterSurName = json['lectuter_sur_name'];
@@ -60,6 +63,7 @@ class Lectuters {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
     data['lectuter_pre_name'] = lectuterPreName;
     data['lectuter_first_name'] = lectuterFirstName;
     data['lectuter_sur_name'] = lectuterSurName;

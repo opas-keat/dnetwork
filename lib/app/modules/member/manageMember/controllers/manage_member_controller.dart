@@ -241,9 +241,9 @@ class ManageMemberController extends GetxController {
     memberTelephone.text = "";
     memberPositionCommuChips.clear();
     memberExpChips.clear();
-    // addressController.selectedProvince.value = '0|';
-    // addressController.selectedAmphure.value = '0|';
-    // addressController.selectedTambol.value = '0|';
+    // addressController.selectedProvince.value = '';
+    // addressController.selectedAmphure.value = '';
+    // addressController.selectedTambol.value = '';
     selectedMemberPosition.value = '';
     selectedMemberPositionCommu.value = '';
     update();

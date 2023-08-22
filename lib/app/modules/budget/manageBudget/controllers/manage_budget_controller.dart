@@ -18,13 +18,6 @@ class ManageBudgetController extends GetxController {
   Rx<String> filePath = ''.obs;
   Rx<XFile> fileUpload = XFile('').obs;
 
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final budgetDate = TextEditingController();
-  final budgetType = TextEditingController();
-  final budgetBegin = TextEditingController();
-  final budgetUsed = TextEditingController();
-  final budgetRemain = TextEditingController();
-
   final budgetList = <BudgetData>[].obs;
   final budgets = <Budgets>[].obs;
   final budgetTypeList = <String>[].obs;
@@ -34,6 +27,13 @@ class ManageBudgetController extends GetxController {
 
   int selectedIndexFromTable = -1;
   int selectedId = -1;
+
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final budgetDate = TextEditingController();
+  final budgetType = TextEditingController();
+  final budgetBegin = TextEditingController();
+  final budgetUsed = TextEditingController();
+  final budgetRemain = TextEditingController();
 
   @override
   void onInit() {
@@ -80,8 +80,7 @@ class ManageBudgetController extends GetxController {
               budgetRemain: int.parse(budgetRemain.text),
               budgetType: selectedBudgetType.value,
               budgetUsed: int.parse(budgetUsed.text),
-              province:
-                  addressController.selectedProvince.value.split('|').last,
+              province: addressController.selectedProvince.value,
             ),
           );
           final result = await BudgetService().createBudget(budgets.obs.value);
@@ -102,7 +101,7 @@ class ManageBudgetController extends GetxController {
             }
             isLoading.value = false;
             budgets.clear();
-            addressController.selectedProvince.value = '';
+            // addressController.selectedProvince.value = '';
             resetForm();
             return true;
           }
@@ -142,7 +141,7 @@ class ManageBudgetController extends GetxController {
   //     //       budgetRemain: budget.budgetRemain,
   //     //       budgetType: budget.budgetType,
   //     //       budgetUsed: budget.budgetUsed,
-  //     //       province: budget.province!.split('|').last,
+  //     //       province: budget.province!,
   //     //     ),
   //     //   );
   //     // }
@@ -152,7 +151,7 @@ class ManageBudgetController extends GetxController {
   //       isLoading.value = false;
   //       // budgetList.clear();
   //       budgets.clear();
-  //       addressController.selectedProvince.value = '0|';
+  //       addressController.selectedProvince.value = '';
   //       resetForm();
   //       return true;
   //     }
@@ -199,7 +198,7 @@ class ManageBudgetController extends GetxController {
           isLoading.value = false;
           budgetList.refresh();
           budgets.clear();
-          addressController.selectedProvince.value = '';
+          // addressController.selectedProvince.value = '';
           selectedIndexFromTable = -1;
           resetForm();
         } else {
@@ -302,7 +301,7 @@ class ManageBudgetController extends GetxController {
   //   talker.debug(budgetRemain.text);
   //   final isValid = formKey.currentState!.validate();
   //   if (isValid) {
-  //     if (addressController.selectedProvince.value != '0|') {
+  //     if (addressController.selectedProvince.value != '') {
   //       budgetList.add(
   //         BudgetData(
   //           budgetBegin: int.parse(budgetBegin.text),
@@ -320,7 +319,7 @@ class ManageBudgetController extends GetxController {
   //           budgetRemain: int.parse(budgetRemain.text),
   //           budgetType: selectedBudgetType.value,
   //           budgetUsed: int.parse(budgetUsed.text),
-  //           province: addressController.selectedProvince.value.split('|').last,
+  //           province: addressController.selectedProvince.value,
   //         ),
   //       );
   //       saveBudget();
@@ -348,7 +347,7 @@ class ManageBudgetController extends GetxController {
     budgetUsed.text = "";
     budgetRemain.text = "";
     selectedBudgetType.value = '';
-    // addressController.selectedProvince.value = '0|';
+    // addressController.selectedProvince.value = '';
     update();
   }
 

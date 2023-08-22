@@ -37,9 +37,9 @@ class VillageController extends GetxController {
       "offset": "0",
       "limit": queryParamLimit,
       "order": queryParamOrderBy,
-      "province": addressController.selectedProvince.value.split('|').last,
-      "amphure": addressController.selectedAmphure.value.split('|').last,
-      "district": addressController.selectedTambol.value.split('|').last,
+      "province": addressController.selectedProvince.value,
+      "amphure": addressController.selectedAmphure.value,
+      "district": addressController.selectedTambol.value,
       "village_name": villageName.text,
       "village_no": villageNo.text,
     };

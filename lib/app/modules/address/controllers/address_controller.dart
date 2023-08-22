@@ -6,9 +6,9 @@ import '../../../shared/utils.dart';
 class AddressController extends GetxController {
   final logTitle = "AddressController";
   RxBool isLoading = true.obs;
-  // final selectedProvince = '0|'.obs;
-  // final selectedAmphure = '0|'.obs;
-  // final selectedTambol = '0|'.obs;
+  // final selectedProvince = ''.obs;
+  // final selectedAmphure = ''.obs;
+  // final selectedTambol = ''.obs;
   final selectedProvince = ''.obs;
   final selectedAmphure = ''.obs;
   final selectedTambol = ''.obs;
@@ -103,15 +103,15 @@ class AddressController extends GetxController {
   Future listTambol() async {
     talker.info('$logTitle::listTambol:${selectedAmphure.value}');
     try {
+      tambolList.clear();
+      tambolList.add("");
+      selectedTambol.value = "";
       final result = await AddressService().listTambolByPNameAName(
         selectedProvince.value,
         selectedAmphure.value,
       );
       // tambolList.addAll(result!.data!);
       // selectedTambol.value = tambolList[0];
-      tambolList.clear();
-      tambolList.add("");
-      selectedTambol.value = "";
       for (var item in result!.data!) {
         // talker.info('$logTitle::listTambol:${item.tCode!}|${item.tName!}');
         tambolList.add(item.tName!);

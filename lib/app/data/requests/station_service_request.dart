@@ -13,7 +13,7 @@ class StationServiceRequest {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (stations != null) {
       data['stations'] = stations!.map((v) => v.toJson()).toList();
     }
@@ -22,6 +22,7 @@ class StationServiceRequest {
 }
 
 class Stations {
+  int? id;
   String? name;
   int? totalCommiss;
   int? totalMember;
@@ -34,7 +35,8 @@ class Stations {
   String? training;
 
   Stations(
-      {this.name,
+      {this.id,
+      this.name,
       this.totalCommiss,
       this.totalMember,
       this.process,
@@ -46,6 +48,7 @@ class Stations {
       this.training});
 
   Stations.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
     name = json['name'];
     totalCommiss = json['total_commiss'];
     totalMember = json['total_member'];
@@ -59,7 +62,8 @@ class Stations {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
     data['name'] = name;
     data['total_commiss'] = totalCommiss;
     data['total_member'] = totalMember;

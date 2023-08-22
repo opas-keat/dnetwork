@@ -111,7 +111,7 @@ class TrainingLayoutSmall extends StatelessWidget {
                   subHeader: "ประเภทการอบรม",
                   listSummaryChart: controller.summaryChart.obs.value,
                 ),
-        )
+        ),
         // MainChart(
         //   header: "สถิติข้อมูลการอบรมของ ศส.ปชต.",
         //   subHeader: "ประเภทการอบรม",

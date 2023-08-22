@@ -78,7 +78,7 @@ class ManageLectuterController extends GetxController {
             lectuterPreName: lectuter.lectuterPreName,
             lectuterSurName: lectuter.lectuterSurName,
             lectuterTelephone: lectuter.telephone,
-            province: lectuter.province!.split('|').last,
+            province: lectuter.province!,
           ),
         );
       }
@@ -91,7 +91,7 @@ class ManageLectuterController extends GetxController {
       isLoading.value = false;
       lectuterList.clear();
       lectuters.clear();
-      addressController.selectedProvince.value = '0|';
+      addressController.selectedProvince.value = '';
       resetForm();
       return true;
     } catch (e) {
@@ -165,7 +165,7 @@ class ManageLectuterController extends GetxController {
     //     lectuterPreName: lectuterPreName.text,
     //     lectuterSurName: lectuterSurName.text,
     //     lectuterTelephone: lectuterTelephone.text,
-    //     province: addressController.selectedProvince.value.split('|').last,
+    //     province: addressController.selectedProvince.value,
     //   ),
     // );
   }
@@ -182,7 +182,7 @@ class ManageLectuterController extends GetxController {
     selectedLectuterAffiliate.value = "";
     lectuterExp.text = "";
     lectuterExpChips.clear();
-    // addressController.selectedProvince.value = '0|';
+    // addressController.selectedProvince.value = '';
     update();
   }
 

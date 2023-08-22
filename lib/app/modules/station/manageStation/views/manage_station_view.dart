@@ -151,20 +151,32 @@ class ManageStationDetail extends StatelessWidget {
                       children: [
                         const Spacer(flex: 1),
                         IconButton(
-                          icon: const Icon(Icons.refresh_sharp),
-                          onPressed: () {
-                            controller.resetForm();
+                          icon: const Icon(Icons.add_sharp),
+                          // onPressed: () {
+                          //   controller.addToDataTable();
+                          // },
+                          onPressed: () async {
+                            // controller.addDataToTable();
+                            Get.dialog(
+                              const Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                              barrierDismissible: false,
+                            );
+                            await controller.save();
+                            Get.back();
                           },
                         ),
-                        // const SizedBox(height: defaultPadding),
                         const Spacer(flex: 1),
                         IconButton(
-                          icon: const Icon(Icons.add_sharp),
-                          onPressed: () {
-                            controller.addToDataTable();
+                          icon: const Icon(Icons.edit_sharp),
+                          // onPressed: () {
+                          //   controller.resetForm();
+                          // },
+                          onPressed: () async {
+                            await controller.editData();
                           },
                         ),
-                        // const SizedBox(height: defaultPadding),
                         const Spacer(flex: 1),
                         IconButton(
                           icon: const Icon(Icons.delete_sharp),
@@ -485,7 +497,8 @@ class ManageStationDetail extends StatelessWidget {
                     ),
                     barrierDismissible: false,
                   );
-                  final result = await controller.saveStation();
+                  // final result = await controller.saveStation();
+                  final result = await controller.save();
                   Get.back();
                   result
                       ? Get.offAllNamed(Routes.STATION)
@@ -570,7 +583,7 @@ DataRow stationDataRowLayoutSmall(
       },
     ),
     onSelectChanged: (value) {
-      controller.selectDataFromTable(index);
+      controller.selectDataFromTable(index, stationData.id!);
     },
     cells: [
       DataCell(
@@ -650,7 +663,8 @@ DataRow stationDataRow(
       },
     ),
     onSelectChanged: (value) {
-      controller.selectDataFromTable(index);
+      // controller.selectDataFromTable(index);
+      controller.selectDataFromTable(index, stationData.id!);
     },
     cells: [
       DataCell(
@@ -689,7 +703,7 @@ DataRow stationDataRow(
         Wrap(
           children: [
             Text(
-              stationData.province!.split('|').last,
+              stationData.province!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -701,7 +715,7 @@ DataRow stationDataRow(
         Wrap(
           children: [
             Text(
-              stationData.amphure!.split('|').last,
+              stationData.amphure!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -713,7 +727,7 @@ DataRow stationDataRow(
         Wrap(
           children: [
             Text(
-              stationData.district!.split('|').last,
+              stationData.district!,
               style: const TextStyle(
                 fontSize: 12,
               ),

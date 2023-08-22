@@ -40,7 +40,7 @@ class NetworkController extends GetxController {
       "offset": "0",
       "limit": queryParamLimit,
       "order": queryParamOrderBy,
-      "province": addressController.selectedProvince.value.split('|').last,
+      "province": addressController.selectedProvince.value,
       "network_id_card": networkIdCard.text,
       "network_telephone": networkTelephone.text,
       "network_station_name": networkStationName.text,

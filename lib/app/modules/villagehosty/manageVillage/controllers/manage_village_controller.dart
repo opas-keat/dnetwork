@@ -63,9 +63,9 @@ class ManageVillageController extends GetxController {
       for (var village in villageList) {
         villages.add(
           Villages(
-            amphure: village.amphure!.split('|').last,
-            district: village.district!.split('|').last,
-            province: village.province!.split('|').last,
+            amphure: village.amphure!,
+            district: village.district!,
+            province: village.province!,
             election: village.election,
             villageActYear: village.villageActYear,
             villageActivity: village.villageActivity,
@@ -88,9 +88,9 @@ class ManageVillageController extends GetxController {
       isLoading.value = false;
       villageList.clear();
       villages.clear();
-      addressController.selectedProvince.value = '0|';
-      addressController.selectedAmphure.value = '0|';
-      addressController.selectedTambol.value = '0|';
+      addressController.selectedProvince.value = '';
+      addressController.selectedAmphure.value = '';
+      addressController.selectedTambol.value = '';
       resetForm();
       return true;
     } catch (e) {
@@ -152,9 +152,9 @@ class ManageVillageController extends GetxController {
     talker.debug(election.text);
     final isValid = formKey.currentState!.validate();
     if (isValid) {
-      if (addressController.selectedProvince.value != '0|' &&
-          addressController.selectedAmphure.value != '0|' &&
-          addressController.selectedTambol.value != '0|') {
+      if (addressController.selectedProvince.value != '' &&
+          addressController.selectedAmphure.value != '' &&
+          addressController.selectedTambol.value != '') {
         if (villageTypeAct.text.isNotEmpty && villageGoalAct2.text.isNotEmpty) {
           typeActChips.add('${villageTypeAct.text} : ${villageGoalAct2.text}');
         }
@@ -193,10 +193,10 @@ class ManageVillageController extends GetxController {
     }
     // villages.add(
     //   Villages(
-    //     amphure: addressController.selectedAmphure.value.split('|').last,
-    //     district: addressController.selectedTambol.value.split('|').last,
+    //     amphure: addressController.selectedAmphure.value,
+    //     district: addressController.selectedTambol.value,
     //     election: election.text,
-    //     province: addressController.selectedProvince.value.split('|').last,
+    //     province: addressController.selectedProvince.value,
     //     villageActYear: villageActYear.text,
     //     villageActivity: villageActivity.text,
     //     villageGoalAct2: villageGoalAct2.text,
@@ -224,9 +224,9 @@ class ManageVillageController extends GetxController {
     villageTypeAct.text = "";
     election.text = "";
     typeActChips.clear();
-    // addressController.selectedProvince.value = '0|';
-    // addressController.selectedAmphure.value = '0|';
-    // addressController.selectedTambol.value = '0|';
+    // addressController.selectedProvince.value = '';
+    // addressController.selectedAmphure.value = '';
+    // addressController.selectedTambol.value = '';
     update();
   }
 

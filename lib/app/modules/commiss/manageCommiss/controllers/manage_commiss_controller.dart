@@ -252,9 +252,9 @@ class ManageCommissController extends GetxController {
     commissTelephone.text = "";
     commissPositionCommuChips.clear();
     commissExpChips.clear();
-    // addressController.selectedProvince.value = '0|';
-    // addressController.selectedAmphure.value = '0|';
-    // addressController.selectedTambol.value = '0|';
+    // addressController.selectedProvince.value = '';
+    // addressController.selectedAmphure.value = '';
+    // addressController.selectedTambol.value = '';
     selectedCommissPosition.value = '';
     selectedCommissPositionCommu.value = '';
     update();

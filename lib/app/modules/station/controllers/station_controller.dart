@@ -40,16 +40,16 @@ class StationController extends GetxController {
       "offset": "0",
       "limit": queryParamLimit,
       "order": queryParamOrderBy,
-      "province": addressController.selectedProvince.value.split('|').last,
-      "amphure": addressController.selectedAmphure.value.split('|').last,
-      "district": addressController.selectedTambol.value.split('|').last,
+      "province": addressController.selectedProvince.value,
+      "amphure": addressController.selectedAmphure.value,
+      "district": addressController.selectedTambol.value,
       "name": name.text,
       "process": process.text,
       "location": location.text,
       "facebook": facebook.text,
     };
     try {
-      final result = await StationService().listStation(qParams);
+      final result = await StationService().list(qParams);
       listStationStatistics.clear();
       for (final item in result!.data!) {
         listStationStatistics.add(

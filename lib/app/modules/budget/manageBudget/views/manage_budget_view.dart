@@ -679,7 +679,7 @@ DataRow budgetDataRow(
       ),
       DataCell(
         Text(
-          budgetData.province!.split('|').last,
+          budgetData.province!,
           style: const TextStyle(
             fontSize: 12,
           ),

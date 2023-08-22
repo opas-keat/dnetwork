@@ -889,12 +889,12 @@ class ManageCommissView extends StatelessWidget {
                         ),
                         ElevatedButton.icon(
                           onPressed: () {
-                            controller.addressController.selectedProvince
-                                .value = '0|';
+                            controller
+                                .addressController.selectedProvince.value = '';
                             controller.addressController.selectedAmphure.value =
-                                '0|';
+                                '';
                             controller.addressController.selectedTambol.value =
-                                '0|';
+                                '';
                             Get.toNamed(Routes.COMMISS);
                           },
                           style: ElevatedButton.styleFrom(

@@ -49,9 +49,9 @@ class LectuterController extends GetxController {
       "lectuter_agency": lectuterAgency.text,
       "lectuter_affiliate": lectuterAffiliate.text,
       "lectuter_telephone": lectuterTelephone.text,
-      "province": addressController.selectedProvince.value.split('|').last,
-      // "amphure": addressController.selectedAmphure.value.split('|').last,
-      // "district": addressController.selectedTambol.value.split('|').last,
+      "province": addressController.selectedProvince.value,
+      // "amphure": addressController.selectedAmphure.value,
+      // "district": addressController.selectedTambol.value,
     };
     try {
       final result = await LectuterService().listLectuter(qParams);

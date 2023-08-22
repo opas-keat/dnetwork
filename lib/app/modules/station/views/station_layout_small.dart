@@ -8,6 +8,7 @@ import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/info_card.dart';
 import '../../../shared/main_chart.dart';
+import '../../training/controllers/training_controller.dart';
 
 class StationLayoutSmall extends StatelessWidget {
   const StationLayoutSmall({
@@ -16,6 +17,7 @@ class StationLayoutSmall extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(TrainingController());
     return Column(
       children: [
         const Row(
@@ -112,11 +114,20 @@ class StationLayoutSmall extends StatelessWidget {
           ),
         ),
         const SizedBox(height: defaultPadding / 2),
-        MainChart(
-          header: "สถิติข้อมูลการอบรมของ ศส.ปชต.",
-          subHeader: "ประเภทการอบรม",
-          listSummaryChart: summaryStationChart,
+        GetBuilder<TrainingController>(
+          builder: (_) => controller.isLoadingChart.value
+              ? const Center(child: CircularProgressIndicator())
+              : MainChart(
+                  header: "สถิติข้อมูลการอบรมของ ศส.ปชต.",
+                  subHeader: "ประเภทการอบรม",
+                  listSummaryChart: controller.summaryChart.obs.value,
+                ),
         ),
+        // MainChart(
+        //   header: "สถิติข้อมูลการอบรมของ ศส.ปชต.",
+        //   subHeader: "ประเภทการอบรม",
+        //   listSummaryChart: summaryStationChart,
+        // ),
       ],
     );
   }

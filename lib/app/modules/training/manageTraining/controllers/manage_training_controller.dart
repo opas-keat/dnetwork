@@ -96,7 +96,7 @@ class ManageTrainingController extends GetxController {
             }
             isLoading.value = false;
             trainings.clear();
-            addressController.selectedProvince.value = '';
+            // addressController.selectedProvince.value = '';
             resetForm();
             return true;
           }
@@ -136,7 +136,7 @@ class ManageTrainingController extends GetxController {
   //           trainingName: training.trainingName,
   //           trainingTotal: training.trainingTotal,
   //           trainingType: training.trainingType,
-  //           province: training.province!.split('|').last,
+  //           province: training.province!,
   //         ),
   //       );
   //     }
@@ -148,7 +148,7 @@ class ManageTrainingController extends GetxController {
   //     isLoading.value = false;
   //     trainingList.clear();
   //     trainings.clear();
-  //     addressController.selectedProvince.value = '0|';
+  //     addressController.selectedProvince.value = '';
   //     resetForm();
   //     return true;
   //   } catch (e) {
@@ -167,6 +167,7 @@ class ManageTrainingController extends GetxController {
         if (addressController.selectedProvince.value != '') {
           trainings.add(
             Trainings(
+              id: selectedId,
               trainingDateForm: trainingDateForm.text,
               trainingDateTo: trainingDateTo.text,
               trainingName: trainingName.text,
@@ -195,7 +196,7 @@ class ManageTrainingController extends GetxController {
           isLoading.value = false;
           trainingList.refresh();
           trainings.clear();
-          addressController.selectedProvince.value = '';
+          // addressController.selectedProvince.value = '';
           selectedIndexFromTable = -1;
           resetForm();
         } else {
@@ -298,7 +299,7 @@ class ManageTrainingController extends GetxController {
   //   talker.debug(trainingTotal.text);
   //   final isValid = formKey.currentState!.validate();
   //   if (isValid) {
-  //     if (addressController.selectedProvince.value != '0|') {
+  //     if (addressController.selectedProvince.value != '') {
   //       trainingList.add(
   //         TrainingData(
   //           trainingDateForm: trainingDateForm.text,
@@ -334,7 +335,7 @@ class ManageTrainingController extends GetxController {
     trainingType.text = "";
     trainingTotal.text = "0";
     selectedTrainingType.value = '';
-    // addressController.selectedProvince.value = '0|';
+    // addressController.selectedProvince.value = '';
     update();
   }
 

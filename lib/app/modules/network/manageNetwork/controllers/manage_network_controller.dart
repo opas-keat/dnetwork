@@ -241,9 +241,9 @@ class ManageNetworkController extends GetxController {
     networkTelephone.text = "";
     networkPositionCommuChips.clear();
     networkExpChips.clear();
-    // addressController.selectedProvince.value = '0|';
-    // addressController.selectedAmphure.value = '0|';
-    // addressController.selectedTambol.value = '0|';
+    // addressController.selectedProvince.value = '';
+    // addressController.selectedAmphure.value = '';
+    // addressController.selectedTambol.value = '';
     selectedNetworkPosition.value = '';
     selectedNetworkPositionCommu.value = '';
     update();
@@ -267,7 +267,8 @@ class ManageNetworkController extends GetxController {
   addNetworkExpToChip(String exp) {
     talker.debug('$logTitle::addNetworkExpToChip:$networkExp');
     networkExpChips.add(exp);
-    talker.debug('$logTitle::addNetworkExpToChip:${networkExpChips.toString()}');
+    talker
+        .debug('$logTitle::addNetworkExpToChip:${networkExpChips.toString()}');
     networkExp.text = '';
     networkExpChips.refresh();
   }

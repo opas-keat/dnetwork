@@ -40,7 +40,7 @@ class MemberController extends GetxController {
       "offset": "0",
       "limit": queryParamLimit,
       "order": queryParamOrderBy,
-      "province": addressController.selectedProvince.value.split('|').last,
+      "province": addressController.selectedProvince.value,
       "member_id_card": memberIdCard.text,
       "member_telephone": memberTelephone.text,
       "member_station_name": memberStationName.text,

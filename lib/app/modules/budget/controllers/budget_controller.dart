@@ -54,7 +54,7 @@ class BudgetController extends GetxController {
       "offset": "0",
       "limit": queryParamLimit,
       "order": queryParamOrderBy,
-      "province": addressController.selectedProvince.value.split('|').last,
+      "province": addressController.selectedProvince.value,
     };
     try {
       final result = await BudgetTypeService().list(qParams);
@@ -84,14 +84,14 @@ class BudgetController extends GetxController {
     talker.debug('$logTitle::listBudget:budgetDate-${budgetDate.text}');
     talker.debug('$logTitle::listBudget:budgetType-${budgetType.text}');
     talker.debug(
-        '$logTitle::listBudget:province-${addressController.selectedProvince.value.split('|').last}');
+        '$logTitle::listBudget:province-${addressController.selectedProvince.value}');
     Map<String, String> qParams = {
       "offset": "0",
       "limit": queryParamLimit,
       "order": queryParamOrderBy,
       "budget_date": budgetDate.text,
       "budget_type": budgetType.text,
-      "province": addressController.selectedProvince.value.split('|').last,
+      "province": addressController.selectedProvince.value,
     };
     try {
       final result = await BudgetService().listBudget(qParams);

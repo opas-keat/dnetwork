@@ -7,6 +7,7 @@ import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/info_card.dart';
 import '../../../shared/main_chart.dart';
+import '../../training/controllers/training_controller.dart';
 import '../controllers/station_controller.dart';
 import 'station_statistics.dart';
 
@@ -20,6 +21,7 @@ class StationLayoutLarge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(TrainingController());
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -92,11 +94,20 @@ class StationLayoutLarge extends StatelessWidget {
         Expanded(
           child: Padding(
             padding: const EdgeInsets.only(left: defaultPadding / 2),
-            child: MainChart(
-              header: "สถิติข้อมูลการอบรมของ ศส.ปชต.",
-              subHeader: "ประเภทการอบรม",
-              listSummaryChart: summaryDashboardChart,
+            child: GetBuilder<TrainingController>(
+              builder: (_) => controller.isLoadingChart.value
+                  ? const Center(child: CircularProgressIndicator())
+                  : MainChart(
+                      header: "สถิติข้อมูลการอบรมของ ศส.ปชต.",
+                      subHeader: "ประเภทการอบรม",
+                      listSummaryChart: controller.summaryChart.obs.value,
+                    ),
             ),
+            // child: MainChart(
+            //   header: "สถิติข้อมูลการอบรมของ ศส.ปชต.",
+            //   subHeader: "ประเภทการอบรม",
+            //   listSummaryChart: summaryDashboardChart,
+            // ),
           ),
         ),
       ],

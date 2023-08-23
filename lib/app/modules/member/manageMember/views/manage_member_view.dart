@@ -103,16 +103,29 @@ class ManageMemberView extends StatelessWidget {
                               children: [
                                 const Spacer(flex: 1),
                                 IconButton(
-                                  icon: const Icon(Icons.refresh_sharp),
-                                  onPressed: () {
-                                    controller.resetForm();
+                                  icon: const Icon(Icons.add_sharp),
+                                  // onPressed: () {
+                                  //   controller.addDataToTable();
+                                  // },
+                                  onPressed: () async {
+                                    Get.dialog(
+                                      const Center(
+                                        child: CircularProgressIndicator(),
+                                      ),
+                                      barrierDismissible: false,
+                                    );
+                                    await controller.save();
+                                    Get.back();
                                   },
                                 ),
                                 const Spacer(flex: 1),
                                 IconButton(
-                                  icon: const Icon(Icons.add_sharp),
-                                  onPressed: () {
-                                    controller.addDataToTable();
+                                  icon: const Icon(Icons.edit_sharp),
+                                  // onPressed: () {
+                                  //   controller.resetForm();
+                                  // },
+                                  onPressed: () async {
+                                    await controller.editData();
                                   },
                                 ),
                                 const Spacer(flex: 1),
@@ -252,6 +265,7 @@ class ManageMemberView extends StatelessWidget {
                               controller: controller.memberProvince,
                               keyboardType: TextInputType.text,
                               enabled: false,
+                              readOnly: true,
                               decoration: InputDecoration(
                                 fillColor: Colors.white.withOpacity(.8),
                                 filled: true,
@@ -294,6 +308,7 @@ class ManageMemberView extends StatelessWidget {
                               controller: controller.memberAmphure,
                               keyboardType: TextInputType.text,
                               enabled: false,
+                              readOnly: true,
                               decoration: InputDecoration(
                                 fillColor: Colors.white.withOpacity(.8),
                                 filled: true,
@@ -327,6 +342,7 @@ class ManageMemberView extends StatelessWidget {
                             TextFormField(
                               controller: controller.memberTambol,
                               keyboardType: TextInputType.text,
+                              readOnly: true,
                               enabled: false,
                               decoration: InputDecoration(
                                 fillColor: Colors.white.withOpacity(.8),
@@ -842,7 +858,8 @@ class ManageMemberView extends StatelessWidget {
                               ),
                               barrierDismissible: false,
                             );
-                            final result = await controller.saveMember();
+                            // final result = await controller.saveMember();
+                            final result = await controller.save();
                             Get.back();
                             result
                                 ? Get.offAllNamed(Routes.MEMBER)
@@ -956,7 +973,7 @@ DataRow memberDataRow(
       },
     ),
     onSelectChanged: (value) {
-      controller.selectDataFromTable(index);
+      controller.selectDataFromTable(index, memberData.id!);
     },
     cells: [
       DataCell(
@@ -1049,6 +1066,9 @@ DataRow memberDataRowLayoutSmall(
         }
       },
     ),
+    onSelectChanged: (value) {
+      controller.selectDataFromTable(index, memberData.id!);
+    },
     cells: [
       DataCell(
         Text(

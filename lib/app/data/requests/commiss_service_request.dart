@@ -22,6 +22,7 @@ class CommissServiceRequest {
 }
 
 class Commisss {
+  int? id;
   int? commissStationId;
   String? commissStationName;
   String? province;
@@ -39,7 +40,8 @@ class Commisss {
   String? commissExp;
 
   Commisss(
-      {this.commissStationId,
+      {this.id,
+      this.commissStationId,
       this.commissStationName,
       this.province,
       this.amphure,
@@ -56,6 +58,7 @@ class Commisss {
       this.commissExp});
 
   Commisss.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
     commissStationId = json['commiss_station_id'];
     commissStationName = json['commiss_station_name'];
     province = json['province'];
@@ -75,6 +78,7 @@ class Commisss {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
     data['commiss_station_id'] = commissStationId;
     data['commiss_station_name'] = commissStationName;
     data['province'] = province;

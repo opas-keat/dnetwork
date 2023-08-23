@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-import '../../../data/models/summary_chart.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/info_card.dart';
 import '../../../shared/main_chart.dart';
+import '../../training/controllers/training_controller.dart';
 import 'dashboard_statistics.dart';
 
 class DashboardLayoutLarge extends StatelessWidget {
@@ -12,6 +13,7 @@ class DashboardLayoutLarge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(TrainingController());
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -69,11 +71,20 @@ class DashboardLayoutLarge extends StatelessWidget {
         Expanded(
           child: Padding(
             padding: const EdgeInsets.only(left: defaultPadding / 2),
-            child: MainChart(
-              header: "สถิติข้อมูลการอบรมของ ศส.ปชต.",
-              subHeader: "ประเภทการอบรม",
-              listSummaryChart: summaryDashboardChart,
+            child: GetBuilder<TrainingController>(
+              builder: (_) => controller.isLoadingChart.value
+                  ? const Center(child: CircularProgressIndicator())
+                  : MainChart(
+                      header: "สถิติข้อมูลการอบรมของ ศส.ปชต.",
+                      subHeader: "ประเภทการอบรม",
+                      listSummaryChart: controller.summaryChart.obs.value,
+                    ),
             ),
+            // child: MainChart(
+            //   header: "สถิติข้อมูลการอบรมของ ศส.ปชต.",
+            //   subHeader: "ประเภทการอบรม",
+            //   listSummaryChart: summaryDashboardChart,
+            // ),
           ),
         ),
       ],

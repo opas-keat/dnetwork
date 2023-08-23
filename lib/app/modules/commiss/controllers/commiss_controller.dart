@@ -50,7 +50,7 @@ class CommissController extends GetxController {
       "commiss_station_name": commissStationName.text,
     };
     try {
-      final result = await CommissService().listCommiss(qParams);
+      final result = await CommissService().list(qParams);
       listCommissStatistics.clear();
       for (final item in result!.data!) {
         listCommissStatistics.add(

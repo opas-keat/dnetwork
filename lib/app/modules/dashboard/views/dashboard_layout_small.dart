@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../../responsive.dart';
-import '../../../data/models/summary_chart.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/info_card.dart';
 import '../../../shared/main_chart.dart';
+import '../../training/controllers/training_controller.dart';
 import 'dashboard_statistics_small.dart';
 
 class DashboardLayoutSmall extends StatelessWidget {
@@ -15,6 +16,7 @@ class DashboardLayoutSmall extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(TrainingController());
     return Column(
       children: [
         Row(
@@ -51,11 +53,20 @@ class DashboardLayoutSmall extends StatelessWidget {
         const SizedBox(height: defaultPadding / 2),
         const DashboardStatisticsSmall(),
         const SizedBox(height: defaultPadding / 2),
-        MainChart(
-          header: "สถิติข้อมูลการอบรมของ ศส.ปชต.",
-          subHeader: "ประเภทการอบรม",
-          listSummaryChart: summaryDashboardChart,
+        GetBuilder<TrainingController>(
+          builder: (_) => controller.isLoadingChart.value
+              ? const Center(child: CircularProgressIndicator())
+              : MainChart(
+                  header: "สถิติข้อมูลการอบรมของ ศส.ปชต.",
+                  subHeader: "ประเภทการอบรม",
+                  listSummaryChart: controller.summaryChart.obs.value,
+                ),
         ),
+        // MainChart(
+        //   header: "สถิติข้อมูลการอบรมของ ศส.ปชต.",
+        //   subHeader: "ประเภทการอบรม",
+        //   listSummaryChart: summaryDashboardChart,
+        // ),
       ],
     );
   }

@@ -102,16 +102,29 @@ class ManageCommissView extends StatelessWidget {
                               children: [
                                 const Spacer(flex: 1),
                                 IconButton(
-                                  icon: const Icon(Icons.refresh_sharp),
-                                  onPressed: () {
-                                    controller.resetForm();
+                                  icon: const Icon(Icons.add_sharp),
+                                  // onPressed: () {
+                                  //   controller.addDataToTable();
+                                  // },
+                                  onPressed: () async {
+                                    Get.dialog(
+                                      const Center(
+                                        child: CircularProgressIndicator(),
+                                      ),
+                                      barrierDismissible: false,
+                                    );
+                                    await controller.save();
+                                    Get.back();
                                   },
                                 ),
                                 const Spacer(flex: 1),
                                 IconButton(
-                                  icon: const Icon(Icons.add_sharp),
-                                  onPressed: () {
-                                    controller.addDataToTable();
+                                  icon: const Icon(Icons.edit_sharp),
+                                  // onPressed: () {
+                                  //   controller.resetForm();
+                                  // },
+                                  onPressed: () async {
+                                    await controller.editData();
                                   },
                                 ),
                                 const Spacer(flex: 1),
@@ -254,6 +267,7 @@ class ManageCommissView extends StatelessWidget {
                               controller: controller.commissProvince,
                               keyboardType: TextInputType.text,
                               enabled: false,
+                              readOnly: true,
                               decoration: InputDecoration(
                                 fillColor: Colors.white.withOpacity(.8),
                                 filled: true,
@@ -296,6 +310,7 @@ class ManageCommissView extends StatelessWidget {
                               controller: controller.commissAmphure,
                               keyboardType: TextInputType.text,
                               enabled: false,
+                              readOnly: true,
                               decoration: InputDecoration(
                                 fillColor: Colors.white.withOpacity(.8),
                                 filled: true,
@@ -330,6 +345,7 @@ class ManageCommissView extends StatelessWidget {
                               controller: controller.commissTambol,
                               keyboardType: TextInputType.text,
                               enabled: false,
+                              readOnly: true,
                               decoration: InputDecoration(
                                 fillColor: Colors.white.withOpacity(.8),
                                 filled: true,
@@ -854,7 +870,8 @@ class ManageCommissView extends StatelessWidget {
                               ),
                               barrierDismissible: false,
                             );
-                            final result = await controller.saveCommiss();
+                            // final result = await controller.saveCommiss();
+                            final result = await controller.save();
                             Get.back();
                             result
                                 ? Get.offAllNamed(Routes.COMMISS)
@@ -888,13 +905,7 @@ class ManageCommissView extends StatelessWidget {
                           ),
                         ),
                         ElevatedButton.icon(
-                          onPressed: () {
-                            controller
-                                .addressController.selectedProvince.value = '';
-                            controller.addressController.selectedAmphure.value =
-                                '';
-                            controller.addressController.selectedTambol.value =
-                                '';
+                          onPressed: () {                            
                             Get.toNamed(Routes.COMMISS);
                           },
                           style: ElevatedButton.styleFrom(
@@ -974,7 +985,7 @@ DataRow commissDataRow(
       },
     ),
     onSelectChanged: (value) {
-      controller.selectDataFromTable(index);
+      controller.selectDataFromTable(index, commissData.id!);
     },
     cells: [
       DataCell(
@@ -1068,7 +1079,7 @@ DataRow commissDataRowLayoutSmall(
       },
     ),
     onSelectChanged: (value) {
-      controller.selectDataFromTable(index);
+      controller.selectDataFromTable(index, commissData.id!);
     },
     cells: [
       DataCell(

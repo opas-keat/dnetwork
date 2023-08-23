@@ -102,16 +102,29 @@ class ManageNetworkView extends StatelessWidget {
                               children: [
                                 const Spacer(flex: 1),
                                 IconButton(
-                                  icon: const Icon(Icons.refresh_sharp),
-                                  onPressed: () {
-                                    controller.resetForm();
+                                  icon: const Icon(Icons.add_sharp),
+                                  // onPressed: () {
+                                  //   controller.addDataToTable();
+                                  // },
+                                  onPressed: () async {
+                                    Get.dialog(
+                                      const Center(
+                                        child: CircularProgressIndicator(),
+                                      ),
+                                      barrierDismissible: false,
+                                    );
+                                    await controller.save();
+                                    Get.back();
                                   },
                                 ),
                                 const Spacer(flex: 1),
                                 IconButton(
-                                  icon: const Icon(Icons.add_sharp),
-                                  onPressed: () {
-                                    controller.addDataToTable();
+                                  icon: const Icon(Icons.edit_sharp),
+                                  // onPressed: () {
+                                  //   controller.resetForm();
+                                  // },
+                                  onPressed: () async {
+                                    await controller.editData();
                                   },
                                 ),
                                 const Spacer(flex: 1),
@@ -254,6 +267,7 @@ class ManageNetworkView extends StatelessWidget {
                               controller: controller.networkProvince,
                               keyboardType: TextInputType.text,
                               enabled: false,
+                              readOnly: true,
                               decoration: InputDecoration(
                                 fillColor: Colors.white.withOpacity(.8),
                                 filled: true,
@@ -296,6 +310,7 @@ class ManageNetworkView extends StatelessWidget {
                               controller: controller.networkAmphure,
                               keyboardType: TextInputType.text,
                               enabled: false,
+                              readOnly: true,
                               decoration: InputDecoration(
                                 fillColor: Colors.white.withOpacity(.8),
                                 filled: true,
@@ -330,6 +345,7 @@ class ManageNetworkView extends StatelessWidget {
                               controller: controller.networkTambol,
                               keyboardType: TextInputType.text,
                               enabled: false,
+                              readOnly: true,
                               decoration: InputDecoration(
                                 fillColor: Colors.white.withOpacity(.8),
                                 filled: true,
@@ -844,7 +860,8 @@ class ManageNetworkView extends StatelessWidget {
                               ),
                               barrierDismissible: false,
                             );
-                            final result = await controller.saveNetwork();
+                            // final result = await controller.saveNetwork();
+                            final result = await controller.save();
                             Get.back();
                             result
                                 ? Get.offAllNamed(Routes.NETWORK)
@@ -958,7 +975,7 @@ DataRow networkDataRow(
       },
     ),
     onSelectChanged: (value) {
-      controller.selectDataFromTable(index);
+      controller.selectDataFromTable(index, networkData.id!);
     },
     cells: [
       DataCell(
@@ -1051,6 +1068,9 @@ DataRow networkDataRowLayoutSmall(
         }
       },
     ),
+    onSelectChanged: (value) {
+      controller.selectDataFromTable(index, networkData.id!);
+    },
     cells: [
       DataCell(
         Text(

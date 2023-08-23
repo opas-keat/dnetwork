@@ -48,7 +48,7 @@ class MemberController extends GetxController {
       "member_sur_name": memberSurName.text,
     };
     try {
-      final result = await MemberService().listMember(qParams);
+      final result = await MemberService().list(qParams);
       listMemberStatistics.clear();
       for (final item in result!.data!) {
         listMemberStatistics.add(

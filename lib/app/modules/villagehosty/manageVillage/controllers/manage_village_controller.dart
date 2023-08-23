@@ -16,7 +16,7 @@ class ManageVillageController extends GetxController {
   Rx<String> filePath = ''.obs;
   Rx<XFile> fileUpload = XFile('').obs;
 
-  final formKey = GlobalKey<FormState>();
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final villageList = <VillageData>[].obs;
   final villages = <Villages>[].obs;
   final villageName = TextEditingController();
@@ -155,6 +155,7 @@ class ManageVillageController extends GetxController {
             addressController.selectedTambol.value != '') {
           villages.add(
             Villages(
+              id: selectedId,
               amphure: addressController.selectedAmphure.value,
               district: addressController.selectedTambol.value,
               election: election.text,

@@ -48,7 +48,7 @@ class NetworkController extends GetxController {
       "network_sur_name": networkSurName.text,
     };
     try {
-      final result = await NetworkService().listNetwork(qParams);
+      final result = await NetworkService().list(qParams);
       listNetworkStatistics.clear();
       for (final item in result!.data!) {
         listNetworkStatistics.add(

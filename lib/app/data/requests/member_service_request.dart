@@ -22,6 +22,7 @@ class MemberServiceRequest {
 }
 
 class Members {
+  int? id;
   int? memberStationId;
   String? memberStationName;
   String? province;
@@ -39,7 +40,7 @@ class Members {
   String? memberExp;
 
   Members(
-      {this.memberStationId,
+      {this.id,this.memberStationId,
       this.memberStationName,
       this.province,
       this.amphure,
@@ -56,6 +57,7 @@ class Members {
       this.memberExp});
 
   Members.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
     memberStationId = json['member_station_id'];
     memberStationName = json['member_station_name'];
     province = json['province'];
@@ -75,6 +77,7 @@ class Members {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+     data['id'] = id;
     data['member_station_id'] = memberStationId;
     data['member_station_name'] = memberStationName;
     data['province'] = province;

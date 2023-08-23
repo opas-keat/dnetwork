@@ -22,6 +22,7 @@ class NetworkServiceRequest {
 }
 
 class Networks {
+  int? id;
   int? networkStationId;
   String? networkStationName;
   String? province;
@@ -39,7 +40,7 @@ class Networks {
   String? networkExp;
 
   Networks(
-      {this.networkStationId,
+      {this.id,this.networkStationId,
       this.networkStationName,
       this.province,
       this.amphure,
@@ -56,6 +57,7 @@ class Networks {
       this.networkExp});
 
   Networks.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
     networkStationId = json['network_station_id'];
     networkStationName = json['network_station_name'];
     province = json['province'];
@@ -75,6 +77,7 @@ class Networks {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+     data['id'] = id;
     data['network_station_id'] = networkStationId;
     data['network_station_name'] = networkStationName;
     data['province'] = province;

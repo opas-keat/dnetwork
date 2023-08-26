@@ -1012,14 +1012,6 @@ DataRow networkDataRowSmall(
     },
     cells: [
       DataCell(
-        Text(
-          formatterItem.format(index + 1),
-          style: const TextStyle(
-            fontSize: 12,
-          ),
-        ),
-      ),
-      DataCell(
         Wrap(
           children: [
             Text(

@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:frontend/app/api/api_params.dart';
 import 'package:get/get.dart';
 
+import '../../../api/services/member_position_service.dart';
 import '../../../api/services/member_service.dart';
 import '../../../data/models/member_statistics_data.dart';
+import '../../../data/models/summary_chart.dart';
 import '../../../shared/utils.dart';
 import '../../address/controllers/address_controller.dart';
 
@@ -11,6 +13,7 @@ class MemberController extends GetxController {
   final logTitle = "StationController";
   RxBool isLoading = true.obs;
   RxBool isLoadingAddMember = true.obs;
+  RxBool isLoadingChart = true.obs;
   AddressController addressController = Get.put(AddressController());
 
   final listMemberStatistics = <MemberStatisticsData>[].obs;
@@ -23,6 +26,8 @@ class MemberController extends GetxController {
   final memberFirstName = TextEditingController(text: "");
   final memberSurName = TextEditingController(text: "");
 
+  final summaryChart = <SummaryChart>[].obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -31,6 +36,37 @@ class MemberController extends GetxController {
     // update();
     // getMember();
     listMember();
+    listMemberPosition();
+  }
+
+  listMemberPosition() async {
+    talker.info('$logTitle::listMemberPosition');
+    isLoadingChart.value = true;
+    Map<String, String> qParams = {
+      "offset": "0",
+      "limit": queryParamLimit,
+      "order": queryParamOrderBy,
+      "province": addressController.selectedProvince.value,
+    };
+    try {
+      final result = await MemberPositionService().list(qParams);
+      summaryChart.clear();
+      for (final item in result!.data!) {
+        summaryChart.add(
+          SummaryChart(
+            icon: Icons.edit_document,
+            color: randomColor(),
+            name: item.name!,
+            value: item.totalData!,
+          ),
+        );
+      }
+      isLoadingChart.value = false;
+      isLoadingChart.refresh();
+      summaryChart.refresh();
+    } catch (e) {
+      talker.error('$e');
+    }
   }
 
   listMember() async {

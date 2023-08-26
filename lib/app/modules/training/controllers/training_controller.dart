@@ -58,6 +58,7 @@ class TrainingController extends GetxController {
         );
       }
       isLoadingChart.value = false;
+      isLoadingChart.refresh();
       summaryChart.refresh();
     } catch (e) {
       talker.error('$e');

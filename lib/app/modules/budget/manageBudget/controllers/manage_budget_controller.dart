@@ -28,7 +28,7 @@ class ManageBudgetController extends GetxController {
   int selectedIndexFromTable = -1;
   int selectedId = -1;
 
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  GlobalKey<FormState> formKeyBudget = GlobalKey<FormState>();
   final budgetDate = TextEditingController();
   final budgetType = TextEditingController();
   final budgetBegin = TextEditingController();
@@ -70,7 +70,7 @@ class ManageBudgetController extends GetxController {
       talker.debug(budgetBegin.text);
       talker.debug(budgetUsed.text);
       talker.debug(budgetRemain.text);
-      final isValid = formKey.currentState!.validate();
+      final isValid = formKeyBudget.currentState!.validate();
       if (isValid) {
         if (addressController.selectedProvince.value != '') {
           budgets.add(
@@ -167,7 +167,7 @@ class ManageBudgetController extends GetxController {
     talker.info('$logTitle:editData:$selectedIndexFromTable');
     isLoading.value = true;
     try {
-      final isValid = formKey.currentState!.validate();
+      final isValid = formKeyBudget.currentState!.validate();
       if (isValid) {
         if (addressController.selectedProvince.value != '') {
           budgets.add(

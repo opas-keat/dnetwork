@@ -3,12 +3,12 @@ import 'package:get/get.dart';
 
 import '../../../../responsive.dart';
 import '../../../data/models/member_statistics_data.dart';
-import '../../../data/models/summary_chart.dart';
 import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/info_card.dart';
 import '../../../shared/main_chart.dart';
+import '../controllers/member_controller.dart';
 
 class MemberLayoutSmall extends StatelessWidget {
   const MemberLayoutSmall({
@@ -16,6 +16,7 @@ class MemberLayoutSmall extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(MemberController());
     return Column(
       children: [
         const Row(
@@ -110,11 +111,20 @@ class MemberLayoutSmall extends StatelessWidget {
           ),
         ),
         const SizedBox(height: defaultPadding / 2),
-        MainChart(
-          header: "สถิติข้อมูลสมาชิก ศส.ปชต.",
-          subHeader: "ตำแหน่งสมาชิก",
-          listSummaryChart: summaryMemberChart,
+        GetBuilder<MemberController>(
+          builder: (_) => controller.isLoadingChart.value
+              ? const Center(child: CircularProgressIndicator())
+              : MainChart(
+                  header: "สถิติข้อมูลสมาชิก ศส.ปชต.",
+                  subHeader: "ตำแหน่งสมาชิก",
+                  listSummaryChart: controller.summaryChart.obs.value,
+                ),
         ),
+        // MainChart(
+        //   header: "สถิติข้อมูลสมาชิก ศส.ปชต.",
+        //   subHeader: "ตำแหน่งสมาชิก",
+        //   listSummaryChart: summaryMemberChart,
+        // ),
       ],
     );
   }

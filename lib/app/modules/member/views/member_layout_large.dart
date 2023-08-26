@@ -7,6 +7,7 @@ import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/info_card.dart';
 import '../../../shared/main_chart.dart';
+import '../controllers/member_controller.dart';
 import 'member_statistics.dart';
 
 class MemberLayoutLarge extends StatelessWidget {
@@ -16,6 +17,7 @@ class MemberLayoutLarge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(MemberController());
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -81,11 +83,20 @@ class MemberLayoutLarge extends StatelessWidget {
         Expanded(
           child: Padding(
             padding: const EdgeInsets.only(left: defaultPadding / 2),
-            child: MainChart(
-              header: "สถิติข้อมูลสมาชิก ศส.ปชต.",
-              subHeader: "ตำแหน่งสมาชิก",
-              listSummaryChart: summaryMemberChart,
+            child: GetBuilder<MemberController>(
+              builder: (_) => controller.isLoadingChart.value
+                  ? const Center(child: CircularProgressIndicator())
+                  : MainChart(
+                      header: "สถิติข้อมูลสมาชิก ศส.ปชต.",
+                      subHeader: "ตำแหน่งสมาชิก",
+                      listSummaryChart: controller.summaryChart.obs.value,
+                    ),
             ),
+            // child: MainChart(
+            //   header: "สถิติข้อมูลสมาชิก ศส.ปชต.",
+            //   subHeader: "ตำแหน่งสมาชิก",
+            //   listSummaryChart: summaryMemberChart,
+            // ),
           ),
         ),
       ],

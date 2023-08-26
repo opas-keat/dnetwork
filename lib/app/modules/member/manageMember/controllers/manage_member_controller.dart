@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import '../../../../api/api_params.dart';
 import '../../../../api/services/commiss_position_commu_service.dart';
 import '../../../../api/services/commiss_position_service.dart';
+import '../../../../api/services/member_position_service.dart';
 import '../../../../api/services/member_service.dart';
 import '../../../../data/requests/member_service_request.dart';
 import '../../../../data/responses/member_service_response.dart';
@@ -496,7 +497,7 @@ class ManageMemberController extends GetxController {
       "order": queryParamOrderBy,
     };
     try {
-      final result = await CommissPositionService().list(qParams);
+      final result = await MemberPositionService().list(qParams);
       memberPositionList.clear();
       memberPositionList.add("");
       for (var item in result!.data!) {

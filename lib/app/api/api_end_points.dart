@@ -28,6 +28,7 @@ class ApiEndPoints {
   static const trainingType = "/training_type";
   // ---- member ----
   static const member = "/member";
+  static const memberPosition = "/member_position";
   // ---- network ----
   static const network = "/network";
   // ---- logs ----

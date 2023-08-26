@@ -66,6 +66,8 @@ class AddressController extends GetxController {
     talker.info('$logTitle updateSelectedProvince:$province');
     selectedProvince.value = province;
     talker.info('$logTitle updateSelectedProvince::pName:$province');
+    amphureList.clear();
+    tambolList.clear();
     if (showAmphure) {
       listAmphure();
     }

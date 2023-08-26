@@ -748,7 +748,6 @@ class ManageDataDetail extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        // const Spacer(flex: 1),
         IconButton(
           icon: const Icon(Icons.add_sharp),
           onPressed: () async {

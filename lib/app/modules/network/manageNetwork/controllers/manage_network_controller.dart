@@ -143,7 +143,7 @@ class ManageNetworkController extends GetxController {
     }
   }
 
-  editData() async {
+  edit() async {
     talker.info('$logTitle:editData:$selectedIndexFromTable');
     isLoading.value = true;
     try {
@@ -181,7 +181,8 @@ class ManageNetworkController extends GetxController {
                 item.networkFirstName;
             networkList[selectedIndexFromTable].networkSurName =
                 item.networkSurName;
-            networkList[selectedIndexFromTable].networkIdCard = item.networkIdCard;
+            networkList[selectedIndexFromTable].networkIdCard =
+                item.networkIdCard;
             networkList[selectedIndexFromTable].networkBirthYear =
                 item.networkBirthYear;
             networkList[selectedIndexFromTable].networkLocation =
@@ -211,7 +212,7 @@ class ManageNetworkController extends GetxController {
     }
   }
 
-  deleteDataFromTable() async {
+  delete() async {
     talker.info('$logTitle:deleteDataFromTable:$selectedId');
     talker.info('$logTitle:deleteDataFromTable:$selectedIndexFromTable');
     if (networkList.length > selectedIndexFromTable &&
@@ -254,7 +255,8 @@ class ManageNetworkController extends GetxController {
         networkTambol.text = item.amphure!;
         networkProvince.text = item.province!;
         if (item.networkPositionCommu!.isNotEmpty) {
-          networkPositionCommuChips.addAll(item.networkPositionCommu!.split('|'));
+          networkPositionCommuChips
+              .addAll(item.networkPositionCommu!.split('|'));
           selectedNetworkPositionCommu.value =
               item.networkPositionCommu!.split('|').first;
         }
@@ -478,7 +480,8 @@ class ManageNetworkController extends GetxController {
   addNetworkExpToChip(String networkExp) {
     talker.debug('$logTitle::addNetworkExpToChip:$networkExp');
     networkExpChips.add(networkExp);
-    talker.debug('$logTitle::addNetworkExpToChip:${networkExpChips.toString()}');
+    talker
+        .debug('$logTitle::addNetworkExpToChip:${networkExpChips.toString()}');
     update();
   }
 

@@ -143,7 +143,7 @@ class ManageMemberController extends GetxController {
     }
   }
 
-  editData() async {
+  edit() async {
     talker.info('$logTitle:editData:$selectedIndexFromTable');
     isLoading.value = true;
     try {
@@ -211,7 +211,7 @@ class ManageMemberController extends GetxController {
     }
   }
 
-  deleteDataFromTable() async {
+  delete() async {
     talker.info('$logTitle:deleteDataFromTable:$selectedId');
     talker.info('$logTitle:deleteDataFromTable:$selectedIndexFromTable');
     if (memberList.length > selectedIndexFromTable &&

@@ -26,10 +26,6 @@ class CommissController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    // isLoading.value = true;
-    // listCommissStatistics.value = listCommissStatisticsData;
-    // update();
-    // getCommiss();
     listCommiss();
   }
 

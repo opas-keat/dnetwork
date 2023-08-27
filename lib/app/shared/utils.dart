@@ -5,11 +5,8 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:talker_flutter/talker_flutter.dart';
-
-import '../modules/address/controllers/address_controller.dart';
 
 final formatterPrice = NumberFormat('#,###,##0.00');
 final formatterItem = NumberFormat('#,###,##0.##');

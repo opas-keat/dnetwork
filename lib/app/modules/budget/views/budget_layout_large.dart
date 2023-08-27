@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/app/api/api_params.dart';
+import 'package:frontend/app/shared/custom_flat_button.dart';
 import 'package:get/get.dart';
 
 import '../../../routes/app_pages.dart';
@@ -10,18 +12,16 @@ import '../controllers/budget_controller.dart';
 import 'budget_statistics.dart';
 
 class BudgetLayoutLarge extends StatelessWidget {
-  BudgetLayoutLarge({
+  const BudgetLayoutLarge({
     super.key,
   });
-  // final AddressController addressController = Get.put(AddressController());
-
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(BudgetController());
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(
+        Flexible(
           flex: 4,
           child: Column(
             children: [
@@ -64,8 +64,9 @@ class BudgetLayoutLarge extends StatelessWidget {
                           horizontal: defaultPadding / 2),
                     ),
                     onPressed: () {
-                      // addressController.selectedProvince.value = "";
-                      // addressController.();
+                      controller.currentPage = 1;
+                      controller.listBudgetStatistics.clear();
+                      controller.offset.value = int.parse(queryParamOffset);
                       Get.toNamed(Routes.MANAGE_BUDGET);
                     },
                   ),
@@ -73,16 +74,27 @@ class BudgetLayoutLarge extends StatelessWidget {
               ),
               const SizedBox(height: defaultPadding / 2),
               const InfoCard(
-                childAspectRatio: 2.2,
-                // listSummaryInfo: listBudgetSummaryInfo,
-                textScale: 1.4,
+                childAspectRatio: 2.8,
+                textScale: 0.9,
               ),
               const SizedBox(height: defaultPadding / 2),
               BudgetStatistics(),
+              const SizedBox(height: defaultPadding / 2),
+              CustomFlatButton(
+                onPressed: () {
+                  controller.currentPage++;
+                  controller.offset.value =
+                      ((controller.currentPage * int.parse(queryParamLimit)) -
+                          int.parse(queryParamLimit));
+                  controller.listBudget();
+                },
+                label: "แสดงข้อมูลเพิ่ม",
+                labelStyle: const TextStyle(fontSize: 16),
+              ),
             ],
           ),
         ),
-        Expanded(
+        Flexible(
           child: Padding(
             padding: const EdgeInsets.only(left: defaultPadding / 2),
             child: GetBuilder<BudgetController>(

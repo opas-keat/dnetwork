@@ -1,6 +1,7 @@
 String PARAM_STATUS_CODE = "status_code";
 String PARAM_MESSAGE = "message";
 String PARAM_API_KEY = "api_key";
+const String queryParamOffset = "0";
 const String queryParamLimit = "20";
 const String queryParamOrderBy = "created_at desc";
 

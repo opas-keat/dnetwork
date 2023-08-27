@@ -17,7 +17,7 @@ class InfoCard extends StatelessWidget {
   // final InfoCardController controller = Get.put(InfoCardController());
   // final controller = Get.lazyPut(() => InfoCardController());
   final int crossAxisCount;
-  final double childAspectRatio;
+  final double? childAspectRatio;
   final double textScale;
 
   @override
@@ -34,7 +34,7 @@ class InfoCard extends StatelessWidget {
                 crossAxisCount: crossAxisCount,
                 crossAxisSpacing: defaultPadding,
                 mainAxisSpacing: defaultPadding,
-                childAspectRatio: childAspectRatio,
+                childAspectRatio: childAspectRatio!,
               ),
               itemBuilder: (context, index) {
                 return Container(

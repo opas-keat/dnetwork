@@ -12,7 +12,8 @@ class MainDrawer extends StatelessWidget {
   final AddressController addressController = Get.put(AddressController());
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
+      padding: const EdgeInsets.only(right: defaultPadding / 2),
       width: 200,
       child: Drawer(
         child: Column(

@@ -26,6 +26,10 @@ class BudgetController extends GetxController {
 
   final summaryBudgetChart = <SummaryChart>[].obs;
 
+  int currentPage = 1;
+  // int limit = 10;
+  RxInt offset = 0.obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -51,7 +55,7 @@ class BudgetController extends GetxController {
     talker.info('$logTitle::listBudget');
     isLoadingChart.value = true;
     Map<String, String> qParams = {
-      "offset": "0",
+      "offset": queryParamOffset,
       "limit": queryParamLimit,
       "order": queryParamOrderBy,
       "province": addressController.selectedProvince.value,
@@ -81,12 +85,13 @@ class BudgetController extends GetxController {
     talker.info('$logTitle::listBudget');
     isLoading.value = true;
     // String province = "";
+    talker.debug('$logTitle::listBudget:offset:${offset.value}');
     talker.debug('$logTitle::listBudget:budgetDate-${budgetDate.text}');
     talker.debug('$logTitle::listBudget:budgetType-${budgetType.text}');
     talker.debug(
         '$logTitle::listBudget:province-${addressController.selectedProvince.value}');
     Map<String, String> qParams = {
-      "offset": "0",
+      "offset": offset.value.toString(),
       "limit": queryParamLimit,
       "order": queryParamOrderBy,
       "budget_date": budgetDate.text,
@@ -95,7 +100,7 @@ class BudgetController extends GetxController {
     };
     try {
       final result = await BudgetService().listBudget(qParams);
-      listBudgetStatistics.clear();
+      // listBudgetStatistics.clear();
       for (final item in result!.data!) {
         listBudgetStatistics.add(
           BudgetData(

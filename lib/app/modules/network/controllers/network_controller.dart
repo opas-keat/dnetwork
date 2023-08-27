@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../api/api_params.dart';
+import '../../../api/services/network_position_service.dart';
 import '../../../api/services/network_service.dart';
 import '../../../data/models/network_statistics.data.dart';
+import '../../../data/models/summary_chart.dart';
 import '../../../shared/utils.dart';
 import '../../address/controllers/address_controller.dart';
 
@@ -11,6 +13,7 @@ class NetworkController extends GetxController {
   final logTitle = "NetworkController";
   RxBool isLoading = true.obs;
   RxBool isLoadingAddNetwork = true.obs;
+  RxBool isLoadingChart = true.obs;
   AddressController addressController = Get.put(AddressController());
 
   final listNetworkStatistics = <NetworkStatisticsData>[].obs;
@@ -23,14 +26,44 @@ class NetworkController extends GetxController {
   final networkFirstName = TextEditingController(text: "");
   final networkSurName = TextEditingController(text: "");
 
+  final summaryChart = <SummaryChart>[].obs;
+
   @override
   void onInit() {
     super.onInit();
-    // isLoading.value = true;
-    // listNetworkStatistics.value = listNetworkStatisticsData;
-    // update();
-    // getNetwork();
     listNetwork();
+    listNetworkPosition();
+  }
+
+  listNetworkPosition() async {
+    talker.info('$logTitle::listMemberPosition');
+    isLoadingChart.value = true;
+    Map<String, String> qParams = {
+      "offset": "0",
+      "limit": queryParamLimit,
+      "order": queryParamOrderBy,
+      "province": addressController.selectedProvince.value,
+    };
+    try {
+      final result = await NetworkPositionService().list(qParams);
+      summaryChart.clear();
+      for (final item in result!.data!) {
+        summaryChart.add(
+          SummaryChart(
+            icon: Icons.edit_document,
+            color: randomColor(),
+            name: item.name!,
+            value: item.totalData!,
+          ),
+        );
+      }
+    } catch (e) {
+      talker.error('$e');
+    } finally {
+      isLoadingChart.value = false;
+      isLoadingChart.refresh();
+      summaryChart.refresh();
+    }
   }
 
   listNetwork() async {

@@ -3,12 +3,12 @@ import 'package:get/get.dart';
 
 import '../../../../responsive.dart';
 import '../../../data/models/network_statistics.data.dart';
-import '../../../data/models/summary_chart.dart';
 import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/info_card.dart';
 import '../../../shared/main_chart.dart';
+import '../controllers/network_controller.dart';
 
 class NetworkLayoutSmall extends StatelessWidget {
   const NetworkLayoutSmall({
@@ -17,6 +17,7 @@ class NetworkLayoutSmall extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(NetworkController());
     return Column(
       children: [
         const Row(
@@ -111,11 +112,20 @@ class NetworkLayoutSmall extends StatelessWidget {
           ),
         ),
         const SizedBox(height: defaultPadding / 2),
-        MainChart(
-          header: "สถิติข้อมูลภาคีเครือข่าย ศส.ปชต.",
-          subHeader: "",
-          listSummaryChart: summaryNetworkChart,
+        GetBuilder<NetworkController>(
+          builder: (_) => controller.isLoadingChart.value
+              ? const Center(child: CircularProgressIndicator())
+              : MainChart(
+                  header: "สถิติข้อมูลภาคีเครือข่าย ศส.ปชต.",
+                  subHeader: "ตำแหน่งภาคีเครือข่าย ",
+                  listSummaryChart: controller.summaryChart.obs.value,
+                ),
         ),
+        // MainChart(
+        //   header: "สถิติข้อมูลภาคีเครือข่าย ศส.ปชต.",
+        //   subHeader: "",
+        //   listSummaryChart: summaryNetworkChart,
+        // ),
       ],
     );
   }

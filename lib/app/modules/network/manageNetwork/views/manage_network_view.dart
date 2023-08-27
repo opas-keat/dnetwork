@@ -756,7 +756,7 @@ class ManageDataDetailNetwork extends StatelessWidget {
                         ),
                         ElevatedButton.icon(
                           onPressed: () {
-                            Get.toNamed(Routes.COMMISS);
+                            Get.toNamed(Routes.NETWORK);
                           },
                           style: ElevatedButton.styleFrom(
                             padding: const EdgeInsets.symmetric(

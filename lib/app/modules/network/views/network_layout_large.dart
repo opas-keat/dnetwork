@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../data/models/summary_chart.dart';
 import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/info_card.dart';
 import '../../../shared/main_chart.dart';
+import '../controllers/network_controller.dart';
 import 'network_statistics.dart';
 
 class NetworkLayoutLarge extends StatelessWidget {
@@ -16,6 +16,7 @@ class NetworkLayoutLarge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(NetworkController());
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -81,11 +82,20 @@ class NetworkLayoutLarge extends StatelessWidget {
         Expanded(
           child: Padding(
             padding: const EdgeInsets.only(left: defaultPadding / 2),
-            child: MainChart(
-              header: "สถิติข้อมูลภาคีเครือข่าย ศส.ปชต.",
-              subHeader: "",
-              listSummaryChart: summaryNetworkChart,
+            child: GetBuilder<NetworkController>(
+              builder: (_) => controller.isLoadingChart.value
+                  ? const Center(child: CircularProgressIndicator())
+                  : MainChart(
+                      header: "สถิติข้อมูลภาคีเครือข่าย ศส.ปชต.",
+                      subHeader: "ตำแหน่งภาคีเครือข่าย ",
+                      listSummaryChart: controller.summaryChart.obs.value,
+                    ),
             ),
+            // child: MainChart(
+            //   header: "สถิติข้อมูลภาคีเครือข่าย ศส.ปชต.",
+            //   subHeader: "",
+            //   listSummaryChart: summaryNetworkChart,
+            // ),
           ),
         ),
       ],

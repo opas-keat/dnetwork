@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import '../../../../api/api_params.dart';
 import '../../../../api/services/commiss_position_commu_service.dart';
 import '../../../../api/services/commiss_position_service.dart';
+import '../../../../api/services/network_position_service.dart';
 import '../../../../api/services/network_service.dart';
 import '../../../../data/requests/network_service_request.dart';
 import '../../../../data/responses/network_service_response.dart';
@@ -499,7 +500,7 @@ class ManageNetworkController extends GetxController {
       "order": queryParamOrderBy,
     };
     try {
-      final result = await CommissPositionService().list(qParams);
+      final result = await NetworkPositionService().list(qParams);
       networkPositionList.clear();
       networkPositionList.add("");
       for (var item in result!.data!) {

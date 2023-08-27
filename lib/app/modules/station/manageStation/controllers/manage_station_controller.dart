@@ -28,7 +28,7 @@ class ManageStationController extends GetxController {
   int selectedIndexFromTable = -1;
   int selectedId = -1;
 
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  
   final stationName = TextEditingController();
   final stationFacebook = TextEditingController();
   final stationLocation = TextEditingController();
@@ -66,7 +66,7 @@ class ManageStationController extends GetxController {
       talker.debug(addressController.selectedTambol.value);
       talker.debug(stationFacebook.text);
       talker.debug(processChips.join('|'));
-      final isValid = formKey.currentState!.validate();
+      final isValid = formKeyStation.currentState!.validate();
       if (isValid) {
         if (addressController.selectedProvince.value != '' &&
             addressController.selectedAmphure.value != '' &&
@@ -139,7 +139,7 @@ class ManageStationController extends GetxController {
     talker.info('$logTitle:editData:$selectedIndexFromTable');
     isLoading.value = true;
     try {
-      final isValid = formKey.currentState!.validate();
+      final isValid = formKeyStation.currentState!.validate();
       if (isValid) {
         if (addressController.selectedProvince.value != '' &&
             addressController.selectedAmphure.value != '' &&

@@ -13,6 +13,7 @@ import '../../../../shared/constant.dart';
 import '../../../../shared/custom_text.dart';
 import '../../../../shared/main_drawer.dart';
 import '../../../../shared/utils.dart';
+import '../../../../shared/utils.dart';
 import '../../../address/views/address_view.dart';
 import '../controllers/manage_budget_controller.dart';
 
@@ -79,6 +80,7 @@ class ManageDataDetail extends StatelessWidget {
     super.key,
   });
   final ManageBudgetController controller = Get.put(ManageBudgetController());
+  final _formKeyBudget = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -91,7 +93,7 @@ class ManageDataDetail extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: defaultPadding),
-                  actionMenu(),
+                  actionMenu(_formKeyBudget),
                   const Padding(
                     padding: EdgeInsets.only(left: defaultPadding),
                     child: CustomText(
@@ -107,7 +109,7 @@ class ManageDataDetail extends StatelessWidget {
         ),
         const SizedBox(height: defaultPadding / 2),
         Form(
-          key: controller.formKeyBudget,
+          key: _formKeyBudget,
           child: Expanded(
             child: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
@@ -176,10 +178,10 @@ class ManageDataDetail extends StatelessWidget {
                         text: "วันที่รับงบประมาณ",
                         color: Colors.black87.withOpacity(.9),
                       ),
-                      CustomText(
-                        text: "*",
-                        color: Colors.red.withOpacity(.9),
-                      ),
+                      // CustomText(
+                      //   text: "*",
+                      //   color: Colors.red.withOpacity(.9),
+                      // ),
                     ],
                   ),
                   const SizedBox(height: defaultPadding / 2),
@@ -210,13 +212,13 @@ class ManageDataDetail extends StatelessWidget {
                       isCollapsed: true,
                       contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
                     ),
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'กรุณากรอก วันที่รับงบประมาณ';
-                      }
-                      return null;
-                    },
+                    // autovalidateMode: AutovalidateMode.onUserInteraction,
+                    // validator: (value) {
+                    //   if (value == null || value.isEmpty) {
+                    //     return 'กรุณากรอก วันที่รับงบประมาณ';
+                    //   }
+                    //   return null;
+                    // },
                   ),
                   const SizedBox(height: defaultPadding),
                   Wrap(
@@ -266,10 +268,10 @@ class ManageDataDetail extends StatelessWidget {
                         text: "งบที่ใช้ไป",
                         color: Colors.black87.withOpacity(.9),
                       ),
-                      CustomText(
-                        text: "*",
-                        color: Colors.red.withOpacity(.9),
-                      ),
+                      // CustomText(
+                      //   text: "*",
+                      //   color: Colors.red.withOpacity(.9),
+                      // ),
                     ],
                   ),
                   const SizedBox(height: defaultPadding / 2),
@@ -290,13 +292,6 @@ class ManageDataDetail extends StatelessWidget {
                       isCollapsed: true,
                       contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
                     ),
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'กรุณากรอก งบต้น';
-                      }
-                      return null;
-                    },
                   ),
                   const SizedBox(height: defaultPadding),
                   Wrap(
@@ -306,10 +301,10 @@ class ManageDataDetail extends StatelessWidget {
                         text: "งบคงเหลือ",
                         color: Colors.black87.withOpacity(.9),
                       ),
-                      CustomText(
-                        text: "*",
-                        color: Colors.red.withOpacity(.9),
-                      ),
+                      // CustomText(
+                      //   text: "*",
+                      //   color: Colors.red.withOpacity(.9),
+                      // ),
                     ],
                   ),
                   const SizedBox(height: defaultPadding / 2),
@@ -330,13 +325,6 @@ class ManageDataDetail extends StatelessWidget {
                       isCollapsed: true,
                       contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
                     ),
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'กรุณากรอก งบคงเหลือ';
-                      }
-                      return null;
-                    },
                   ),
                   const SizedBox(height: defaultPadding),
                   AddressView(
@@ -369,32 +357,34 @@ class ManageDataDetail extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               ElevatedButton.icon(
-                onPressed: () async {
-                  Get.dialog(
-                    const Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                    barrierDismissible: false,
-                  );
-                  final result = await controller.save();
-                  Get.back();
-                  result
-                      ? Get.offAllNamed(Routes.BUDGET)
-                      : Get.snackbar(
-                          'Error',
-                          controller.budgetError.value,
-                          backgroundColor: accentColor,
-                          snackPosition: SnackPosition.BOTTOM,
-                          colorText: Colors.white,
-                          icon: const Icon(
-                            Icons.lock_person_outlined,
-                            color: Colors.white,
-                          ),
-                          isDismissible: true,
-                          margin: const EdgeInsets.all(
-                            defaultPadding,
-                          ),
-                        );
+                onPressed: () {
+                  final isValid = _formKeyBudget.currentState!.validate();
+                  print(isValid);
+                  //   Get.dialog(
+                  //     const Center(
+                  //       child: CircularProgressIndicator(),
+                  //     ),
+                  //     barrierDismissible: false,
+                  //   );
+                  //   final result = await controller.save();
+                  //   Get.back();
+                  //   result
+                  //       ? Get.offAllNamed(Routes.BUDGET)
+                  //       : Get.snackbar(
+                  //           'Error',
+                  //           controller.budgetError.value,
+                  //           backgroundColor: accentColor,
+                  //           snackPosition: SnackPosition.BOTTOM,
+                  //           colorText: Colors.white,
+                  //           icon: const Icon(
+                  //             Icons.lock_person_outlined,
+                  //             color: Colors.white,
+                  //           ),
+                  //           isDismissible: true,
+                  //           margin: const EdgeInsets.all(
+                  //             defaultPadding,
+                  //           ),
+                  //         );
                 },
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(
@@ -410,7 +400,10 @@ class ManageDataDetail extends StatelessWidget {
               ),
               ElevatedButton.icon(
                 onPressed: () {
-                  controller.addressController.selectedProvince.value = '';
+                  controller.addressController.selectedProvince.value = "";
+                  controller.budgetList.clear();
+                  controller.infoCardController.onInit();
+                  controller.budgetController.onInit();
                   Get.toNamed(Routes.BUDGET);
                 },
                 style: ElevatedButton.styleFrom(
@@ -432,21 +425,41 @@ class ManageDataDetail extends StatelessWidget {
     );
   }
 
-  Row actionMenu() {
+  Row actionMenu(
+    GlobalKey<FormState> formKeyBudget,
+  ) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         IconButton(
           icon: const Icon(Icons.add_sharp),
           onPressed: () async {
-            Get.dialog(
-              const Center(
-                child: CircularProgressIndicator(),
-              ),
-              barrierDismissible: false,
-            );
-            await controller.save();
-            Get.back();
+            final isValid = _formKeyBudget.currentState!.validate();
+            print(isValid);
+            if (isValid) {
+              if (controller.addressController.selectedProvince.value != '') {
+                Get.dialog(
+                  const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                  barrierDismissible: false,
+                );
+                await controller.save();
+                Get.back();
+              } else {
+                Get.dialog(
+                  AlertDialog(
+                    content: const Text('กรุณาเลือก จังหวัด'),
+                    actions: [
+                      TextButton(
+                        child: const Text("ปิด"),
+                        onPressed: () => Get.back(),
+                      ),
+                    ],
+                  ),
+                );
+              }
+            }
           },
         ),
         IconButton(

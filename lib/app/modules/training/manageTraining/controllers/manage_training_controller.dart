@@ -23,7 +23,7 @@ class ManageTrainingController extends GetxController {
   final trainingTypeList = <String>[].obs;
   Rx<String> selectedTrainingType = "".obs;
 
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  
   final trainingName = TextEditingController();
   final trainingDateForm = TextEditingController();
   final trainingDateTo = TextEditingController();
@@ -65,7 +65,7 @@ class ManageTrainingController extends GetxController {
           '$logTitle::save:province:${addressController.selectedProvince.value}');
       talker.info(
           '$logTitle::save:province:${addressController.selectedProvince.value.isEmpty}');
-      final isValid = formKey.currentState!.validate();
+      final isValid = formKeyTraining.currentState!.validate();
       if (isValid) {
         if (addressController.selectedProvince.value != '') {
           trainings.add(
@@ -162,7 +162,7 @@ class ManageTrainingController extends GetxController {
     talker.info('$logTitle:editData:$selectedIndexFromTable');
     isLoading.value = true;
     try {
-      final isValid = formKey.currentState!.validate();
+      final isValid = formKeyTraining.currentState!.validate();
       if (isValid) {
         if (addressController.selectedProvince.value != '') {
           trainings.add(

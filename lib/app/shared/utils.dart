@@ -4,8 +4,12 @@ import 'dart:math' as math;
 import 'dart:ui' as ui;
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:talker_flutter/talker_flutter.dart';
+
+import '../modules/address/controllers/address_controller.dart';
 
 final formatterPrice = NumberFormat('#,###,##0.00');
 final formatterItem = NumberFormat('#,###,##0.##');
@@ -46,3 +50,11 @@ final talker = Talker(
 
   ///etc...
 );
+
+GlobalKey<FormState> formKeyStation = GlobalKey<FormState>();
+GlobalKey<FormState> formKeyCommiss = GlobalKey<FormState>();
+GlobalKey<FormState> formKeyMember = GlobalKey<FormState>();
+GlobalKey<FormState> formKeyNetwork = GlobalKey<FormState>();
+GlobalKey<FormState> formKeyLectuter = GlobalKey<FormState>();
+GlobalKey<FormState> formKeyVillage = GlobalKey<FormState>();
+GlobalKey<FormState> formKeyTraining = GlobalKey<FormState>();

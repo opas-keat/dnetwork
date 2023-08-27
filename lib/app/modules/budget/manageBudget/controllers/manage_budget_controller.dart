@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/app/data/responses/budget_service_response.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -7,12 +6,17 @@ import '../../../../api/api_params.dart';
 import '../../../../api/services/budget_service.dart';
 import '../../../../api/services/budget_type_service.dart';
 import '../../../../data/requests/budget_service_request.dart';
+import '../../../../data/responses/budget_service_response.dart';
+import '../../../../shared/controller/info_card_controller.dart';
 import '../../../../shared/utils.dart';
 import '../../../address/controllers/address_controller.dart';
+import '../../controllers/budget_controller.dart';
 
 class ManageBudgetController extends GetxController {
   final logTitle = "ManageBudgetController";
   RxBool isLoading = true.obs;
+  InfoCardController infoCardController = Get.put(InfoCardController());
+  BudgetController budgetController = Get.put(BudgetController());
   AddressController addressController = Get.put(AddressController());
 
   Rx<String> filePath = ''.obs;
@@ -28,12 +32,12 @@ class ManageBudgetController extends GetxController {
   int selectedIndexFromTable = -1;
   int selectedId = -1;
 
-  GlobalKey<FormState> formKeyBudget = GlobalKey<FormState>();
+  // final GlobalKey<FormState> _formKeyBudget = GlobalKey<FormState>();
   final budgetDate = TextEditingController();
   final budgetType = TextEditingController();
   final budgetBegin = TextEditingController();
-  final budgetUsed = TextEditingController();
-  final budgetRemain = TextEditingController();
+  final budgetUsed = TextEditingController(text: '0');
+  final budgetRemain = TextEditingController(text: '0');
 
   @override
   void onInit() {
@@ -59,74 +63,105 @@ class ManageBudgetController extends GetxController {
   save() async {
     talker.info('$logTitle:saveBudget:');
     isLoading.value = true;
+    bool result = true;
     try {
       talker.info('$logTitle:save:');
       talker.info(
           '$logTitle::save:province:${addressController.selectedProvince.value}');
-      talker.info(
-          '$logTitle::save:province:${addressController.selectedProvince.value.isEmpty}');
       talker.debug(budgetDate.text);
       talker.debug(budgetType.text);
       talker.debug(budgetBegin.text);
       talker.debug(budgetUsed.text);
       talker.debug(budgetRemain.text);
-      final isValid = formKeyBudget.currentState!.validate();
-      if (isValid) {
-        if (addressController.selectedProvince.value != '') {
-          budgets.add(
-            Budgets(
-              budgetBegin: int.parse(budgetBegin.text),
-              budgetDate: budgetDate.text,
-              budgetRemain: int.parse(budgetRemain.text),
-              budgetType: selectedBudgetType.value,
-              budgetUsed: int.parse(budgetUsed.text),
-              province: addressController.selectedProvince.value,
+      budgets.add(
+        Budgets(
+          budgetBegin: int.parse(budgetBegin.text),
+          budgetDate: budgetDate.text,
+          budgetRemain: int.parse(budgetRemain.text),
+          budgetType: selectedBudgetType.value,
+          budgetUsed: int.parse(budgetUsed.text),
+          province: addressController.selectedProvince.value,
+        ),
+      );
+      talker.debug(budgets.toString());
+      final response = await BudgetService().createBudget(budgets.obs.value);
+      talker.debug('response message : ${response?.message}');
+      if (response?.code == "000") {
+        for (var item in response!.data!) {
+          budgetList.add(
+            BudgetData(
+              id: item.id,
+              budgetBegin: item.budgetBegin,
+              budgetDate: item.budgetDate,
+              budgetRemain: item.budgetRemain,
+              budgetType: item.budgetType,
+              budgetUsed: item.budgetUsed,
+              province: item.province,
             ),
           );
-          final result = await BudgetService().createBudget(budgets.obs.value);
-          talker.debug('response message : ${result?.message}');
-          if (result?.code == "000") {
-            for (var item in result!.data!) {
-              budgetList.add(
-                BudgetData(
-                  id: item.id,
-                  budgetBegin: item.budgetBegin,
-                  budgetDate: item.budgetDate,
-                  budgetRemain: item.budgetRemain,
-                  budgetType: item.budgetType,
-                  budgetUsed: item.budgetUsed,
-                  province: item.province,
-                ),
-              );
-            }
-            isLoading.value = false;
-            budgets.clear();
-            // addressController.selectedProvince.value = '';
-            resetForm();
-            return true;
-          }
-        } else {
-          final result = await Get.dialog(
-            AlertDialog(
-              content: const Text('กรุณาเลือก จังหวัด'),
-              actions: [
-                TextButton(
-                  child: const Text("ปิด"),
-                  onPressed: () => Get.back(),
-                ),
-              ],
-            ),
-          );
-          // if (result) {
-          return false;
-          // }
         }
+        isLoading.value = false;
+        budgets.clear();
+        // addressController.selectedProvince.value = '';
+        resetForm();
+        result = true;
       }
-      return true;
+      // final isValid = _formKeyBudget.currentState!.validate();
+      // if (isValid) {
+      //   if (addressController.selectedProvince.value != '') {
+      //     budgets.add(
+      //       Budgets(
+      //         budgetBegin: int.parse(budgetBegin.text),
+      //         budgetDate: budgetDate.text,
+      //         budgetRemain: int.parse(budgetRemain.text),
+      //         budgetType: selectedBudgetType.value,
+      //         budgetUsed: int.parse(budgetUsed.text),
+      //         province: addressController.selectedProvince.value,
+      //       ),
+      //     );
+      //     talker.debug(budgets.toString());
+      //     final response =
+      //         await BudgetService().createBudget(budgets.obs.value);
+      //     talker.debug('response message : ${response?.message}');
+      //     if (response?.code == "000") {
+      //       for (var item in response!.data!) {
+      //         budgetList.add(
+      //           BudgetData(
+      //             id: item.id,
+      //             budgetBegin: item.budgetBegin,
+      //             budgetDate: item.budgetDate,
+      //             budgetRemain: item.budgetRemain,
+      //             budgetType: item.budgetType,
+      //             budgetUsed: item.budgetUsed,
+      //             province: item.province,
+      //           ),
+      //         );
+      //       }
+      //       isLoading.value = false;
+      //       budgets.clear();
+      //       // addressController.selectedProvince.value = '';
+      //       resetForm();
+      //       result = true;
+      //     }
+      //   } else {
+      //     result = await Get.dialog(
+      //       AlertDialog(
+      //         content: const Text('กรุณาเลือก จังหวัด'),
+      //         actions: [
+      //           TextButton(
+      //             child: const Text("ปิด"),
+      //             onPressed: () => Get.back(result: false),
+      //           ),
+      //         ],
+      //       ),
+      //     );
+      //   }
+      // }
     } catch (e) {
       talker.error('$e');
-      return false;
+      result = false;
     }
+    return result;
   }
 
   // Future<bool> saveBudget() async {
@@ -167,54 +202,36 @@ class ManageBudgetController extends GetxController {
     talker.info('$logTitle:editData:$selectedIndexFromTable');
     isLoading.value = true;
     try {
-      final isValid = formKeyBudget.currentState!.validate();
-      if (isValid) {
-        if (addressController.selectedProvince.value != '') {
-          budgets.add(
-            Budgets(
-              id: selectedId,
-              budgetBegin: int.parse(budgetBegin.text),
-              budgetDate: budgetDate.text,
-              budgetRemain: int.parse(budgetRemain.text),
-              budgetType: selectedBudgetType.value,
-              budgetUsed: int.parse(budgetUsed.text),
-              province: addressController.selectedProvince.value,
-            ),
-          );
-          final result = await BudgetService().updateBudget(budgets.obs.value);
-          talker.debug('response message : ${result?.message}');
-          if (result?.code == "000") {
-            for (var item in result!.data!) {
-              budgetList[selectedIndexFromTable].budgetDate = item.budgetDate;
-              budgetList[selectedIndexFromTable].budgetType = item.budgetType;
-              budgetList[selectedIndexFromTable].province = item.province;
-              budgetList[selectedIndexFromTable].budgetBegin = item.budgetBegin;
-              budgetList[selectedIndexFromTable].budgetRemain =
-                  item.budgetRemain;
-              budgetList[selectedIndexFromTable].budgetUsed = item.budgetUsed;
-              budgetList[selectedIndexFromTable].province = item.province;
-            }
-          }
-          isLoading.value = false;
-          budgetList.refresh();
-          budgets.clear();
-          // addressController.selectedProvince.value = '';
-          selectedIndexFromTable = -1;
-          resetForm();
-        } else {
-          Get.dialog(
-            AlertDialog(
-              content: const Text('กรุณาเลือก จังหวัด'),
-              actions: [
-                TextButton(
-                  child: const Text("ปิด"),
-                  onPressed: () => Get.back(),
-                ),
-              ],
-            ),
-          );
+      budgets.add(
+        Budgets(
+          id: selectedId,
+          budgetBegin: int.parse(budgetBegin.text),
+          budgetDate: budgetDate.text,
+          budgetRemain: int.parse(budgetRemain.text),
+          budgetType: selectedBudgetType.value,
+          budgetUsed: int.parse(budgetUsed.text),
+          province: addressController.selectedProvince.value,
+        ),
+      );
+      final result = await BudgetService().updateBudget(budgets.obs.value);
+      talker.debug('response message : ${result?.message}');
+      if (result?.code == "000") {
+        for (var item in result!.data!) {
+          budgetList[selectedIndexFromTable].budgetDate = item.budgetDate;
+          budgetList[selectedIndexFromTable].budgetType = item.budgetType;
+          budgetList[selectedIndexFromTable].province = item.province;
+          budgetList[selectedIndexFromTable].budgetBegin = item.budgetBegin;
+          budgetList[selectedIndexFromTable].budgetRemain = item.budgetRemain;
+          budgetList[selectedIndexFromTable].budgetUsed = item.budgetUsed;
+          budgetList[selectedIndexFromTable].province = item.province;
         }
       }
+      isLoading.value = false;
+      budgetList.refresh();
+      budgets.clear();
+      // addressController.selectedProvince.value = '';
+      selectedIndexFromTable = -1;
+      resetForm();
       return true;
     } catch (e) {
       talker.error('$e');
@@ -237,16 +254,6 @@ class ManageBudgetController extends GetxController {
       }
     }
   }
-
-  // deleteDataFromTable() {
-  //   talker.info('$logTitle:deleteDataFromTable:$selectedIndexFromTable');
-  //   if (budgetList.length > selectedIndexFromTable &&
-  //       selectedIndexFromTable > -1) {
-  //     budgetList.removeAt(selectedIndexFromTable);
-  //     selectedIndexFromTable = -1;
-  //     resetForm();
-  //   }
-  // }
 
   selectDataFromTable(int index, int id) async {
     selectedIndexFromTable = index;
@@ -344,8 +351,8 @@ class ManageBudgetController extends GetxController {
     budgetDate.text = "";
     budgetType.text = "";
     budgetBegin.text = "";
-    budgetUsed.text = "";
-    budgetRemain.text = "";
+    budgetUsed.text = "0";
+    budgetRemain.text = "0";
     selectedBudgetType.value = '';
     // addressController.selectedProvince.value = '';
     update();

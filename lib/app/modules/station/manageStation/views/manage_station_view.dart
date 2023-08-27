@@ -258,7 +258,7 @@ class ManageStationDetail extends StatelessWidget {
                 ),
                 const SizedBox(height: defaultPadding / 2),
                 Form(
-                  key: controller.formKey,
+                  key: formKeyStation,
                   child: TextFormField(
                     controller: controller.stationName,
                     keyboardType: TextInputType.text,

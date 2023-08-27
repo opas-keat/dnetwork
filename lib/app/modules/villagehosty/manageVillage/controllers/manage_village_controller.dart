@@ -16,7 +16,7 @@ class ManageVillageController extends GetxController {
   Rx<String> filePath = ''.obs;
   Rx<XFile> fileUpload = XFile('').obs;
 
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  
   final villageList = <VillageData>[].obs;
   final villages = <Villages>[].obs;
   final villageName = TextEditingController();
@@ -70,7 +70,7 @@ class ManageVillageController extends GetxController {
       talker.debug(addressController.selectedTambol.value);
       talker.debug(villageLocation.text);
       talker.debug(typeActChips.join('|'));
-      final isValid = formKey.currentState!.validate();
+      final isValid = formKeyVillage.currentState!.validate();
       if (isValid) {
         if (addressController.selectedProvince.value != '' &&
             addressController.selectedAmphure.value != '' &&
@@ -148,7 +148,7 @@ class ManageVillageController extends GetxController {
     talker.info('$logTitle:editData:$selectedIndexFromTable');
     isLoading.value = true;
     try {
-      final isValid = formKey.currentState!.validate();
+      final isValid = formKeyVillage.currentState!.validate();
       if (isValid) {
         if (addressController.selectedProvince.value != '' &&
             addressController.selectedAmphure.value != '' &&

@@ -28,7 +28,7 @@ class ManageCommissController extends GetxController {
 
   RxString commissError = ''.obs;
 
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  
   final commissStationId = TextEditingController(text: "0");
   final commissStationName = TextEditingController();
   final commissFirstName = TextEditingController();
@@ -82,7 +82,7 @@ class ManageCommissController extends GetxController {
       talker.debug(addressController.selectedAmphure.value);
       talker.debug(addressController.selectedTambol.value);
       talker.debug(commissLocation.text);
-      final isValid = formKey.currentState!.validate();
+      final isValid = formKeyCommiss.currentState!.validate();
       if (isValid) {
         commisss.add(
           Commisss(
@@ -146,7 +146,7 @@ class ManageCommissController extends GetxController {
     talker.info('$logTitle:editData:$selectedIndexFromTable');
     isLoading.value = true;
     try {
-      final isValid = formKey.currentState!.validate();
+      final isValid = formKeyCommiss.currentState!.validate();
       if (isValid) {
         commisss.add(
           Commisss(

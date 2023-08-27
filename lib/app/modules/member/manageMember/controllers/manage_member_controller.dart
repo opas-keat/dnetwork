@@ -29,7 +29,7 @@ class ManageMemberController extends GetxController {
 
   RxString memberError = ''.obs;
 
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  
   final memberStationId = TextEditingController(text: "0");
   final memberStationName = TextEditingController();
   final memberFirstName = TextEditingController();
@@ -84,7 +84,7 @@ class ManageMemberController extends GetxController {
       talker.debug(addressController.selectedAmphure.value);
       talker.debug(addressController.selectedTambol.value);
       talker.debug(memberLocation.text);
-      final isValid = formKey.currentState!.validate();
+      final isValid = formKeyMember.currentState!.validate();
       if (isValid) {
         members.add(
           Members(
@@ -148,7 +148,7 @@ class ManageMemberController extends GetxController {
     talker.info('$logTitle:editData:$selectedIndexFromTable');
     isLoading.value = true;
     try {
-      final isValid = formKey.currentState!.validate();
+      final isValid = formKeyMember.currentState!.validate();
       if (isValid) {
         members.add(
           Members(

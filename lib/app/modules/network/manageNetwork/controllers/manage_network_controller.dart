@@ -29,7 +29,7 @@ class ManageNetworkController extends GetxController {
 
   RxString networkError = ''.obs;
 
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  
   final networkStationId = TextEditingController(text: "0");
   final networkStationName = TextEditingController();
   final networkFirstName = TextEditingController();
@@ -84,7 +84,7 @@ class ManageNetworkController extends GetxController {
       talker.debug(addressController.selectedAmphure.value);
       talker.debug(addressController.selectedTambol.value);
       talker.debug(networkLocation.text);
-      final isValid = formKey.currentState!.validate();
+      final isValid = formKeyNetwork.currentState!.validate();
       if (isValid) {
         networks.add(
           Networks(
@@ -148,7 +148,7 @@ class ManageNetworkController extends GetxController {
     talker.info('$logTitle:editData:$selectedIndexFromTable');
     isLoading.value = true;
     try {
-      final isValid = formKey.currentState!.validate();
+      final isValid = formKeyNetwork.currentState!.validate();
       if (isValid) {
         networks.add(
           Networks(

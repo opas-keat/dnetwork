@@ -28,7 +28,7 @@ class ManageLectuterController extends GetxController {
 
   RxString lectuterError = ''.obs;
 
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  
   final lectuterPreName = TextEditingController();
   final lectuterFirstName = TextEditingController();
   final lectuterSurName = TextEditingController();
@@ -73,7 +73,7 @@ class ManageLectuterController extends GetxController {
           '$logTitle::save:province:${addressController.selectedProvince.value}');
       talker.info(
           '$logTitle::save:province:${addressController.selectedProvince.value.isEmpty}');
-      final isValid = formKey.currentState!.validate();
+      final isValid = formKeyLectuter.currentState!.validate();
 
       if (isValid) {
         if (addressController.selectedProvince.value != '') {
@@ -150,7 +150,7 @@ class ManageLectuterController extends GetxController {
     talker.info('$logTitle:editData:$selectedIndexFromTable');
     isLoading.value = true;
     try {
-      final isValid = formKey.currentState!.validate();
+      final isValid = formKeyLectuter.currentState!.validate();
       if (isValid) {
         if (addressController.selectedProvince.value != '') {
           lectuters.add(

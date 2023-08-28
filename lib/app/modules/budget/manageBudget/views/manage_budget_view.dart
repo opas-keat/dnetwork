@@ -401,6 +401,7 @@ class ManageDataDetail extends StatelessWidget {
                 onPressed: () {
                   controller.addressController.selectedProvince.value = "";
                   controller.budgetList.clear();
+                  controller.budgetController.offset.value = 0;
                   controller.budgetController.currentPage = 1;
                   controller.budgetController.listBudgetStatistics.clear();
                   controller.infoCardController.onInit();

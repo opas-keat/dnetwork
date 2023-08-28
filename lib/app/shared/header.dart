@@ -50,14 +50,12 @@ class SearchButton extends StatelessWidget {
 
   final String moduleName;
   final AddressController addressController = Get.put(AddressController());
-  // addressController.selectedProvince.value = "0|";
-  // addressController.update();
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        addressController.selectedProvince.value = "0|";
+        addressController.selectedProvince.value = "";
         addressController.update();
         switch (moduleName) {
           case "station":

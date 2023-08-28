@@ -3,16 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../data/responses/budget_service_response.dart';
+import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/utils.dart';
 import '../controllers/budget_controller.dart';
+import '../manageBudget/controllers/manage_budget_controller.dart';
 
 class BudgetStatistics extends StatelessWidget {
   BudgetStatistics({
     super.key,
   });
   final BudgetController controller = Get.find<BudgetController>();
+  final ManageBudgetController manageBudgetController =
+      Get.put(ManageBudgetController());
 
   @override
   Widget build(BuildContext context) {
@@ -136,8 +140,11 @@ class BudgetStatistics extends StatelessWidget {
                   ],
                   rows: List.generate(
                     controller.listBudgetStatistics.obs.value.length,
-                    (index) => BudgetDataRow(index,
-                        controller.listBudgetStatistics.obs.value[index]),
+                    (index) => BudgetDataRow(
+                      index,
+                      controller.listBudgetStatistics.obs.value[index],
+                      manageBudgetController,
+                    ),
                   ),
                 ),
               ),
@@ -201,8 +208,30 @@ class BudgetStatistics extends StatelessWidget {
 //   ),
 // ];
 
-DataRow BudgetDataRow(int index, BudgetData budgetData) {
-  return DataRow(
+DataRow BudgetDataRow(
+  int index,
+  BudgetData budgetData,
+  ManageBudgetController controller,
+) {
+  return DataRow.byIndex(
+    index: index + 1,
+    // color: MaterialStateProperty.resolveWith(
+    //   (states) {
+    //     if ((index) == controller.selectedIndexFromTable) {
+    //       return Colors.amber.shade200;
+    //     } else if (index % 2 == 0) {
+    //       return Colors.blue[50];
+    //     } else {
+    //       return Colors.white;
+    //     }
+    //   },
+    // ),
+    onSelectChanged: (value) {
+      controller.budgetList.clear();
+      controller.budgetList.add(budgetData);
+      Get.toNamed(Routes.MANAGE_BUDGET);
+      // controller.selectDataFromTable(index, budgetData);
+    },
     cells: [
       DataCell(
         Text(

@@ -256,9 +256,11 @@ class ManageBudgetController extends GetxController {
   }
 
   selectDataFromTable(int index, int id) async {
+    talker.info('$logTitle:selectDataFromTable:');
+    talker.info('$logTitle:index:$index');
+    talker.info('$logTitle:id:$id');
     selectedIndexFromTable = index;
     talker.info('$logTitle:selectDataFromTable:$selectedIndexFromTable');
-    talker.info('$logTitle:id:$id');
     isLoading.value = true;
     try {
       final result = await BudgetService().getById(id);

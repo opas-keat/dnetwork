@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../responsive.dart';
-import '../../../data/models/summary_chart.dart';
 import '../../../data/responses/budget_service_response.dart';
 import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';

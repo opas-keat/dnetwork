@@ -51,6 +51,15 @@ class BudgetController extends GetxController {
     super.onClose();
   }
 
+  selectDataFromTable(int index, BudgetData budgetData) {
+    // selectedIndexFromTable = index;
+    // talker.info('$logTitle:selectDataFromTable:$selectedIndexFromTable');
+    talker.info('$logTitle:index:$index');
+    // talker.info('$logTitle:index:$index');
+    // isLoading.value = true;
+    // manageBudgetController.budgetList.add(budgetData);
+  }
+
   listBudgetType() async {
     talker.info('$logTitle::listBudget');
     isLoadingChart.value = true;
@@ -104,6 +113,7 @@ class BudgetController extends GetxController {
       for (final item in result!.data!) {
         listBudgetStatistics.add(
           BudgetData(
+            id: item.id,
             budgetDate: item.budgetDate,
             budgetType: item.budgetType,
             budgetBegin: item.budgetBegin,

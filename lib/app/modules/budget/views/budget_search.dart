@@ -13,9 +13,6 @@ class BudgetSearch extends StatelessWidget {
   final BudgetController controller = Get.find<BudgetController>();
   @override
   Widget build(BuildContext context) {
-    // final addressController = Get.put(AddressController());
-    // addressController.selectedProvince.value = "0|";
-    // addressController.update();
     return AlertDialog(
       title: CustomText(
         text: "ค้นหางบประมาณ",
@@ -86,6 +83,8 @@ class BudgetSearch extends StatelessWidget {
         TextButton(
           child: const Text("ค้นหา"),
           onPressed: () {
+            controller.listBudgetStatistics.clear();
+            controller.currentPage = 1;
             controller.listBudget();
             Get.back();
           },

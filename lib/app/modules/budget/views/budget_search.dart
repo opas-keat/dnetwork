@@ -72,10 +72,6 @@ class BudgetSearch extends StatelessWidget {
               showPostCode: false,
             ),
             const SizedBox(height: defaultPadding),
-            // const CustomText(
-            //   text: 'รายชื่อร้านค้า',
-            // ),
-            // const SizedBox(height: defaultPadding),
           ],
         ),
       ),
@@ -83,8 +79,9 @@ class BudgetSearch extends StatelessWidget {
         TextButton(
           child: const Text("ค้นหา"),
           onPressed: () {
-            controller.listBudgetStatistics.clear();
+            controller.offset.value = 0;
             controller.currentPage = 1;
+            controller.listBudgetStatistics.clear();
             controller.listBudget();
             Get.back();
           },

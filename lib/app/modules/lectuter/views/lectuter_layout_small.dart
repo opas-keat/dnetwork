@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 
 import '../../../../responsive.dart';
 import '../../../data/models/lectuter_statistics_data.dart';
-import '../../../data/models/summary_chart.dart';
 import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';

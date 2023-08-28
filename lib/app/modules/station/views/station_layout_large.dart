@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../data/models/summary_chart.dart';
 import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
@@ -76,11 +75,7 @@ class StationLayoutLarge extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: defaultPadding / 2),
-              const InfoCard(
-                childAspectRatio: 2.2,
-                // listSummaryInfo: controller.listDashboardSummaryInfo,
-                textScale: 1.4,
-              ),
+              const InfoCard(),
               const SizedBox(height: defaultPadding / 2),
               StationStatistics(),
               // Obx(

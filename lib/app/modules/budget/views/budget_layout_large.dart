@@ -73,10 +73,7 @@ class BudgetLayoutLarge extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: defaultPadding / 2),
-              const InfoCard(
-                childAspectRatio: 2.8,
-                textScale: 0.9,
-              ),
+              const InfoCard(),
               const SizedBox(height: defaultPadding / 2),
               BudgetStatistics(),
               const SizedBox(height: defaultPadding / 2),

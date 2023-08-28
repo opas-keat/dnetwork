@@ -109,7 +109,6 @@ class BudgetController extends GetxController {
     };
     try {
       final result = await BudgetService().listBudget(qParams);
-      // listBudgetStatistics.clear();
       for (final item in result!.data!) {
         listBudgetStatistics.add(
           BudgetData(

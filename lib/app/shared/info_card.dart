@@ -11,8 +11,8 @@ class InfoCard extends StatelessWidget {
   const InfoCard({
     super.key,
     this.crossAxisCount = 4,
-    this.childAspectRatio = 1,
-    this.textScale = 1.6,
+    this.childAspectRatio = 2.8,
+    this.textScale = 0.9,
   });
   // final InfoCardController controller = Get.put(InfoCardController());
   // final controller = Get.lazyPut(() => InfoCardController());

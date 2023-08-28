@@ -47,11 +47,7 @@ class DashboardLayoutLarge extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: defaultPadding),
-              const InfoCard(
-                childAspectRatio: 2.2,
-                // listSummaryInfo: listDashboardSummaryInfo,
-                textScale: 1.4,
-              ),
+              const InfoCard(),
               // Responsive(
               //   smallScreen: InfoCard(
               //     crossAxisCount: 2,

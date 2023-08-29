@@ -356,34 +356,33 @@ class ManageDataDetail extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               ElevatedButton.icon(
-                onPressed: () {
+                onPressed: () async {
                   final isValid = _formKeyBudget.currentState!.validate();
-                  print(isValid);
-                  //   Get.dialog(
-                  //     const Center(
-                  //       child: CircularProgressIndicator(),
-                  //     ),
-                  //     barrierDismissible: false,
-                  //   );
-                  //   final result = await controller.save();
-                  //   Get.back();
-                  //   result
-                  //       ? Get.offAllNamed(Routes.BUDGET)
-                  //       : Get.snackbar(
-                  //           'Error',
-                  //           controller.budgetError.value,
-                  //           backgroundColor: accentColor,
-                  //           snackPosition: SnackPosition.BOTTOM,
-                  //           colorText: Colors.white,
-                  //           icon: const Icon(
-                  //             Icons.lock_person_outlined,
-                  //             color: Colors.white,
-                  //           ),
-                  //           isDismissible: true,
-                  //           margin: const EdgeInsets.all(
-                  //             defaultPadding,
-                  //           ),
-                  //         );
+                  if (isValid) {
+                    if (controller.addressController.selectedProvince.value !=
+                        '') {
+                      Get.dialog(
+                        const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                        barrierDismissible: false,
+                      );
+                      await controller.save();
+                      Get.back();
+                    } else {
+                      Get.dialog(
+                        AlertDialog(
+                          content: const Text('กรุณาเลือก จังหวัด'),
+                          actions: [
+                            TextButton(
+                              child: const Text("ปิด"),
+                              onPressed: () => Get.back(),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(
@@ -398,14 +397,15 @@ class ManageDataDetail extends StatelessWidget {
                 ),
               ),
               ElevatedButton.icon(
-                onPressed: () {
+                onPressed: () async {
                   controller.addressController.selectedProvince.value = "";
                   controller.budgetList.clear();
                   controller.budgetController.offset.value = 0;
                   controller.budgetController.currentPage = 1;
                   controller.budgetController.listBudgetStatistics.clear();
-                  controller.infoCardController.onInit();
-                  controller.budgetController.onInit();
+                  await controller.infoCardController.getSummaryInfo();
+                  await controller.budgetController.listBudgetType();
+                  await controller.budgetController.listBudget();
                   Get.toNamed(Routes.BUDGET);
                 },
                 style: ElevatedButton.styleFrom(
@@ -437,7 +437,6 @@ class ManageDataDetail extends StatelessWidget {
           icon: const Icon(Icons.add_sharp),
           onPressed: () async {
             final isValid = _formKeyBudget.currentState!.validate();
-            print(isValid);
             if (isValid) {
               if (controller.addressController.selectedProvince.value != '') {
                 Get.dialog(

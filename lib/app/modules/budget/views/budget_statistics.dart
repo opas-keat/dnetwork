@@ -54,6 +54,9 @@ class BudgetStatistics extends StatelessWidget {
                           )
                         : IconButton(
                             onPressed: () {
+                              controller.offset.value = 0;
+                              controller.currentPage = 1;
+                              controller.listBudgetStatistics.clear();
                               controller.listBudget();
                             },
                             icon: const Icon(
@@ -140,7 +143,7 @@ class BudgetStatistics extends StatelessWidget {
                   ],
                   rows: List.generate(
                     controller.listBudgetStatistics.obs.value.length,
-                    (index) => BudgetDataRow(
+                    (index) => budgetDataRow(
                       index,
                       controller.listBudgetStatistics.obs.value[index],
                       manageBudgetController,
@@ -208,7 +211,7 @@ class BudgetStatistics extends StatelessWidget {
 //   ),
 // ];
 
-DataRow BudgetDataRow(
+DataRow budgetDataRow(
   int index,
   BudgetData budgetData,
   ManageBudgetController controller,

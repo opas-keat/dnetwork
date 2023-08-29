@@ -54,4 +54,3 @@ GlobalKey<FormState> formKeyMember = GlobalKey<FormState>();
 GlobalKey<FormState> formKeyNetwork = GlobalKey<FormState>();
 GlobalKey<FormState> formKeyLectuter = GlobalKey<FormState>();
 GlobalKey<FormState> formKeyVillage = GlobalKey<FormState>();
-GlobalKey<FormState> formKeyTraining = GlobalKey<FormState>();

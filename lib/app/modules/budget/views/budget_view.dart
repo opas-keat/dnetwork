@@ -82,10 +82,10 @@ class BudgetView extends StatelessWidget {
               ),
               Expanded(
                 flex: Responsive.isLargeScreen(context) ? 6 : 1,
-                child: Column(
+                child: const Column(
                   children: [
-                    const Header(moduleName: "budget"),
-                    const SizedBox(height: defaultPadding / 2),
+                    Header(moduleName: "budget"),
+                    SizedBox(height: defaultPadding / 2),
                     BudgetLayoutLarge(),
                   ],
                 ),

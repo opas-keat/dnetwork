@@ -3,22 +3,27 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../data/models/training_statistics_data.dart';
+import '../../../data/responses/training_service_response.dart';
+import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/utils.dart';
 import '../controllers/training_controller.dart';
+import '../manageTraining/controllers/manage_training_controller.dart';
 
 class TrainingStatistics extends StatelessWidget {
   TrainingStatistics({
     super.key,
   });
   final TrainingController controller = Get.find<TrainingController>();
+  final ManageTrainingController manageTrainingController =
+      Get.put(ManageTrainingController());
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(defaultPadding / 2),
-      height: MediaQuery.of(context).size.height - 250,
+      height: MediaQuery.of(context).size.height - 350,
       decoration: BoxDecoration(
         color: canvasColor,
         borderRadius: BorderRadius.circular(defaultPadding),
@@ -43,6 +48,9 @@ class TrainingStatistics extends StatelessWidget {
                       )
                     : IconButton(
                         onPressed: () {
+                          controller.offset.value = 0;
+                          controller.currentPage = 1;
+                          controller.listTrainingStatistics.clear();
                           controller.listTraining();
                         },
                         icon: const Icon(
@@ -60,7 +68,6 @@ class TrainingStatistics extends StatelessWidget {
               child: Obx(() => DataTable2(
                     showCheckboxColumn: false,
                     columnSpacing: defaultPadding,
-                    // columns: listColumn,
                     sortArrowIcon: Icons.keyboard_arrow_up,
                     sortArrowAnimationDuration:
                         const Duration(milliseconds: 500),
@@ -74,7 +81,7 @@ class TrainingStatistics extends StatelessWidget {
                     columns: [
                       const DataColumn2(
                         label: Text(""),
-                        fixedWidth: 10,
+                        fixedWidth: 30,
                       ),
                       DataColumn2(
                         label: const Text("หลักสูตรอบรม"),
@@ -113,11 +120,13 @@ class TrainingStatistics extends StatelessWidget {
                         numeric: true,
                       ),
                     ],
-                    // rows: [],
                     rows: List.generate(
                       controller.listTrainingStatistics.obs.value.length,
-                      (index) => TraingingDataRow(index,
-                          controller.listTrainingStatistics.obs.value[index]),
+                      (index) => trainingDataRow(
+                        index,
+                        controller.listTrainingStatistics.obs.value[index],
+                        manageTrainingController,
+                      ),
                     ),
                   )),
             ),
@@ -156,9 +165,19 @@ class TrainingStatistics extends StatelessWidget {
 //   ),
 // ];
 
-DataRow TraingingDataRow(
-    int index, TrainingStatisticsData trainingStatisticsData) {
-  return DataRow(
+DataRow trainingDataRow(
+  int index,
+  TrainingData trainingData,
+  ManageTrainingController controller,
+) {
+  return DataRow.byIndex(
+    index: index + 1,
+    onSelectChanged: (value) {
+      controller.trainingList.clear();
+      controller.trainingList.add(trainingData);
+      Get.toNamed(Routes.MANAGE_TRAINING);
+      // controller.selectDataFromTable(index, budgetData);
+    },
     cells: [
       DataCell(
         Text(
@@ -172,7 +191,7 @@ DataRow TraingingDataRow(
         Wrap(
           children: [
             Text(
-              trainingStatisticsData.name!,
+              trainingData.trainingName!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -184,7 +203,7 @@ DataRow TraingingDataRow(
         Wrap(
           children: [
             Text(
-              trainingStatisticsData.date!,
+              '${trainingData.trainingDateForm!} ถึง ${trainingData.trainingDateTo!}',
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -196,7 +215,7 @@ DataRow TraingingDataRow(
         Wrap(
           children: [
             Text(
-              trainingStatisticsData.type!,
+              trainingData.trainingType!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -208,7 +227,7 @@ DataRow TraingingDataRow(
         Wrap(
           children: [
             Text(
-              trainingStatisticsData.province!,
+              trainingData.province!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -218,7 +237,7 @@ DataRow TraingingDataRow(
       ),
       DataCell(
         Text(
-          formatterItem.format(trainingStatisticsData.total),
+          formatterItem.format(trainingData.trainingTotal),
           style: const TextStyle(
             fontSize: 12,
           ),

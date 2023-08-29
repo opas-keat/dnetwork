@@ -6,17 +6,18 @@ import '../../../api/services/training_service.dart';
 import '../../../api/services/training_type_service.dart';
 import '../../../data/models/summary_chart.dart';
 import '../../../data/models/training_statistics_data.dart';
+import '../../../data/responses/training_service_response.dart';
 import '../../../shared/utils.dart';
 import '../../address/controllers/address_controller.dart';
 
 class TrainingController extends GetxController {
   final logTitle = "TrainingController";
   RxBool isLoading = true.obs;
-  RxBool isLoadingAddTraining = true.obs;
+  RxBool isLoadingAdd = true.obs;
   RxBool isLoadingChart = true.obs;
   AddressController addressController = Get.put(AddressController());
 
-  final listTrainingStatistics = <TrainingStatisticsData>[].obs;
+  final listTrainingStatistics = <TrainingData>[].obs;
   RxBool sortAscending = true.obs;
   RxInt sortColumnIndex = 0.obs;
 
@@ -26,6 +27,9 @@ class TrainingController extends GetxController {
   final trainingType = TextEditingController(text: "");
 
   final summaryChart = <SummaryChart>[].obs;
+
+  int currentPage = 1;
+  RxInt offset = 0.obs;
 
   @override
   void onInit() {
@@ -39,7 +43,7 @@ class TrainingController extends GetxController {
     talker.info('$logTitle::listTrainingType');
     isLoadingChart.value = true;
     Map<String, String> qParams = {
-      "offset": "0",
+      "offset": queryParamOffset,
       "limit": queryParamLimit,
       "order": queryParamOrderBy,
       "province": addressController.selectedProvince.value,
@@ -68,9 +72,12 @@ class TrainingController extends GetxController {
   listTraining() async {
     talker.info('$logTitle:listTraining:');
     isLoading.value = true;
+    talker.debug('$logTitle::listBudget:offset:${offset.value}');
+    talker.debug(
+        '$logTitle::listBudget:province:${addressController.selectedProvince.value}');
     // String province = "";
     Map<String, String> qParams = {
-      "offset": "0",
+      "offset": offset.value.toString(),
       "limit": queryParamLimit,
       "order": queryParamOrderBy,
       "province": addressController.selectedProvince.value,
@@ -81,15 +88,17 @@ class TrainingController extends GetxController {
     };
     try {
       final result = await TrainingService().list(qParams);
-      listTrainingStatistics.clear();
+      // listTrainingStatistics.clear();
       for (final item in result!.data!) {
         listTrainingStatistics.add(
-          TrainingStatisticsData(
-            name: item.trainingName,
-            date: '${item.trainingDateForm} ถึง ${item.trainingDateTo}',
-            type: item.trainingType,
-            total: item.trainingTotal,
+          TrainingData(
+            id: item.id,
             province: item.province,
+            trainingDateForm: item.trainingDateForm,
+            trainingDateTo: item.trainingDateTo,
+            trainingName: item.trainingName,
+            trainingTotal: item.trainingTotal,
+            trainingType: item.trainingType,
           ),
         );
       }
@@ -100,14 +109,14 @@ class TrainingController extends GetxController {
     }
   }
 
-  getTraining() async {
-    talker.info('$logTitle:getTraining:');
-    isLoading.value =
-        await Future.delayed(Duration(seconds: randomValue()), () {
-      return false;
-    });
-    update();
-  }
+  // getTraining() async {
+  //   talker.info('$logTitle:getTraining:');
+  //   isLoading.value =
+  //       await Future.delayed(Duration(seconds: randomValue()), () {
+  //     return false;
+  //   });
+  //   update();
+  // }
 
   resetSearch() {
     trainingName.text = "";
@@ -126,21 +135,21 @@ class TrainingController extends GetxController {
     if (field == "name") {
       ascending
           ? listTrainingStatistics.obs.value
-              .sort((a, b) => a.name!.compareTo(b.name!))
+              .sort((a, b) => a.trainingName!.compareTo(b.trainingName!))
           : listTrainingStatistics.obs.value
-              .sort((a, b) => b.name!.compareTo(a.name!));
+              .sort((a, b) => b.trainingName!.compareTo(a.trainingName!));
     } else if (field == "date") {
       ascending
-          ? listTrainingStatistics.obs.value
-              .sort((a, b) => a.date!.compareTo(b.date!))
-          : listTrainingStatistics.obs.value
-              .sort((a, b) => b.date!.compareTo(a.date!));
+          ? listTrainingStatistics.obs.value.sort(
+              (a, b) => a.trainingDateForm!.compareTo(b.trainingDateForm!))
+          : listTrainingStatistics.obs.value.sort(
+              (a, b) => b.trainingDateForm!.compareTo(a.trainingDateForm!));
     } else if (field == "type") {
       ascending
           ? listTrainingStatistics.obs.value
-              .sort((a, b) => a.type!.compareTo(b.type!))
+              .sort((a, b) => a.trainingType!.compareTo(b.trainingType!))
           : listTrainingStatistics.obs.value
-              .sort((a, b) => b.type!.compareTo(a.type!));
+              .sort((a, b) => b.trainingType!.compareTo(a.trainingType!));
     } else if (field == "province") {
       ascending
           ? listTrainingStatistics.obs.value
@@ -150,9 +159,9 @@ class TrainingController extends GetxController {
     } else if (field == "total") {
       ascending
           ? listTrainingStatistics.obs.value
-              .sort((a, b) => a.total!.compareTo(b.total!))
+              .sort((a, b) => a.trainingTotal!.compareTo(b.trainingTotal!))
           : listTrainingStatistics.obs.value
-              .sort((a, b) => b.total!.compareTo(a.total!));
+              .sort((a, b) => b.trainingTotal!.compareTo(a.trainingTotal!));
     }
     sortColumnIndex.value = columnIndex;
     sortAscending.value = ascending;

@@ -27,7 +27,6 @@ class BudgetController extends GetxController {
   final summaryBudgetChart = <SummaryChart>[].obs;
 
   int currentPage = 1;
-  // int limit = 10;
   RxInt offset = 0.obs;
 
   @override
@@ -83,6 +82,7 @@ class BudgetController extends GetxController {
         );
       }
       isLoadingChart.value = false;
+      isLoadingChart.refresh();
       summaryBudgetChart.refresh();
       // update();
     } catch (e) {

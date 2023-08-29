@@ -7,12 +7,16 @@ import '../../../../api/services/training_service.dart';
 import '../../../../api/services/training_type_service.dart';
 import '../../../../data/requests/training_service_request.dart';
 import '../../../../data/responses/training_service_response.dart';
+import '../../../../shared/controller/info_card_controller.dart';
 import '../../../../shared/utils.dart';
 import '../../../address/controllers/address_controller.dart';
+import '../../controllers/training_controller.dart';
 
 class ManageTrainingController extends GetxController {
   final logTitle = "ManageTrainingController";
   RxBool isLoading = true.obs;
+  InfoCardController infoCardController = Get.put(InfoCardController());
+  TrainingController trainingController = Get.put(TrainingController());
   AddressController addressController = Get.put(AddressController());
 
   Rx<String> filePath = ''.obs;
@@ -23,12 +27,11 @@ class ManageTrainingController extends GetxController {
   final trainingTypeList = <String>[].obs;
   Rx<String> selectedTrainingType = "".obs;
 
-  
   final trainingName = TextEditingController();
   final trainingDateForm = TextEditingController();
   final trainingDateTo = TextEditingController();
   final trainingType = TextEditingController();
-  final trainingTotal = TextEditingController();
+  final trainingTotal = TextEditingController(text: "0");
 
   RxString trainingError = ''.obs;
 
@@ -59,69 +62,51 @@ class ManageTrainingController extends GetxController {
   Future<bool> save() async {
     talker.info('$logTitle:save:');
     isLoading.value = true;
+    bool result = true;
     try {
       talker.info('$logTitle:save:');
       talker.info(
           '$logTitle::save:province:${addressController.selectedProvince.value}');
       talker.info(
           '$logTitle::save:province:${addressController.selectedProvince.value.isEmpty}');
-      final isValid = formKeyTraining.currentState!.validate();
-      if (isValid) {
-        if (addressController.selectedProvince.value != '') {
-          trainings.add(
-            Trainings(
-              trainingDateForm: trainingDateForm.text,
-              trainingDateTo: trainingDateTo.text,
-              trainingName: trainingName.text,
-              trainingTotal: int.parse(trainingTotal.text),
-              trainingType: selectedTrainingType.value,
-              province: addressController.selectedProvince.value,
+      trainings.add(
+        Trainings(
+          trainingDateForm: trainingDateForm.text,
+          trainingDateTo: trainingDateTo.text,
+          trainingName: trainingName.text,
+          trainingTotal: int.parse(trainingTotal.text),
+          trainingType: selectedTrainingType.value,
+          province: addressController.selectedProvince.value,
+        ),
+      );
+      final response = await TrainingService().create(trainings.obs.value);
+      talker.debug('response message : ${response?.message}');
+      if (response?.code == "000") {
+        for (var item in response!.data!) {
+          trainingList.add(
+            TrainingData(
+              id: item.id,
+              trainingDateForm: item.trainingDateForm,
+              trainingDateTo: item.trainingDateTo,
+              trainingName: item.trainingName,
+              trainingTotal: item.trainingTotal,
+              trainingType: item.trainingType,
+              province: item.province,
             ),
           );
-          final result = await TrainingService().create(trainings.obs.value);
-          talker.debug('response message : ${result?.message}');
-          if (result?.code == "000") {
-            for (var item in result!.data!) {
-              trainingList.add(
-                TrainingData(
-                  id: item.id,
-                  trainingDateForm: item.trainingDateForm,
-                  trainingDateTo: item.trainingDateTo,
-                  trainingName: item.trainingName,
-                  trainingTotal: item.trainingTotal,
-                  trainingType: item.trainingType,
-                  province: item.province,
-                ),
-              );
-            }
-            isLoading.value = false;
-            trainings.clear();
-            // addressController.selectedProvince.value = '';
-            resetForm();
-            return true;
-          }
-        } else {
-          final result = await Get.dialog(
-            AlertDialog(
-              content: const Text('กรุณาเลือก จังหวัด'),
-              actions: [
-                TextButton(
-                  child: const Text("ปิด"),
-                  onPressed: () => Get.back(),
-                ),
-              ],
-            ),
-          );
-          // if (result) {
-          return false;
-          // }
         }
+        isLoading.value = false;
+        trainings.clear();
+        // addressController.selectedProvince.value = '';
+        resetForm();
+        // return true;
       }
-      return true;
+      result = true;
     } catch (e) {
       talker.error('$e');
-      return false;
+      result = false;
     }
+    return result;
   }
 
   // Future<bool> saveTraining() async {
@@ -162,57 +147,37 @@ class ManageTrainingController extends GetxController {
     talker.info('$logTitle:editData:$selectedIndexFromTable');
     isLoading.value = true;
     try {
-      final isValid = formKeyTraining.currentState!.validate();
-      if (isValid) {
-        if (addressController.selectedProvince.value != '') {
-          trainings.add(
-            Trainings(
-              id: selectedId,
-              trainingDateForm: trainingDateForm.text,
-              trainingDateTo: trainingDateTo.text,
-              trainingName: trainingName.text,
-              trainingTotal: int.parse(trainingTotal.text),
-              trainingType: selectedTrainingType.value,
-              province: addressController.selectedProvince.value,
-            ),
-          );
-          final result = await TrainingService().update(trainings.obs.value);
-          talker.debug('response message : ${result?.message}');
-          if (result?.code == "000") {
-            for (var item in result!.data!) {
-              trainingList[selectedIndexFromTable].trainingName =
-                  item.trainingName;
-              trainingList[selectedIndexFromTable].trainingDateForm =
-                  item.trainingDateForm;
-              trainingList[selectedIndexFromTable].trainingDateTo =
-                  item.trainingDateTo;
-              trainingList[selectedIndexFromTable].trainingType =
-                  item.trainingType;
-              trainingList[selectedIndexFromTable].province = item.province;
-              trainingList[selectedIndexFromTable].trainingTotal =
-                  item.trainingTotal;
-            }
-          }
-          isLoading.value = false;
-          trainingList.refresh();
-          trainings.clear();
-          // addressController.selectedProvince.value = '';
-          selectedIndexFromTable = -1;
-          resetForm();
-        } else {
-          Get.dialog(
-            AlertDialog(
-              content: const Text('กรุณาเลือก จังหวัด'),
-              actions: [
-                TextButton(
-                  child: const Text("ปิด"),
-                  onPressed: () => Get.back(),
-                ),
-              ],
-            ),
-          );
+      trainings.add(
+        Trainings(
+          id: selectedId,
+          trainingDateForm: trainingDateForm.text,
+          trainingDateTo: trainingDateTo.text,
+          trainingName: trainingName.text,
+          trainingTotal: int.parse(trainingTotal.text),
+          trainingType: selectedTrainingType.value,
+          province: addressController.selectedProvince.value,
+        ),
+      );
+      final result = await TrainingService().update(trainings.obs.value);
+      talker.debug('response message : ${result?.message}');
+      if (result?.code == "000") {
+        for (var item in result!.data!) {
+          trainingList[selectedIndexFromTable].trainingName = item.trainingName;
+          trainingList[selectedIndexFromTable].trainingDateForm =
+              item.trainingDateForm;
+          trainingList[selectedIndexFromTable].trainingDateTo =
+              item.trainingDateTo;
+          trainingList[selectedIndexFromTable].trainingType = item.trainingType;
+          trainingList[selectedIndexFromTable].province = item.province;
+          trainingList[selectedIndexFromTable].trainingTotal =
+              item.trainingTotal;
         }
       }
+      isLoading.value = false;
+      trainingList.refresh();
+      trainings.clear();
+      selectedIndexFromTable = -1;
+      resetForm();
       return true;
     } catch (e) {
       talker.error('$e');

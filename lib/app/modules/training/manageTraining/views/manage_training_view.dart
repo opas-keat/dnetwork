@@ -79,6 +79,7 @@ class ManageDataDetail extends StatelessWidget {
   });
   final ManageTrainingController controller =
       Get.put(ManageTrainingController());
+  final _formKeyTraining = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -91,7 +92,7 @@ class ManageDataDetail extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: defaultPadding),
-                  actionMenu(),
+                  actionMenu(_formKeyTraining),
                   const Padding(
                     padding: EdgeInsets.only(left: defaultPadding),
                     child: CustomText(
@@ -107,7 +108,7 @@ class ManageDataDetail extends StatelessWidget {
         ),
         const SizedBox(height: defaultPadding / 2),
         Form(
-          key: formKeyTraining,
+          key: _formKeyTraining,
           child: Expanded(
             child: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
@@ -361,31 +362,32 @@ class ManageDataDetail extends StatelessWidget {
             children: [
               ElevatedButton.icon(
                 onPressed: () async {
-                  Get.dialog(
-                    const Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                    barrierDismissible: false,
-                  );
-                  final result = await controller.save();
-                  Get.back();
-                  result
-                      ? Get.offAllNamed(Routes.TRAINING)
-                      : Get.snackbar(
-                          'Error',
-                          controller.trainingError.value,
-                          backgroundColor: accentColor,
-                          snackPosition: SnackPosition.BOTTOM,
-                          colorText: Colors.white,
-                          icon: const Icon(
-                            Icons.lock_person_outlined,
-                            color: Colors.white,
-                          ),
-                          isDismissible: true,
-                          margin: const EdgeInsets.all(
-                            defaultPadding,
-                          ),
-                        );
+                  final isValid = _formKeyTraining.currentState!.validate();
+                  if (isValid) {
+                    if (controller.addressController.selectedProvince.value !=
+                        '') {
+                      Get.dialog(
+                        const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                        barrierDismissible: false,
+                      );
+                      await controller.save();
+                      Get.back();
+                    } else {
+                      Get.dialog(
+                        AlertDialog(
+                          content: const Text('กรุณาเลือก จังหวัด'),
+                          actions: [
+                            TextButton(
+                              child: const Text("ปิด"),
+                              onPressed: () => Get.back(),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(
@@ -400,8 +402,15 @@ class ManageDataDetail extends StatelessWidget {
                 ),
               ),
               ElevatedButton.icon(
-                onPressed: () {
+                onPressed: () async {
                   controller.addressController.selectedProvince.value = '';
+                  controller.trainingList.clear();
+                  controller.trainingController.offset.value = 0;
+                  controller.trainingController.currentPage = 1;
+                  controller.trainingController.listTrainingStatistics.clear();
+                  await controller.infoCardController.getSummaryInfo();
+                  await controller.trainingController.listTrainingType();
+                  await controller.trainingController.listTraining();
                   Get.toNamed(Routes.TRAINING);
                 },
                 style: ElevatedButton.styleFrom(
@@ -423,21 +432,40 @@ class ManageDataDetail extends StatelessWidget {
     );
   }
 
-  Row actionMenu() {
+  Row actionMenu(
+    GlobalKey<FormState> formKey,
+  ) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         IconButton(
           icon: const Icon(Icons.add_sharp),
           onPressed: () async {
-            Get.dialog(
-              const Center(
-                child: CircularProgressIndicator(),
-              ),
-              barrierDismissible: false,
-            );
-            await controller.save();
-            Get.back();
+            final isValid = formKey.currentState!.validate();
+            if (isValid) {
+              if (controller.addressController.selectedProvince.value != '') {
+                Get.dialog(
+                  const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                  barrierDismissible: false,
+                );
+                await controller.save();
+                Get.back();
+              } else {
+                Get.dialog(
+                  AlertDialog(
+                    content: const Text('กรุณาเลือก จังหวัด'),
+                    actions: [
+                      TextButton(
+                        child: const Text("ปิด"),
+                        onPressed: () => Get.back(),
+                      ),
+                    ],
+                  ),
+                );
+              }
+            }
           },
         ),
         IconButton(
@@ -598,8 +626,8 @@ DataRow trainingDataRow(
         }
       },
     ),
-    onSelectChanged: (value) {
-      controller.selectDataFromTable(index, trainingData.id!);
+    onSelectChanged: (value) async {
+      await controller.selectDataFromTable(index, trainingData.id!);
     },
     cells: [
       DataCell(

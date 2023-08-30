@@ -78,7 +78,7 @@ class NetworkStatistics extends StatelessWidget {
                     columns: [
                       const DataColumn2(
                         label: Text(""),
-                        fixedWidth: 10,
+                        fixedWidth: 30,
                       ),
                       DataColumn2(
                         label: const Text("ชื่อ-นามสกุล"),

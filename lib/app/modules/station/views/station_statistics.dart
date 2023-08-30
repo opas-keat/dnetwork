@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:frontend/app/routes/app_pages.dart';
 import 'package:get/get.dart';
 
-import '../../../data/models/station_statistics_data.dart';
 import '../../../data/responses/station_service_response.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
@@ -197,7 +196,7 @@ DataRow stationDataRow(
         Wrap(
           children: [
             Text(
-              "${stationData.totalCommiss}/${stationData.totalMember}",
+              "${stationData.totalCommiss!}/${stationData.totalMember!}",
               style: const TextStyle(
                 fontSize: 12,
               ),

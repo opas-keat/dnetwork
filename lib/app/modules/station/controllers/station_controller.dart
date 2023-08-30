@@ -61,10 +61,9 @@ class StationController extends GetxController {
             province: item.province,
             facebook: item.facebook,
             location: item.location,
+            name: item.name,
             process: item.process,
             training: item.training,
-            // name: item.name,
-            // address: '${item.province}/${item.amphure}/${item.district}',
             totalCommiss: item.totalCommiss,
             totalMember: item.totalMember,
           ),
@@ -121,9 +120,9 @@ class StationController extends GetxController {
     } else if (field == "totalCommiss") {
       ascending
           ? listStationStatistics.obs.value
-              .sort((a, b) => a.totalCommiss!.compareTo(b.totalCommiss as num))
+              .sort((a, b) => a.totalCommiss!.compareTo(b.totalCommiss!))
           : listStationStatistics.obs.value
-              .sort((a, b) => b.totalCommiss!.compareTo(a.totalCommiss as num));
+              .sort((a, b) => b.totalCommiss!.compareTo(a.totalCommiss!));
     }
     sortColumnIndex.value = columnIndex;
     sortAscending.value = ascending;

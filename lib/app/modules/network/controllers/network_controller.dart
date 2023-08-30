@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import '../../../api/api_params.dart';
 import '../../../api/services/network_position_service.dart';
 import '../../../api/services/network_service.dart';
-import '../../../data/models/network_statistics.data.dart';
 import '../../../data/models/summary_chart.dart';
+import '../../../data/responses/network_service_response.dart';
 import '../../../shared/utils.dart';
 import '../../address/controllers/address_controller.dart';
 
@@ -16,7 +16,7 @@ class NetworkController extends GetxController {
   RxBool isLoadingChart = true.obs;
   AddressController addressController = Get.put(AddressController());
 
-  final listNetworkStatistics = <NetworkStatisticsData>[].obs;
+  final listNetworkStatistics = <NetworkData>[].obs;
   RxBool sortAscending = true.obs;
   RxInt sortColumnIndex = 0.obs;
 
@@ -27,6 +27,9 @@ class NetworkController extends GetxController {
   final networkSurName = TextEditingController(text: "");
 
   final summaryChart = <SummaryChart>[].obs;
+
+  int currentPage = 1;
+  RxInt offset = 0.obs;
 
   @override
   void onInit() {
@@ -39,7 +42,7 @@ class NetworkController extends GetxController {
     talker.info('$logTitle::listMemberPosition');
     isLoadingChart.value = true;
     Map<String, String> qParams = {
-      "offset": "0",
+      "offset": queryParamOffset,
       "limit": queryParamLimit,
       "order": queryParamOrderBy,
       "province": addressController.selectedProvince.value,
@@ -57,12 +60,11 @@ class NetworkController extends GetxController {
           ),
         );
       }
-    } catch (e) {
-      talker.error('$e');
-    } finally {
       isLoadingChart.value = false;
       isLoadingChart.refresh();
       summaryChart.refresh();
+    } catch (e) {
+      talker.error('$e');
     }
   }
 
@@ -70,7 +72,7 @@ class NetworkController extends GetxController {
     talker.info('$logTitle:listNetwork:');
     isLoading.value = true;
     Map<String, String> qParams = {
-      "offset": "0",
+      "offset": offset.value.toString(),
       "limit": queryParamLimit,
       "order": queryParamOrderBy,
       "province": addressController.selectedProvince.value,
@@ -82,14 +84,19 @@ class NetworkController extends GetxController {
     };
     try {
       final result = await NetworkService().list(qParams);
-      listNetworkStatistics.clear();
+      // listNetworkStatistics.clear();
       for (final item in result!.data!) {
         listNetworkStatistics.add(
-          NetworkStatisticsData(
-            name: "${item.networkFirstName!} ${item.networkSurName!}",
-            address: "${item.province}/${item.amphure}/${item.district}",
-            telephone: item.networkTelephone,
-            position: item.networkPosition,
+          NetworkData(
+            networkFirstName: item.networkFirstName,
+            networkSurName: item.networkSurName,
+            province: item.province,
+            amphure: item.amphure,
+            district: item.district,
+            networkTelephone: item.networkTelephone,
+            networkPosition: item.networkPosition,
+            // name: "${item.networkFirstName!} ${item.networkSurName!}",
+            // address: "${item.province}/${item.amphure}/${item.district}",
             networkDate: item.networkDate,
             networkLocation: item.networkLocation,
           ),
@@ -102,14 +109,14 @@ class NetworkController extends GetxController {
     }
   }
 
-  getNetwork() async {
-    talker.info('$logTitle:getNetwork:');
-    isLoading.value =
-        await Future.delayed(Duration(seconds: randomValue()), () {
-      return false;
-    });
-    update();
-  }
+  // getNetwork() async {
+  //   talker.info('$logTitle:getNetwork:');
+  //   isLoading.value =
+  //       await Future.delayed(Duration(seconds: randomValue()), () {
+  //     return false;
+  //   });
+  //   update();
+  // }
 
   resetSearch() {
     networkIdCard.text = "";
@@ -128,16 +135,16 @@ class NetworkController extends GetxController {
     talker.info('$logTitle:sort:$field');
     if (field == "name") {
       ascending
-          ? listNetworkStatistics.obs.value
-              .sort((a, b) => a.name!.compareTo(b.name!))
-          : listNetworkStatistics.obs.value
-              .sort((a, b) => b.name!.compareTo(a.name!));
+          ? listNetworkStatistics.obs.value.sort(
+              (a, b) => a.networkFirstName!.compareTo(b.networkFirstName!))
+          : listNetworkStatistics.obs.value.sort(
+              (a, b) => b.networkFirstName!.compareTo(a.networkFirstName!));
     } else if (field == "position") {
       ascending
           ? listNetworkStatistics.obs.value
-              .sort((a, b) => a.position!.compareTo(b.position!))
+              .sort((a, b) => a.networkPosition!.compareTo(b.networkPosition!))
           : listNetworkStatistics.obs.value
-              .sort((a, b) => b.position!.compareTo(a.position!));
+              .sort((a, b) => b.networkPosition!.compareTo(a.networkPosition!));
     } else if (field == "networkDate") {
       ascending
           ? listNetworkStatistics.obs.value
@@ -153,9 +160,9 @@ class NetworkController extends GetxController {
     } else if (field == "address") {
       ascending
           ? listNetworkStatistics.obs.value
-              .sort((a, b) => a.address!.compareTo(b.address!))
+              .sort((a, b) => a.province!.compareTo(b.province!))
           : listNetworkStatistics.obs.value
-              .sort((a, b) => b.address!.compareTo(a.address!));
+              .sort((a, b) => b.province!.compareTo(a.province!));
     }
     sortColumnIndex.value = columnIndex;
     sortAscending.value = ascending;

@@ -4,16 +4,20 @@ import 'package:frontend/app/routes/app_pages.dart';
 import 'package:get/get.dart';
 
 import '../../../data/models/station_statistics_data.dart';
+import '../../../data/responses/station_service_response.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/utils.dart';
 import '../controllers/station_controller.dart';
+import '../manageStation/controllers/manage_station_controller.dart';
 
 class StationStatistics extends StatelessWidget {
   StationStatistics({
     super.key,
   });
   final StationController controller = Get.find<StationController>();
+  final ManageStationController manageStationController =
+      Get.put(ManageStationController());
 
   @override
   Widget build(BuildContext context) {
@@ -107,10 +111,11 @@ class StationStatistics extends StatelessWidget {
                         // rows: [],
                         rows: List.generate(
                           controller.listStationStatistics.obs.value.length,
-                          (index) => StationDataRow(
-                              index,
-                              controller
-                                  .listStationStatistics.obs.value[index]),
+                          (index) => stationDataRow(
+                            index,
+                            controller.listStationStatistics.obs.value[index],
+                            manageStationController,
+                          ),
                         ),
                       ),
               ),
@@ -142,13 +147,18 @@ class StationStatistics extends StatelessWidget {
 //   ),
 // ];
 
-DataRow StationDataRow(int index, StationStatisticsData stationStatisticsData) {
-  return DataRow(
+DataRow stationDataRow(
+  int index,
+  StationData stationData,
+  ManageStationController controller,
+) {
+  return DataRow.byIndex(
+    index: index + 1,
     onSelectChanged: (value) {
-      Get.toNamed(
-        Routes.DETAIL_STATION,
-        arguments: stationStatisticsData,
-      );
+      controller.stationList.clear();
+      controller.stationList.add(stationData);
+      Get.toNamed(Routes.MANAGE_STATION);
+      // controller.selectDataFromTable(index, budgetData);
     },
     cells: [
       DataCell(
@@ -163,7 +173,7 @@ DataRow StationDataRow(int index, StationStatisticsData stationStatisticsData) {
         Wrap(
           children: [
             Text(
-              stationStatisticsData.name!,
+              stationData.name!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -175,7 +185,7 @@ DataRow StationDataRow(int index, StationStatisticsData stationStatisticsData) {
         Wrap(
           children: [
             Text(
-              stationStatisticsData.address!,
+              '${stationData.province!}/${stationData.amphure!}/${stationData.district!}',
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -187,7 +197,7 @@ DataRow StationDataRow(int index, StationStatisticsData stationStatisticsData) {
         Wrap(
           children: [
             Text(
-              "${stationStatisticsData.totalCommiss}/${stationStatisticsData.totalMember}",
+              "${stationData.totalCommiss}/${stationData.totalMember}",
               style: const TextStyle(
                 fontSize: 12,
               ),

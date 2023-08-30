@@ -5,7 +5,6 @@ import '../../../api/api_params.dart';
 import '../../../api/services/training_service.dart';
 import '../../../api/services/training_type_service.dart';
 import '../../../data/models/summary_chart.dart';
-import '../../../data/models/training_statistics_data.dart';
 import '../../../data/responses/training_service_response.dart';
 import '../../../shared/utils.dart';
 import '../../address/controllers/address_controller.dart';

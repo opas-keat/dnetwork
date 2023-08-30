@@ -4,17 +4,20 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../../api/api_params.dart';
 import '../../../../api/services/commiss_position_commu_service.dart';
-import '../../../../api/services/commiss_position_service.dart';
 import '../../../../api/services/member_position_service.dart';
 import '../../../../api/services/member_service.dart';
 import '../../../../data/requests/member_service_request.dart';
 import '../../../../data/responses/member_service_response.dart';
+import '../../../../shared/controller/info_card_controller.dart';
 import '../../../../shared/utils.dart';
 import '../../../address/controllers/address_controller.dart';
+import '../../controllers/member_controller.dart';
 
 class ManageMemberController extends GetxController {
   final logTitle = "ManageMemberController";
   RxBool isLoading = true.obs;
+  InfoCardController infoCardController = Get.put(InfoCardController());
+  MemberController memberController = Get.put(MemberController());
   AddressController addressController = Get.put(AddressController());
 
   Rx<String> filePath = ''.obs;
@@ -27,9 +30,6 @@ class ManageMemberController extends GetxController {
   final memberPositionCommuList = <String>[].obs;
   Rx<String> selectedMemberPositionCommu = "".obs;
 
-  RxString memberError = ''.obs;
-
-  
   final memberStationId = TextEditingController(text: "0");
   final memberStationName = TextEditingController();
   final memberFirstName = TextEditingController();
@@ -39,12 +39,13 @@ class ManageMemberController extends GetxController {
   final memberLocation = TextEditingController();
   final memberDate = TextEditingController();
   final memberTelephone = TextEditingController();
-  // final memberPosition = TextEditingController();
   final memberPositionCommu = TextEditingController();
   final memberExp = TextEditingController();
   final memberProvince = TextEditingController();
   final memberAmphure = TextEditingController();
   final memberTambol = TextEditingController();
+
+  RxString memberError = ''.obs;
 
   final memberPositionCommuChips = <String>[].obs;
   final memberExpChips = <String>[].obs;
@@ -77,6 +78,7 @@ class ManageMemberController extends GetxController {
   save() async {
     talker.info('$logTitle:saveBudget:');
     isLoading.value = true;
+    bool result = true;
     try {
       talker.info('$logTitle:save:');
       talker.debug(memberLocation.text);
@@ -84,127 +86,119 @@ class ManageMemberController extends GetxController {
       talker.debug(addressController.selectedAmphure.value);
       talker.debug(addressController.selectedTambol.value);
       talker.debug(memberLocation.text);
-      final isValid = formKeyMember.currentState!.validate();
-      if (isValid) {
-        members.add(
-          Members(
-            memberStationId: int.parse(memberStationId.text),
-            memberStationName: memberStationName.text,
-            memberFirstName: memberFirstName.text,
-            memberSurName: memberSurName.text,
-            memberIdCard: memberIdCard.text,
-            memberBirthYear: memberBirthYear.text,
-            memberLocation: memberLocation.text,
-            memberDate: memberDate.text,
-            memberTelephone: memberTelephone.text,
-            memberPosition: selectedMemberPosition.value,
-            memberPositionCommu: memberPositionCommuChips.join('|'),
-            memberExp: memberExp.text,
-            amphure: memberAmphure.text,
-            district: memberTambol.text,
-            province: memberProvince.text,
-          ),
-        );
-        final result = await MemberService().create(members.obs.value);
-        talker.debug('response message : ${result?.message}');
-        if (result?.code == "000") {
-          for (var item in result!.data!) {
-            memberList.add(
-              MemberData(
-                id: item.id,
-                amphure: item.amphure,
-                district: item.district,
-                province: item.province,
-                memberBirthYear: item.memberBirthYear,
-                memberDate: item.memberDate,
-                memberExp: item.memberExp,
-                memberFirstName: item.memberFirstName,
-                memberIdCard: item.memberIdCard,
-                memberLocation: item.memberLocation,
-                memberPosition: item.memberPosition,
-                memberPositionCommu: item.memberPositionCommu,
-                memberStationId: item.memberStationId,
-                memberStationName: item.memberStationName,
-                memberSurName: item.memberSurName,
-                memberTelephone: item.memberTelephone,
-              ),
-            );
-          }
-          isLoading.value = false;
-          members.clear();
-          resetForm();
-          return true;
+      members.add(
+        Members(
+          memberStationId: int.parse(memberStationId.text),
+          memberStationName: memberStationName.text,
+          memberFirstName: memberFirstName.text,
+          memberSurName: memberSurName.text,
+          memberIdCard: memberIdCard.text,
+          memberBirthYear: memberBirthYear.text,
+          memberLocation: memberLocation.text,
+          memberDate: memberDate.text,
+          memberTelephone: memberTelephone.text,
+          memberPosition: selectedMemberPosition.value,
+          memberPositionCommu: memberPositionCommuChips.join('|'),
+          memberExp: memberExp.text,
+          amphure: memberAmphure.text,
+          district: memberTambol.text,
+          province: memberProvince.text,
+        ),
+      );
+      final response = await MemberService().create(members.obs.value);
+      talker.debug('response message : ${response?.message}');
+      if (response?.code == "000") {
+        for (var item in response!.data!) {
+          memberList.add(
+            MemberData(
+              id: item.id,
+              amphure: item.amphure,
+              district: item.district,
+              province: item.province,
+              memberBirthYear: item.memberBirthYear,
+              memberDate: item.memberDate,
+              memberExp: item.memberExp,
+              memberFirstName: item.memberFirstName,
+              memberIdCard: item.memberIdCard,
+              memberLocation: item.memberLocation,
+              memberPosition: item.memberPosition,
+              memberPositionCommu: item.memberPositionCommu,
+              memberStationId: item.memberStationId,
+              memberStationName: item.memberStationName,
+              memberSurName: item.memberSurName,
+              memberTelephone: item.memberTelephone,
+            ),
+          );
         }
-        return false;
+        isLoading.value = false;
+        members.clear();
+        resetForm();
       }
-      return true;
+      result = true;
     } catch (e) {
       talker.error('$e');
-      return false;
+      result = false;
     }
+    return result;
   }
 
   edit() async {
     talker.info('$logTitle:editData:$selectedIndexFromTable');
     isLoading.value = true;
     try {
-      final isValid = formKeyMember.currentState!.validate();
-      if (isValid) {
-        members.add(
-          Members(
-            id: selectedId,
-            memberStationId: int.parse(memberStationId.text),
-            memberStationName: memberStationName.text,
-            memberFirstName: memberFirstName.text,
-            memberSurName: memberSurName.text,
-            memberIdCard: memberIdCard.text,
-            memberBirthYear: memberBirthYear.text,
-            memberLocation: memberLocation.text,
-            memberDate: memberDate.text,
-            memberTelephone: memberTelephone.text,
-            memberPosition: selectedMemberPosition.value,
-            memberPositionCommu: memberPositionCommuChips.join('|'),
-            memberExp: memberExp.text,
-            amphure: memberAmphure.text,
-            district: memberTambol.text,
-            province: memberProvince.text,
-          ),
-        );
-        final result = await MemberService().update(members.obs.value);
-        talker.debug('response message : ${result?.message}');
-        if (result?.code == "000") {
-          for (var item in result!.data!) {
-            memberList[selectedIndexFromTable].memberStationId =
-                item.memberStationId;
-            memberList[selectedIndexFromTable].memberStationName =
-                item.memberStationName;
-            memberList[selectedIndexFromTable].memberFirstName =
-                item.memberFirstName;
-            memberList[selectedIndexFromTable].memberSurName =
-                item.memberSurName;
-            memberList[selectedIndexFromTable].memberIdCard = item.memberIdCard;
-            memberList[selectedIndexFromTable].memberBirthYear =
-                item.memberBirthYear;
-            memberList[selectedIndexFromTable].memberLocation =
-                item.memberLocation;
-            memberList[selectedIndexFromTable].memberDate = item.memberDate;
-            memberList[selectedIndexFromTable].memberTelephone =
-                item.memberTelephone;
-            memberList[selectedIndexFromTable].memberPosition =
-                item.memberPosition;
-            memberList[selectedIndexFromTable].memberPositionCommu =
-                item.memberPositionCommu;
-            memberList[selectedIndexFromTable].amphure = item.amphure;
-            memberList[selectedIndexFromTable].district = item.district;
-            memberList[selectedIndexFromTable].province = item.province;
-          }
+      members.add(
+        Members(
+          id: selectedId,
+          memberStationId: int.parse(memberStationId.text),
+          memberStationName: memberStationName.text,
+          memberFirstName: memberFirstName.text,
+          memberSurName: memberSurName.text,
+          memberIdCard: memberIdCard.text,
+          memberBirthYear: memberBirthYear.text,
+          memberLocation: memberLocation.text,
+          memberDate: memberDate.text,
+          memberTelephone: memberTelephone.text,
+          memberPosition: selectedMemberPosition.value,
+          memberPositionCommu: memberPositionCommuChips.join('|'),
+          memberExp: memberExp.text,
+          amphure: memberAmphure.text,
+          district: memberTambol.text,
+          province: memberProvince.text,
+        ),
+      );
+      final result = await MemberService().update(members.obs.value);
+      talker.debug('response message : ${result?.message}');
+      if (result?.code == "000") {
+        for (var item in result!.data!) {
+          memberList[selectedIndexFromTable].memberStationId =
+              item.memberStationId;
+          memberList[selectedIndexFromTable].memberStationName =
+              item.memberStationName;
+          memberList[selectedIndexFromTable].memberFirstName =
+              item.memberFirstName;
+          memberList[selectedIndexFromTable].memberSurName = item.memberSurName;
+          memberList[selectedIndexFromTable].memberIdCard = item.memberIdCard;
+          memberList[selectedIndexFromTable].memberBirthYear =
+              item.memberBirthYear;
+          memberList[selectedIndexFromTable].memberLocation =
+              item.memberLocation;
+          memberList[selectedIndexFromTable].memberDate = item.memberDate;
+          memberList[selectedIndexFromTable].memberTelephone =
+              item.memberTelephone;
+          memberList[selectedIndexFromTable].memberPosition =
+              item.memberPosition;
+          memberList[selectedIndexFromTable].memberPositionCommu =
+              item.memberPositionCommu;
+          memberList[selectedIndexFromTable].amphure = item.amphure;
+          memberList[selectedIndexFromTable].district = item.district;
+          memberList[selectedIndexFromTable].province = item.province;
         }
-        isLoading.value = false;
-        memberList.refresh();
-        members.clear();
-        selectedIndexFromTable = -1;
-        resetForm();
       }
+      isLoading.value = false;
+      memberList.refresh();
+      members.clear();
+      selectedIndexFromTable = -1;
+      resetForm();
       return true;
     } catch (e) {
       talker.error('$e');

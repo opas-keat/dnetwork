@@ -8,12 +8,16 @@ import '../../../../api/services/commiss_position_service.dart';
 import '../../../../api/services/commiss_service.dart';
 import '../../../../data/requests/commiss_service_request.dart';
 import '../../../../data/responses/commiss_service_response.dart';
+import '../../../../shared/controller/info_card_controller.dart';
 import '../../../../shared/utils.dart';
 import '../../../address/controllers/address_controller.dart';
+import '../../controllers/commiss_controller.dart';
 
 class ManageCommissController extends GetxController {
   final logTitle = "ManageCommissController";
   RxBool isLoading = true.obs;
+  InfoCardController infoCardController = Get.put(InfoCardController());
+  CommissController commissController = Get.put(CommissController());
   AddressController addressController = Get.put(AddressController());
 
   Rx<String> filePath = ''.obs;
@@ -26,9 +30,6 @@ class ManageCommissController extends GetxController {
   final commissPositionCommuList = <String>[].obs;
   Rx<String> selectedCommissPositionCommu = "".obs;
 
-  RxString commissError = ''.obs;
-
-  
   final commissStationId = TextEditingController(text: "0");
   final commissStationName = TextEditingController();
   final commissFirstName = TextEditingController();
@@ -43,6 +44,8 @@ class ManageCommissController extends GetxController {
   final commissProvince = TextEditingController();
   final commissAmphure = TextEditingController();
   final commissTambol = TextEditingController();
+
+  RxString commissError = ''.obs;
 
   final commissPositionCommuChips = <String>[].obs;
   final commissExpChips = <String>[].obs;
@@ -73,137 +76,130 @@ class ManageCommissController extends GetxController {
   }
 
   save() async {
-    talker.info('$logTitle:saveBudget:');
+    talker.info('$logTitle:save:');
     isLoading.value = true;
+    bool result = true;
     try {
-      talker.info('$logTitle:save:');
       talker.debug(commissLocation.text);
       talker.debug(addressController.selectedProvince.value);
       talker.debug(addressController.selectedAmphure.value);
       talker.debug(addressController.selectedTambol.value);
       talker.debug(commissLocation.text);
-      final isValid = formKeyCommiss.currentState!.validate();
-      if (isValid) {
-        commisss.add(
-          Commisss(
-            commissStationId: int.parse(commissStationId.text),
-            commissStationName: commissStationName.text,
-            commissFirstName: commissFirstName.text,
-            commissSurName: commissSurName.text,
-            commissIdCard: commissIdCard.text,
-            commissBirthYear: commissBirthYear.text,
-            commissLocation: commissLocation.text,
-            commissDate: commissDate.text,
-            commissTelephone: commissTelephone.text,
-            commissPosition: selectedCommissPosition.value,
-            commissPositionCommu: commissPositionCommuChips.join('|'),
-            commissExp: commissExp.text,
-            amphure: commissAmphure.text,
-            district: commissTambol.text,
-            province: commissProvince.text,
-          ),
-        );
-        final result = await CommissService().create(commisss.obs.value);
-        talker.debug('response message : ${result?.message}');
-        if (result?.code == "000") {
-          for (var item in result!.data!) {
-            commissList.add(
-              CommissData(
-                id: item.id,
-                amphure: item.amphure,
-                district: item.district,
-                province: item.province,
-                commissBirthYear: item.commissBirthYear,
-                commissDate: item.commissDate,
-                commissExp: item.commissExp,
-                commissFirstName: item.commissFirstName,
-                commissIdCard: item.commissIdCard,
-                commissLocation: item.commissLocation,
-                commissPosition: item.commissPosition,
-                commissPositionCommu: item.commissPositionCommu,
-                commissStationId: item.commissStationId,
-                commissStationName: item.commissStationName,
-                commissSurName: item.commissSurName,
-                commissTelephone: item.commissTelephone,
-              ),
-            );
-          }
-          isLoading.value = false;
-          commisss.clear();
-          resetForm();
-          return true;
+      commisss.add(
+        Commisss(
+          commissStationId: int.parse(commissStationId.text),
+          commissStationName: commissStationName.text,
+          commissFirstName: commissFirstName.text,
+          commissSurName: commissSurName.text,
+          commissIdCard: commissIdCard.text,
+          commissBirthYear: commissBirthYear.text,
+          commissLocation: commissLocation.text,
+          commissDate: commissDate.text,
+          commissTelephone: commissTelephone.text,
+          commissPosition: selectedCommissPosition.value,
+          commissPositionCommu: commissPositionCommuChips.join('|'),
+          commissExp: commissExp.text,
+          amphure: commissAmphure.text,
+          district: commissTambol.text,
+          province: commissProvince.text,
+        ),
+      );
+      final response = await CommissService().create(commisss.obs.value);
+      talker.debug('response message : ${response?.message}');
+      if (response?.code == "000") {
+        for (var item in response!.data!) {
+          commissList.add(
+            CommissData(
+              id: item.id,
+              amphure: item.amphure,
+              district: item.district,
+              province: item.province,
+              commissBirthYear: item.commissBirthYear,
+              commissDate: item.commissDate,
+              commissExp: item.commissExp,
+              commissFirstName: item.commissFirstName,
+              commissIdCard: item.commissIdCard,
+              commissLocation: item.commissLocation,
+              commissPosition: item.commissPosition,
+              commissPositionCommu: item.commissPositionCommu,
+              commissStationId: item.commissStationId,
+              commissStationName: item.commissStationName,
+              commissSurName: item.commissSurName,
+              commissTelephone: item.commissTelephone,
+            ),
+          );
         }
-        return false;
+        isLoading.value = false;
+        commisss.clear();
+        resetForm();
       }
-      return true;
+      result = true;
     } catch (e) {
       talker.error('$e');
-      return false;
+      result = false;
     }
+    return result;
   }
 
   edit() async {
     talker.info('$logTitle:editData:$selectedIndexFromTable');
     isLoading.value = true;
     try {
-      final isValid = formKeyCommiss.currentState!.validate();
-      if (isValid) {
-        commisss.add(
-          Commisss(
-            id: selectedId,
-            commissStationId: int.parse(commissStationId.text),
-            commissStationName: commissStationName.text,
-            commissFirstName: commissFirstName.text,
-            commissSurName: commissSurName.text,
-            commissIdCard: commissIdCard.text,
-            commissBirthYear: commissBirthYear.text,
-            commissLocation: commissLocation.text,
-            commissDate: commissDate.text,
-            commissTelephone: commissTelephone.text,
-            commissPosition: selectedCommissPosition.value,
-            commissPositionCommu: commissPositionCommuChips.join('|'),
-            commissExp: commissExp.text,
-            amphure: commissAmphure.text,
-            district: commissTambol.text,
-            province: commissProvince.text,
-          ),
-        );
-        final result = await CommissService().update(commisss.obs.value);
-        talker.debug('response message : ${result?.message}');
-        if (result?.code == "000") {
-          for (var item in result!.data!) {
-            commissList[selectedIndexFromTable].commissStationId =
-                item.commissStationId;
-            commissList[selectedIndexFromTable].commissStationName =
-                item.commissStationName;
-            commissList[selectedIndexFromTable].commissFirstName =
-                item.commissFirstName;
-            commissList[selectedIndexFromTable].commissSurName =
-                item.commissSurName;
-            commissList[selectedIndexFromTable].commissIdCard =
-                item.commissIdCard;
-            commissList[selectedIndexFromTable].commissBirthYear =
-                item.commissBirthYear;
-            commissList[selectedIndexFromTable].commissLocation =
-                item.commissLocation;
-            commissList[selectedIndexFromTable].commissDate = item.commissDate;
-            commissList[selectedIndexFromTable].commissTelephone =
-                item.commissTelephone;
-            commissList[selectedIndexFromTable].commissPosition =
-                item.commissPosition;
-            commissList[selectedIndexFromTable].commissPositionCommu =
-                item.commissPositionCommu;
-            commissList[selectedIndexFromTable].amphure = item.amphure;
-            commissList[selectedIndexFromTable].district = item.district;
-            commissList[selectedIndexFromTable].province = item.province;
-          }
+      commisss.add(
+        Commisss(
+          id: selectedId,
+          commissStationId: int.parse(commissStationId.text),
+          commissStationName: commissStationName.text,
+          commissFirstName: commissFirstName.text,
+          commissSurName: commissSurName.text,
+          commissIdCard: commissIdCard.text,
+          commissBirthYear: commissBirthYear.text,
+          commissLocation: commissLocation.text,
+          commissDate: commissDate.text,
+          commissTelephone: commissTelephone.text,
+          commissPosition: selectedCommissPosition.value,
+          commissPositionCommu: commissPositionCommuChips.join('|'),
+          commissExp: commissExp.text,
+          amphure: commissAmphure.text,
+          district: commissTambol.text,
+          province: commissProvince.text,
+        ),
+      );
+      final result = await CommissService().update(commisss.obs.value);
+      talker.debug('response message : ${result?.message}');
+      if (result?.code == "000") {
+        for (var item in result!.data!) {
+          commissList[selectedIndexFromTable].commissStationId =
+              item.commissStationId;
+          commissList[selectedIndexFromTable].commissStationName =
+              item.commissStationName;
+          commissList[selectedIndexFromTable].commissFirstName =
+              item.commissFirstName;
+          commissList[selectedIndexFromTable].commissSurName =
+              item.commissSurName;
+          commissList[selectedIndexFromTable].commissIdCard =
+              item.commissIdCard;
+          commissList[selectedIndexFromTable].commissBirthYear =
+              item.commissBirthYear;
+          commissList[selectedIndexFromTable].commissLocation =
+              item.commissLocation;
+          commissList[selectedIndexFromTable].commissDate = item.commissDate;
+          commissList[selectedIndexFromTable].commissTelephone =
+              item.commissTelephone;
+          commissList[selectedIndexFromTable].commissPosition =
+              item.commissPosition;
+          commissList[selectedIndexFromTable].commissPositionCommu =
+              item.commissPositionCommu;
+          commissList[selectedIndexFromTable].amphure = item.amphure;
+          commissList[selectedIndexFromTable].district = item.district;
+          commissList[selectedIndexFromTable].province = item.province;
         }
-        isLoading.value = false;
-        commissList.refresh();
-        commisss.clear();
-        selectedIndexFromTable = -1;
-        resetForm();
       }
+      isLoading.value = false;
+      commissList.refresh();
+      commisss.clear();
+      selectedIndexFromTable = -1;
+      resetForm();
       return true;
     } catch (e) {
       talker.error('$e');

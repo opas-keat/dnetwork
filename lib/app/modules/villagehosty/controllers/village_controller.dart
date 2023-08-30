@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import '../../../api/api_params.dart';
 import '../../../api/services/village_service.dart';
-import '../../../data/models/village_statistics_data.dart';
+import '../../../data/responses/village_service_response.dart';
 import '../../../shared/utils.dart';
 import '../../address/controllers/address_controller.dart';
 
@@ -11,20 +11,24 @@ class VillageController extends GetxController {
   final logTitle = "VillageController";
   RxBool isLoading = true.obs;
   RxBool isLoadingAdd = true.obs;
+  RxBool isLoadingChart = true.obs;
   AddressController addressController = Get.put(AddressController());
 
-  final listVillageStatistics = <VillageStatisticsData>[].obs;
+  final listVillageStatistics = <VillageData>[].obs;
   RxBool sortAscending = true.obs;
   RxInt sortColumnIndex = 0.obs;
 
   final villageName = TextEditingController(text: "");
   final villageNo = TextEditingController(text: "");
 
+  int currentPage = 1;
+  RxInt offset = 0.obs;
+
   @override
   void onInit() {
     super.onInit();
     // isLoading.value = true;
-    listVillageStatistics.value = listVillageStatisticsData;
+    // listVillageStatistics.value = listVillageStatisticsData;
     // update();
     // getVillage();
     listVillage();
@@ -34,7 +38,7 @@ class VillageController extends GetxController {
     talker.info('$logTitle:listVillage:');
     isLoading.value = true;
     Map<String, String> qParams = {
-      "offset": "0",
+      "offset": offset.value.toString(),
       "limit": queryParamLimit,
       "order": queryParamOrderBy,
       "province": addressController.selectedProvince.value,
@@ -45,14 +49,18 @@ class VillageController extends GetxController {
     };
     try {
       final result = await VillageService().list(qParams);
-      listVillageStatistics.clear();
+      // listVillageStatistics.clear();
       for (final item in result!.data!) {
         listVillageStatistics.add(
-          VillageStatisticsData(
-            name: item.villageName,
-            no: item.villageNo,
-            address: "${item.province}/${item.amphure}/${item.district}",
-            total: item.villageTotal,
+          VillageData(
+            id: item.id,
+            amphure: item.amphure,
+            district: item.district,
+            province: item.province,
+            villageLocation: item.villageLocation,
+            villageName: item.villageName,
+            villageNo: item.villageNo,
+            villageTotal: item.villageTotal,
           ),
         );
       }
@@ -63,14 +71,14 @@ class VillageController extends GetxController {
     }
   }
 
-  getVillage() async {
-    talker.info('$logTitle:getVillage:');
-    isLoading.value =
-        await Future.delayed(Duration(seconds: randomValue()), () {
-      return false;
-    });
-    update();
-  }
+  // getVillage() async {
+  //   talker.info('$logTitle:getVillage:');
+  //   isLoading.value =
+  //       await Future.delayed(Duration(seconds: randomValue()), () {
+  //     return false;
+  //   });
+  //   update();
+  // }
 
   resetSearch() {
     villageName.text = "";
@@ -87,27 +95,27 @@ class VillageController extends GetxController {
     if (field == "name") {
       ascending
           ? listVillageStatistics.obs.value
-              .sort((a, b) => a.name!.compareTo(b.name!))
+              .sort((a, b) => a.villageName!.compareTo(b.villageName!))
           : listVillageStatistics.obs.value
-              .sort((a, b) => b.name!.compareTo(a.name!));
+              .sort((a, b) => b.villageName!.compareTo(a.villageName!));
     } else if (field == "no") {
       ascending
           ? listVillageStatistics.obs.value
-              .sort((a, b) => a.no!.compareTo(b.no!))
+              .sort((a, b) => a.villageNo!.compareTo(b.villageNo!))
           : listVillageStatistics.obs.value
-              .sort((a, b) => b.no!.compareTo(a.no!));
+              .sort((a, b) => b.villageNo!.compareTo(a.villageNo!));
     } else if (field == "address") {
       ascending
           ? listVillageStatistics.obs.value
-              .sort((a, b) => a.address!.compareTo(b.address!))
+              .sort((a, b) => a.province!.compareTo(b.province!))
           : listVillageStatistics.obs.value
-              .sort((a, b) => b.address!.compareTo(a.address!));
+              .sort((a, b) => b.province!.compareTo(a.province!));
     } else if (field == "total") {
       ascending
           ? listVillageStatistics.obs.value
-              .sort((a, b) => a.total!.compareTo(b.total!))
+              .sort((a, b) => a.villageTotal!.compareTo(b.villageTotal!))
           : listVillageStatistics.obs.value
-              .sort((a, b) => b.total!.compareTo(a.total!));
+              .sort((a, b) => b.villageTotal!.compareTo(a.villageTotal!));
     }
     sortColumnIndex.value = columnIndex;
     sortAscending.value = ascending;

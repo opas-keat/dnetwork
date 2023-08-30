@@ -16,7 +16,6 @@ import '../controllers/manage_station_controller.dart';
 class ManageStationView extends StatelessWidget {
   ManageStationView({Key? key}) : super(key: key);
   final ManageStationController controller = Get.put(ManageStationController());
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +46,7 @@ class ManageStationView extends StatelessWidget {
                     child: ManageStationDataTable(controller: controller),
                   ),
                   Expanded(
-                    child: ManageStationDetail(controller: controller),
+                    child: ManageStationDetail(),
                   ),
                 ],
               )
@@ -61,7 +60,7 @@ class ManageStationView extends StatelessWidget {
                   accentDivider,
                   Expanded(
                     flex: 3,
-                    child: ManageStationDetail(controller: controller),
+                    child: ManageStationDetail(),
                   ),
                 ],
               ),
@@ -121,13 +120,12 @@ class ManageStationDataTable extends StatelessWidget {
 }
 
 class ManageStationDetail extends StatelessWidget {
-  const ManageStationDetail({
+  ManageStationDetail({
     super.key,
-    required this.controller,
   });
 
-  final ManageStationController controller;
-
+  final ManageStationController controller = Get.put(ManageStationController());
+  final _formKeyStation = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -152,29 +150,83 @@ class ManageStationDetail extends StatelessWidget {
                         const Spacer(flex: 1),
                         IconButton(
                           icon: const Icon(Icons.add_sharp),
-                          // onPressed: () {
-                          //   controller.addToDataTable();
-                          // },
                           onPressed: () async {
-                            // controller.addDataToTable();
-                            Get.dialog(
-                              const Center(
-                                child: CircularProgressIndicator(),
-                              ),
-                              barrierDismissible: false,
-                            );
-                            await controller.save();
-                            Get.back();
+                            final isValid =
+                                _formKeyStation.currentState!.validate();
+                            if (isValid) {
+                              if (controller.addressController.selectedProvince
+                                          .value !=
+                                      '' &&
+                                  controller.addressController.selectedAmphure
+                                          .value !=
+                                      '' &&
+                                  controller.addressController.selectedTambol
+                                          .value !=
+                                      '') {
+                                Get.dialog(
+                                  const Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
+                                  barrierDismissible: false,
+                                );
+                                await controller.save();
+                                Get.back();
+                              } else {
+                                Get.dialog(
+                                  AlertDialog(
+                                    content: const Text(
+                                        'กรุณาเลือก จังหวัด/อำเภอ/ตำบล'),
+                                    actions: [
+                                      TextButton(
+                                        child: const Text("ปิด"),
+                                        onPressed: () => Get.back(),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }
+                            }
                           },
                         ),
                         const Spacer(flex: 1),
                         IconButton(
                           icon: const Icon(Icons.edit_sharp),
-                          // onPressed: () {
-                          //   controller.resetForm();
-                          // },
                           onPressed: () async {
-                            await controller.editData();
+                            final isValid =
+                                _formKeyStation.currentState!.validate();
+                            if (isValid) {
+                              if (controller.addressController.selectedProvince
+                                          .value !=
+                                      '' &&
+                                  controller.addressController.selectedAmphure
+                                          .value !=
+                                      '' &&
+                                  controller.addressController.selectedTambol
+                                          .value !=
+                                      '') {
+                                Get.dialog(
+                                  const Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
+                                  barrierDismissible: false,
+                                );
+                                await controller.save();
+                                Get.back();
+                              } else {
+                                Get.dialog(
+                                  AlertDialog(
+                                    content: const Text(
+                                        'กรุณาเลือก จังหวัด/อำเภอ/ตำบล'),
+                                    actions: [
+                                      TextButton(
+                                        child: const Text("ปิด"),
+                                        onPressed: () => Get.back(),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }
+                            }
                           },
                         ),
                         const Spacer(flex: 1),
@@ -258,7 +310,7 @@ class ManageStationDetail extends StatelessWidget {
                 ),
                 const SizedBox(height: defaultPadding / 2),
                 Form(
-                  key: formKeyStation,
+                  key: _formKeyStation,
                   child: TextFormField(
                     controller: controller.stationName,
                     keyboardType: TextInputType.text,
@@ -491,32 +543,36 @@ class ManageStationDetail extends StatelessWidget {
             children: [
               ElevatedButton.icon(
                 onPressed: () async {
-                  Get.dialog(
-                    const Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                    barrierDismissible: false,
-                  );
-                  // final result = await controller.saveStation();
-                  final result = await controller.save();
-                  Get.back();
-                  result
-                      ? Get.offAllNamed(Routes.STATION)
-                      : Get.snackbar(
-                          'Error',
-                          controller.stationError.value,
-                          backgroundColor: accentColor,
-                          snackPosition: SnackPosition.BOTTOM,
-                          colorText: Colors.white,
-                          icon: const Icon(
-                            Icons.lock_person_outlined,
-                            color: Colors.white,
-                          ),
-                          isDismissible: true,
-                          margin: const EdgeInsets.all(
-                            defaultPadding,
-                          ),
-                        );
+                  final isValid = _formKeyStation.currentState!.validate();
+                  if (isValid) {
+                    if (controller.addressController.selectedProvince.value !=
+                            '' &&
+                        controller.addressController.selectedAmphure.value !=
+                            '' &&
+                        controller.addressController.selectedTambol.value !=
+                            '') {
+                      Get.dialog(
+                        const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                        barrierDismissible: false,
+                      );
+                      await controller.save();
+                      Get.back();
+                    } else {
+                      Get.dialog(
+                        AlertDialog(
+                          content: const Text('กรุณาเลือก จังหวัด/อำเภอ/ตำบล'),
+                          actions: [
+                            TextButton(
+                              child: const Text("ปิด"),
+                              onPressed: () => Get.back(),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(
@@ -531,10 +587,16 @@ class ManageStationDetail extends StatelessWidget {
                 ),
               ),
               ElevatedButton.icon(
-                onPressed: () {
+                onPressed: () async {
                   controller.addressController.selectedProvince.value = '';
                   controller.addressController.selectedAmphure.value = '';
                   controller.addressController.selectedTambol.value = '';
+                  controller.stationList.clear();
+                  controller.stationController.offset.value = 0;
+                  controller.stationController.currentPage = 1;
+                  controller.stationController.listStationStatistics.clear();
+                  await controller.infoCardController.getSummaryInfo();
+                  await controller.trainingController.listTrainingType();
                   Get.toNamed(Routes.STATION);
                 },
                 style: ElevatedButton.styleFrom(

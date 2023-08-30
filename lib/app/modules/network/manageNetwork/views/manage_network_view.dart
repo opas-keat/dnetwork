@@ -123,6 +123,7 @@ class ManageDataDetailNetwork extends StatelessWidget {
     super.key,
   });
   final ManageNetworkController controller = Get.put(ManageNetworkController());
+  final _formKeyNetwork = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -135,7 +136,7 @@ class ManageDataDetailNetwork extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: defaultPadding),
-                  actionMenu(),
+                  actionMenu(_formKeyNetwork),
                   const Padding(
                     padding: EdgeInsets.only(left: defaultPadding),
                     child: CustomText(
@@ -151,7 +152,7 @@ class ManageDataDetailNetwork extends StatelessWidget {
         ),
         const SizedBox(height: defaultPadding / 2),
         Form(
-          key: formKeyNetwork,
+          key: _formKeyNetwork,
           child: Expanded(
             child: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
@@ -715,31 +716,18 @@ class ManageDataDetailNetwork extends StatelessWidget {
                       children: [
                         ElevatedButton.icon(
                           onPressed: () async {
-                            Get.dialog(
-                              const Center(
-                                child: CircularProgressIndicator(),
-                              ),
-                              barrierDismissible: false,
-                            );
-                            final result = await controller.save();
-                            Get.back();
-                            result
-                                ? Get.offAllNamed(Routes.COMMISS)
-                                : Get.snackbar(
-                                    'Error',
-                                    controller.networkError.value,
-                                    backgroundColor: accentColor,
-                                    snackPosition: SnackPosition.BOTTOM,
-                                    colorText: Colors.white,
-                                    icon: const Icon(
-                                      Icons.lock_person_outlined,
-                                      color: Colors.white,
-                                    ),
-                                    isDismissible: true,
-                                    margin: const EdgeInsets.all(
-                                      defaultPadding,
-                                    ),
-                                  );
+                            final isValid =
+                                _formKeyNetwork.currentState!.validate();
+                            if (isValid) {
+                              Get.dialog(
+                                const Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                                barrierDismissible: false,
+                              );
+                              await controller.save();
+                              Get.back();
+                            }
                           },
                           style: ElevatedButton.styleFrom(
                             padding: const EdgeInsets.symmetric(
@@ -755,7 +743,17 @@ class ManageDataDetailNetwork extends StatelessWidget {
                           ),
                         ),
                         ElevatedButton.icon(
-                          onPressed: () {
+                          onPressed: () async {
+                            controller.networkList.clear();
+                            controller.networkController.offset.value = 0;
+                            controller.networkController.currentPage = 1;
+                            controller.networkController.listNetworkStatistics
+                                .clear();
+                            await controller.infoCardController
+                                .getSummaryInfo();
+                            await controller.networkController
+                                .listNetworkPosition();
+                            await controller.networkController.listNetwork();
                             Get.toNamed(Routes.NETWORK);
                           },
                           style: ElevatedButton.styleFrom(
@@ -784,21 +782,26 @@ class ManageDataDetailNetwork extends StatelessWidget {
     );
   }
 
-  Row actionMenu() {
+  Row actionMenu(
+    GlobalKey<FormState> formKey,
+  ) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         IconButton(
           icon: const Icon(Icons.add_sharp),
           onPressed: () async {
-            Get.dialog(
-              const Center(
-                child: CircularProgressIndicator(),
-              ),
-              barrierDismissible: false,
-            );
-            await controller.save();
-            Get.back();
+            final isValid = formKey.currentState!.validate();
+            if (isValid) {
+              Get.dialog(
+                const Center(
+                  child: CircularProgressIndicator(),
+                ),
+                barrierDismissible: false,
+              );
+              await controller.save();
+              Get.back();
+            }
           },
         ),
         IconButton(

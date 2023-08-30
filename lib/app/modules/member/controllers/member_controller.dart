@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 
 import '../../../api/services/member_position_service.dart';
 import '../../../api/services/member_service.dart';
-import '../../../data/models/member_statistics_data.dart';
 import '../../../data/models/summary_chart.dart';
+import '../../../data/responses/member_service_response.dart';
 import '../../../shared/utils.dart';
 import '../../address/controllers/address_controller.dart';
 
@@ -16,7 +16,7 @@ class MemberController extends GetxController {
   RxBool isLoadingChart = true.obs;
   AddressController addressController = Get.put(AddressController());
 
-  final listMemberStatistics = <MemberStatisticsData>[].obs;
+  final listMemberStatistics = <MemberData>[].obs;
   RxBool sortAscending = true.obs;
   RxInt sortColumnIndex = 0.obs;
 
@@ -28,13 +28,12 @@ class MemberController extends GetxController {
 
   final summaryChart = <SummaryChart>[].obs;
 
+  int currentPage = 1;
+  RxInt offset = 0.obs;
+
   @override
   void onInit() {
     super.onInit();
-    // isLoading.value = true;
-    // listMemberStatistics.value = listMemberStatisticsData;
-    // update();
-    // getMember();
     listMember();
     listMemberPosition();
   }
@@ -43,7 +42,7 @@ class MemberController extends GetxController {
     talker.info('$logTitle::listMemberPosition');
     isLoadingChart.value = true;
     Map<String, String> qParams = {
-      "offset": "0",
+      "offset": queryParamOffset,
       "limit": queryParamLimit,
       "order": queryParamOrderBy,
       "province": addressController.selectedProvince.value,
@@ -73,7 +72,7 @@ class MemberController extends GetxController {
     talker.info('$logTitle:listMember:');
     isLoading.value = true;
     Map<String, String> qParams = {
-      "offset": "0",
+      "offset": offset.value.toString(),
       "limit": queryParamLimit,
       "order": queryParamOrderBy,
       "province": addressController.selectedProvince.value,
@@ -85,14 +84,17 @@ class MemberController extends GetxController {
     };
     try {
       final result = await MemberService().list(qParams);
-      listMemberStatistics.clear();
+      // listMemberStatistics.clear();
       for (final item in result!.data!) {
         listMemberStatistics.add(
-          MemberStatisticsData(
-            name: "${item.memberFirstName!} ${item.memberSurName!}",
-            address: "${item.province}/${item.amphure}/${item.district}",
-            telephone: item.memberTelephone,
-            position: item.memberPosition,
+          MemberData(
+            memberFirstName: item.memberFirstName,
+            memberSurName: item.memberSurName,
+            province: item.province,
+            amphure: item.amphure,
+            district: item.district,
+            memberTelephone: item.memberTelephone,
+            memberPosition: item.memberPosition,
             memberDate: item.memberDate,
             memberLocation: item.memberLocation,
           ),
@@ -105,14 +107,14 @@ class MemberController extends GetxController {
     }
   }
 
-  getMember() async {
-    talker.info('$logTitle:getMember:');
-    isLoading.value =
-        await Future.delayed(Duration(seconds: randomValue()), () {
-      return false;
-    });
-    update();
-  }
+  // getMember() async {
+  //   talker.info('$logTitle:getMember:');
+  //   isLoading.value =
+  //       await Future.delayed(Duration(seconds: randomValue()), () {
+  //     return false;
+  //   });
+  //   update();
+  // }
 
   resetSearch() {
     memberIdCard.text = "";
@@ -132,15 +134,15 @@ class MemberController extends GetxController {
     if (field == "name") {
       ascending
           ? listMemberStatistics.obs.value
-              .sort((a, b) => a.name!.compareTo(b.name!))
+              .sort((a, b) => a.memberFirstName!.compareTo(b.memberFirstName!))
           : listMemberStatistics.obs.value
-              .sort((a, b) => b.name!.compareTo(a.name!));
+              .sort((a, b) => b.memberFirstName!.compareTo(a.memberFirstName!));
     } else if (field == "position") {
       ascending
           ? listMemberStatistics.obs.value
-              .sort((a, b) => a.position!.compareTo(b.position!))
+              .sort((a, b) => a.memberPosition!.compareTo(b.memberPosition!))
           : listMemberStatistics.obs.value
-              .sort((a, b) => b.position!.compareTo(a.position!));
+              .sort((a, b) => b.memberPosition!.compareTo(a.memberPosition!));
     } else if (field == "memberDate") {
       ascending
           ? listMemberStatistics.obs.value
@@ -156,9 +158,9 @@ class MemberController extends GetxController {
     } else if (field == "address") {
       ascending
           ? listMemberStatistics.obs.value
-              .sort((a, b) => a.address!.compareTo(b.address!))
+              .sort((a, b) => a.province!.compareTo(b.province!))
           : listMemberStatistics.obs.value
-              .sort((a, b) => b.address!.compareTo(a.address!));
+              .sort((a, b) => b.province!.compareTo(a.province!));
     }
     sortColumnIndex.value = columnIndex;
     sortAscending.value = ascending;

@@ -2,17 +2,21 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../data/models/lectuter_statistics_data.dart';
+import '../../../data/responses/lectuter_service_response.dart';
+import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/utils.dart';
 import '../controllers/lectuter_controller.dart';
+import '../manageLectuter/controllers/manage_lectuter_controller.dart';
 
 class LectuterStatistics extends StatelessWidget {
   LectuterStatistics({
     super.key,
   });
   final LectuterController controller = Get.find<LectuterController>();
+  final ManageLectuterController manageLectuterController =
+      Get.put(ManageLectuterController());
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +47,9 @@ class LectuterStatistics extends StatelessWidget {
                       )
                     : IconButton(
                         onPressed: () {
+                          controller.offset.value = 0;
+                          controller.currentPage = 1;
+                          controller.listLectuterStatistics.clear();
                           controller.listLectuter();
                         },
                         icon: const Icon(
@@ -108,8 +115,11 @@ class LectuterStatistics extends StatelessWidget {
                     // rows: [],
                     rows: List.generate(
                       controller.listLectuterStatistics.obs.value.length,
-                      (index) => LectuterDataRow(index,
-                          controller.listLectuterStatistics.obs.value[index]),
+                      (index) => lectuterDataRow(
+                        index,
+                        controller.listLectuterStatistics.obs.value[index],
+                        manageLectuterController,
+                      ),
                     ),
                   )),
             ),
@@ -143,9 +153,18 @@ List<DataColumn> listColumn = [
   ),
 ];
 
-DataRow LectuterDataRow(
-    int index, LectuterStatisticsData lectuterStatisticsData) {
-  return DataRow(
+DataRow lectuterDataRow(
+  int index,
+  LectuterData lectuterData,
+  ManageLectuterController controller,
+) {
+  return DataRow.byIndex(
+    index: index + 1,
+    onSelectChanged: (value) {
+      controller.lectuterList.clear();
+      controller.lectuterList.add(lectuterData);
+      Get.toNamed(Routes.MANAGE_LECTUTER);
+    },
     cells: [
       DataCell(
         Text(
@@ -162,13 +181,13 @@ DataRow LectuterDataRow(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  lectuterStatisticsData.name!,
+                  lectuterData.name!,
                   style: const TextStyle(
                     fontSize: 12,
                   ),
                 ),
                 Text(
-                  lectuterStatisticsData.telephone!,
+                  lectuterData.lectuterTelephone!,
                   style: const TextStyle(
                     fontSize: 12,
                   ),
@@ -182,7 +201,7 @@ DataRow LectuterDataRow(
         Wrap(
           children: [
             Text(
-              lectuterStatisticsData.agency!,
+              lectuterData.lectuterAgency!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -194,7 +213,7 @@ DataRow LectuterDataRow(
         Wrap(
           children: [
             Text(
-              lectuterStatisticsData.affiliate!,
+              lectuterData.lectuterAffiliate!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -206,7 +225,7 @@ DataRow LectuterDataRow(
         Wrap(
           children: [
             Text(
-              lectuterStatisticsData.province!,
+              lectuterData.province!,
               style: const TextStyle(
                 fontSize: 12,
               ),

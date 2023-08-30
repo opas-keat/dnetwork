@@ -7,12 +7,16 @@ import '../../../../api/services/lectuter_affiliate_service.dart';
 import '../../../../api/services/lectuter_service.dart';
 import '../../../../data/requests/lectuter_service_request.dart';
 import '../../../../data/responses/lectuter_service_response.dart';
+import '../../../../shared/controller/info_card_controller.dart';
 import '../../../../shared/utils.dart';
 import '../../../address/controllers/address_controller.dart';
+import '../../controllers/lectuter_controller.dart';
 
 class ManageLectuterController extends GetxController {
   final logTitle = "ManageLectuterController";
   RxBool isLoading = true.obs;
+  InfoCardController infoCardController = Get.put(InfoCardController());
+  LectuterController lectuterController = Get.put(LectuterController());
   AddressController addressController = Get.put(AddressController());
 
   Rx<String> filePath = ''.obs;
@@ -28,7 +32,6 @@ class ManageLectuterController extends GetxController {
 
   RxString lectuterError = ''.obs;
 
-  
   final lectuterPreName = TextEditingController();
   final lectuterFirstName = TextEditingController();
   final lectuterSurName = TextEditingController();
@@ -67,152 +70,107 @@ class ManageLectuterController extends GetxController {
   save() async {
     talker.info('$logTitle:saveLectuter:');
     isLoading.value = true;
+    bool result = true;
     try {
       talker.info('$logTitle:save:');
       talker.info(
           '$logTitle::save:province:${addressController.selectedProvince.value}');
       talker.info(
           '$logTitle::save:province:${addressController.selectedProvince.value.isEmpty}');
-      final isValid = formKeyLectuter.currentState!.validate();
-
-      if (isValid) {
-        if (addressController.selectedProvince.value != '') {
-          // if (lectuterExp.text.isNotEmpty) {
-          //   lectuterExpChips
-          //       .addAll(lectuterExp.text!);
-          // }
-          lectuters.add(
-            Lectuters(
-              lectuterAffiliate: selectedLectuterAffiliate.value,
-              lectuterAgency: lectuterAgency.text,
+      lectuters.add(
+        Lectuters(
+          lectuterAffiliate: selectedLectuterAffiliate.value,
+          lectuterAgency: lectuterAgency.text,
+          lectuterExp: lectuterExpChips.join('|'),
+          lectuterFacebook: lectuterFacebook.text,
+          lectuterFirstName: lectuterFirstName.text,
+          lectuterLine: lectuterLine.text,
+          lectuterPreName: lectuterPreName.text,
+          lectuterSurName: lectuterSurName.text,
+          lectuterTelephone: lectuterTelephone.text,
+          province: addressController.selectedProvince.value,
+        ),
+      );
+      final response = await LectuterService().create(lectuters.obs.value);
+      talker.debug('response message : ${response?.message}');
+      if (response?.code == "000") {
+        for (var item in response!.data!) {
+          lectuterList.add(
+            LectuterData(
+              id: item.id,
+              name: item.name,
+              lectuterFirstName: item.lectuterFirstName,
+              lectuterSurName: item.lectuterSurName,
+              lectuterAgency: item.lectuterAgency,
+              lectuterAffiliate: item.lectuterAffiliate,
+              lectuterTelephone: item.lectuterTelephone,
+              province: item.province,
               lectuterExp: lectuterExpChips.join('|'),
-              lectuterFacebook: lectuterFacebook.text,
-              lectuterFirstName: lectuterFirstName.text,
-              lectuterLine: lectuterLine.text,
-              lectuterPreName: lectuterPreName.text,
-              lectuterSurName: lectuterSurName.text,
-              lectuterTelephone: lectuterTelephone.text,
-              province: addressController.selectedProvince.value,
+              lectuterFacebook: item.lectuterFacebook,
+              lectuterLine: item.lectuterLine,
+              lectuterPreName: item.lectuterPreName,
             ),
           );
-          final result = await LectuterService().create(lectuters.obs.value);
-          talker.debug('response message : ${result?.message}');
-          if (result?.code == "000") {
-            for (var item in result!.data!) {
-              lectuterList.add(
-                LectuterData(
-                  id: item.id,
-                  name: item.name,
-                  lectuterFirstName: item.lectuterFirstName,
-                  lectuterSurName: item.lectuterSurName,
-                  lectuterAgency: item.lectuterAgency,
-                  lectuterAffiliate: item.lectuterAffiliate,
-                  lectuterTelephone: item.lectuterTelephone,
-                  province: item.province,
-                  lectuterExp: lectuterExpChips.join('|'),
-                  lectuterFacebook: item.lectuterFacebook,
-                  lectuterLine: item.lectuterLine,
-                  lectuterPreName: item.lectuterPreName,
-                ),
-              );
-            }
-            isLoading.value = false;
-            lectuters.clear();
-            // addressController.selectedProvince.value = '';
-            resetForm();
-            return true;
-          }
-        } else {
-          final result = await Get.dialog(
-            AlertDialog(
-              content: const Text('กรุณาเลือก จังหวัด'),
-              actions: [
-                TextButton(
-                  child: const Text("ปิด"),
-                  onPressed: () => Get.back(),
-                ),
-              ],
-            ),
-          );
-          // if (result) {
-          return false;
-          // }
         }
+        isLoading.value = false;
+        lectuters.clear();
+        resetForm();
       }
-      return true;
+      result = true;
     } catch (e) {
       talker.error('$e');
-      return false;
+      result = false;
     }
+    return result;
   }
 
   edit() async {
     talker.info('$logTitle:editData:$selectedIndexFromTable');
     isLoading.value = true;
     try {
-      final isValid = formKeyLectuter.currentState!.validate();
-      if (isValid) {
-        if (addressController.selectedProvince.value != '') {
-          lectuters.add(
-            Lectuters(
-              id: selectedId,
-              lectuterAffiliate: selectedLectuterAffiliate.value,
-              lectuterAgency: lectuterAgency.text,
-              lectuterExp: lectuterExpChips.join('|'),
-              lectuterFacebook: lectuterFacebook.text,
-              lectuterFirstName: lectuterFirstName.text,
-              lectuterLine: lectuterLine.text,
-              lectuterPreName: lectuterPreName.text,
-              lectuterSurName: lectuterSurName.text,
-              lectuterTelephone: lectuterTelephone.text,
-              province: addressController.selectedProvince.value,
-            ),
-          );
-          final result = await LectuterService().update(lectuters.obs.value);
-          talker.debug('response message : ${result?.message}');
-          if (result?.code == "000") {
-            for (var item in result!.data!) {
-              lectuterList[selectedIndexFromTable].lectuterAffiliate =
-                  item.lectuterAffiliate;
-              lectuterList[selectedIndexFromTable].lectuterAgency =
-                  item.lectuterAgency;
-              lectuterList[selectedIndexFromTable].lectuterExp =
-                  item.lectuterExp;
-              lectuterList[selectedIndexFromTable].lectuterFacebook =
-                  item.lectuterFacebook;
-              lectuterList[selectedIndexFromTable].lectuterFirstName =
-                  item.lectuterFirstName;
-              lectuterList[selectedIndexFromTable].lectuterLine =
-                  item.lectuterLine;
-              lectuterList[selectedIndexFromTable].lectuterPreName =
-                  item.lectuterPreName;
-              lectuterList[selectedIndexFromTable].lectuterSurName =
-                  item.lectuterSurName;
-              lectuterList[selectedIndexFromTable].lectuterTelephone =
-                  item.lectuterTelephone;
-              lectuterList[selectedIndexFromTable].province = item.province;
-            }
-          }
-          isLoading.value = false;
-          lectuterList.refresh();
-          lectuters.clear();
-          // addressController.selectedProvince.value = '';
-          selectedIndexFromTable = -1;
-          resetForm();
-        } else {
-          Get.dialog(
-            AlertDialog(
-              content: const Text('กรุณาเลือก จังหวัด'),
-              actions: [
-                TextButton(
-                  child: const Text("ปิด"),
-                  onPressed: () => Get.back(),
-                ),
-              ],
-            ),
-          );
+      lectuters.add(
+        Lectuters(
+          id: selectedId,
+          lectuterAffiliate: selectedLectuterAffiliate.value,
+          lectuterAgency: lectuterAgency.text,
+          lectuterExp: lectuterExpChips.join('|'),
+          lectuterFacebook: lectuterFacebook.text,
+          lectuterFirstName: lectuterFirstName.text,
+          lectuterLine: lectuterLine.text,
+          lectuterPreName: lectuterPreName.text,
+          lectuterSurName: lectuterSurName.text,
+          lectuterTelephone: lectuterTelephone.text,
+          province: addressController.selectedProvince.value,
+        ),
+      );
+      final result = await LectuterService().update(lectuters.obs.value);
+      talker.debug('response message : ${result?.message}');
+      if (result?.code == "000") {
+        for (var item in result!.data!) {
+          lectuterList[selectedIndexFromTable].lectuterAffiliate =
+              item.lectuterAffiliate;
+          lectuterList[selectedIndexFromTable].lectuterAgency =
+              item.lectuterAgency;
+          lectuterList[selectedIndexFromTable].lectuterExp = item.lectuterExp;
+          lectuterList[selectedIndexFromTable].lectuterFacebook =
+              item.lectuterFacebook;
+          lectuterList[selectedIndexFromTable].lectuterFirstName =
+              item.lectuterFirstName;
+          lectuterList[selectedIndexFromTable].lectuterLine = item.lectuterLine;
+          lectuterList[selectedIndexFromTable].lectuterPreName =
+              item.lectuterPreName;
+          lectuterList[selectedIndexFromTable].lectuterSurName =
+              item.lectuterSurName;
+          lectuterList[selectedIndexFromTable].lectuterTelephone =
+              item.lectuterTelephone;
+          lectuterList[selectedIndexFromTable].province = item.province;
         }
       }
+      isLoading.value = false;
+      lectuterList.refresh();
+      lectuters.clear();
+      selectedIndexFromTable = -1;
+      resetForm();
       return true;
     } catch (e) {
       talker.error('$e');
@@ -264,114 +222,6 @@ class ManageLectuterController extends GetxController {
     }
   }
 
-  // Future<bool> saveLectuter() async {
-  //   talker.info('$logTitle:saveLectuter:');
-  //   isLoading.value = true;
-  //   try {
-  //     for (var lectuter in lectuterList) {
-  //       lectuters.add(
-  //         Lectuters(
-  //           lectuterAffiliate: lectuter.lectuterAffiliate,
-  //           lectuterAgency: lectuter.lectuterAgency,
-  //           lectuterExp: lectuter.lectuterExp,
-  //           lectuterFacebook: lectuter.lectuterFacebook,
-  //           lectuterFirstName: lectuter.lectuterFirstName,
-  //           lectuterLine: lectuter.lectuterLine,
-  //           lectuterPreName: lectuter.lectuterPreName,
-  //           lectuterSurName: lectuter.lectuterSurName,
-  //           lectuterTelephone: lectuter.lectuterTelephone,
-  //           province: lectuter.province!,
-  //         ),
-  //       );
-  //     }
-  //     final result =
-  //         await LectuterService().createLectuter(lectuters.obs.value);
-  //     talker.debug('response message : ${result?.message}');
-  //     if (result?.code == "000") {
-  //       return true;
-  //     }
-  //     isLoading.value = false;
-  //     lectuterList.clear();
-  //     lectuters.clear();
-  //     addressController.selectedProvince.value = '';
-  //     resetForm();
-  //     return true;
-  //   } catch (e) {
-  //     talker.error('$e');
-  //     return false;
-  //   }
-  // }
-
-  // deleteDataFromTable() {
-  //   if (lectuterList.length > selectedIndexFromTable &&
-  //       selectedIndexFromTable > -1) {
-  //     lectuterList.removeAt(selectedIndexFromTable);
-  //     selectedIndexFromTable = -1;
-  //     resetForm();
-  //   }
-  // }
-
-  // selectDataFromTable(int index) {
-  //   selectedIndexFromTable = index;
-  //   lectuterExpChips.clear();
-  //   lectuterPreName.text = lectuterList[index].lectuterPreName!;
-  //   lectuterFirstName.text = lectuterList[index].lectuterFirstName!;
-  //   lectuterSurName.text = lectuterList[index].lectuterSurName!;
-  //   lectuterTelephone.text = lectuterList[index].lectuterTelephone!;
-  //   lectuterLine.text = lectuterList[index].lectuterLine!;
-  //   lectuterFacebook.text = lectuterList[index].lectuterFacebook!;
-  //   lectuterAgency.text = lectuterList[index].lectuterAgency!;
-  //   selectedLectuterAffiliate.value = lectuterList[index].lectuterAffiliate!;
-  //   // lectuterAffiliate.text = lectuterList[index].affiliate!;
-  //   // lectuterExp.text = lectuterList[index].lectuterExp!;
-  //   addressController.selectedProvince.value = lectuterList[index].province!;
-  //   if (lectuterList[index].lectuterExp!.isNotEmpty) {
-  //     lectuterExpChips.addAll(lectuterList[index].lectuterExp!.split('|'));
-  //   }
-  //   update();
-  //   lectuterList.refresh();
-  // }
-
-  // addToDataTable() {
-  //   talker.info('$logTitle:addToDataTable:');
-  //   final isValid = formKey.currentState!.validate();
-  //   if (isValid) {
-  //     if (lectuterExp.text.isNotEmpty) {
-  //       lectuterExpChips.add(lectuterExp.text);
-  //     }
-  //     lectuterList.add(
-  //       LectuterData(
-  //         name: lectuterPreName.text,
-  //         lectuterFirstName: lectuterFirstName.text,
-  //         lectuterSurName: lectuterSurName.text,
-  //         lectuterAgency: lectuterAgency.text,
-  //         lectuterAffiliate: selectedLectuterAffiliate.value,
-  //         lectuterTelephone: lectuterTelephone.text,
-  //         province: addressController.selectedProvince.value,
-  //         lectuterExp: lectuterExpChips.join('|'),
-  //         lectuterFacebook: lectuterFacebook.text,
-  //         lectuterLine: lectuterLine.text,
-  //         lectuterPreName: lectuterPreName.text,
-  //       ),
-  //     );
-  //     resetForm();
-  //   }
-  //   // lectuters.add(
-  //   //   Lectuters(
-  //   //     lectuterAffiliate: lectuterAffiliate.text,
-  //   //     lectuterAgency: lectuterAgency.text,
-  //   //     lectuterExp: lectuterExpChips.toString(),
-  //   //     lectuterFacebook: lectuterFacebook.text,
-  //   //     lectuterFirstName: lectuterFirstName.text,
-  //   //     lectuterLine: lectuterLine.text,
-  //   //     lectuterPreName: lectuterPreName.text,
-  //   //     lectuterSurName: lectuterSurName.text,
-  //   //     lectuterTelephone: lectuterTelephone.text,
-  //   //     province: addressController.selectedProvince.value,
-  //   //   ),
-  //   // );
-  // }
-
   resetForm() {
     lectuterPreName.text = "";
     lectuterFirstName.text = "";
@@ -380,11 +230,9 @@ class ManageLectuterController extends GetxController {
     lectuterLine.text = "";
     lectuterFacebook.text = "";
     lectuterAgency.text = "";
-    // lectuterAffiliate.text = "";
     selectedLectuterAffiliate.value = "";
     lectuterExp.text = "";
     lectuterExpChips.clear();
-    // addressController.selectedProvince.value = '';
     update();
   }
 

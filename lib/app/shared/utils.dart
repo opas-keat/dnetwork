@@ -4,7 +4,6 @@ import 'dart:math' as math;
 import 'dart:ui' as ui;
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
@@ -47,10 +46,3 @@ final talker = Talker(
 
   ///etc...
 );
-
-GlobalKey<FormState> formKeyStation = GlobalKey<FormState>();
-GlobalKey<FormState> formKeyCommiss = GlobalKey<FormState>();
-GlobalKey<FormState> formKeyMember = GlobalKey<FormState>();
-GlobalKey<FormState> formKeyNetwork = GlobalKey<FormState>();
-GlobalKey<FormState> formKeyLectuter = GlobalKey<FormState>();
-GlobalKey<FormState> formKeyVillage = GlobalKey<FormState>();

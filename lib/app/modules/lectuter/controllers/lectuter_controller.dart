@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/app/api/services/lectuter_affiliate_service.dart';
 import 'package:get/get.dart';
 
 import '../../../api/api_params.dart';
+import '../../../api/services/lectuter_affiliate_service.dart';
 import '../../../api/services/lectuter_service.dart';
-import '../../../data/models/lectuter_statistics_data.dart';
 import '../../../data/models/summary_chart.dart';
+import '../../../data/responses/lectuter_service_response.dart';
 import '../../../shared/utils.dart';
 import '../../address/controllers/address_controller.dart';
 
@@ -16,7 +16,7 @@ class LectuterController extends GetxController {
   RxBool isLoadingChart = true.obs;
   AddressController addressController = Get.put(AddressController());
 
-  final listLectuterStatistics = [].obs;
+  final listLectuterStatistics = <LectuterData>[].obs;
   RxBool sortAscending = true.obs;
   RxInt sortColumnIndex = 0.obs;
 
@@ -32,9 +32,13 @@ class LectuterController extends GetxController {
 
   final summaryChart = <SummaryChart>[].obs;
 
+  int currentPage = 1;
+  RxInt offset = 0.obs;
+
   @override
   void onInit() {
     super.onInit();
+    talker.info('$logTitle onInit');
     listLectuter();
     listLectuterAffiliate();
   }
@@ -43,7 +47,7 @@ class LectuterController extends GetxController {
     talker.info('$logTitle::listLectuterAffiliate');
     isLoadingChart.value = true;
     Map<String, String> qParams = {
-      "offset": "0",
+      "offset": queryParamOffset,
       "limit": queryParamLimit,
       "order": queryParamOrderBy,
       "province": addressController.selectedProvince.value,
@@ -62,6 +66,7 @@ class LectuterController extends GetxController {
         );
       }
       isLoadingChart.value = false;
+      isLoadingChart.refresh();
       summaryChart.refresh();
     } catch (e) {
       talker.error('$e');
@@ -72,7 +77,7 @@ class LectuterController extends GetxController {
     talker.info('$logTitle:listLectuter:');
     isLoading.value = true;
     Map<String, String> qParams = {
-      "offset": "0",
+      "offset": offset.value.toString(),
       "limit": queryParamLimit,
       "order": queryParamOrderBy,
       "lectuter_first_name": lectuterFirstName.text,
@@ -86,15 +91,19 @@ class LectuterController extends GetxController {
     };
     try {
       final result = await LectuterService().list(qParams);
-      listLectuterStatistics.clear();
+      // listLectuterStatistics.clear();
       for (final item in result!.data!) {
         listLectuterStatistics.add(
-          LectuterStatisticsData(
+          LectuterData(
+            id: item.id,
             name: item.name,
-            telephone: item.lectuterTelephone,
-            agency: item.lectuterAgency,
-            affiliate: item.lectuterAffiliate,
+            lectuterFirstName: item.lectuterFirstName,
+            lectuterSurName: item.lectuterSurName,
+            lectuterAgency: item.lectuterAgency,
+            lectuterAffiliate: item.lectuterAffiliate,
+            lectuterTelephone: item.lectuterTelephone,
             province: item.province,
+            lectuterPreName: item.lectuterPreName,
           ),
         );
       }
@@ -105,14 +114,14 @@ class LectuterController extends GetxController {
     }
   }
 
-  getLectuter() async {
-    talker.info('$logTitle:getLectuter:');
-    isLoading.value =
-        await Future.delayed(Duration(seconds: randomValue()), () {
-      return false;
-    });
-    update();
-  }
+  // getLectuter() async {
+  //   talker.info('$logTitle:getLectuter:');
+  //   isLoading.value =
+  //       await Future.delayed(Duration(seconds: randomValue()), () {
+  //     return false;
+  //   });
+  //   update();
+  // }
 
   resetSearch() {
     lectuterFirstName.text = "";
@@ -132,27 +141,27 @@ class LectuterController extends GetxController {
     if (field == "name") {
       ascending
           ? listLectuterStatistics.obs.value
-              .sort((a, b) => a.name.compareTo(b.name))
+              .sort((a, b) => a.name!.compareTo(b.name!))
           : listLectuterStatistics.obs.value
-              .sort((a, b) => b.name.compareTo(a.name));
+              .sort((a, b) => b.name!.compareTo(a.name!));
     } else if (field == "agency") {
       ascending
           ? listLectuterStatistics.obs.value
-              .sort((a, b) => a.agency.compareTo(b.agency))
+              .sort((a, b) => a.lectuterAgency!.compareTo(b.lectuterAgency!))
           : listLectuterStatistics.obs.value
-              .sort((a, b) => b.agency.compareTo(a.agency));
+              .sort((a, b) => b.lectuterAgency!.compareTo(a.lectuterAgency!));
     } else if (field == "affiliate") {
       ascending
-          ? listLectuterStatistics.obs.value
-              .sort((a, b) => a.affiliate.compareTo(b.affiliate))
-          : listLectuterStatistics.obs.value
-              .sort((a, b) => b.affiliate.compareTo(a.affiliate));
+          ? listLectuterStatistics.obs.value.sort(
+              (a, b) => a.lectuterAffiliate!.compareTo(b.lectuterAffiliate!))
+          : listLectuterStatistics.obs.value.sort(
+              (a, b) => b.lectuterAffiliate!.compareTo(a.lectuterAffiliate!));
     } else if (field == "province") {
       ascending
           ? listLectuterStatistics.obs.value
-              .sort((a, b) => a.province.compareTo(b.province))
+              .sort((a, b) => a.province!.compareTo(b.province!))
           : listLectuterStatistics.obs.value
-              .sort((a, b) => b.province.compareTo(a.province));
+              .sort((a, b) => b.province!.compareTo(a.province!));
     }
     sortColumnIndex.value = columnIndex;
     sortAscending.value = ascending;

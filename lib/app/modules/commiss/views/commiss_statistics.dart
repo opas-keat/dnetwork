@@ -2,17 +2,21 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../data/models/commiss_statistics_data.dart';
+import '../../../data/responses/commiss_service_response.dart';
+import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/utils.dart';
 import '../controllers/commiss_controller.dart';
+import '../manageCommiss/controllers/manage_commiss_controller.dart';
 
 class CommissStatistics extends StatelessWidget {
   CommissStatistics({
     super.key,
   });
   final CommissController controller = Get.find<CommissController>();
+  final ManageCommissController manageCommissController =
+      Get.put(ManageCommissController());
 
   @override
   Widget build(BuildContext context) {
@@ -116,8 +120,11 @@ class CommissStatistics extends StatelessWidget {
                     // rows: [],
                     rows: List.generate(
                       controller.listCommissStatistics.obs.value.length,
-                      (index) => CommissDataRow(index,
-                          controller.listCommissStatistics.obs.value[index]),
+                      (index) => commissDataRow(
+                        index,
+                        controller.listCommissStatistics.obs.value[index],
+                        manageCommissController,
+                      ),
                     ),
                   )),
             ),
@@ -155,8 +162,19 @@ class CommissStatistics extends StatelessWidget {
 //   ),
 // ];
 
-DataRow CommissDataRow(int index, CommissStatisticsData commissStatisticsData) {
-  return DataRow(
+DataRow commissDataRow(
+  int index,
+  CommissData commissData,
+  ManageCommissController controller,
+) {
+  return DataRow.byIndex(
+    index: index + 1,
+    onSelectChanged: (value) {
+      controller.commissList.clear();
+      controller.commissList.add(commissData);
+      Get.toNamed(Routes.MANAGE_COMMISS);
+      // controller.selectDataFromTable(index, budgetData);
+    },
     cells: [
       DataCell(
         Text(
@@ -173,13 +191,13 @@ DataRow CommissDataRow(int index, CommissStatisticsData commissStatisticsData) {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  commissStatisticsData.name!,
+                  "${commissData.commissFirstName!} ${commissData.commissSurName!}",
                   style: const TextStyle(
                     fontSize: 12,
                   ),
                 ),
                 Text(
-                  commissStatisticsData.telephone!,
+                  commissData.commissTelephone!,
                   style: const TextStyle(
                     fontSize: 12,
                   ),
@@ -193,7 +211,7 @@ DataRow CommissDataRow(int index, CommissStatisticsData commissStatisticsData) {
         Wrap(
           children: [
             Text(
-              commissStatisticsData.position!,
+              commissData.commissPosition!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -205,7 +223,7 @@ DataRow CommissDataRow(int index, CommissStatisticsData commissStatisticsData) {
         Wrap(
           children: [
             Text(
-              commissStatisticsData.commissDate!,
+              commissData.commissDate!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -217,7 +235,7 @@ DataRow CommissDataRow(int index, CommissStatisticsData commissStatisticsData) {
         Wrap(
           children: [
             Text(
-              commissStatisticsData.commissLocation!,
+              commissData.commissLocation!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -229,7 +247,7 @@ DataRow CommissDataRow(int index, CommissStatisticsData commissStatisticsData) {
         Wrap(
           children: [
             Text(
-              commissStatisticsData.address!,
+              "${commissData.province}/${commissData.amphure}/${commissData.district}",
               style: const TextStyle(
                 fontSize: 12,
               ),

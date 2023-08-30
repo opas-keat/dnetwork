@@ -4,17 +4,20 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../../api/api_params.dart';
 import '../../../../api/services/commiss_position_commu_service.dart';
-import '../../../../api/services/commiss_position_service.dart';
 import '../../../../api/services/network_position_service.dart';
 import '../../../../api/services/network_service.dart';
 import '../../../../data/requests/network_service_request.dart';
 import '../../../../data/responses/network_service_response.dart';
+import '../../../../shared/controller/info_card_controller.dart';
 import '../../../../shared/utils.dart';
 import '../../../address/controllers/address_controller.dart';
+import '../../controllers/network_controller.dart';
 
 class ManageNetworkController extends GetxController {
   final logTitle = "ManageNetworkController";
   RxBool isLoading = true.obs;
+  InfoCardController infoCardController = Get.put(InfoCardController());
+  NetworkController networkController = Get.put(NetworkController());
   AddressController addressController = Get.put(AddressController());
 
   Rx<String> filePath = ''.obs;
@@ -27,9 +30,6 @@ class ManageNetworkController extends GetxController {
   final networkPositionCommuList = <String>[].obs;
   Rx<String> selectedNetworkPositionCommu = "".obs;
 
-  RxString networkError = ''.obs;
-
-  
   final networkStationId = TextEditingController(text: "0");
   final networkStationName = TextEditingController();
   final networkFirstName = TextEditingController();
@@ -39,12 +39,13 @@ class ManageNetworkController extends GetxController {
   final networkLocation = TextEditingController();
   final networkDate = TextEditingController();
   final networkTelephone = TextEditingController();
-  // final networkPosition = TextEditingController();
   final networkPositionCommu = TextEditingController();
   final networkExp = TextEditingController();
   final networkProvince = TextEditingController();
   final networkAmphure = TextEditingController();
   final networkTambol = TextEditingController();
+
+  RxString networkError = ''.obs;
 
   final networkPositionCommuChips = <String>[].obs;
   final networkExpChips = <String>[].obs;
@@ -75,137 +76,130 @@ class ManageNetworkController extends GetxController {
   }
 
   save() async {
-    talker.info('$logTitle:saveBudget:');
+    talker.info('$logTitle:save:');
     isLoading.value = true;
+    bool result = true;
     try {
-      talker.info('$logTitle:save:');
       talker.debug(networkLocation.text);
       talker.debug(addressController.selectedProvince.value);
       talker.debug(addressController.selectedAmphure.value);
       talker.debug(addressController.selectedTambol.value);
       talker.debug(networkLocation.text);
-      final isValid = formKeyNetwork.currentState!.validate();
-      if (isValid) {
-        networks.add(
-          Networks(
-            networkStationId: int.parse(networkStationId.text),
-            networkStationName: networkStationName.text,
-            networkFirstName: networkFirstName.text,
-            networkSurName: networkSurName.text,
-            networkIdCard: networkIdCard.text,
-            networkBirthYear: networkBirthYear.text,
-            networkLocation: networkLocation.text,
-            networkDate: networkDate.text,
-            networkTelephone: networkTelephone.text,
-            networkPosition: selectedNetworkPosition.value,
-            networkPositionCommu: networkPositionCommuChips.join('|'),
-            networkExp: networkExp.text,
-            amphure: networkAmphure.text,
-            district: networkTambol.text,
-            province: networkProvince.text,
-          ),
-        );
-        final result = await NetworkService().create(networks.obs.value);
-        talker.debug('response message : ${result?.message}');
-        if (result?.code == "000") {
-          for (var item in result!.data!) {
-            networkList.add(
-              NetworkData(
-                id: item.id,
-                amphure: item.amphure,
-                district: item.district,
-                province: item.province,
-                networkBirthYear: item.networkBirthYear,
-                networkDate: item.networkDate,
-                networkExp: item.networkExp,
-                networkFirstName: item.networkFirstName,
-                networkIdCard: item.networkIdCard,
-                networkLocation: item.networkLocation,
-                networkPosition: item.networkPosition,
-                networkPositionCommu: item.networkPositionCommu,
-                networkStationId: item.networkStationId,
-                networkStationName: item.networkStationName,
-                networkSurName: item.networkSurName,
-                networkTelephone: item.networkTelephone,
-              ),
-            );
-          }
-          isLoading.value = false;
-          networks.clear();
-          resetForm();
-          return true;
+      networks.add(
+        Networks(
+          networkStationId: int.parse(networkStationId.text),
+          networkStationName: networkStationName.text,
+          networkFirstName: networkFirstName.text,
+          networkSurName: networkSurName.text,
+          networkIdCard: networkIdCard.text,
+          networkBirthYear: networkBirthYear.text,
+          networkLocation: networkLocation.text,
+          networkDate: networkDate.text,
+          networkTelephone: networkTelephone.text,
+          networkPosition: selectedNetworkPosition.value,
+          networkPositionCommu: networkPositionCommuChips.join('|'),
+          networkExp: networkExp.text,
+          amphure: networkAmphure.text,
+          district: networkTambol.text,
+          province: networkProvince.text,
+        ),
+      );
+      final response = await NetworkService().create(networks.obs.value);
+      talker.debug('response message : ${response?.message}');
+      if (response?.code == "000") {
+        for (var item in response!.data!) {
+          networkList.add(
+            NetworkData(
+              id: item.id,
+              amphure: item.amphure,
+              district: item.district,
+              province: item.province,
+              networkBirthYear: item.networkBirthYear,
+              networkDate: item.networkDate,
+              networkExp: item.networkExp,
+              networkFirstName: item.networkFirstName,
+              networkIdCard: item.networkIdCard,
+              networkLocation: item.networkLocation,
+              networkPosition: item.networkPosition,
+              networkPositionCommu: item.networkPositionCommu,
+              networkStationId: item.networkStationId,
+              networkStationName: item.networkStationName,
+              networkSurName: item.networkSurName,
+              networkTelephone: item.networkTelephone,
+            ),
+          );
         }
-        return false;
+        isLoading.value = false;
+        networks.clear();
+        resetForm();
       }
-      return true;
+      result = true;
     } catch (e) {
       talker.error('$e');
-      return false;
+      result = false;
     }
+    return result;
   }
 
   edit() async {
     talker.info('$logTitle:editData:$selectedIndexFromTable');
     isLoading.value = true;
     try {
-      final isValid = formKeyNetwork.currentState!.validate();
-      if (isValid) {
-        networks.add(
-          Networks(
-            id: selectedId,
-            networkStationId: int.parse(networkStationId.text),
-            networkStationName: networkStationName.text,
-            networkFirstName: networkFirstName.text,
-            networkSurName: networkSurName.text,
-            networkIdCard: networkIdCard.text,
-            networkBirthYear: networkBirthYear.text,
-            networkLocation: networkLocation.text,
-            networkDate: networkDate.text,
-            networkTelephone: networkTelephone.text,
-            networkPosition: selectedNetworkPosition.value,
-            networkPositionCommu: networkPositionCommuChips.join('|'),
-            networkExp: networkExp.text,
-            amphure: networkAmphure.text,
-            district: networkTambol.text,
-            province: networkProvince.text,
-          ),
-        );
-        final result = await NetworkService().update(networks.obs.value);
-        talker.debug('response message : ${result?.message}');
-        if (result?.code == "000") {
-          for (var item in result!.data!) {
-            networkList[selectedIndexFromTable].networkStationId =
-                item.networkStationId;
-            networkList[selectedIndexFromTable].networkStationName =
-                item.networkStationName;
-            networkList[selectedIndexFromTable].networkFirstName =
-                item.networkFirstName;
-            networkList[selectedIndexFromTable].networkSurName =
-                item.networkSurName;
-            networkList[selectedIndexFromTable].networkIdCard =
-                item.networkIdCard;
-            networkList[selectedIndexFromTable].networkBirthYear =
-                item.networkBirthYear;
-            networkList[selectedIndexFromTable].networkLocation =
-                item.networkLocation;
-            networkList[selectedIndexFromTable].networkDate = item.networkDate;
-            networkList[selectedIndexFromTable].networkTelephone =
-                item.networkTelephone;
-            networkList[selectedIndexFromTable].networkPosition =
-                item.networkPosition;
-            networkList[selectedIndexFromTable].networkPositionCommu =
-                item.networkPositionCommu;
-            networkList[selectedIndexFromTable].amphure = item.amphure;
-            networkList[selectedIndexFromTable].district = item.district;
-            networkList[selectedIndexFromTable].province = item.province;
-          }
+      networks.add(
+        Networks(
+          id: selectedId,
+          networkStationId: int.parse(networkStationId.text),
+          networkStationName: networkStationName.text,
+          networkFirstName: networkFirstName.text,
+          networkSurName: networkSurName.text,
+          networkIdCard: networkIdCard.text,
+          networkBirthYear: networkBirthYear.text,
+          networkLocation: networkLocation.text,
+          networkDate: networkDate.text,
+          networkTelephone: networkTelephone.text,
+          networkPosition: selectedNetworkPosition.value,
+          networkPositionCommu: networkPositionCommuChips.join('|'),
+          networkExp: networkExp.text,
+          amphure: networkAmphure.text,
+          district: networkTambol.text,
+          province: networkProvince.text,
+        ),
+      );
+      final result = await NetworkService().update(networks.obs.value);
+      talker.debug('response message : ${result?.message}');
+      if (result?.code == "000") {
+        for (var item in result!.data!) {
+          networkList[selectedIndexFromTable].networkStationId =
+              item.networkStationId;
+          networkList[selectedIndexFromTable].networkStationName =
+              item.networkStationName;
+          networkList[selectedIndexFromTable].networkFirstName =
+              item.networkFirstName;
+          networkList[selectedIndexFromTable].networkSurName =
+              item.networkSurName;
+          networkList[selectedIndexFromTable].networkIdCard =
+              item.networkIdCard;
+          networkList[selectedIndexFromTable].networkBirthYear =
+              item.networkBirthYear;
+          networkList[selectedIndexFromTable].networkLocation =
+              item.networkLocation;
+          networkList[selectedIndexFromTable].networkDate = item.networkDate;
+          networkList[selectedIndexFromTable].networkTelephone =
+              item.networkTelephone;
+          networkList[selectedIndexFromTable].networkPosition =
+              item.networkPosition;
+          networkList[selectedIndexFromTable].networkPositionCommu =
+              item.networkPositionCommu;
+          networkList[selectedIndexFromTable].amphure = item.amphure;
+          networkList[selectedIndexFromTable].district = item.district;
+          networkList[selectedIndexFromTable].province = item.province;
         }
-        isLoading.value = false;
-        networkList.refresh();
-        networks.clear();
-        selectedIndexFromTable = -1;
-        resetForm();
       }
+      isLoading.value = false;
+      networkList.refresh();
+      networks.clear();
+      selectedIndexFromTable = -1;
+      resetForm();
       return true;
     } catch (e) {
       talker.error('$e');

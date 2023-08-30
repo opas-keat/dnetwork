@@ -16,7 +16,7 @@ class MemberSearch extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: CustomText(
-        text: "ค้นหาการผึกอบรม",
+        text: "ค้นหาสมาชิก",
         color: Colors.black87.withOpacity(.9),
       ),
       content: SizedBox(
@@ -152,6 +152,9 @@ class MemberSearch extends StatelessWidget {
         TextButton(
           child: const Text("ค้นหา"),
           onPressed: () {
+            controller.offset.value = 0;
+            controller.currentPage = 1;
+            controller.listMemberStatistics.clear();
             controller.listMember();
             Get.back();
           },

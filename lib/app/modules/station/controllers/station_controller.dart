@@ -4,16 +4,17 @@ import 'package:get/get.dart';
 import '../../../api/api_params.dart';
 import '../../../api/services/station_service.dart';
 import '../../../data/models/station_statistics_data.dart';
+import '../../../data/responses/station_service_response.dart';
 import '../../../shared/utils.dart';
 import '../../address/controllers/address_controller.dart';
 
 class StationController extends GetxController {
   final logTitle = "StationController";
   RxBool isLoading = true.obs;
-  RxBool isLoadingAddStation = true.obs;
+  RxBool isLoadingAdd = true.obs;
   AddressController addressController = Get.put(AddressController());
 
-  final listStationStatistics = <StationStatisticsData>[].obs;
+  final listStationStatistics = <StationData>[].obs;
   RxBool sortAscending = true.obs;
   RxInt sortColumnIndex = 0.obs;
 
@@ -24,12 +25,12 @@ class StationController extends GetxController {
 
   final selectedStation = StationStatisticsData();
 
+  int currentPage = 1;
+  RxInt offset = 0.obs;
+
   @override
   void onInit() {
     super.onInit();
-    // isLoading.value = true;
-    // listStationStatistics.value = listStationStatisticsDataModel;
-    // update();
     listStation();
   }
 
@@ -37,7 +38,7 @@ class StationController extends GetxController {
     talker.info('$logTitle:listStation:');
     isLoading.value = true;
     Map<String, String> qParams = {
-      "offset": "0",
+      "offset": offset.value.toString(),
       "limit": queryParamLimit,
       "order": queryParamOrderBy,
       "province": addressController.selectedProvince.value,
@@ -50,12 +51,20 @@ class StationController extends GetxController {
     };
     try {
       final result = await StationService().list(qParams);
-      listStationStatistics.clear();
+      // listStationStatistics.clear();
       for (final item in result!.data!) {
         listStationStatistics.add(
-          StationStatisticsData(
-            name: item.name,
-            address: '${item.province}/${item.amphure}/${item.district}',
+          StationData(
+            id: item.id,
+            amphure: item.amphure,
+            district: item.district,
+            province: item.province,
+            facebook: item.facebook,
+            location: item.location,
+            process: item.process,
+            training: item.training,
+            // name: item.name,
+            // address: '${item.province}/${item.amphure}/${item.district}',
             totalCommiss: item.totalCommiss,
             totalMember: item.totalMember,
           ),
@@ -71,14 +80,14 @@ class StationController extends GetxController {
     // update();
   }
 
-  getStation() async {
-    talker.info('$logTitle:getStation:');
-    isLoading.value =
-        await Future.delayed(Duration(seconds: randomValue()), () {
-      return false;
-    });
-    update();
-  }
+  // getStation() async {
+  //   talker.info('$logTitle:getStation:');
+  //   isLoading.value =
+  //       await Future.delayed(Duration(seconds: randomValue()), () {
+  //     return false;
+  //   });
+  //   update();
+  // }
 
   resetSearch() {
     name.text = "";
@@ -106,9 +115,9 @@ class StationController extends GetxController {
     } else if (field == "address") {
       ascending
           ? listStationStatistics.obs.value
-              .sort((a, b) => a.address!.compareTo(b.address!))
+              .sort((a, b) => a.province!.compareTo(b.province!))
           : listStationStatistics.obs.value
-              .sort((a, b) => b.address!.compareTo(a.address!));
+              .sort((a, b) => b.province!.compareTo(a.province!));
     } else if (field == "totalCommiss") {
       ascending
           ? listStationStatistics.obs.value

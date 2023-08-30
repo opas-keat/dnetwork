@@ -78,6 +78,7 @@ class ManageDataDetail extends StatelessWidget {
   });
   final ManageLectuterController controller =
       Get.put(ManageLectuterController());
+  final _formKeyLectuter = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -90,7 +91,7 @@ class ManageDataDetail extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: defaultPadding),
-                  actionMenu(),
+                  actionMenu(_formKeyLectuter),
                   const Padding(
                     padding: EdgeInsets.only(left: defaultPadding),
                     child: CustomText(
@@ -106,7 +107,7 @@ class ManageDataDetail extends StatelessWidget {
         ),
         const SizedBox(height: defaultPadding / 2),
         Form(
-          key: formKeyLectuter,
+          key: _formKeyLectuter,
           child: Expanded(
             child: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
@@ -431,31 +432,32 @@ class ManageDataDetail extends StatelessWidget {
             children: [
               ElevatedButton.icon(
                 onPressed: () async {
-                  Get.dialog(
-                    const Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                    barrierDismissible: false,
-                  );
-                  final result = await controller.save();
-                  Get.back();
-                  result
-                      ? Get.offAllNamed(Routes.LECTUTER)
-                      : Get.snackbar(
-                          'Error',
-                          controller.lectuterError.value,
-                          backgroundColor: accentColor,
-                          snackPosition: SnackPosition.BOTTOM,
-                          colorText: Colors.white,
-                          icon: const Icon(
-                            Icons.lock_person_outlined,
-                            color: Colors.white,
-                          ),
-                          isDismissible: true,
-                          margin: const EdgeInsets.all(
-                            defaultPadding,
-                          ),
-                        );
+                  final isValid = _formKeyLectuter.currentState!.validate();
+                  if (isValid) {
+                    if (controller.addressController.selectedProvince.value !=
+                        '') {
+                      Get.dialog(
+                        const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                        barrierDismissible: false,
+                      );
+                      await controller.save();
+                      Get.back();
+                    } else {
+                      Get.dialog(
+                        AlertDialog(
+                          content: const Text('กรุณาเลือก จังหวัด'),
+                          actions: [
+                            TextButton(
+                              child: const Text("ปิด"),
+                              onPressed: () => Get.back(),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(
@@ -470,8 +472,15 @@ class ManageDataDetail extends StatelessWidget {
                 ),
               ),
               ElevatedButton.icon(
-                onPressed: () {
+                onPressed: () async {
                   controller.addressController.selectedProvince.value = '';
+                  controller.lectuterList.clear();
+                  controller.lectuterController.offset.value = 0;
+                  controller.lectuterController.currentPage = 1;
+                  controller.lectuterController.listLectuterStatistics.clear();
+                  await controller.infoCardController.getSummaryInfo();
+                  await controller.lectuterController.listLectuterAffiliate();
+                  await controller.lectuterController.listLectuter();
                   Get.toNamed(Routes.LECTUTER);
                 },
                 style: ElevatedButton.styleFrom(
@@ -493,21 +502,40 @@ class ManageDataDetail extends StatelessWidget {
     );
   }
 
-  Row actionMenu() {
+  Row actionMenu(
+    GlobalKey<FormState> formKey,
+  ) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         IconButton(
           icon: const Icon(Icons.add_sharp),
           onPressed: () async {
-            Get.dialog(
-              const Center(
-                child: CircularProgressIndicator(),
-              ),
-              barrierDismissible: false,
-            );
-            await controller.save();
-            Get.back();
+            final isValid = _formKeyLectuter.currentState!.validate();
+            if (isValid) {
+              if (controller.addressController.selectedProvince.value != '') {
+                Get.dialog(
+                  const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                  barrierDismissible: false,
+                );
+                await controller.save();
+                Get.back();
+              } else {
+                Get.dialog(
+                  AlertDialog(
+                    content: const Text('กรุณาเลือก จังหวัด'),
+                    actions: [
+                      TextButton(
+                        child: const Text("ปิด"),
+                        onPressed: () => Get.back(),
+                      ),
+                    ],
+                  ),
+                );
+              }
+            }
           },
         ),
         IconButton(

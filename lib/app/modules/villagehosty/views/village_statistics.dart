@@ -2,17 +2,21 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../data/models/village_statistics_data.dart';
+import '../../../data/responses/village_service_response.dart';
+import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/utils.dart';
 import '../controllers/village_controller.dart';
+import '../manageVillage/controllers/manage_village_controller.dart';
 
 class VillageStatistics extends StatelessWidget {
   VillageStatistics({
     super.key,
   });
   final VillageController controller = Get.find<VillageController>();
+  final ManageVillageController manageVillageController =
+      Get.put(ManageVillageController());
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -108,8 +112,11 @@ class VillageStatistics extends StatelessWidget {
                     // rows: [],
                     rows: List.generate(
                       controller.listVillageStatistics.obs.value.length,
-                      (index) => VillageDataRow(index,
-                          controller.listVillageStatistics.obs.value[index]),
+                      (index) => villageDataRow(
+                        index,
+                        controller.listVillageStatistics.obs.value[index],
+                        manageVillageController,
+                      ),
                     ),
                   )),
             ),
@@ -144,8 +151,19 @@ class VillageStatistics extends StatelessWidget {
 //   ),
 // ];
 
-DataRow VillageDataRow(int index, VillageStatisticsData villageStatisticsData) {
-  return DataRow(
+DataRow villageDataRow(
+  int index,
+  VillageData villageData,
+  ManageVillageController controller,
+) {
+  return DataRow.byIndex(
+    index: index + 1,
+    onSelectChanged: (value) {
+      controller.villageList.clear();
+      controller.villageList.add(villageData);
+      Get.toNamed(Routes.MANAGE_VILLAGE);
+      // controller.selectDataFromTable(index, budgetData);
+    },
     cells: [
       DataCell(
         Text(
@@ -159,7 +177,7 @@ DataRow VillageDataRow(int index, VillageStatisticsData villageStatisticsData) {
         Wrap(
           children: [
             Text(
-              villageStatisticsData.name!,
+              villageData.villageName!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -171,7 +189,7 @@ DataRow VillageDataRow(int index, VillageStatisticsData villageStatisticsData) {
         Wrap(
           children: [
             Text(
-              villageStatisticsData.no!,
+              villageData.villageNo!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -183,7 +201,7 @@ DataRow VillageDataRow(int index, VillageStatisticsData villageStatisticsData) {
         Wrap(
           children: [
             Text(
-              villageStatisticsData.address!,
+              '${villageData.province!}/${villageData.amphure!}/${villageData.district!}',
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -195,7 +213,7 @@ DataRow VillageDataRow(int index, VillageStatisticsData villageStatisticsData) {
         Wrap(
           children: [
             Text(
-              formatterItem.format(villageStatisticsData.total),
+              formatterItem.format(villageData.villageTotal),
               style: const TextStyle(
                 fontSize: 12,
               ),

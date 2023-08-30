@@ -5,18 +5,21 @@ import 'package:image_picker/image_picker.dart';
 import '../../../../api/services/village_service.dart';
 import '../../../../data/requests/village_service_request.dart';
 import '../../../../data/responses/village_service_response.dart';
+import '../../../../shared/controller/info_card_controller.dart';
 import '../../../../shared/utils.dart';
 import '../../../address/controllers/address_controller.dart';
+import '../../controllers/village_controller.dart';
 
 class ManageVillageController extends GetxController {
   final logTitle = "ManageVillageController";
   RxBool isLoading = true.obs;
+  InfoCardController infoCardController = Get.put(InfoCardController());
+  VillageController villageController = Get.put(VillageController());
   AddressController addressController = Get.put(AddressController());
 
   Rx<String> filePath = ''.obs;
   Rx<XFile> fileUpload = XFile('').obs;
 
-  
   final villageList = <VillageData>[].obs;
   final villages = <Villages>[].obs;
   final villageName = TextEditingController();
@@ -61,6 +64,7 @@ class ManageVillageController extends GetxController {
   save() async {
     talker.info('$logTitle:saveBudget:');
     isLoading.value = true;
+    bool result = true;
     try {
       talker.info('$logTitle:save:');
       talker.debug(villageName.text);
@@ -70,13 +74,31 @@ class ManageVillageController extends GetxController {
       talker.debug(addressController.selectedTambol.value);
       talker.debug(villageLocation.text);
       talker.debug(typeActChips.join('|'));
-      final isValid = formKeyVillage.currentState!.validate();
-      if (isValid) {
-        if (addressController.selectedProvince.value != '' &&
-            addressController.selectedAmphure.value != '' &&
-            addressController.selectedTambol.value != '') {
-          villages.add(
-            Villages(
+      villages.add(
+        Villages(
+          amphure: addressController.selectedAmphure.value,
+          district: addressController.selectedTambol.value,
+          election: election.text,
+          province: addressController.selectedProvince.value,
+          villageActYear: villageActYear.text,
+          villageActivity: villageActivity.text,
+          villageGoalAct2: villageGoalAct2.text,
+          villageGoalAct: int.parse(villageGoalAct.text),
+          villageName: villageName.text,
+          villageNo: villageNo.text,
+          villageTotal: int.parse(villageTotal.text),
+          villageTotalUsed: int.parse(villageTotalUsed.text),
+          villageTypeAct: typeActChips.join('|'),
+          villageLocation: villageLocation.text,
+        ),
+      );
+      final response = await VillageService().create(villages.obs.value);
+      talker.debug('response message : ${response?.message}');
+      if (response?.code == "000") {
+        for (var item in response!.data!) {
+          villageList.add(
+            VillageData(
+              id: item.id,
               amphure: addressController.selectedAmphure.value,
               district: addressController.selectedTambol.value,
               election: election.text,
@@ -85,141 +107,82 @@ class ManageVillageController extends GetxController {
               villageActivity: villageActivity.text,
               villageGoalAct2: villageGoalAct2.text,
               villageGoalAct: int.parse(villageGoalAct.text),
+              villageLocation: villageLocation.text,
               villageName: villageName.text,
               villageNo: villageNo.text,
               villageTotal: int.parse(villageTotal.text),
               villageTotalUsed: int.parse(villageTotalUsed.text),
               villageTypeAct: typeActChips.join('|'),
-              villageLocation: villageLocation.text,
             ),
           );
-          final result = await VillageService().create(villages.obs.value);
-          talker.debug('response message : ${result?.message}');
-          if (result?.code == "000") {
-            for (var item in result!.data!) {
-              villageList.add(
-                VillageData(
-                  id: item.id,
-                  amphure: addressController.selectedAmphure.value,
-                  district: addressController.selectedTambol.value,
-                  election: election.text,
-                  province: addressController.selectedProvince.value,
-                  villageActYear: villageActYear.text,
-                  villageActivity: villageActivity.text,
-                  villageGoalAct2: villageGoalAct2.text,
-                  villageGoalAct: int.parse(villageGoalAct.text),
-                  villageLocation: villageLocation.text,
-                  villageName: villageName.text,
-                  villageNo: villageNo.text,
-                  villageTotal: int.parse(villageTotal.text),
-                  villageTotalUsed: int.parse(villageTotalUsed.text),
-                  villageTypeAct: typeActChips.join('|'),
-                ),
-              );
-            }
-            isLoading.value = false;
-            villages.clear();
-            resetForm();
-            return true;
-          }
-        } else {
-          final result = await Get.dialog(
-            AlertDialog(
-              content: const Text('กรุณาเลือก จังหวัด/อำเภอ/ตำบล'),
-              actions: [
-                TextButton(
-                  child: const Text("ปิด"),
-                  onPressed: () => Get.back(),
-                ),
-              ],
-            ),
-          );
-          return false;
         }
+        isLoading.value = false;
+        villages.clear();
+        resetForm();
       }
-      return true;
+      result = true;
     } catch (e) {
       talker.error('$e');
-      return false;
+      result = true;
     }
+    return result;
   }
 
   edit() async {
     talker.info('$logTitle:editData:$selectedIndexFromTable');
     isLoading.value = true;
     try {
-      final isValid = formKeyVillage.currentState!.validate();
-      if (isValid) {
-        if (addressController.selectedProvince.value != '' &&
-            addressController.selectedAmphure.value != '' &&
-            addressController.selectedTambol.value != '') {
-          villages.add(
-            Villages(
-              id: selectedId,
-              amphure: addressController.selectedAmphure.value,
-              district: addressController.selectedTambol.value,
-              election: election.text,
-              province: addressController.selectedProvince.value,
-              villageActYear: villageActYear.text,
-              villageActivity: villageActivity.text,
-              villageGoalAct2: villageGoalAct2.text,
-              villageGoalAct: int.parse(villageGoalAct.text),
-              villageName: villageName.text,
-              villageNo: villageNo.text,
-              villageTotal: int.parse(villageTotal.text),
-              villageTotalUsed: int.parse(villageTotalUsed.text),
-              villageTypeAct: typeActChips.join('|'),
-              villageLocation: villageLocation.text,
-            ),
-          );
-          final result = await VillageService().update(villages.obs.value);
-          talker.debug('response message : ${result?.message}');
-          if (result?.code == "000") {
-            for (var item in result!.data!) {
-              villageList[selectedIndexFromTable].amphure = item.amphure;
-              villageList[selectedIndexFromTable].district = item.district;
-              villageList[selectedIndexFromTable].province = item.province;
-              villageList[selectedIndexFromTable].election = item.election;
-              villageList[selectedIndexFromTable].villageActYear =
-                  item.villageActYear;
-              villageList[selectedIndexFromTable].villageActivity =
-                  item.villageActivity;
-              villageList[selectedIndexFromTable].villageGoalAct2 =
-                  item.villageGoalAct2;
-              villageList[selectedIndexFromTable].villageGoalAct =
-                  item.villageGoalAct;
-              villageList[selectedIndexFromTable].villageLocation =
-                  item.villageLocation;
-              villageList[selectedIndexFromTable].villageName =
-                  item.villageName;
-              villageList[selectedIndexFromTable].villageNo = item.villageNo;
-              villageList[selectedIndexFromTable].villageTotal =
-                  item.villageTotal;
-              villageList[selectedIndexFromTable].villageTotalUsed =
-                  item.villageTotalUsed;
-              villageList[selectedIndexFromTable].villageTypeAct =
-                  item.villageTypeAct;
-            }
-          }
-          isLoading.value = false;
-          villageList.refresh();
-          villages.clear();
-          selectedIndexFromTable = -1;
-          resetForm();
-        } else {
-          Get.dialog(
-            AlertDialog(
-              content: const Text('กรุณาเลือก จังหวัด/อำเภอ/ตำบล'),
-              actions: [
-                TextButton(
-                  child: const Text("ปิด"),
-                  onPressed: () => Get.back(),
-                ),
-              ],
-            ),
-          );
+      villages.add(
+        Villages(
+          id: selectedId,
+          amphure: addressController.selectedAmphure.value,
+          district: addressController.selectedTambol.value,
+          election: election.text,
+          province: addressController.selectedProvince.value,
+          villageActYear: villageActYear.text,
+          villageActivity: villageActivity.text,
+          villageGoalAct2: villageGoalAct2.text,
+          villageGoalAct: int.parse(villageGoalAct.text),
+          villageName: villageName.text,
+          villageNo: villageNo.text,
+          villageTotal: int.parse(villageTotal.text),
+          villageTotalUsed: int.parse(villageTotalUsed.text),
+          villageTypeAct: typeActChips.join('|'),
+          villageLocation: villageLocation.text,
+        ),
+      );
+      final result = await VillageService().update(villages.obs.value);
+      talker.debug('response message : ${result?.message}');
+      if (result?.code == "000") {
+        for (var item in result!.data!) {
+          villageList[selectedIndexFromTable].amphure = item.amphure;
+          villageList[selectedIndexFromTable].district = item.district;
+          villageList[selectedIndexFromTable].province = item.province;
+          villageList[selectedIndexFromTable].election = item.election;
+          villageList[selectedIndexFromTable].villageActYear =
+              item.villageActYear;
+          villageList[selectedIndexFromTable].villageActivity =
+              item.villageActivity;
+          villageList[selectedIndexFromTable].villageGoalAct2 =
+              item.villageGoalAct2;
+          villageList[selectedIndexFromTable].villageGoalAct =
+              item.villageGoalAct;
+          villageList[selectedIndexFromTable].villageLocation =
+              item.villageLocation;
+          villageList[selectedIndexFromTable].villageName = item.villageName;
+          villageList[selectedIndexFromTable].villageNo = item.villageNo;
+          villageList[selectedIndexFromTable].villageTotal = item.villageTotal;
+          villageList[selectedIndexFromTable].villageTotalUsed =
+              item.villageTotalUsed;
+          villageList[selectedIndexFromTable].villageTypeAct =
+              item.villageTypeAct;
         }
       }
+      isLoading.value = false;
+      villageList.refresh();
+      villages.clear();
+      selectedIndexFromTable = -1;
+      resetForm();
       return true;
     } catch (e) {
       talker.error('$e');

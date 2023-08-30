@@ -2,23 +2,27 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../data/models/network_statistics.data.dart';
+import '../../../data/responses/network_service_response.dart';
+import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/utils.dart';
 import '../controllers/network_controller.dart';
+import '../manageNetwork/controllers/manage_network_controller.dart';
 
 class NetworkStatistics extends StatelessWidget {
   NetworkStatistics({
     super.key,
   });
   final NetworkController controller = Get.find<NetworkController>();
+  final ManageNetworkController manageNetworkController =
+      Get.put(ManageNetworkController());
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(defaultPadding / 2),
-      height: MediaQuery.of(context).size.height - 275,
+      height: MediaQuery.of(context).size.height - 350,
       decoration: BoxDecoration(
         color: canvasColor,
         borderRadius: BorderRadius.circular(defaultPadding),
@@ -117,8 +121,11 @@ class NetworkStatistics extends StatelessWidget {
                     // rows: [],
                     rows: List.generate(
                       controller.listNetworkStatistics.obs.value.length,
-                      (index) => NetworkDataRow(index,
-                          controller.listNetworkStatistics.obs.value[index]),
+                      (index) => networkDataRow(
+                        index,
+                        controller.listNetworkStatistics.obs.value[index],
+                        manageNetworkController,
+                      ),
                     ),
                   )),
             ),
@@ -156,8 +163,19 @@ class NetworkStatistics extends StatelessWidget {
 //   ),
 // ];
 
-DataRow NetworkDataRow(int index, NetworkStatisticsData networkStatisticsData) {
-  return DataRow(
+DataRow networkDataRow(
+  int index,
+  NetworkData networkData,
+  ManageNetworkController controller,
+) {
+  return DataRow.byIndex(
+    index: index + 1,
+    onSelectChanged: (value) {
+      controller.networkList.clear();
+      controller.networkList.add(networkData);
+      Get.toNamed(Routes.MANAGE_NETWORK);
+      // controller.selectDataFromTable(index, budgetData);
+    },
     cells: [
       DataCell(
         Text(
@@ -174,13 +192,13 @@ DataRow NetworkDataRow(int index, NetworkStatisticsData networkStatisticsData) {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  networkStatisticsData.name!,
+                  "${networkData.networkFirstName!} ${networkData.networkSurName!}",
                   style: const TextStyle(
                     fontSize: 12,
                   ),
                 ),
                 Text(
-                  networkStatisticsData.telephone!,
+                  networkData.networkTelephone!,
                   style: const TextStyle(
                     fontSize: 12,
                   ),
@@ -194,7 +212,7 @@ DataRow NetworkDataRow(int index, NetworkStatisticsData networkStatisticsData) {
         Wrap(
           children: [
             Text(
-              networkStatisticsData.position!,
+              networkData.networkPosition!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -206,7 +224,7 @@ DataRow NetworkDataRow(int index, NetworkStatisticsData networkStatisticsData) {
         Wrap(
           children: [
             Text(
-              networkStatisticsData.networkDate!,
+              networkData.networkDate!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -218,7 +236,7 @@ DataRow NetworkDataRow(int index, NetworkStatisticsData networkStatisticsData) {
         Wrap(
           children: [
             Text(
-              networkStatisticsData.networkLocation!,
+              networkData.networkLocation!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -230,7 +248,7 @@ DataRow NetworkDataRow(int index, NetworkStatisticsData networkStatisticsData) {
         Wrap(
           children: [
             Text(
-              networkStatisticsData.address!,
+              "${networkData.province}/${networkData.amphure}/${networkData.district}",
               style: const TextStyle(
                 fontSize: 12,
               ),

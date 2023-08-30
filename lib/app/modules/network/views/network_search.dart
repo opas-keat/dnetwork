@@ -16,7 +16,7 @@ class NetworkSearch extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: CustomText(
-        text: "ค้นหาการผึกอบรม",
+        text: "ค้นหาภาคีเครือข่าย",
         color: Colors.black87.withOpacity(.9),
       ),
       content: SizedBox(
@@ -152,6 +152,9 @@ class NetworkSearch extends StatelessWidget {
         TextButton(
           child: const Text("ค้นหา"),
           onPressed: () {
+            controller.offset.value = 0;
+            controller.currentPage = 1;
+            controller.listNetworkStatistics.clear();
             controller.listNetwork();
             Get.back();
           },

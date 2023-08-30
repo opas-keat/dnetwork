@@ -2,7 +2,6 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../data/models/training_statistics_data.dart';
 import '../../../data/responses/training_service_response.dart';
 import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';

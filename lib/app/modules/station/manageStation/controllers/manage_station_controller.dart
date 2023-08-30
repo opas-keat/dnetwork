@@ -6,11 +6,17 @@ import 'package:image_picker/image_picker.dart';
 import '../../../../api/services/station_service.dart';
 import '../../../../data/requests/station_service_request.dart';
 import '../../../../data/responses/station_service_response.dart';
+import '../../../../shared/controller/info_card_controller.dart';
 import '../../../../shared/utils.dart';
+import '../../../training/controllers/training_controller.dart';
+import '../../controllers/station_controller.dart';
 
 class ManageStationController extends GetxController {
   final logTitle = "ManageStationController";
   RxBool isLoading = true.obs;
+  InfoCardController infoCardController = Get.put(InfoCardController());
+  StationController stationController = Get.put(StationController());
+  TrainingController trainingController = Get.put(TrainingController());
   AddressController addressController = Get.put(AddressController());
 
   Rx<String> filePath = ''.obs;
@@ -20,6 +26,12 @@ class ManageStationController extends GetxController {
   final stations = <Stations>[].obs;
   final processList = [].obs;
 
+  final stationName = TextEditingController();
+  final stationFacebook = TextEditingController();
+  final stationLocation = TextEditingController();
+  final stationProcess = TextEditingController();
+  final stationTraining = TextEditingController();
+
   RxString stationError = ''.obs;
 
   final processChips = <String>[].obs;
@@ -27,13 +39,6 @@ class ManageStationController extends GetxController {
 
   int selectedIndexFromTable = -1;
   int selectedId = -1;
-
-  
-  final stationName = TextEditingController();
-  final stationFacebook = TextEditingController();
-  final stationLocation = TextEditingController();
-  final stationProcess = TextEditingController();
-  final stationTraining = TextEditingController();
 
   @override
   void onInit() {
@@ -57,6 +62,7 @@ class ManageStationController extends GetxController {
   save() async {
     talker.info('$logTitle:saveBudget:');
     isLoading.value = true;
+    bool result = true;
     try {
       talker.info('$logTitle:save:');
       talker.debug(stationName.text);
@@ -66,136 +72,92 @@ class ManageStationController extends GetxController {
       talker.debug(addressController.selectedTambol.value);
       talker.debug(stationFacebook.text);
       talker.debug(processChips.join('|'));
-      final isValid = formKeyStation.currentState!.validate();
-      if (isValid) {
-        if (addressController.selectedProvince.value != '' &&
-            addressController.selectedAmphure.value != '' &&
-            addressController.selectedTambol.value != '') {
-          stations.add(
-            Stations(
-              name: stationName.text,
-              location: stationLocation.text,
-              province: addressController.selectedProvince.value,
-              amphure: addressController.selectedAmphure.value,
-              district: addressController.selectedTambol.value,
-              facebook: stationFacebook.text,
-              process: processChips.join('|'),
-              training: trainingChips.join('|'),
-              totalCommiss: 0,
-              totalMember: 0,
+      stations.add(
+        Stations(
+          name: stationName.text,
+          location: stationLocation.text,
+          province: addressController.selectedProvince.value,
+          amphure: addressController.selectedAmphure.value,
+          district: addressController.selectedTambol.value,
+          facebook: stationFacebook.text,
+          process: processChips.join('|'),
+          training: trainingChips.join('|'),
+          totalCommiss: 0,
+          totalMember: 0,
+        ),
+      );
+      final response = await StationService().create(stations.obs.value);
+      talker.debug('response message : ${response?.message}');
+      if (response?.code == "000") {
+        for (var item in response!.data!) {
+          stationList.add(
+            StationData(
+              id: item.id,
+              name: item.name,
+              location: item.location,
+              province: item.province,
+              amphure: item.amphure,
+              district: item.district,
+              facebook: item.facebook,
+              process: item.process,
+              training: item.training,
+              totalCommiss: item.totalCommiss,
+              totalMember: item.totalMember,
             ),
           );
-          final result = await StationService().create(stations.obs.value);
-          talker.debug('response message : ${result?.message}');
-          if (result?.code == "000") {
-            for (var item in result!.data!) {
-              stationList.add(
-                StationData(
-                  id: item.id,
-                  name: item.name,
-                  location: item.location,
-                  province: item.province,
-                  amphure: item.amphure,
-                  district: item.district,
-                  facebook: item.facebook,
-                  process: item.process,
-                  training: item.training,
-                  totalCommiss: item.totalCommiss,
-                  totalMember: item.totalMember,
-                ),
-              );
-            }
-            isLoading.value = false;
-            stations.clear();
-            // addressController.selectedProvince.value = '';
-            // addressController.selectedAmphure.value = '';
-            // addressController.selectedTambol.value = '';
-            resetForm();
-            return true;
-          }
-        } else {
-          final result = await Get.dialog(
-            AlertDialog(
-              content: const Text('กรุณาเลือก จังหวัด/อำเภอ/ตำบล'),
-              actions: [
-                TextButton(
-                  child: const Text("ปิด"),
-                  onPressed: () => Get.back(),
-                ),
-              ],
-            ),
-          );
-          return false;
         }
+        isLoading.value = false;
+        stations.clear();
+        resetForm();
       }
-      return true;
+      result = true;
     } catch (e) {
       talker.error('$e');
-      return false;
+      result = true;
     }
+    return result;
   }
 
-  editData() async {
+  edit() async {
     talker.info('$logTitle:editData:$selectedIndexFromTable');
     isLoading.value = true;
     try {
-      final isValid = formKeyStation.currentState!.validate();
-      if (isValid) {
-        if (addressController.selectedProvince.value != '' &&
-            addressController.selectedAmphure.value != '' &&
-            addressController.selectedTambol.value != '') {
-          stations.add(
-            Stations(
-              id: selectedId,
-              name: stationName.text,
-              location: stationLocation.text,
-              province: addressController.selectedProvince.value,
-              amphure: addressController.selectedAmphure.value,
-              district: addressController.selectedTambol.value,
-              facebook: stationFacebook.text,
-              process: processChips.join('|'),
-              training: trainingChips.join('|'),
-              totalCommiss: 0,
-              totalMember: 0,
-            ),
-          );
-          final result = await StationService().update(stations.obs.value);
-          talker.debug('response message : ${result?.message}');
-          if (result?.code == "000") {
-            for (var item in result!.data!) {
-              stationList[selectedIndexFromTable].name = item.name;
-              stationList[selectedIndexFromTable].location = item.location;
-              stationList[selectedIndexFromTable].province = item.province;
-              stationList[selectedIndexFromTable].amphure = item.amphure;
-              stationList[selectedIndexFromTable].district = item.district;
-              stationList[selectedIndexFromTable].facebook = item.facebook;
-              stationList[selectedIndexFromTable].process = item.process;
-              stationList[selectedIndexFromTable].training = item.training;
-              stationList[selectedIndexFromTable].totalCommiss =
-                  item.totalCommiss;
-              stationList[selectedIndexFromTable].totalMember =
-                  item.totalMember;
-            }
-          }
-          isLoading.value = false;
-          stationList.refresh();
-          stations.clear();
-          selectedIndexFromTable = -1;
-          resetForm();
-        } else {
-          Get.dialog(
-            AlertDialog(
-              content: const Text('กรุณาเลือก จังหวัด/อำเภอ/ตำบล'),
-              actions: [
-                TextButton(
-                  child: const Text("ปิด"),
-                  onPressed: () => Get.back(),
-                ),
-              ],
-            ),
-          );
+      stations.add(
+        Stations(
+          id: selectedId,
+          name: stationName.text,
+          location: stationLocation.text,
+          province: addressController.selectedProvince.value,
+          amphure: addressController.selectedAmphure.value,
+          district: addressController.selectedTambol.value,
+          facebook: stationFacebook.text,
+          process: processChips.join('|'),
+          training: trainingChips.join('|'),
+          totalCommiss: 0,
+          totalMember: 0,
+        ),
+      );
+      final result = await StationService().update(stations.obs.value);
+      talker.debug('response message : ${result?.message}');
+      if (result?.code == "000") {
+        for (var item in result!.data!) {
+          stationList[selectedIndexFromTable].name = item.name;
+          stationList[selectedIndexFromTable].location = item.location;
+          stationList[selectedIndexFromTable].province = item.province;
+          stationList[selectedIndexFromTable].amphure = item.amphure;
+          stationList[selectedIndexFromTable].district = item.district;
+          stationList[selectedIndexFromTable].facebook = item.facebook;
+          stationList[selectedIndexFromTable].process = item.process;
+          stationList[selectedIndexFromTable].training = item.training;
+          stationList[selectedIndexFromTable].totalCommiss = item.totalCommiss;
+          stationList[selectedIndexFromTable].totalMember = item.totalMember;
         }
       }
+      isLoading.value = false;
+      stationList.refresh();
+      stations.clear();
+      selectedIndexFromTable = -1;
+      resetForm();
       return true;
     } catch (e) {
       talker.error('$e');

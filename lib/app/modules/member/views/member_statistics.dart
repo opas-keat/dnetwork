@@ -2,17 +2,21 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../data/models/member_statistics_data.dart';
+import '../../../data/responses/member_service_response.dart';
+import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/utils.dart';
 import '../controllers/member_controller.dart';
+import '../manageMember/controllers/manage_member_controller.dart';
 
 class MemberStatistics extends StatelessWidget {
   MemberStatistics({
     super.key,
   });
   final MemberController controller = Get.find<MemberController>();
+  final ManageMemberController manageMemberController =
+      Get.put(ManageMemberController());
 
   @override
   Widget build(BuildContext context) {
@@ -116,8 +120,11 @@ class MemberStatistics extends StatelessWidget {
                     // rows: [],
                     rows: List.generate(
                       controller.listMemberStatistics.obs.value.length,
-                      (index) => MemberDataRow(index,
-                          controller.listMemberStatistics.obs.value[index]),
+                      (index) => memberDataRow(
+                        index,
+                        controller.listMemberStatistics.obs.value[index],
+                        manageMemberController,
+                      ),
                     ),
                   )),
             ),
@@ -155,8 +162,19 @@ class MemberStatistics extends StatelessWidget {
 //   ),
 // ];
 
-DataRow MemberDataRow(int index, MemberStatisticsData memberStatisticsData) {
-  return DataRow(
+DataRow memberDataRow(
+  int index,
+  MemberData memberData,
+  ManageMemberController controller,
+) {
+  return DataRow.byIndex(
+    index: index + 1,
+    onSelectChanged: (value) {
+      controller.memberList.clear();
+      controller.memberList.add(memberData);
+      Get.toNamed(Routes.MANAGE_MEMBER);
+      // controller.selectDataFromTable(index, budgetData);
+    },
     cells: [
       DataCell(
         Text(
@@ -173,13 +191,13 @@ DataRow MemberDataRow(int index, MemberStatisticsData memberStatisticsData) {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  memberStatisticsData.name!,
+                  "${memberData.memberFirstName!} ${memberData.memberSurName!}",
                   style: const TextStyle(
                     fontSize: 12,
                   ),
                 ),
                 Text(
-                  memberStatisticsData.telephone!,
+                  memberData.memberTelephone!,
                   style: const TextStyle(
                     fontSize: 12,
                   ),
@@ -193,7 +211,7 @@ DataRow MemberDataRow(int index, MemberStatisticsData memberStatisticsData) {
         Wrap(
           children: [
             Text(
-              memberStatisticsData.position!,
+              memberData.memberPosition!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -205,7 +223,7 @@ DataRow MemberDataRow(int index, MemberStatisticsData memberStatisticsData) {
         Wrap(
           children: [
             Text(
-              memberStatisticsData.memberDate!,
+              memberData.memberDate!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -217,7 +235,7 @@ DataRow MemberDataRow(int index, MemberStatisticsData memberStatisticsData) {
         Wrap(
           children: [
             Text(
-              memberStatisticsData.memberLocation!,
+              memberData.memberLocation!,
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -229,7 +247,7 @@ DataRow MemberDataRow(int index, MemberStatisticsData memberStatisticsData) {
         Wrap(
           children: [
             Text(
-              memberStatisticsData.address!,
+              "${memberData.province}/${memberData.amphure}/${memberData.district}",
               style: const TextStyle(
                 fontSize: 12,
               ),

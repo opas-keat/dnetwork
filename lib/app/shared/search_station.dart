@@ -91,7 +91,7 @@ class SearchStation extends StatelessWidget {
                                     maxLine: 4,
                                     scale: 0.9,
                                     text: controller.listStationStatistics.obs
-                                        .value[index].address,
+                                        .value[index].province,
                                   ),
                                 ],
                               ),

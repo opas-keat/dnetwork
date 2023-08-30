@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/app/modules/lectuter/controllers/lectuter_controller.dart';
 import 'package:get/get.dart';
 
+import '../../../api/api_params.dart';
 import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
+import '../../../shared/custom_flat_button.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/info_card.dart';
 import '../../../shared/main_chart.dart';
+import '../controllers/lectuter_controller.dart';
 import 'lectuter_statistics.dart';
 
 class LectuterLayoutLarge extends StatelessWidget {
@@ -72,6 +74,18 @@ class LectuterLayoutLarge extends StatelessWidget {
               const InfoCard(),
               const SizedBox(height: defaultPadding / 2),
               LectuterStatistics(),
+              CustomFlatButton(
+                onPressed: () {
+                  controller.currentPage++;
+                  controller.offset.value =
+                      ((controller.currentPage * int.parse(queryParamLimit)) -
+                          int.parse(queryParamLimit));
+                  controller.listLectuter();
+                },
+                label: "แสดงข้อมูลเพิ่ม",
+                labelStyle: const TextStyle(fontSize: 16),
+              ),
+              const SizedBox(height: defaultPadding),
             ],
           ),
         ),

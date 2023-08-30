@@ -148,6 +148,9 @@ class LectuterSearch extends StatelessWidget {
         TextButton(
           child: const Text("ค้นหา"),
           onPressed: () {
+            controller.offset.value = 0;
+            controller.currentPage = 1;
+            controller.listLectuterStatistics.clear();
             controller.listLectuter();
             Get.back();
           },

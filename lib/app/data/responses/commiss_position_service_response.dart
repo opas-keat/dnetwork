@@ -35,18 +35,21 @@ class CommissPositionServiceResponse {
 class CommissPositionData {
   int? id;
   String? name;
+  int? totalData;
 
-  CommissPositionData({this.id, this.name});
+  CommissPositionData({this.id, this.name, this.totalData});
 
   CommissPositionData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
+    totalData = json['total_data'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['name'] = name;
+    data['total_data'] = totalData;
     return data;
   }
 }

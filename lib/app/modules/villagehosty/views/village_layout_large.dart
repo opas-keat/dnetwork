@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../api/api_params.dart';
 import '../../../data/models/summary_chart.dart';
 import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
+import '../../../shared/custom_flat_button.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/info_card.dart';
 import '../../../shared/main_chart.dart';
+import '../controllers/village_controller.dart';
 import 'village_statistics.dart';
 
 class VillageLayoutLarge extends StatelessWidget {
@@ -16,6 +19,7 @@ class VillageLayoutLarge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(VillageController());
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -71,6 +75,19 @@ class VillageLayoutLarge extends StatelessWidget {
               const InfoCard(),
               const SizedBox(height: defaultPadding / 2),
               VillageStatistics(),
+              const SizedBox(height: defaultPadding / 2),
+              CustomFlatButton(
+                onPressed: () {
+                  controller.currentPage++;
+                  controller.offset.value =
+                      ((controller.currentPage * int.parse(queryParamLimit)) -
+                          int.parse(queryParamLimit));
+                  controller.listVillage();
+                },
+                label: "แสดงข้อมูลเพิ่ม",
+                labelStyle: const TextStyle(fontSize: 16),
+              ),
+              const SizedBox(height: defaultPadding),
             ],
           ),
         ),

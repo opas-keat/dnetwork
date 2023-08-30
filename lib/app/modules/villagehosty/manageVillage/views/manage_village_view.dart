@@ -77,6 +77,7 @@ class ManageDataDetail extends StatelessWidget {
     super.key,
   });
   final ManageVillageController controller = Get.put(ManageVillageController());
+  final _formKeyVillage = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -89,7 +90,7 @@ class ManageDataDetail extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: defaultPadding),
-                  actionMenu(),
+                  actionMenu(_formKeyVillage),
                   const Padding(
                     padding: EdgeInsets.only(left: defaultPadding),
                     child: CustomText(
@@ -105,7 +106,7 @@ class ManageDataDetail extends StatelessWidget {
         ),
         const SizedBox(height: defaultPadding / 2),
         Form(
-          key: formKeyVillage,
+          key: _formKeyVillage,
           child: Expanded(
             child: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
@@ -315,31 +316,36 @@ class ManageDataDetail extends StatelessWidget {
             children: [
               ElevatedButton.icon(
                 onPressed: () async {
-                  Get.dialog(
-                    const Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                    barrierDismissible: false,
-                  );
-                  final result = await controller.save();
-                  Get.back();
-                  result
-                      ? Get.offAllNamed(Routes.VILLAGEHOSTY)
-                      : Get.snackbar(
-                          'Error',
-                          controller.villageError.value,
-                          backgroundColor: accentColor,
-                          snackPosition: SnackPosition.BOTTOM,
-                          colorText: Colors.white,
-                          icon: const Icon(
-                            Icons.lock_person_outlined,
-                            color: Colors.white,
-                          ),
-                          isDismissible: true,
-                          margin: const EdgeInsets.all(
-                            defaultPadding,
-                          ),
-                        );
+                  final isValid = _formKeyVillage.currentState!.validate();
+                  if (isValid) {
+                    if (controller.addressController.selectedProvince.value !=
+                            '' &&
+                        controller.addressController.selectedAmphure.value !=
+                            '' &&
+                        controller.addressController.selectedTambol.value !=
+                            '') {
+                      Get.dialog(
+                        const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                        barrierDismissible: false,
+                      );
+                      await controller.save();
+                      Get.back();
+                    } else {
+                      Get.dialog(
+                        AlertDialog(
+                          content: const Text('กรุณาเลือก จังหวัด/อำเภอ/ตำบล'),
+                          actions: [
+                            TextButton(
+                              child: const Text("ปิด"),
+                              onPressed: () => Get.back(),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(
@@ -354,10 +360,16 @@ class ManageDataDetail extends StatelessWidget {
                 ),
               ),
               ElevatedButton.icon(
-                onPressed: () {
+                onPressed: () async {
                   controller.addressController.selectedProvince.value = '';
                   controller.addressController.selectedAmphure.value = '';
                   controller.addressController.selectedTambol.value = '';
+                  controller.villageList.clear();
+                  controller.villageController.offset.value = 0;
+                  controller.villageController.currentPage = 1;
+                  controller.villageController.listVillageStatistics.clear();
+                  await controller.infoCardController.getSummaryInfo();
+                  await controller.villageController.listVillage();
                   Get.toNamed(Routes.VILLAGEHOSTY);
                 },
                 style: ElevatedButton.styleFrom(
@@ -379,21 +391,42 @@ class ManageDataDetail extends StatelessWidget {
     );
   }
 
-  Row actionMenu() {
+  Row actionMenu(
+    GlobalKey<FormState> formKey,
+  ) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         IconButton(
           icon: const Icon(Icons.add_sharp),
           onPressed: () async {
-            Get.dialog(
-              const Center(
-                child: CircularProgressIndicator(),
-              ),
-              barrierDismissible: false,
-            );
-            await controller.save();
-            Get.back();
+            final isValid = formKey.currentState!.validate();
+            if (isValid) {
+              if (controller.addressController.selectedProvince.value != '' &&
+                  controller.addressController.selectedAmphure.value != '' &&
+                  controller.addressController.selectedTambol.value != '') {
+                Get.dialog(
+                  const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                  barrierDismissible: false,
+                );
+                await controller.save();
+                Get.back();
+              } else {
+                Get.dialog(
+                  AlertDialog(
+                    content: const Text('กรุณาเลือก จังหวัด/อำเภอ/ตำบล'),
+                    actions: [
+                      TextButton(
+                        child: const Text("ปิด"),
+                        onPressed: () => Get.back(),
+                      ),
+                    ],
+                  ),
+                );
+              }
+            }
           },
         ),
         IconButton(

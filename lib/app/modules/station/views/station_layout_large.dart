@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../api/api_params.dart';
 import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
+import '../../../shared/custom_flat_button.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/info_card.dart';
 import '../../../shared/main_chart.dart';
@@ -11,15 +13,13 @@ import '../controllers/station_controller.dart';
 import 'station_statistics.dart';
 
 class StationLayoutLarge extends StatelessWidget {
-  StationLayoutLarge({
+  const StationLayoutLarge({
     super.key,
   });
 
-  final StationController controller = Get.find<StationController>();
-  // final InfoCardController infoCardController = Get.find<StationController>();
-
   @override
   Widget build(BuildContext context) {
+    final stationController = Get.put(StationController());
     final controller = Get.put(TrainingController());
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,11 +78,20 @@ class StationLayoutLarge extends StatelessWidget {
               const InfoCard(),
               const SizedBox(height: defaultPadding / 2),
               StationStatistics(),
-              // Obx(
-              //   () => controller.isLoading.value
-              //       ? const Center(child: CircularProgressIndicator())
-              //       : StationStatistics(),
-              // )
+              const SizedBox(height: defaultPadding / 2),
+              CustomFlatButton(
+                onPressed: () {
+                  stationController.currentPage++;
+                  stationController.offset.value =
+                      ((stationController.currentPage *
+                              int.parse(queryParamLimit)) -
+                          int.parse(queryParamLimit));
+                  stationController.listStation();
+                },
+                label: "แสดงข้อมูลเพิ่ม",
+                labelStyle: const TextStyle(fontSize: 16),
+              ),
+              const SizedBox(height: defaultPadding),
             ],
           ),
         ),

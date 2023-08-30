@@ -62,6 +62,9 @@ class StationSearch extends StatelessWidget {
         TextButton(
           child: const Text("ค้นหา"),
           onPressed: () {
+            controller.offset.value = 0;
+            controller.currentPage = 1;
+            controller.listStationStatistics.clear();
             controller.listStation();
             Get.back();
           },

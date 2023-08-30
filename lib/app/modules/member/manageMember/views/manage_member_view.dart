@@ -77,6 +77,7 @@ class ManageDataDetail extends StatelessWidget {
     super.key,
   });
   final ManageMemberController controller = Get.put(ManageMemberController());
+  final _formKeyMember = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -89,7 +90,7 @@ class ManageDataDetail extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: defaultPadding),
-                  actionMenu(),
+                  actionMenu(_formKeyMember),
                   const Padding(
                     padding: EdgeInsets.only(left: defaultPadding),
                     child: CustomText(
@@ -105,7 +106,7 @@ class ManageDataDetail extends StatelessWidget {
         ),
         const SizedBox(height: defaultPadding / 2),
         Form(
-          key: formKeyMember,
+          key: _formKeyMember,
           child: Expanded(
             child: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
@@ -673,31 +674,17 @@ class ManageDataDetail extends StatelessWidget {
             children: [
               ElevatedButton.icon(
                 onPressed: () async {
-                  Get.dialog(
-                    const Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                    barrierDismissible: false,
-                  );
-                  final result = await controller.save();
-                  Get.back();
-                  result
-                      ? Get.offAllNamed(Routes.MEMBER)
-                      : Get.snackbar(
-                          'Error',
-                          controller.memberError.value,
-                          backgroundColor: accentColor,
-                          snackPosition: SnackPosition.BOTTOM,
-                          colorText: Colors.white,
-                          icon: const Icon(
-                            Icons.lock_person_outlined,
-                            color: Colors.white,
-                          ),
-                          isDismissible: true,
-                          margin: const EdgeInsets.all(
-                            defaultPadding,
-                          ),
-                        );
+                  final isValid = _formKeyMember.currentState!.validate();
+                  if (isValid) {
+                    Get.dialog(
+                      const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                      barrierDismissible: false,
+                    );
+                    await controller.save();
+                    Get.back();
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(
@@ -734,21 +721,26 @@ class ManageDataDetail extends StatelessWidget {
     );
   }
 
-  Row actionMenu() {
+  Row actionMenu(
+    GlobalKey<FormState> formKey,
+  ) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         IconButton(
           icon: const Icon(Icons.add_sharp),
           onPressed: () async {
-            Get.dialog(
-              const Center(
-                child: CircularProgressIndicator(),
-              ),
-              barrierDismissible: false,
-            );
-            await controller.save();
-            Get.back();
+            final isValid = formKey.currentState!.validate();
+            if (isValid) {
+              Get.dialog(
+                const Center(
+                  child: CircularProgressIndicator(),
+                ),
+                barrierDismissible: false,
+              );
+              await controller.save();
+              Get.back();
+            }
           },
         ),
         IconButton(

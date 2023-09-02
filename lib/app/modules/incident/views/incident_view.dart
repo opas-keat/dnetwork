@@ -11,7 +11,7 @@ import '../controllers/incident_controller.dart';
 import 'incident_layout_large.dart';
 
 class IncidentView extends StatelessWidget {
-  IncidentView({Key? key}) : super(key: key);
+  const IncidentView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

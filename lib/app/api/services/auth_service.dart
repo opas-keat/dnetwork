@@ -17,7 +17,7 @@ class AuthenService {
     final connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.none) {
       return AuthenServiceResponse.withError(
-          code: CODE_NO_INTERNET, msg: apiUtils.getNetworkError());
+          code: codeNoInternet, msg: apiUtils.getNetworkError());
     }
 
     Map<String, String> login = {
@@ -55,10 +55,10 @@ class AuthenService {
       }
       // talker.info(title, 'login:: ${result.data["message"]}');
       return AuthenServiceResponse.withError(
-          code: CODE_RESPONSE_NULL, msg: result.data["message"]);
+          code: codeResponseNull, msg: result.data["message"]);
     } catch (e) {
       return AuthenServiceResponse.withError(
-          code: CODE_ERROR, msg: apiUtils.handleError(e));
+          code: codeError, msg: apiUtils.handleError(e));
     }
   }
 }

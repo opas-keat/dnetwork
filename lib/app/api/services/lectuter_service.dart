@@ -39,11 +39,11 @@ class LectuterService {
         );
       }
       return LectuterServiceResponse.withError(
-          code: CODE_RESPONSE_NULL, msg: response.data["message"]);
+          code: codeResponseNull, msg: response.data["message"]);
     } catch (e) {
       talker.error(e);
       return LectuterServiceResponse.withError(
-          code: CODE_ERROR, msg: apiUtils.handleError(e));
+          code: codeError, msg: apiUtils.handleError(e));
     }
   }
 
@@ -70,11 +70,11 @@ class LectuterService {
         );
       }
       return LectuterServiceResponse.withError(
-          code: CODE_RESPONSE_NULL, msg: response.data["message"]);
+          code: codeResponseNull, msg: response.data["message"]);
     } catch (e) {
       talker.error(e);
       return LectuterServiceResponse.withError(
-          code: CODE_ERROR, msg: apiUtils.handleError(e));
+          code: codeError, msg: apiUtils.handleError(e));
     }
   }
 

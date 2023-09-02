@@ -13,8 +13,8 @@ class BaseService<T> {
     final connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.none) {
       return {
-        PARAM_STATUS_CODE: CODE_NO_INTERNET,
-        PARAM_MESSAGE: apiUtils.getNetworkError(),
+        paramStatusCode: codeNoInternet,
+        paramMessage: apiUtils.getNetworkError(),
       } as T;
     }
 
@@ -27,8 +27,8 @@ class BaseService<T> {
       return response.data;
     } catch (e) {
       return {
-        PARAM_STATUS_CODE: CODE_ERROR,
-        PARAM_MESSAGE: apiUtils.handleError(e),
+        paramStatusCode: codeError,
+        paramMessage: apiUtils.handleError(e),
       } as T;
     }
   }
@@ -42,8 +42,8 @@ class BaseService<T> {
     final connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.none) {
       return {
-        PARAM_STATUS_CODE: CODE_NO_INTERNET,
-        PARAM_MESSAGE: apiUtils.getNetworkError(),
+        paramStatusCode: codeNoInternet,
+        paramMessage: apiUtils.getNetworkError(),
       } as T;
     }
 
@@ -57,8 +57,8 @@ class BaseService<T> {
       return response.data;
     } catch (e) {
       return {
-        PARAM_STATUS_CODE: CODE_ERROR,
-        PARAM_MESSAGE: apiUtils.handleError(e),
+        paramStatusCode: codeError,
+        paramMessage: apiUtils.handleError(e),
       } as T;
     }
   }

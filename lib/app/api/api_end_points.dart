@@ -32,6 +32,8 @@ class ApiEndPoints {
   // ---- network ----
   static const network = "/network";
   static const networkPosition = "/network_position";
+  // ---- incident ----
+  static const incident = "/incident";
   // ---- logs ----
   // static const logs = "/logs";
 }

@@ -56,11 +56,11 @@ class ManageStationController extends GetxController {
   void onClose() {
     talker.info('$logTitle:onClose:');
     stationList.clear();
-    super.onReady();
+    super.onClose();
   }
 
   save() async {
-    talker.info('$logTitle:saveBudget:');
+    talker.info('$logTitle:save:');
     isLoading.value = true;
     bool result = true;
     try {

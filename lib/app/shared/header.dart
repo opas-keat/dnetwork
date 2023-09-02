@@ -106,6 +106,12 @@ class SearchButton extends StatelessWidget {
               barrierDismissible: false,
             );
             break;
+          case "budget":
+            Get.dialog(
+              BudgetSearch(),
+              barrierDismissible: false,
+            );
+            break;
           default:
             talker.debug("search.");
         }

@@ -76,17 +76,17 @@ List<Module> listModule = [
   Module(
     id: 11,
     nameTH: "แจ้งปัญหาการใช้งาน",
-    nameEn: "reportproblem",
+    nameEn: "incident",
     icon: Icons.bug_report_sharp,
-    url: Routes.REPORTPROBLEM,
+    url: Routes.INCIDENT,
   ),
-  Module(
-    id: 12,
-    nameTH: "รายการปัญหา",
-    nameEn: "listproblem",
-    icon: Icons.report_problem_sharp,
-    url: Routes.LIST_REPORT,
-  ),
+  // Module(
+  //   id: 12,
+  //   nameTH: "รายการปัญหา",
+  //   nameEn: "listproblem",
+  //   icon: Icons.report_problem_sharp,
+  //   url: Routes.LIST_REPORT,
+  // ),
 ];
 
 Module getModuleByIndex(int index) {

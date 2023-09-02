@@ -13,7 +13,6 @@ abstract class Routes {
   static const LECTUTER = _Paths.LECTUTER;
   static const VILLAGEHOSTY = _Paths.VILLAGEHOSTY;
   static const SETTING = _Paths.SETTING;
-  static const REPORTPROBLEM = _Paths.REPORTPROBLEM;
   static const LIST_REPORT = _Paths.LIST_REPORT;
   static const NEW_HOME = _Paths.NEW_HOME;
   static const ADD_DATA = _Paths.NEW_HOME + _Paths.ADD_DATA;
@@ -30,6 +29,7 @@ abstract class Routes {
   static const MANAGE_VILLAGE = _Paths.VILLAGEHOSTY + _Paths.MANAGE_VILLAGE;
   static const MANAGE_BUDGET = _Paths.BUDGET + _Paths.MANAGE_BUDGET;
   static const DETAIL_STATION = _Paths.STATION + _Paths.DETAIL_STATION;
+  static const INCIDENT = _Paths.INCIDENT;
 }
 
 abstract class _Paths {
@@ -44,7 +44,6 @@ abstract class _Paths {
   static const LECTUTER = '/lectuter';
   static const VILLAGEHOSTY = '/villagehosty';
   static const SETTING = '/setting';
-  static const REPORTPROBLEM = '/reportproblem';
   static const LIST_REPORT = '/list-report';
   static const NEW_HOME = '/new-home';
   static const ADD_DATA = '/add-data';
@@ -61,4 +60,5 @@ abstract class _Paths {
   static const MANAGE_VILLAGE = '/manage-village';
   static const MANAGE_BUDGET = '/manage-budget';
   static const DETAIL_STATION = '/detail-station';
+  static const INCIDENT = '/incident';
 }

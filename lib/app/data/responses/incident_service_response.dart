@@ -5,6 +5,11 @@ class IncidentServiceResponse {
 
   IncidentServiceResponse({this.code, this.message, this.data});
 
+  IncidentServiceResponse.withError({
+    code,
+    String? msg,
+  }) : message = msg;
+
   IncidentServiceResponse.fromJson(Map<String, dynamic> json) {
     code = json['code'];
     message = json['message'];

@@ -14,6 +14,8 @@ import '../modules/dashboard/bindings/dashboard_binding.dart';
 import '../modules/dashboard/views/dashboard_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/incident/bindings/incident_binding.dart';
+import '../modules/incident/views/incident_view.dart';
 import '../modules/lectuter/bindings/lectuter_binding.dart';
 import '../modules/lectuter/manageLectuter/bindings/manage_lectuter_binding.dart';
 import '../modules/lectuter/manageLectuter/views/manage_lectuter_view.dart';
@@ -32,8 +34,6 @@ import '../modules/newHome/addData/bindings/add_data_binding.dart';
 import '../modules/newHome/addData/views/add_data_view.dart';
 import '../modules/newHome/bindings/new_home_binding.dart';
 import '../modules/newHome/views/new_home_view.dart';
-import '../modules/report_problem/bindings/reportproblem_binding.dart';
-import '../modules/report_problem/views/reportproblem_view.dart';
 import '../modules/setting/bindings/setting_binding.dart';
 import '../modules/setting/views/setting_view.dart';
 import '../modules/signin/bindings/signin_binding.dart';
@@ -152,12 +152,6 @@ class AppPages {
       middlewares: [RouteGuard()],
     ),
     GetPage(
-      name: _Paths.REPORTPROBLEM,
-      page: () => ReportproblemView(),
-      binding: ReportproblemBinding(),
-      middlewares: [RouteGuard()],
-    ),
-    GetPage(
       name: _Paths.LIST_REPORT,
       page: () => ListReportView(),
       binding: ListReportBinding(),
@@ -232,6 +226,11 @@ class AppPages {
           middlewares: [RouteGuard()],
         ),
       ],
+    ),
+    GetPage(
+      name: _Paths.INCIDENT,
+      page: () => IncidentView(),
+      binding: IncidentBinding(),
     ),
   ];
 }

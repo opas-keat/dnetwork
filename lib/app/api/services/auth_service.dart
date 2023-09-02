@@ -31,7 +31,6 @@ class AuthenService {
       final result = await apiUtils.post(
         url:
             '${Api.ectApiContext}${Api.ectApiVersion}${ApiEndPoints.authen}/login',
-        // url: "http://localhost:9999/ectapi/v2/auth/login",
         data: login,
         options: Options(
           headers: apiUtils.header,

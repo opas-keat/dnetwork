@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -176,15 +178,17 @@ class IncidentStatistics extends StatelessWidget {
     return DataRow.byIndex(
       index: index + 1,
       onSelectChanged: (value) {
-        if (incidentData.resolvedDate!.isEmpty) {
-          controller.selectedId = incidentData.id!;
-          controller.incidentModule.text = incidentData.incidentModule!;
-          controller.incidentTitle.text = incidentData.incidentTitle!;
-          controller.incidentDetail.text = incidentData.incidentDetail!;
-          Get.dialog(
-            IncidentAdd(editMode: true),
-            barrierDismissible: false,
-          );
+        if (window.sessionStorage["roles"].toString() != "user") {
+          if (incidentData.resolvedDate!.isEmpty) {
+            controller.selectedId = incidentData.id!;
+            controller.incidentModule.text = incidentData.incidentModule!;
+            controller.incidentTitle.text = incidentData.incidentTitle!;
+            controller.incidentDetail.text = incidentData.incidentDetail!;
+            Get.dialog(
+              IncidentAdd(editMode: true),
+              barrierDismissible: false,
+            );
+          }
         }
       },
       cells: [

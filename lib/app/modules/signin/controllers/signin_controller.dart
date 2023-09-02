@@ -26,12 +26,13 @@ class SigninController extends GetxController {
     try {
       final result = await AuthenService().login(userName, password);
       talker.debug('response message : ${result?.message}');
-      // talker.debug('token : ${result?.data!.token}');
       if (result?.code == "000") {
-        // apiUtils..secureHeaders = {
-        //   'Authorization': 'Bearer ${result?.data!.token}',
-        // };
-        window.sessionStorage["token"] = result!.data!.token!;
+        if (result!.data!.roles!.length > 1) {
+          window.sessionStorage["roles"] = "admin";
+        } else {
+          window.sessionStorage["roles"] = "user";
+        }
+        window.sessionStorage["token"] = result.data!.token!;
         return true;
       }
       authenError.value = result!.message!;

@@ -539,53 +539,53 @@ class ManageStationDetail extends StatelessWidget {
           // color: Colors.blueAccent,
           padding: const EdgeInsets.all(defaultPadding),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              ElevatedButton.icon(
-                onPressed: () async {
-                  final isValid = _formKeyStation.currentState!.validate();
-                  if (isValid) {
-                    if (controller.addressController.selectedProvince.value !=
-                            '' &&
-                        controller.addressController.selectedAmphure.value !=
-                            '' &&
-                        controller.addressController.selectedTambol.value !=
-                            '') {
-                      Get.dialog(
-                        const Center(
-                          child: CircularProgressIndicator(),
-                        ),
-                        barrierDismissible: false,
-                      );
-                      await controller.save();
-                      Get.back();
-                    } else {
-                      Get.dialog(
-                        AlertDialog(
-                          content: const Text('กรุณาเลือก จังหวัด/อำเภอ/ตำบล'),
-                          actions: [
-                            TextButton(
-                              child: const Text("ปิด"),
-                              onPressed: () => Get.back(),
-                            ),
-                          ],
-                        ),
-                      );
-                    }
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: defaultPadding, horizontal: defaultPadding / 2),
-                ),
-                icon: const Icon(
-                  Icons.save_sharp,
-                ),
-                label: const CustomText(
-                  text: "บันทึก",
-                  color: Colors.white,
-                ),
-              ),
+              // ElevatedButton.icon(
+              //   onPressed: () async {
+              //     final isValid = _formKeyStation.currentState!.validate();
+              //     if (isValid) {
+              //       if (controller.addressController.selectedProvince.value !=
+              //               '' &&
+              //           controller.addressController.selectedAmphure.value !=
+              //               '' &&
+              //           controller.addressController.selectedTambol.value !=
+              //               '') {
+              //         Get.dialog(
+              //           const Center(
+              //             child: CircularProgressIndicator(),
+              //           ),
+              //           barrierDismissible: false,
+              //         );
+              //         await controller.save();
+              //         Get.back();
+              //       } else {
+              //         Get.dialog(
+              //           AlertDialog(
+              //             content: const Text('กรุณาเลือก จังหวัด/อำเภอ/ตำบล'),
+              //             actions: [
+              //               TextButton(
+              //                 child: const Text("ปิด"),
+              //                 onPressed: () => Get.back(),
+              //               ),
+              //             ],
+              //           ),
+              //         );
+              //       }
+              //     }
+              //   },
+              //   style: ElevatedButton.styleFrom(
+              //     padding: const EdgeInsets.symmetric(
+              //         vertical: defaultPadding, horizontal: defaultPadding / 2),
+              //   ),
+              //   icon: const Icon(
+              //     Icons.save_sharp,
+              //   ),
+              //   label: const CustomText(
+              //     text: "บันทึก",
+              //     color: Colors.white,
+              //   ),
+              // ),
               ElevatedButton.icon(
                 onPressed: () async {
                   controller.addressController.selectedProvince.value = '';
@@ -595,6 +595,7 @@ class ManageStationDetail extends StatelessWidget {
                   controller.stationController.offset.value = 0;
                   controller.stationController.currentPage = 1;
                   controller.stationController.listStationStatistics.clear();
+                  await controller.stationController.listStation();
                   await controller.infoCardController.getSummaryInfo();
                   await controller.trainingController.listTrainingType();
                   Get.toNamed(Routes.STATION);

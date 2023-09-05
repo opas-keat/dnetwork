@@ -312,53 +312,53 @@ class ManageDataDetail extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(defaultPadding),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              ElevatedButton.icon(
-                onPressed: () async {
-                  final isValid = _formKeyVillage.currentState!.validate();
-                  if (isValid) {
-                    if (controller.addressController.selectedProvince.value !=
-                            '' &&
-                        controller.addressController.selectedAmphure.value !=
-                            '' &&
-                        controller.addressController.selectedTambol.value !=
-                            '') {
-                      Get.dialog(
-                        const Center(
-                          child: CircularProgressIndicator(),
-                        ),
-                        barrierDismissible: false,
-                      );
-                      await controller.save();
-                      Get.back();
-                    } else {
-                      Get.dialog(
-                        AlertDialog(
-                          content: const Text('กรุณาเลือก จังหวัด/อำเภอ/ตำบล'),
-                          actions: [
-                            TextButton(
-                              child: const Text("ปิด"),
-                              onPressed: () => Get.back(),
-                            ),
-                          ],
-                        ),
-                      );
-                    }
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: defaultPadding, horizontal: defaultPadding / 2),
-                ),
-                icon: const Icon(
-                  Icons.save_sharp,
-                ),
-                label: const CustomText(
-                  text: "บันทึก",
-                  color: Colors.white,
-                ),
-              ),
+              // ElevatedButton.icon(
+              //   onPressed: () async {
+              //     final isValid = _formKeyVillage.currentState!.validate();
+              //     if (isValid) {
+              //       if (controller.addressController.selectedProvince.value !=
+              //               '' &&
+              //           controller.addressController.selectedAmphure.value !=
+              //               '' &&
+              //           controller.addressController.selectedTambol.value !=
+              //               '') {
+              //         Get.dialog(
+              //           const Center(
+              //             child: CircularProgressIndicator(),
+              //           ),
+              //           barrierDismissible: false,
+              //         );
+              //         await controller.save();
+              //         Get.back();
+              //       } else {
+              //         Get.dialog(
+              //           AlertDialog(
+              //             content: const Text('กรุณาเลือก จังหวัด/อำเภอ/ตำบล'),
+              //             actions: [
+              //               TextButton(
+              //                 child: const Text("ปิด"),
+              //                 onPressed: () => Get.back(),
+              //               ),
+              //             ],
+              //           ),
+              //         );
+              //       }
+              //     }
+              //   },
+              //   style: ElevatedButton.styleFrom(
+              //     padding: const EdgeInsets.symmetric(
+              //         vertical: defaultPadding, horizontal: defaultPadding / 2),
+              //   ),
+              //   icon: const Icon(
+              //     Icons.save_sharp,
+              //   ),
+              //   label: const CustomText(
+              //     text: "บันทึก",
+              //     color: Colors.white,
+              //   ),
+              // ),
               ElevatedButton.icon(
                 onPressed: () async {
                   controller.addressController.selectedProvince.value = '';

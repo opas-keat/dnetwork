@@ -672,31 +672,31 @@ class ManageDataDetail extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.all(defaultPadding),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        ElevatedButton.icon(
-                          onPressed: () async {
-                            final isValid =
-                                _formKeyCommiss.currentState!.validate();
-                            if (isValid) {
-                              Get.dialog(
-                                const Center(
-                                  child: CircularProgressIndicator(),
-                                ),
-                                barrierDismissible: false,
-                              );
-                              await controller.save();
-                              Get.back();
-                            }
-                          },
-                          icon: const Icon(
-                            Icons.save_sharp,
-                          ),
-                          label: const CustomText(
-                            text: "บันทึก",
-                            color: Colors.white,
-                          ),
-                        ),
+                        // ElevatedButton.icon(
+                        //   onPressed: () async {
+                        //     final isValid =
+                        //         _formKeyCommiss.currentState!.validate();
+                        //     if (isValid) {
+                        //       Get.dialog(
+                        //         const Center(
+                        //           child: CircularProgressIndicator(),
+                        //         ),
+                        //         barrierDismissible: false,
+                        //       );
+                        //       await controller.save();
+                        //       Get.back();
+                        //     }
+                        //   },
+                        //   icon: const Icon(
+                        //     Icons.save_sharp,
+                        //   ),
+                        //   label: const CustomText(
+                        //     text: "บันทึก",
+                        //     color: Colors.white,
+                        //   ),
+                        // ),
                         ElevatedButton.icon(
                           onPressed: () {
                             Get.toNamed(Routes.COMMISS);

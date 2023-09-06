@@ -50,8 +50,9 @@ class SearchStation extends StatelessWidget {
                 const SizedBox(width: defaultPadding / 2),
                 IconButton(
                   icon: const Icon(Icons.search_sharp),
-                  onPressed: () {
-                    controller.listStation();
+                  onPressed: () async {
+                    controller.listStationStatistics.clear();
+                    await controller.listStation();
                   },
                 ),
               ],
@@ -90,8 +91,8 @@ class SearchStation extends StatelessWidget {
                                   CustomText(
                                     maxLine: 4,
                                     scale: 0.9,
-                                    text: controller.listStationStatistics.obs
-                                        .value[index].province,
+                                    text:
+                                        '${controller.listStationStatistics.obs.value[index].province}/${controller.listStationStatistics.obs.value[index].amphure}/${controller.listStationStatistics.obs.value[index].district}',
                                   ),
                                 ],
                               ),

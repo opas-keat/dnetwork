@@ -88,6 +88,7 @@ class NetworkController extends GetxController {
       for (final item in result!.data!) {
         listNetworkStatistics.add(
           NetworkData(
+            id: item.id,
             networkFirstName: item.networkFirstName,
             networkSurName: item.networkSurName,
             province: item.province,

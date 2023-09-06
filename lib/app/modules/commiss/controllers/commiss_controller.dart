@@ -90,6 +90,7 @@ class CommissController extends GetxController {
       for (final item in result!.data!) {
         listCommissStatistics.add(
           CommissData(
+            id: item.id,
             commissFirstName: item.commissFirstName,
             commissSurName: item.commissSurName,
             province: item.province,

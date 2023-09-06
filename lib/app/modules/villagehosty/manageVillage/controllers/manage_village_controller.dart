@@ -215,18 +215,19 @@ class ManageVillageController extends GetxController {
       final result = await VillageService().getById(id);
       for (final item in result!.data!) {
         selectedId = item.id!;
-        villageName.text = villageList[index].villageName!;
-        villageLocation.text = villageList[index].villageLocation!;
+        villageName.text = item.villageName!;
+        villageLocation.text = item.villageLocation!;
         // villageFacebook.text = villageList[index].!;
-        if (villageList[index].villageTypeAct!.isNotEmpty) {
-          typeActChips.addAll(villageList[index].villageTypeAct!.split('|'));
+        if (item.villageTypeAct!.isNotEmpty) {
+          typeActChips.addAll(item.villageTypeAct!.split('|'));
         }
         talker.info('$logTitle:id:$typeActChips');
-        addressController.selectedProvince.value = villageList[index].province!;
+
+        addressController.selectedProvince.value = item.province!;
         await addressController.listAmphure();
-        addressController.selectedAmphure.value = villageList[index].amphure!;
+        addressController.selectedAmphure.value = item.amphure!;
         await addressController.listTambol();
-        addressController.selectedTambol.value = villageList[index].district!;
+        addressController.selectedTambol.value = item.district!;
         update();
       }
       isLoading.value = false;

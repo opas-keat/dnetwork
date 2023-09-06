@@ -248,8 +248,8 @@ class ManageCommissController extends GetxController {
         if (item.commissPositionCommu!.isNotEmpty) {
           commissPositionCommuChips
               .addAll(item.commissPositionCommu!.split('|'));
-          selectedCommissPositionCommu.value =
-              item.commissPositionCommu!.split('|').first;
+          // selectedCommissPositionCommu.value =
+          //     item.commissPositionCommu!.split('|').first;
         }
         if (item.commissExp!.isNotEmpty) {
           commissExpChips.addAll(item.commissExp!.split('|'));

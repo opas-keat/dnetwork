@@ -88,6 +88,7 @@ class MemberController extends GetxController {
       for (final item in result!.data!) {
         listMemberStatistics.add(
           MemberData(
+            id: item.id,
             memberFirstName: item.memberFirstName,
             memberSurName: item.memberSurName,
             province: item.province,

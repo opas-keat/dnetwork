@@ -146,12 +146,9 @@ class ManageDataDetail extends StatelessWidget {
                         barrierDismissible: false,
                       );
                       controller.commissStationName.text = result.name;
-                      controller.commissProvince.text =
-                          result.address.split('/').first;
-                      controller.commissAmphure.text =
-                          result.address.split('/')[1];
-                      controller.commissTambol.text =
-                          result.address.split('/').last;
+                      controller.commissProvince.text = result.province;
+                      controller.commissAmphure.text = result.amphure;
+                      controller.commissTambol.text = result.district;
                     },
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (value) {

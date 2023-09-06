@@ -194,12 +194,9 @@ class ManageDataDetailNetwork extends StatelessWidget {
                         barrierDismissible: false,
                       );
                       controller.networkStationName.text = result.name;
-                      controller.networkProvince.text =
-                          result.address.split('/').first;
-                      controller.networkAmphure.text =
-                          result.address.split('/')[1];
-                      controller.networkTambol.text =
-                          result.address.split('/').last;
+                      controller.networkProvince.text = result.province;
+                      controller.networkAmphure.text = result.amphure;
+                      controller.networkTambol.text = result.district;
                     },
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (value) {

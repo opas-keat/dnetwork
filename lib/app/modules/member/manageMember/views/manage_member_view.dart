@@ -148,12 +148,9 @@ class ManageDataDetail extends StatelessWidget {
                         barrierDismissible: false,
                       );
                       controller.memberStationName.text = result.name;
-                      controller.memberProvince.text =
-                          result.address.split('/').first;
-                      controller.memberAmphure.text =
-                          result.address.split('/')[1];
-                      controller.memberTambol.text =
-                          result.address.split('/').last;
+                      controller.memberProvince.text = result.province;
+                      controller.memberAmphure.text = result.amphure;
+                      controller.memberTambol.text = result.district;
                     },
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (value) {

@@ -697,10 +697,15 @@ class ManageDataDetail extends StatelessWidget {
               // ),
               ElevatedButton.icon(
                 onPressed: () async {
+                  controller.memberStationName.text = '';
+                  controller.memberProvince.text = '';
+                  controller.memberAmphure.text = '';
+                  controller.memberTambol.text = '';
                   controller.memberList.clear();
                   controller.memberController.offset.value = 0;
                   controller.memberController.currentPage = 1;
                   controller.memberController.listMemberStatistics.clear();
+                  controller.resetForm();
                   await controller.infoCardController.getSummaryInfo();
                   await controller.memberController.listMemberPosition();
                   await controller.memberController.listMember();

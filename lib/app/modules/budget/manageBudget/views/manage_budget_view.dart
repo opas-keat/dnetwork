@@ -403,6 +403,7 @@ class ManageDataDetail extends StatelessWidget {
                   controller.budgetController.offset.value = 0;
                   controller.budgetController.currentPage = 1;
                   controller.budgetController.listBudgetStatistics.clear();
+                  controller.resetForm();
                   await controller.infoCardController.getSummaryInfo();
                   await controller.budgetController.listBudgetType();
                   await controller.budgetController.listBudget();

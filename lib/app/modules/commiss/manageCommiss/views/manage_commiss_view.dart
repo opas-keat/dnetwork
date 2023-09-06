@@ -696,11 +696,16 @@ class ManageDataDetail extends StatelessWidget {
                         // ),
                         ElevatedButton.icon(
                           onPressed: () async {
+                            controller.commissStationName.text = '';
+                            controller.commissProvince.text = '';
+                            controller.commissAmphure.text = '';
+                            controller.commissTambol.text = '';
                             controller.commissList.clear();
                             controller.commissController.offset.value = 0;
                             controller.commissController.currentPage = 1;
                             controller.commissController.listCommissStatistics
                                 .clear();
+                            controller.resetForm();
                             await controller.infoCardController
                                 .getSummaryInfo();
                             await controller.commissController

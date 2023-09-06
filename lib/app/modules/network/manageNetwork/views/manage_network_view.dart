@@ -741,11 +741,16 @@ class ManageDataDetailNetwork extends StatelessWidget {
                         // ),
                         ElevatedButton.icon(
                           onPressed: () async {
+                            controller.networkStationName.text = '';
+                            controller.networkProvince.text = '';
+                            controller.networkAmphure.text = '';
+                            controller.networkTambol.text = '';
                             controller.networkList.clear();
                             controller.networkController.offset.value = 0;
                             controller.networkController.currentPage = 1;
                             controller.networkController.listNetworkStatistics
                                 .clear();
+                            controller.resetForm();
                             await controller.infoCardController
                                 .getSummaryInfo();
                             await controller.networkController

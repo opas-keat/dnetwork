@@ -408,6 +408,7 @@ class ManageDataDetail extends StatelessWidget {
                   controller.trainingController.offset.value = 0;
                   controller.trainingController.currentPage = 1;
                   controller.trainingController.listTrainingStatistics.clear();
+                  controller.resetForm();
                   await controller.infoCardController.getSummaryInfo();
                   await controller.trainingController.listTrainingType();
                   await controller.trainingController.listTraining();

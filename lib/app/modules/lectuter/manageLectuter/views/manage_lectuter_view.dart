@@ -715,7 +715,7 @@ DataRow lectuterDataRow(
         Wrap(
           children: [
             Text(
-              lectuterData.name!,
+              lectuterData.lectuterPreName!,
               style: const TextStyle(
                 fontSize: 12,
               ),

@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -71,11 +73,15 @@ class CommissController extends GetxController {
   listCommiss() async {
     talker.info('$logTitle:listCommiss:');
     isLoading.value = true;
+    String province = window.sessionStorage["province"]!;
+    if (province.isEmpty) {
+      province = addressController.selectedProvince.value;
+    }
     Map<String, String> qParams = {
       "offset": offset.value.toString(),
       "limit": queryParamLimit,
       "order": queryParamOrderBy,
-      "province": addressController.selectedProvince.value,
+      "province": province,
       "amphure": addressController.selectedAmphure.value,
       "district": addressController.selectedTambol.value,
       "commiss_first_name": commissFirstName.text,

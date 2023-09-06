@@ -46,6 +46,9 @@ class StationStatistics extends StatelessWidget {
                       )
                     : IconButton(
                         onPressed: () {
+                          controller.offset.value = 0;
+                          controller.currentPage = 1;
+                          controller.listStationStatistics.clear();
                           controller.listStation();
                         },
                         icon: const Icon(

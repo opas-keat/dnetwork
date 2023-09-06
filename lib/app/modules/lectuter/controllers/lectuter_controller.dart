@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -76,6 +78,10 @@ class LectuterController extends GetxController {
   listLectuter() async {
     talker.info('$logTitle:listLectuter:');
     isLoading.value = true;
+    String province = window.sessionStorage["province"]!;
+    if (province.isEmpty) {
+      province = addressController.selectedProvince.value;
+    }
     Map<String, String> qParams = {
       "offset": offset.value.toString(),
       "limit": queryParamLimit,
@@ -85,7 +91,7 @@ class LectuterController extends GetxController {
       "lectuter_agency": lectuterAgency.text,
       "lectuter_affiliate": lectuterAffiliate.text,
       "lectuter_telephone": lectuterTelephone.text,
-      "province": addressController.selectedProvince.value,
+      "province": province,
       // "amphure": addressController.selectedAmphure.value,
       // "district": addressController.selectedTambol.value,
     };

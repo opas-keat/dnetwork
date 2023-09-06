@@ -8,6 +8,7 @@ import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/info_card.dart';
 import '../../../shared/main_chart.dart';
+import '../../../shared/show_province.dart';
 import '../controllers/budget_controller.dart';
 import 'budget_statistics.dart';
 
@@ -28,11 +29,7 @@ class BudgetLayoutLarge extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const CustomText(
-                    text: "จังหวัด กรุงเทพมหานคร",
-                    weight: FontWeight.bold,
-                    size: 18,
-                  ),
+                  const ShowProvince(),
                   const Spacer(flex: 2),
                   ElevatedButton.icon(
                     onPressed: () {},

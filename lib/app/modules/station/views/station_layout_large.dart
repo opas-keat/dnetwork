@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -8,6 +10,7 @@ import '../../../shared/custom_flat_button.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/info_card.dart';
 import '../../../shared/main_chart.dart';
+import '../../../shared/show_province.dart';
 import '../../training/controllers/training_controller.dart';
 import '../controllers/station_controller.dart';
 import 'station_statistics.dart';
@@ -31,11 +34,7 @@ class StationLayoutLarge extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const CustomText(
-                    text: "จังหวัด กรุงเทพมหานคร",
-                    weight: FontWeight.bold,
-                    size: 18,
-                  ),
+                  const ShowProvince(),
                   const Spacer(flex: 2),
                   ElevatedButton.icon(
                     onPressed: () {

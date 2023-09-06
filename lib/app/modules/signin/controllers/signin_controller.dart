@@ -1,6 +1,7 @@
 import 'dart:html';
 
 import 'package:frontend/app/api/services/auth_service.dart';
+import 'package:frontend/app/api/services/user_service.dart';
 import 'package:get/get.dart';
 
 import '../../../shared/utils.dart';
@@ -23,6 +24,8 @@ class SigninController extends GetxController {
     talker.info('signIn');
     // talker.debug('userName:$userName');
     // talker.debug('password:$password');
+    // userName = 'NPT001';
+    // password = 'NPT#!123';
     try {
       final result = await AuthenService().login(userName, password);
       talker.debug('response message : ${result?.message}');
@@ -33,6 +36,13 @@ class SigninController extends GetxController {
           window.sessionStorage["roles"] = "user";
         }
         window.sessionStorage["token"] = result.data!.token!;
+        final user = await UserService().getByToken();
+        if (user?.code == "000") {
+          //   talker.debug(user!.data!.id);
+          //   talker.debug(user.data!.firstName);
+          // talker.debug(user!.data!.province);
+          window.sessionStorage["province"] = user!.data!.province!;
+        }
         return true;
       }
       authenError.value = result!.message!;

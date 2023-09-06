@@ -8,6 +8,7 @@ import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/info_card.dart';
 import '../../../shared/main_chart.dart';
+import '../../../shared/show_province.dart';
 import '../../../shared/utils.dart';
 import '../controllers/budget_controller.dart';
 
@@ -25,9 +26,7 @@ class BudgetLayoutSmall extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Expanded(
-              child: CustomText(
-                text: "จังหวัด: กรุงเทพมหานคร",
-              ),
+              child: ShowProvince(),
             ),
           ],
         ),

@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:frontend/app/api/api_params.dart';
 import 'package:get/get.dart';
@@ -71,11 +73,15 @@ class MemberController extends GetxController {
   listMember() async {
     talker.info('$logTitle:listMember:');
     isLoading.value = true;
+    String province = window.sessionStorage["province"]!;
+    if (province.isEmpty) {
+      province = addressController.selectedProvince.value;
+    }
     Map<String, String> qParams = {
       "offset": offset.value.toString(),
       "limit": queryParamLimit,
       "order": queryParamOrderBy,
-      "province": addressController.selectedProvince.value,
+      "province": province,
       "member_id_card": memberIdCard.text,
       "member_telephone": memberTelephone.text,
       "member_station_name": memberStationName.text,

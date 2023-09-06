@@ -87,6 +87,13 @@ List<Module> listModule = [
   //   icon: Icons.report_problem_sharp,
   //   url: Routes.LIST_REPORT,
   // ),
+  Module(
+    id: 11,
+    nameTH: "ออกจากระบบ",
+    nameEn: "logout",
+    icon: Icons.logout_sharp,
+    url: Routes.SIGNIN,
+  ),
 ];
 
 Module getModuleByIndex(int index) {

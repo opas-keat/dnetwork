@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -6,6 +8,7 @@ import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/info_card.dart';
 import '../../../shared/main_chart.dart';
+import '../../../shared/show_province.dart';
 import '../../training/controllers/training_controller.dart';
 import 'dashboard_statistics_small.dart';
 
@@ -22,10 +25,7 @@ class DashboardLayoutSmall extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const CustomText(
-              text: "กกต ส่วนกลาง",
-              weight: FontWeight.bold,
-            ),
+            const ShowProvince(),
             const Spacer(flex: 2),
             ElevatedButton.icon(
               onPressed: () {},

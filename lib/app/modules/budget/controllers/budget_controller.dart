@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -93,19 +95,17 @@ class BudgetController extends GetxController {
   listBudget() async {
     talker.info('$logTitle::listBudget');
     isLoading.value = true;
-    // String province = "";
-    talker.debug('$logTitle::listBudget:offset:${offset.value}');
-    talker.debug('$logTitle::listBudget:budgetDate-${budgetDate.text}');
-    talker.debug('$logTitle::listBudget:budgetType-${budgetType.text}');
-    talker.debug(
-        '$logTitle::listBudget:province-${addressController.selectedProvince.value}');
+    String province = window.sessionStorage["province"]!;
+    if (province.isEmpty) {
+      province = addressController.selectedProvince.value;
+    }
     Map<String, String> qParams = {
       "offset": offset.value.toString(),
       "limit": queryParamLimit,
       "order": queryParamOrderBy,
       "budget_date": budgetDate.text,
       "budget_type": budgetType.text,
-      "province": addressController.selectedProvince.value,
+      "province": province,
     };
     try {
       final result = await BudgetService().listBudget(qParams);

@@ -11,11 +11,9 @@ import '../api_utils.dart';
 class AddressService {
   final title = "AddressService";
 
-  Future<ProvinceServiceResponse?> listProvince() async {
-    Map<String, dynamic> qParams = {
-      "offset": 0,
-      "limit": 100,
-    };
+  Future<ProvinceServiceResponse?> listProvince(
+    Map<String, dynamic> qParams,
+  ) async {
     try {
       final response = await apiUtils.get(
         url: Api.ectApiContext + Api.ectApiVersion + ApiEndPoints.provinces,

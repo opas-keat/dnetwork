@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -71,15 +73,15 @@ class TrainingController extends GetxController {
   listTraining() async {
     talker.info('$logTitle:listTraining:');
     isLoading.value = true;
-    talker.debug('$logTitle::listBudget:offset:${offset.value}');
-    talker.debug(
-        '$logTitle::listBudget:province:${addressController.selectedProvince.value}');
-    // String province = "";
+    String province = window.sessionStorage["province"]!;
+    if (province.isEmpty) {
+      province = addressController.selectedProvince.value;
+    }
     Map<String, String> qParams = {
       "offset": offset.value.toString(),
       "limit": queryParamLimit,
       "order": queryParamOrderBy,
-      "province": addressController.selectedProvince.value,
+      "province": province,
       "training_name": trainingName.text,
       "training_date_form": trainingDateForm.text,
       "training_date_to": trainingDateTo.text,

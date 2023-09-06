@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -8,6 +10,7 @@ import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/info_card.dart';
 import '../../../shared/main_chart.dart';
+import '../../../shared/show_province.dart';
 import '../controllers/member_controller.dart';
 
 class MemberLayoutSmall extends StatelessWidget {
@@ -23,9 +26,7 @@ class MemberLayoutSmall extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Expanded(
-              child: CustomText(
-                text: "จังหวัด: กรุงเทพมหานคร",
-              ),
+              child: ShowProvince(),
             ),
           ],
         ),

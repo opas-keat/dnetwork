@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -71,11 +73,15 @@ class NetworkController extends GetxController {
   listNetwork() async {
     talker.info('$logTitle:listNetwork:');
     isLoading.value = true;
+    String province = window.sessionStorage["province"]!;
+    if (province.isEmpty) {
+      province = addressController.selectedProvince.value;
+    }
     Map<String, String> qParams = {
       "offset": offset.value.toString(),
       "limit": queryParamLimit,
       "order": queryParamOrderBy,
-      "province": addressController.selectedProvince.value,
+      "province": province,
       "network_id_card": networkIdCard.text,
       "network_telephone": networkTelephone.text,
       "network_station_name": networkStationName.text,

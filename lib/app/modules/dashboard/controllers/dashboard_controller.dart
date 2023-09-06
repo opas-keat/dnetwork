@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:frontend/app/api/services/province_summary_service.dart';
 import 'package:get/get.dart';
 
@@ -30,7 +32,8 @@ class DashboardController extends GetxController {
   listProvinceSummaryDashboard() async {
     talker.info('$logTitle:listProvinceSummaryDashboard:');
     isLoading.value = true;
-    String province = "";
+    String province = window.sessionStorage["province"]!;
+    talker.info('$logTitle:province:$province');
     try {
       final result =
           await ProvinceSummaryService().listProvinceSummary(province);

@@ -8,6 +8,7 @@ import '../../../shared/custom_flat_button.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/info_card.dart';
 import '../../../shared/main_chart.dart';
+import '../../../shared/show_province.dart';
 import '../controllers/training_controller.dart';
 import 'training_statistics.dart';
 
@@ -31,10 +32,7 @@ class TrainingLayoutLarge extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const CustomText(
-                    text: "",
-                    weight: FontWeight.bold,
-                  ),
+                  const ShowProvince(),
                   const Spacer(flex: 2),
                   ElevatedButton.icon(
                     onPressed: () {},

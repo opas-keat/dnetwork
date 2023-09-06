@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:get/get.dart';
 
 import '../../../api/services/address_service.dart';
@@ -49,8 +51,17 @@ class AddressController extends GetxController {
 
   Future listProvince() async {
     talker.info('$logTitle listProvince');
+    String province = window.sessionStorage["province"]!;
+    // if (province.isEmpty) {
+    //   province = addressController.selectedProvince.value;
+    // }
+    Map<String, String> qParams = {
+      "offset": "0",
+      "limit": "100",
+      "province": province,
+    };
     try {
-      final result = await AddressService().listProvince();
+      final result = await AddressService().listProvince(qParams);
       provinceList.clear();
       provinceList.add("");
       for (var item in result!.data!) {

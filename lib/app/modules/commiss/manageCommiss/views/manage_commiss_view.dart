@@ -696,6 +696,7 @@ class ManageDataDetail extends StatelessWidget {
                         // ),
                         ElevatedButton.icon(
                           onPressed: () async {
+                            controller.selectedIndexFromTable = -1;
                             controller.commissStationName.text = '';
                             controller.commissProvince.text = '';
                             controller.commissAmphure.text = '';

@@ -398,6 +398,7 @@ class ManageDataDetail extends StatelessWidget {
               // ),
               ElevatedButton.icon(
                 onPressed: () async {
+                  controller.selectedIndexFromTable = -1;
                   controller.addressController.selectedProvince.value = "";
                   controller.budgetList.clear();
                   controller.budgetController.offset.value = 0;

@@ -741,6 +741,7 @@ class ManageDataDetailNetwork extends StatelessWidget {
                         // ),
                         ElevatedButton.icon(
                           onPressed: () async {
+                            controller.selectedIndexFromTable = -1;
                             controller.networkStationName.text = '';
                             controller.networkProvince.text = '';
                             controller.networkAmphure.text = '';

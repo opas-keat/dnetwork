@@ -86,7 +86,7 @@ class CommissController extends GetxController {
     };
     try {
       final result = await CommissService().list(qParams);
-      listCommissStatistics.clear();
+      // listCommissStatistics.clear();
       for (final item in result!.data!) {
         listCommissStatistics.add(
           CommissData(

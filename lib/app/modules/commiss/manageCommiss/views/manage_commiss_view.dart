@@ -698,7 +698,17 @@ class ManageDataDetail extends StatelessWidget {
                         //   ),
                         // ),
                         ElevatedButton.icon(
-                          onPressed: () {
+                          onPressed: () async {
+                            controller.commissList.clear();
+                            controller.commissController.offset.value = 0;
+                            controller.commissController.currentPage = 1;
+                            controller.commissController.listCommissStatistics
+                                .clear();
+                            await controller.infoCardController
+                                .getSummaryInfo();
+                            await controller.commissController
+                                .listCommissPosition();
+                            await controller.commissController.listCommiss();
                             Get.toNamed(Routes.COMMISS);
                           },
                           style: ElevatedButton.styleFrom(

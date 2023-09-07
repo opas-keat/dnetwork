@@ -15,6 +15,7 @@ class ApiEndPoints {
   static const commiss = "/commiss";
   static const commissPosition = "/commiss_position";
   static const commissPositionCommu = "/commiss_position_commu";
+  static const commissExp = "/commiss_exp";
   // ---- village ----
   static const village = "/village";
   // ---- lectuter ----

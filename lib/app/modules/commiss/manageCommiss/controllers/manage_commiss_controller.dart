@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../api/api_params.dart';
+import '../../../../api/services/commis_exp_service.dart';
 import '../../../../api/services/commiss_position_commu_service.dart';
 import '../../../../api/services/commiss_position_service.dart';
 import '../../../../api/services/commiss_service.dart';
@@ -29,6 +30,8 @@ class ManageCommissController extends GetxController {
   Rx<String> selectedCommissPosition = "".obs;
   final commissPositionCommuList = <String>[].obs;
   Rx<String> selectedCommissPositionCommu = "".obs;
+  final commissExpList = <String>[].obs;
+  Rx<String> selectedCommissExp = "".obs;
 
   final commissStationId = TextEditingController(text: "0");
   final commissStationName = TextEditingController();
@@ -59,6 +62,7 @@ class ManageCommissController extends GetxController {
     talker.info('$logTitle onInit');
     listCommissPosition();
     listCommissPositionCommu();
+    listCommissExp();
   }
 
   @override
@@ -98,7 +102,7 @@ class ManageCommissController extends GetxController {
           commissTelephone: commissTelephone.text,
           commissPosition: selectedCommissPosition.value,
           commissPositionCommu: commissPositionCommuChips.join('|'),
-          commissExp: commissExp.text,
+          commissExp: commissExpChips.join('|'),
           amphure: commissAmphure.text,
           district: commissTambol.text,
           province: commissProvince.text,
@@ -159,7 +163,7 @@ class ManageCommissController extends GetxController {
           commissTelephone: commissTelephone.text,
           commissPosition: selectedCommissPosition.value,
           commissPositionCommu: commissPositionCommuChips.join('|'),
-          commissExp: commissExp.text,
+          commissExp: commissExpChips.join('|'),
           amphure: commissAmphure.text,
           district: commissTambol.text,
           province: commissProvince.text,
@@ -277,6 +281,7 @@ class ManageCommissController extends GetxController {
     commissExpChips.clear();
     selectedCommissPosition.value = '';
     selectedCommissPositionCommu.value = '';
+    selectedCommissExp.value = '';
     update();
   }
 
@@ -341,6 +346,25 @@ class ManageCommissController extends GetxController {
       commissPositionCommuList.add("");
       for (var item in result!.data!) {
         commissPositionCommuList.add(item.name!);
+      }
+    } catch (e) {
+      talker.error('$e');
+    }
+  }
+
+  Future listCommissExp() async {
+    talker.info('$logTitle::listCommissExp');
+    Map<String, String> qParams = {
+      "offset": "0",
+      "limit": queryParamLimit,
+      "order": queryParamOrderBy,
+    };
+    try {
+      final result = await CommissExpService().list(qParams);
+      commissExpList.clear();
+      commissExpList.add("");
+      for (var item in result!.data!) {
+        commissExpList.add(item.name!);
       }
     } catch (e) {
       talker.error('$e');

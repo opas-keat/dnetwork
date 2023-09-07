@@ -621,30 +621,64 @@ class ManageDataDetail extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Expanded(
-                        child: TextFormField(
-                          controller: controller.commissExp,
-                          keyboardType: TextInputType.text,
-                          decoration: InputDecoration(
-                            fillColor: Colors.white.withOpacity(.8),
-                            filled: true,
-                            border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.circular(defaultPadding / 2),
-                              borderSide: const BorderSide(
-                                  color: Colors.black54, width: 1),
+                        child: Obx(
+                          () => DropdownButtonFormField<String>(
+                            isDense: true,
+                            isExpanded: true,
+                            decoration: InputDecoration(
+                              fillColor: Colors.white.withOpacity(.8),
+                              filled: true,
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.circular(defaultPadding / 2),
+                                borderSide: const BorderSide(
+                                    color: Colors.black54, width: 1),
+                              ),
+                              isCollapsed: true,
+                              contentPadding:
+                                  const EdgeInsets.fromLTRB(12, 14, 12, 12),
                             ),
-                            isCollapsed: true,
-                            contentPadding:
-                                const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                            value: controller.selectedCommissExp.value,
+                            onChanged: (newValue) {
+                              controller.selectedCommissExp.value = newValue!;
+                            },
+                            items:
+                                controller.commissExpList.obs.value.map((item) {
+                              return DropdownMenuItem<String>(
+                                value: item,
+                                child: Text(
+                                  item,
+                                  textScaleFactor: 0.9,
+                                ),
+                              );
+                            }).toList(),
                           ),
                         ),
+                        // child: TextFormField(
+                        //   controller: controller.commissExp,
+                        //   keyboardType: TextInputType.text,
+                        //   decoration: InputDecoration(
+                        //     fillColor: Colors.white.withOpacity(.8),
+                        //     filled: true,
+                        //     border: OutlineInputBorder(
+                        //       borderRadius:
+                        //           BorderRadius.circular(defaultPadding / 2),
+                        //       borderSide: const BorderSide(
+                        //           color: Colors.black54, width: 1),
+                        //     ),
+                        //     isCollapsed: true,
+                        //     contentPadding:
+                        //         const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                        //   ),
+                        // ),
                       ),
                       const SizedBox(width: defaultPadding / 2),
                       IconButton(
                         icon: const Icon(Icons.add_sharp),
                         onPressed: () {
-                          controller
-                              .addCommissExpToChip(controller.commissExp.text);
+                          controller.addCommissExpToChip(
+                            controller.selectedCommissExp.value,
+                          );
                         },
                       ),
                     ],

@@ -35,6 +35,9 @@ class CommissController extends GetxController {
 
   String defaultCommissOrder = queryParamOrderBy;
 
+  final commissPositionList = <String>[].obs;
+  Rx<String> selectedCommissPosition = "".obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -63,10 +66,30 @@ class CommissController extends GetxController {
             value: item.totalData!,
           ),
         );
+        commissPositionList.add(item.name!);
       }
       isLoadingChart.value = false;
       isLoadingChart.refresh();
       summaryChart.refresh();
+    } catch (e) {
+      talker.error('$e');
+    }
+  }
+
+  Future listCommissPositionDD() async {
+    talker.info('$logTitle::listCommissPositionDD');
+    Map<String, String> qParams = {
+      "offset": "0",
+      "limit": queryParamLimit,
+      "order": "id asc",
+    };
+    try {
+      final result = await CommissPositionService().list(qParams);
+      commissPositionList.clear();
+      commissPositionList.add("");
+      for (var item in result!.data!) {
+        commissPositionList.add(item.name!);
+      }
     } catch (e) {
       talker.error('$e');
     }
@@ -91,6 +114,7 @@ class CommissController extends GetxController {
       "commiss_telephone": commissTelephone.text,
       "commiss_date": commissDate.text,
       "commiss_station_name": commissStationName.text,
+      "commiss_position": selectedCommissPosition.value,
     };
     try {
       final result = await CommissService().list(qParams);
@@ -118,14 +142,14 @@ class CommissController extends GetxController {
     }
   }
 
-  getCommiss() async {
-    talker.info('$logTitle:getCommiss:');
-    isLoading.value =
-        await Future.delayed(Duration(seconds: randomValue()), () {
-      return false;
-    });
-    update();
-  }
+  // getCommiss() async {
+  //   talker.info('$logTitle:getCommiss:');
+  //   isLoading.value =
+  //       await Future.delayed(Duration(seconds: randomValue()), () {
+  //     return false;
+  //   });
+  //   update();
+  // }
 
   resetSearch() {
     commissFirstName.text = "";
@@ -133,6 +157,7 @@ class CommissController extends GetxController {
     commissTelephone.text = "";
     commissDate.text = "";
     commissStationName.text = "";
+    selectedCommissPosition.value = "";
     update();
   }
 

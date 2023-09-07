@@ -1,12 +1,10 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import '../../data/responses/delete_service_response.dart';
 import '../../data/responses/user_service_response.dart';
 import '../../shared/utils.dart';
 import '../api.dart';
 import '../api_end_points.dart';
-import '../api_params.dart';
 import '../api_utils.dart';
 
 class UserService {

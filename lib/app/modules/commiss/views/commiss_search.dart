@@ -17,6 +17,7 @@ class CommissSearch extends StatelessWidget {
     // final addressController = Get.put(AddressController());
     // addressController.selectedProvince.value = "0|";
     // addressController.update();
+    controller.listCommissPositionDD();
     return AlertDialog(
       title: CustomText(
         text: "ค้นหากรรมการ",
@@ -140,6 +141,47 @@ class CommissSearch extends StatelessWidget {
               showPostCode: false,
             ),
             const SizedBox(height: defaultPadding),
+            Wrap(
+              direction: Axis.horizontal,
+              children: [
+                CustomText(
+                  text: "ตำแหน่งใน ศส.ปชต.",
+                  color: Colors.black87.withOpacity(.9),
+                ),
+              ],
+            ),
+            const SizedBox(height: defaultPadding / 2),
+            Obx(
+              () => DropdownButtonFormField<String>(
+                isDense: true,
+                isExpanded: true,
+                decoration: InputDecoration(
+                  fillColor: Colors.white.withOpacity(.8),
+                  filled: true,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(defaultPadding / 2),
+                    borderSide:
+                        const BorderSide(color: Colors.black54, width: 1),
+                  ),
+                  isCollapsed: true,
+                  contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                ),
+                value: controller.selectedCommissPosition.value,
+                onChanged: (newValue) {
+                  controller.selectedCommissPosition.value = newValue!;
+                },
+                items: controller.commissPositionList.obs.value.map((item) {
+                  return DropdownMenuItem<String>(
+                    value: item,
+                    child: Text(
+                      item,
+                      textScaleFactor: 0.9,
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+            const SizedBox(height: defaultPadding),
           ],
         ),
       ),
@@ -149,7 +191,9 @@ class CommissSearch extends StatelessWidget {
           onPressed: () {
             controller.offset.value = 0;
             controller.currentPage = 1;
-            controller.defaultCommissOrder = commissOrder;
+            if (controller.selectedCommissPosition.value.isEmpty) {
+              controller.defaultCommissOrder = commissOrder;
+            }
             controller.listCommissStatistics.clear();
             controller.listCommiss();
             Get.back();

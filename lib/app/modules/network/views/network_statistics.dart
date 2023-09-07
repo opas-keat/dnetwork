@@ -47,6 +47,9 @@ class NetworkStatistics extends StatelessWidget {
                       )
                     : IconButton(
                         onPressed: () {
+                          controller.offset.value = 0;
+                          controller.currentPage = 1;
+                          controller.listNetworkStatistics.clear();
                           controller.listNetwork();
                         },
                         icon: const Icon(

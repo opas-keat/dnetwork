@@ -135,8 +135,8 @@ class CommissSearch extends StatelessWidget {
             ),
             const SizedBox(height: defaultPadding),
             AddressView(
-              showAmphure: false,
-              showTambol: false,
+              showAmphure: true,
+              showTambol: true,
               showPostCode: false,
             ),
             const SizedBox(height: defaultPadding),
@@ -149,6 +149,7 @@ class CommissSearch extends StatelessWidget {
           onPressed: () {
             controller.offset.value = 0;
             controller.currentPage = 1;
+            controller.defaultCommissOrder = commissOrder;
             controller.listCommissStatistics.clear();
             controller.listCommiss();
             Get.back();

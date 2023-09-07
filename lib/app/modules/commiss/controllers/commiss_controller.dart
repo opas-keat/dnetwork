@@ -33,6 +33,8 @@ class CommissController extends GetxController {
   int currentPage = 1;
   RxInt offset = 0.obs;
 
+  String defaultCommissOrder = queryParamOrderBy;
+
   @override
   void onInit() {
     super.onInit();
@@ -80,7 +82,7 @@ class CommissController extends GetxController {
     Map<String, String> qParams = {
       "offset": offset.value.toString(),
       "limit": queryParamLimit,
-      "order": queryParamOrderBy,
+      "order": defaultCommissOrder,
       "province": province,
       "amphure": addressController.selectedAmphure.value,
       "district": addressController.selectedTambol.value,

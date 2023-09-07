@@ -26,3 +26,6 @@ final accentDividerTop = Padding(
 // const primaryColor = Color(0xFF2697FF);
 const secondaryColor = Color(0xFF2A2D3E);
 const canvasColor = Color.fromARGB(255, 247, 247, 245);
+
+const commissOrder =
+    "commiss_position = 'ประธานกรรมการ' DESC ,commiss_position = 'รองประธานกรรมการ' DESC ,commiss_position = 'กรรมการ' DESC ,commiss_position = 'กรรมการ/นายทะเบียน' DESC ,commiss_position = 'กรรมการ/เหรัญญิก' DESC ,commiss_position = 'กรรมการ/ประชาสัมพันธ์' DESC ,commiss_position = 'กรรมการ/เลขานุการ' DESC ";

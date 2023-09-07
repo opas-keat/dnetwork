@@ -46,6 +46,9 @@ class MemberStatistics extends StatelessWidget {
                       )
                     : IconButton(
                         onPressed: () {
+                          controller.offset.value = 0;
+                          controller.currentPage = 1;
+                          controller.listMemberStatistics.clear();
                           controller.listMember();
                         },
                         icon: const Icon(

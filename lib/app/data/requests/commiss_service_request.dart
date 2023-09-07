@@ -38,6 +38,7 @@ class Commisss {
   String? commissPosition;
   String? commissPositionCommu;
   String? commissExp;
+  String? commissPreName;
 
   Commisss(
       {this.id,
@@ -55,7 +56,8 @@ class Commisss {
       this.commissTelephone,
       this.commissPosition,
       this.commissPositionCommu,
-      this.commissExp});
+      this.commissExp,
+      this.commissPreName});
 
   Commisss.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -74,6 +76,7 @@ class Commisss {
     commissPosition = json['commiss_position'];
     commissPositionCommu = json['commiss_position_commu'];
     commissExp = json['commiss_exp'];
+    commissPreName = json['commiss_pre_name'];
   }
 
   Map<String, dynamic> toJson() {
@@ -94,6 +97,7 @@ class Commisss {
     data['commiss_position'] = commissPosition;
     data['commiss_position_commu'] = commissPositionCommu;
     data['commiss_exp'] = commissExp;
+    data['commiss_pre_name'] = commissPreName;
     return data;
   }
 }

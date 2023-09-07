@@ -47,6 +47,7 @@ class ManageCommissController extends GetxController {
   final commissProvince = TextEditingController();
   final commissAmphure = TextEditingController();
   final commissTambol = TextEditingController();
+  final commissPreName = TextEditingController();
 
   RxString commissError = ''.obs;
 
@@ -106,6 +107,7 @@ class ManageCommissController extends GetxController {
           amphure: commissAmphure.text,
           district: commissTambol.text,
           province: commissProvince.text,
+          commissPreName: commissPreName.text,
         ),
       );
       final response = await CommissService().create(commisss.obs.value);
@@ -130,6 +132,7 @@ class ManageCommissController extends GetxController {
               commissStationName: item.commissStationName,
               commissSurName: item.commissSurName,
               commissTelephone: item.commissTelephone,
+              commissPreName: item.commissPreName,
             ),
           );
         }
@@ -167,6 +170,7 @@ class ManageCommissController extends GetxController {
           amphure: commissAmphure.text,
           district: commissTambol.text,
           province: commissProvince.text,
+          commissPreName: commissPreName.text,
         ),
       );
       final result = await CommissService().update(commisss.obs.value);
@@ -197,6 +201,8 @@ class ManageCommissController extends GetxController {
           commissList[selectedIndexFromTable].amphure = item.amphure;
           commissList[selectedIndexFromTable].district = item.district;
           commissList[selectedIndexFromTable].province = item.province;
+          commissList[selectedIndexFromTable].commissPreName =
+              item.commissPreName;
         }
       }
       isLoading.value = false;
@@ -249,6 +255,7 @@ class ManageCommissController extends GetxController {
         commissAmphure.text = item.district!;
         commissTambol.text = item.amphure!;
         commissProvince.text = item.province!;
+        commissPreName.text = item.commissPreName!;
         if (item.commissPositionCommu!.isNotEmpty) {
           commissPositionCommuChips
               .addAll(item.commissPositionCommu!.split('|'));
@@ -277,6 +284,7 @@ class ManageCommissController extends GetxController {
     commissPositionCommu.text = "";
     commissSurName.text = "";
     commissTelephone.text = "";
+    commissPreName.text = "";
     commissPositionCommuChips.clear();
     commissExpChips.clear();
     selectedCommissPosition.value = '';
@@ -319,7 +327,7 @@ class ManageCommissController extends GetxController {
     Map<String, String> qParams = {
       "offset": "0",
       "limit": queryParamLimit,
-      "order": queryParamOrderBy,
+      "order": "id asc",
     };
     try {
       final result = await CommissPositionService().list(qParams);

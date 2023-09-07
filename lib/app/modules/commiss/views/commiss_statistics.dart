@@ -1,5 +1,6 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend/app/api/api_params.dart';
 import 'package:get/get.dart';
 
 import '../../../data/responses/commiss_service_response.dart';
@@ -46,6 +47,10 @@ class CommissStatistics extends StatelessWidget {
                       )
                     : IconButton(
                         onPressed: () {
+                          controller.offset.value = 0;
+                          controller.currentPage = 1;
+                          controller.listCommissStatistics.clear();
+                          controller.defaultCommissOrder = queryParamOrderBy;
                           controller.listCommiss();
                         },
                         icon: const Icon(

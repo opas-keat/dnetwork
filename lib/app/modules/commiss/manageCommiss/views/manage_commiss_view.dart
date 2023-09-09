@@ -929,7 +929,11 @@ class ManageDataTable extends StatelessWidget {
 List<DataColumn> listColumn = [
   const DataColumn2(
     label: CustomText(text: "ลำดับ", scale: 0.9),
-    fixedWidth: 50,
+    fixedWidth: 30,
+  ),
+  const DataColumn2(
+    label: CustomText(text: "คำนำหน้า", scale: 0.9),
+    size: ColumnSize.S,
   ),
   const DataColumn2(
     label: CustomText(text: "ชื่อ", scale: 0.9),
@@ -937,7 +941,7 @@ List<DataColumn> listColumn = [
   ),
   const DataColumn2(
     label: CustomText(text: "นามสกุล", scale: 0.9),
-    size: ColumnSize.S,
+    size: ColumnSize.M,
   ),
   const DataColumn2(
     label: CustomText(text: "ตำแหน่งใน ศศ.ปชต.", scale: 0.9),
@@ -982,6 +986,18 @@ DataRow commissDataRow(
           style: const TextStyle(
             fontSize: 12,
           ),
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              commissData.commissPreName!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
         ),
       ),
       DataCell(

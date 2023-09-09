@@ -196,7 +196,7 @@ DataRow commissDataRow(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "${commissData.commissFirstName!} ${commissData.commissSurName!}",
+                  "${commissData.commissPreName!}${commissData.commissFirstName!} ${commissData.commissSurName!}",
                   style: const TextStyle(
                     fontSize: 12,
                   ),

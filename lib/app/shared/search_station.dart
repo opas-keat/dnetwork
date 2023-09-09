@@ -19,6 +19,7 @@ class SearchStation extends StatelessWidget {
         // color: Colors.amber,
         // padding: const EdgeInsets.symmetric(vertical: defaultPadding * 4),
         width: 480,
+        height: 640,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,

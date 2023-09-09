@@ -123,6 +123,7 @@ class CommissController extends GetxController {
         listCommissStatistics.add(
           CommissData(
             id: item.id,
+            commissPreName: item.commissPreName,
             commissFirstName: item.commissFirstName,
             commissSurName: item.commissSurName,
             province: item.province,

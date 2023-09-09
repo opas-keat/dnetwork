@@ -107,6 +107,7 @@ class NetworkController extends GetxController {
             networkDate: item.networkDate,
             networkLocation: item.networkLocation,
             networkPreName: item.networkPreName,
+            networkStationName: item.networkStationName,
           ),
         );
       }

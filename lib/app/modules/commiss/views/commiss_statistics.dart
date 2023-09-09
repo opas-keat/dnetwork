@@ -240,7 +240,7 @@ DataRow commissDataRow(
         Wrap(
           children: [
             Text(
-              commissData.commissLocation!,
+              commissData.commissStationName!,
               style: const TextStyle(
                 fontSize: 12,
               ),

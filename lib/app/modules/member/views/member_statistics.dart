@@ -244,7 +244,7 @@ DataRow memberDataRow(
         Wrap(
           children: [
             Text(
-              memberData.memberLocation!,
+              memberData.memberStationName!,
               style: const TextStyle(
                 fontSize: 12,
               ),

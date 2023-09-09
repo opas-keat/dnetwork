@@ -245,7 +245,7 @@ DataRow networkDataRow(
         Wrap(
           children: [
             Text(
-              networkData.networkLocation!,
+              networkData.networkStationName!,
               style: const TextStyle(
                 fontSize: 12,
               ),

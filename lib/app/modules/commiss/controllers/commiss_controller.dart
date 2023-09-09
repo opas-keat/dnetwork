@@ -133,6 +133,7 @@ class CommissController extends GetxController {
             commissPosition: item.commissPosition,
             commissDate: item.commissDate,
             commissLocation: item.commissLocation,
+            commissStationName: item.commissStationName,
           ),
         );
       }

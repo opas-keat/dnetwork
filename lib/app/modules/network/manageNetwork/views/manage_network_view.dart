@@ -306,6 +306,27 @@ class ManageDataDetailNetwork extends StatelessWidget {
                     style: const TextStyle(color: Colors.black),
                   ),
                   const SizedBox(height: defaultPadding),
+                  CustomText(
+                    text: "คำนำหน้า",
+                    color: Colors.black87.withOpacity(.9),
+                  ),
+                  const SizedBox(height: defaultPadding / 2),
+                  TextFormField(
+                    controller: controller.networkPreName,
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                      fillColor: Colors.white.withOpacity(.8),
+                      filled: true,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(defaultPadding / 2),
+                        borderSide:
+                            const BorderSide(color: Colors.black54, width: 1),
+                      ),
+                      isCollapsed: true,
+                      contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                    ),
+                  ),
+                  const SizedBox(height: defaultPadding),
                   Wrap(
                     direction: Axis.horizontal,
                     children: [
@@ -872,12 +893,16 @@ List<DataColumn> listColumn = [
     fixedWidth: 50,
   ),
   const DataColumn2(
+    label: CustomText(text: "คำนำหน้า", scale: 0.9),
+    size: ColumnSize.S,
+  ),
+  const DataColumn2(
     label: CustomText(text: "ชื่อ", scale: 0.9),
     size: ColumnSize.M,
   ),
   const DataColumn2(
     label: CustomText(text: "นามสกุล", scale: 0.9),
-    size: ColumnSize.S,
+    size: ColumnSize.M,
   ),
   const DataColumn2(
     label: CustomText(text: "ตำแหน่งใน ศศ.ปชต.", scale: 0.9),
@@ -922,6 +947,18 @@ DataRow networkDataRow(
           style: const TextStyle(
             fontSize: 12,
           ),
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              networkData.networkPreName!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
         ),
       ),
       DataCell(

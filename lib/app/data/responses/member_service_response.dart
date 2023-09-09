@@ -49,24 +49,27 @@ class MemberData {
   String? memberPosition;
   String? memberPositionCommu;
   String? memberExp;
+  String? memberPreName;
 
-  MemberData(
-      {this.id,
-      this.memberStationId,
-      this.memberStationName,
-      this.province,
-      this.amphure,
-      this.district,
-      this.memberFirstName,
-      this.memberSurName,
-      this.memberIdCard,
-      this.memberBirthYear,
-      this.memberLocation,
-      this.memberDate,
-      this.memberTelephone,
-      this.memberPosition,
-      this.memberPositionCommu,
-      this.memberExp});
+  MemberData({
+    this.id,
+    this.memberStationId,
+    this.memberStationName,
+    this.province,
+    this.amphure,
+    this.district,
+    this.memberFirstName,
+    this.memberSurName,
+    this.memberIdCard,
+    this.memberBirthYear,
+    this.memberLocation,
+    this.memberDate,
+    this.memberTelephone,
+    this.memberPosition,
+    this.memberPositionCommu,
+    this.memberExp,
+    this.memberPreName,
+  });
 
   MemberData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -85,6 +88,7 @@ class MemberData {
     memberPosition = json['member_position'];
     memberPositionCommu = json['member_position_commu'];
     memberExp = json['member_exp'];
+    memberPreName = json['member_pre_name'];
   }
 
   Map<String, dynamic> toJson() {
@@ -105,6 +109,7 @@ class MemberData {
     data['member_position'] = memberPosition;
     data['member_position_commu'] = memberPositionCommu;
     data['member_exp'] = memberExp;
+    data['member_pre_name'] = memberPreName;
     return data;
   }
 }

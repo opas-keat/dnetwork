@@ -195,7 +195,7 @@ DataRow networkDataRow(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "${networkData.networkFirstName!} ${networkData.networkSurName!}",
+                  "${networkData.networkPreName!}${networkData.networkFirstName!} ${networkData.networkSurName!}",
                   style: const TextStyle(
                     fontSize: 12,
                   ),

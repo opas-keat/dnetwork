@@ -194,7 +194,7 @@ DataRow memberDataRow(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "${memberData.memberFirstName!} ${memberData.memberSurName!}",
+                  "${memberData.memberPreName!}${memberData.memberFirstName!} ${memberData.memberSurName!}",
                   style: const TextStyle(
                     fontSize: 12,
                   ),

@@ -106,6 +106,7 @@ class NetworkController extends GetxController {
             // address: "${item.province}/${item.amphure}/${item.district}",
             networkDate: item.networkDate,
             networkLocation: item.networkLocation,
+            networkPreName: item.networkPreName,
           ),
         );
       }

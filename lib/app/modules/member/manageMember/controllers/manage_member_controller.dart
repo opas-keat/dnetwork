@@ -44,6 +44,7 @@ class ManageMemberController extends GetxController {
   final memberProvince = TextEditingController();
   final memberAmphure = TextEditingController();
   final memberTambol = TextEditingController();
+  final memberPreName = TextEditingController();
 
   RxString memberError = ''.obs;
 
@@ -103,6 +104,7 @@ class ManageMemberController extends GetxController {
           amphure: memberAmphure.text,
           district: memberTambol.text,
           province: memberProvince.text,
+          memberPreName: memberPreName.text,
         ),
       );
       final response = await MemberService().create(members.obs.value);
@@ -127,6 +129,7 @@ class ManageMemberController extends GetxController {
               memberStationName: item.memberStationName,
               memberSurName: item.memberSurName,
               memberTelephone: item.memberTelephone,
+              memberPreName: item.memberPreName,
             ),
           );
         }
@@ -164,6 +167,7 @@ class ManageMemberController extends GetxController {
           amphure: memberAmphure.text,
           district: memberTambol.text,
           province: memberProvince.text,
+          memberPreName: memberPreName.text,
         ),
       );
       final result = await MemberService().update(members.obs.value);
@@ -192,6 +196,7 @@ class ManageMemberController extends GetxController {
           memberList[selectedIndexFromTable].amphure = item.amphure;
           memberList[selectedIndexFromTable].district = item.district;
           memberList[selectedIndexFromTable].province = item.province;
+          memberList[selectedIndexFromTable].memberPreName = item.memberPreName;
         }
       }
       isLoading.value = false;
@@ -248,6 +253,7 @@ class ManageMemberController extends GetxController {
         memberAmphure.text = item.district!;
         memberTambol.text = item.amphure!;
         memberProvince.text = item.province!;
+        memberPreName.text = item.memberPreName!;
         if (item.memberPositionCommu!.isNotEmpty) {
           memberPositionCommuChips.addAll(item.memberPositionCommu!.split('|'));
           selectedMemberPositionCommu.value =
@@ -444,6 +450,7 @@ class ManageMemberController extends GetxController {
     // memberStationName.text = "";
     memberSurName.text = "";
     memberTelephone.text = "";
+    memberPreName.text = "";
     memberPositionCommuChips.clear();
     memberExpChips.clear();
     // addressController.selectedProvince.value = '';

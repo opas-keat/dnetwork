@@ -38,23 +38,27 @@ class Networks {
   String? networkPosition;
   String? networkPositionCommu;
   String? networkExp;
+  String? networkPreName;
 
-  Networks(
-      {this.id,this.networkStationId,
-      this.networkStationName,
-      this.province,
-      this.amphure,
-      this.district,
-      this.networkFirstName,
-      this.networkSurName,
-      this.networkIdCard,
-      this.networkBirthYear,
-      this.networkLocation,
-      this.networkDate,
-      this.networkTelephone,
-      this.networkPosition,
-      this.networkPositionCommu,
-      this.networkExp});
+  Networks({
+    this.id,
+    this.networkStationId,
+    this.networkStationName,
+    this.province,
+    this.amphure,
+    this.district,
+    this.networkFirstName,
+    this.networkSurName,
+    this.networkIdCard,
+    this.networkBirthYear,
+    this.networkLocation,
+    this.networkDate,
+    this.networkTelephone,
+    this.networkPosition,
+    this.networkPositionCommu,
+    this.networkExp,
+    this.networkPreName,
+  });
 
   Networks.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -73,11 +77,12 @@ class Networks {
     networkPosition = json['network_position'];
     networkPositionCommu = json['network_position_commu'];
     networkExp = json['network_exp'];
+    networkPreName = json['network_pre_name'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-     data['id'] = id;
+    data['id'] = id;
     data['network_station_id'] = networkStationId;
     data['network_station_name'] = networkStationName;
     data['province'] = province;
@@ -93,6 +98,7 @@ class Networks {
     data['network_position'] = networkPosition;
     data['network_position_commu'] = networkPositionCommu;
     data['network_exp'] = networkExp;
+    data['network_pre_name'] = networkPreName;
     return data;
   }
 }

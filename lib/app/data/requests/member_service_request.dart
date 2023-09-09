@@ -38,6 +38,7 @@ class Members {
   String? memberPosition;
   String? memberPositionCommu;
   String? memberExp;
+  String? memberPreName;
 
   Members(
       {this.id,this.memberStationId,
@@ -54,7 +55,8 @@ class Members {
       this.memberTelephone,
       this.memberPosition,
       this.memberPositionCommu,
-      this.memberExp});
+      this.memberExp,
+      this.memberPreName});
 
   Members.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -73,6 +75,7 @@ class Members {
     memberPosition = json['member_position'];
     memberPositionCommu = json['member_position_commu'];
     memberExp = json['member_exp'];
+    memberPreName = json['member_pre_name'];
   }
 
   Map<String, dynamic> toJson() {
@@ -93,6 +96,7 @@ class Members {
     data['member_position'] = memberPosition;
     data['member_position_commu'] = memberPositionCommu;
     data['member_exp'] = memberExp;
+    data['member_pre_name'] = memberPreName;
     return data;
   }
 }

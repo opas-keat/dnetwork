@@ -50,6 +50,12 @@ class NetworkStatistics extends StatelessWidget {
                           controller.offset.value = 0;
                           controller.currentPage = 1;
                           controller.listNetworkStatistics.clear();
+                          controller.addressController.selectedProvince.value =
+                              '';
+                          controller.addressController.selectedAmphure.value =
+                              '';
+                          controller.addressController.selectedTambol.value =
+                              '';
                           controller.listNetwork();
                         },
                         icon: const Icon(

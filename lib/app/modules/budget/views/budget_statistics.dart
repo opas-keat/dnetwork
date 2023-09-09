@@ -57,6 +57,12 @@ class BudgetStatistics extends StatelessWidget {
                               controller.offset.value = 0;
                               controller.currentPage = 1;
                               controller.listBudgetStatistics.clear();
+                              controller.addressController.selectedProvince
+                                  .value = '';
+                              controller
+                                  .addressController.selectedAmphure.value = '';
+                              controller
+                                  .addressController.selectedTambol.value = '';
                               controller.listBudget();
                             },
                             icon: const Icon(

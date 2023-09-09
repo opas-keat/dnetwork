@@ -46,6 +46,15 @@ class VillageStatistics extends StatelessWidget {
                       )
                     : IconButton(
                         onPressed: () {
+                          controller.offset.value = 0;
+                          controller.currentPage = 1;
+                          controller.listVillageStatistics.clear();
+                          controller.addressController.selectedProvince.value =
+                              '';
+                          controller.addressController.selectedAmphure.value =
+                              '';
+                          controller.addressController.selectedTambol.value =
+                              '';
                           controller.listVillage();
                         },
                         icon: const Icon(

@@ -50,6 +50,12 @@ class TrainingStatistics extends StatelessWidget {
                           controller.offset.value = 0;
                           controller.currentPage = 1;
                           controller.listTrainingStatistics.clear();
+                          controller.addressController.selectedProvince.value =
+                              '';
+                          controller.addressController.selectedAmphure.value =
+                              '';
+                          controller.addressController.selectedTambol.value =
+                              '';
                           controller.listTraining();
                         },
                         icon: const Icon(

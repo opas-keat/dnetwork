@@ -49,6 +49,12 @@ class MemberStatistics extends StatelessWidget {
                           controller.offset.value = 0;
                           controller.currentPage = 1;
                           controller.listMemberStatistics.clear();
+                          controller.addressController.selectedProvince.value =
+                              '';
+                          controller.addressController.selectedAmphure.value =
+                              '';
+                          controller.addressController.selectedTambol.value =
+                              '';
                           controller.listMember();
                         },
                         icon: const Icon(

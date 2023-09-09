@@ -35,22 +35,22 @@ class BudgetLayoutSmall extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const Spacer(flex: 2),
-            ElevatedButton.icon(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(
-                    vertical: defaultPadding, horizontal: defaultPadding / 2),
-              ),
-              icon: const Icon(
-                Icons.insert_drive_file_sharp,
-                size: 16,
-              ),
-              label: const CustomText(
-                text: "รายงาน",
-                color: Colors.white,
-                scale: 0.9,
-              ),
-            ),
+            // ElevatedButton.icon(
+            //   onPressed: () {},
+            //   style: ElevatedButton.styleFrom(
+            //     padding: const EdgeInsets.symmetric(
+            //         vertical: defaultPadding, horizontal: defaultPadding / 2),
+            //   ),
+            //   icon: const Icon(
+            //     Icons.insert_drive_file_sharp,
+            //     size: 16,
+            //   ),
+            //   label: const CustomText(
+            //     text: "รายงาน",
+            //     color: Colors.white,
+            //     scale: 0.9,
+            //   ),
+            // ),
             const SizedBox(width: defaultPadding / 2),
             ElevatedButton.icon(
               icon: const Icon(

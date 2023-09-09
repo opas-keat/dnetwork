@@ -32,21 +32,21 @@ class NetworkLayoutLarge extends StatelessWidget {
                 children: [
                   const ShowProvince(),
                   const Spacer(flex: 2),
-                  ElevatedButton.icon(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: defaultPadding,
-                          horizontal: defaultPadding / 2),
-                    ),
-                    icon: const Icon(
-                      Icons.insert_drive_file_sharp,
-                    ),
-                    label: const CustomText(
-                      text: "รายงาน",
-                      color: Colors.white,
-                    ),
-                  ),
+                  // ElevatedButton.icon(
+                  //   onPressed: () {},
+                  //   style: ElevatedButton.styleFrom(
+                  //     padding: const EdgeInsets.symmetric(
+                  //         vertical: defaultPadding,
+                  //         horizontal: defaultPadding / 2),
+                  //   ),
+                  //   icon: const Icon(
+                  //     Icons.insert_drive_file_sharp,
+                  //   ),
+                  //   label: const CustomText(
+                  //     text: "รายงาน",
+                  //     color: Colors.white,
+                  //   ),
+                  // ),
                   const SizedBox(width: defaultPadding / 2),
                   ElevatedButton.icon(
                     icon: const Icon(

@@ -80,10 +80,10 @@ class ManageDataDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
+      // mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Row(
-          children: [
+          children: <Widget>[
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -721,76 +721,72 @@ class ManageDataDetail extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: defaultPadding),
-                  Container(
-                    padding: const EdgeInsets.all(defaultPadding),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        // ElevatedButton.icon(
-                        //   onPressed: () async {
-                        //     final isValid =
-                        //         _formKeyCommiss.currentState!.validate();
-                        //     if (isValid) {
-                        //       Get.dialog(
-                        //         const Center(
-                        //           child: CircularProgressIndicator(),
-                        //         ),
-                        //         barrierDismissible: false,
-                        //       );
-                        //       await controller.save();
-                        //       Get.back();
-                        //     }
-                        //   },
-                        //   icon: const Icon(
-                        //     Icons.save_sharp,
-                        //   ),
-                        //   label: const CustomText(
-                        //     text: "บันทึก",
-                        //     color: Colors.white,
-                        //   ),
-                        // ),
-                        ElevatedButton.icon(
-                          onPressed: () async {
-                            controller.selectedIndexFromTable = -1;
-                            controller.commissStationName.text = '';
-                            controller.commissProvince.text = '';
-                            controller.commissAmphure.text = '';
-                            controller.commissTambol.text = '';
-                            controller.commissList.clear();
-                            controller.commissController.offset.value = 0;
-                            controller.commissController.currentPage = 1;
-                            controller.commissController.listCommissStatistics
-                                .clear();
-                            controller.resetForm();
-                            await controller.infoCardController
-                                .getSummaryInfo();
-                            await controller.commissController
-                                .listCommissPosition();
-                            await controller.commissController.listCommiss();
-                            Get.toNamed(Routes.COMMISS);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: defaultPadding,
-                                horizontal: defaultPadding / 2),
-                          ),
-                          icon: const Icon(
-                            Icons.exit_to_app_sharp,
-                          ),
-                          label: const CustomText(
-                            text: "ย้อนกลับ",
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: defaultPadding),
                 ],
               ),
             ),
           ),
         ),
+        Container(
+          padding: const EdgeInsets.all(defaultPadding),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              // ElevatedButton.icon(
+              //   onPressed: () async {
+              //     final isValid =
+              //         _formKeyCommiss.currentState!.validate();
+              //     if (isValid) {
+              //       Get.dialog(
+              //         const Center(
+              //           child: CircularProgressIndicator(),
+              //         ),
+              //         barrierDismissible: false,
+              //       );
+              //       await controller.save();
+              //       Get.back();
+              //     }
+              //   },
+              //   icon: const Icon(
+              //     Icons.save_sharp,
+              //   ),
+              //   label: const CustomText(
+              //     text: "บันทึก",
+              //     color: Colors.white,
+              //   ),
+              // ),
+              ElevatedButton.icon(
+                onPressed: () async {
+                  controller.selectedIndexFromTable = -1;
+                  controller.commissStationName.text = '';
+                  controller.commissProvince.text = '';
+                  controller.commissAmphure.text = '';
+                  controller.commissTambol.text = '';
+                  controller.commissList.clear();
+                  controller.commissController.offset.value = 0;
+                  controller.commissController.currentPage = 1;
+                  controller.commissController.listCommissStatistics.clear();
+                  controller.resetForm();
+                  await controller.infoCardController.getSummaryInfo();
+                  await controller.commissController.listCommissPosition();
+                  await controller.commissController.listCommiss();
+                  Get.toNamed(Routes.COMMISS);
+                },
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: defaultPadding, horizontal: defaultPadding / 2),
+                ),
+                icon: const Icon(
+                  Icons.exit_to_app_sharp,
+                ),
+                label: const CustomText(
+                  text: "ย้อนกลับ",
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: defaultPadding),
       ],
     );
   }

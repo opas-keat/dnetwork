@@ -727,81 +727,77 @@ class ManageDataDetailNetwork extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: defaultPadding),
-                  Container(
-                    padding: const EdgeInsets.all(defaultPadding),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        // ElevatedButton.icon(
-                        //   onPressed: () async {
-                        //     final isValid =
-                        //         _formKeyNetwork.currentState!.validate();
-                        //     if (isValid) {
-                        //       Get.dialog(
-                        //         const Center(
-                        //           child: CircularProgressIndicator(),
-                        //         ),
-                        //         barrierDismissible: false,
-                        //       );
-                        //       await controller.save();
-                        //       Get.back();
-                        //     }
-                        //   },
-                        //   style: ElevatedButton.styleFrom(
-                        //     padding: const EdgeInsets.symmetric(
-                        //         vertical: defaultPadding,
-                        //         horizontal: defaultPadding / 2),
-                        //   ),
-                        //   icon: const Icon(
-                        //     Icons.save_sharp,
-                        //   ),
-                        //   label: const CustomText(
-                        //     text: "บันทึก",
-                        //     color: Colors.white,
-                        //   ),
-                        // ),
-                        ElevatedButton.icon(
-                          onPressed: () async {
-                            controller.selectedIndexFromTable = -1;
-                            controller.networkStationName.text = '';
-                            controller.networkProvince.text = '';
-                            controller.networkAmphure.text = '';
-                            controller.networkTambol.text = '';
-                            controller.networkList.clear();
-                            controller.networkController.offset.value = 0;
-                            controller.networkController.currentPage = 1;
-                            controller.networkController.listNetworkStatistics
-                                .clear();
-                            controller.resetForm();
-                            await controller.infoCardController
-                                .getSummaryInfo();
-                            await controller.networkController
-                                .listNetworkPosition();
-                            await controller.networkController.listNetwork();
-                            Get.toNamed(Routes.NETWORK);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: defaultPadding,
-                                horizontal: defaultPadding / 2),
-                          ),
-                          icon: const Icon(
-                            Icons.exit_to_app_sharp,
-                          ),
-                          label: const CustomText(
-                            text: "ย้อนกลับ",
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: defaultPadding),
                 ],
               ),
             ),
           ),
         ),
+        Container(
+          padding: const EdgeInsets.all(defaultPadding),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              // ElevatedButton.icon(
+              //   onPressed: () async {
+              //     final isValid =
+              //         _formKeyNetwork.currentState!.validate();
+              //     if (isValid) {
+              //       Get.dialog(
+              //         const Center(
+              //           child: CircularProgressIndicator(),
+              //         ),
+              //         barrierDismissible: false,
+              //       );
+              //       await controller.save();
+              //       Get.back();
+              //     }
+              //   },
+              //   style: ElevatedButton.styleFrom(
+              //     padding: const EdgeInsets.symmetric(
+              //         vertical: defaultPadding,
+              //         horizontal: defaultPadding / 2),
+              //   ),
+              //   icon: const Icon(
+              //     Icons.save_sharp,
+              //   ),
+              //   label: const CustomText(
+              //     text: "บันทึก",
+              //     color: Colors.white,
+              //   ),
+              // ),
+              ElevatedButton.icon(
+                onPressed: () async {
+                  controller.selectedIndexFromTable = -1;
+                  controller.networkStationName.text = '';
+                  controller.networkProvince.text = '';
+                  controller.networkAmphure.text = '';
+                  controller.networkTambol.text = '';
+                  controller.networkList.clear();
+                  controller.networkController.offset.value = 0;
+                  controller.networkController.currentPage = 1;
+                  controller.networkController.listNetworkStatistics.clear();
+                  controller.resetForm();
+                  await controller.infoCardController.getSummaryInfo();
+                  await controller.networkController.listNetworkPosition();
+                  await controller.networkController.listNetwork();
+                  Get.toNamed(Routes.NETWORK);
+                },
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: defaultPadding, horizontal: defaultPadding / 2),
+                ),
+                icon: const Icon(
+                  Icons.exit_to_app_sharp,
+                ),
+                label: const CustomText(
+                  text: "ย้อนกลับ",
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: defaultPadding),
       ],
     );
   }

@@ -46,7 +46,7 @@ class NetworkView extends GetView<NetworkController> {
           smallScreen: Container(
             padding: const EdgeInsets.all(defaultPadding / 2),
             // color: Colors.amber,
-            child: const SingleChildScrollView(
+            child: SingleChildScrollView(
               primary: true,
               child: Column(
                 children: [
@@ -58,7 +58,7 @@ class NetworkView extends GetView<NetworkController> {
           mediumScreen: Container(
             padding: const EdgeInsets.all(defaultPadding),
             // color: Colors.amber,
-            child: const SingleChildScrollView(
+            child: SingleChildScrollView(
               primary: true,
               child: Column(
                 children: [

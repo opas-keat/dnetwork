@@ -27,134 +27,20 @@ class CommissSearch extends StatelessWidget {
         // color: Colors.amber,
         // padding: const EdgeInsets.symmetric(vertical: defaultPadding * 4),
         width: 480,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            CustomText(
-              text: "ชื่อ ศส.ปชต.",
-              color: Colors.black87.withOpacity(.9),
-            ),
-            const SizedBox(height: defaultPadding / 2),
-            TextFormField(
-              controller: controller.commissStationName,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                fillColor: Colors.white.withOpacity(.8),
-                filled: true,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(defaultPadding / 2),
-                  borderSide: const BorderSide(color: Colors.black54, width: 1),
-                ),
-                isCollapsed: true,
-                contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
+        height: 640,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              CustomText(
+                text: "ชื่อ ศส.ปชต.",
+                color: Colors.black87.withOpacity(.9),
               ),
-            ),
-            const SizedBox(height: defaultPadding),
-            CustomText(
-              text: "ชื่อ",
-              color: Colors.black87.withOpacity(.9),
-            ),
-            const SizedBox(height: defaultPadding / 2),
-            TextFormField(
-              controller: controller.commissFirstName,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                fillColor: Colors.white.withOpacity(.8),
-                filled: true,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(defaultPadding / 2),
-                  borderSide: const BorderSide(color: Colors.black54, width: 1),
-                ),
-                isCollapsed: true,
-                contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-              ),
-            ),
-            const SizedBox(height: defaultPadding),
-            CustomText(
-              text: "นามสกุล",
-              color: Colors.black87.withOpacity(.9),
-            ),
-            const SizedBox(height: defaultPadding / 2),
-            TextFormField(
-              controller: controller.commissSurName,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                fillColor: Colors.white.withOpacity(.8),
-                filled: true,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(defaultPadding / 2),
-                  borderSide: const BorderSide(color: Colors.black54, width: 1),
-                ),
-                isCollapsed: true,
-                contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-              ),
-            ),
-            const SizedBox(height: defaultPadding),
-            CustomText(
-              text: "วันที่แต่งตั้ง",
-              color: Colors.black87.withOpacity(.9),
-            ),
-            const SizedBox(height: defaultPadding / 2),
-            TextFormField(
-              controller: controller.commissDate,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                fillColor: Colors.white.withOpacity(.8),
-                filled: true,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(defaultPadding / 2),
-                  borderSide: const BorderSide(color: Colors.black54, width: 1),
-                ),
-                isCollapsed: true,
-                contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-              ),
-            ),
-            const SizedBox(height: defaultPadding),
-            CustomText(
-              text: "เบอร์โทร",
-              color: Colors.black87.withOpacity(.9),
-            ),
-            const SizedBox(height: defaultPadding / 2),
-            TextFormField(
-              controller: controller.commissTelephone,
-              keyboardType: TextInputType.number,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter.digitsOnly,
-                LengthLimitingTextInputFormatter(10),
-              ],
-              decoration: InputDecoration(
-                fillColor: Colors.white.withOpacity(.8),
-                filled: true,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(defaultPadding / 2),
-                  borderSide: const BorderSide(color: Colors.black54, width: 1),
-                ),
-                isCollapsed: true,
-                contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-              ),
-            ),
-            const SizedBox(height: defaultPadding),
-            AddressView(
-              showAmphure: true,
-              showTambol: true,
-              showPostCode: false,
-            ),
-            const SizedBox(height: defaultPadding),
-            Wrap(
-              direction: Axis.horizontal,
-              children: [
-                CustomText(
-                  text: "ตำแหน่งใน ศส.ปชต.",
-                  color: Colors.black87.withOpacity(.9),
-                ),
-              ],
-            ),
-            const SizedBox(height: defaultPadding / 2),
-            Obx(
-              () => DropdownButtonFormField<String>(
-                isDense: true,
-                isExpanded: true,
+              const SizedBox(height: defaultPadding / 2),
+              TextFormField(
+                controller: controller.commissStationName,
+                keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   fillColor: Colors.white.withOpacity(.8),
                   filled: true,
@@ -166,23 +52,145 @@ class CommissSearch extends StatelessWidget {
                   isCollapsed: true,
                   contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
                 ),
-                value: controller.selectedCommissPosition.value,
-                onChanged: (newValue) {
-                  controller.selectedCommissPosition.value = newValue!;
-                },
-                items: controller.commissPositionList.obs.value.map((item) {
-                  return DropdownMenuItem<String>(
-                    value: item,
-                    child: Text(
-                      item,
-                      textScaleFactor: 0.9,
-                    ),
-                  );
-                }).toList(),
               ),
-            ),
-            const SizedBox(height: defaultPadding),
-          ],
+              const SizedBox(height: defaultPadding),
+              CustomText(
+                text: "ชื่อ",
+                color: Colors.black87.withOpacity(.9),
+              ),
+              const SizedBox(height: defaultPadding / 2),
+              TextFormField(
+                controller: controller.commissFirstName,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  fillColor: Colors.white.withOpacity(.8),
+                  filled: true,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(defaultPadding / 2),
+                    borderSide:
+                        const BorderSide(color: Colors.black54, width: 1),
+                  ),
+                  isCollapsed: true,
+                  contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                ),
+              ),
+              const SizedBox(height: defaultPadding),
+              CustomText(
+                text: "นามสกุล",
+                color: Colors.black87.withOpacity(.9),
+              ),
+              const SizedBox(height: defaultPadding / 2),
+              TextFormField(
+                controller: controller.commissSurName,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  fillColor: Colors.white.withOpacity(.8),
+                  filled: true,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(defaultPadding / 2),
+                    borderSide:
+                        const BorderSide(color: Colors.black54, width: 1),
+                  ),
+                  isCollapsed: true,
+                  contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                ),
+              ),
+              const SizedBox(height: defaultPadding),
+              CustomText(
+                text: "วันที่แต่งตั้ง",
+                color: Colors.black87.withOpacity(.9),
+              ),
+              const SizedBox(height: defaultPadding / 2),
+              TextFormField(
+                controller: controller.commissDate,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  fillColor: Colors.white.withOpacity(.8),
+                  filled: true,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(defaultPadding / 2),
+                    borderSide:
+                        const BorderSide(color: Colors.black54, width: 1),
+                  ),
+                  isCollapsed: true,
+                  contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                ),
+              ),
+              const SizedBox(height: defaultPadding),
+              CustomText(
+                text: "เบอร์โทร",
+                color: Colors.black87.withOpacity(.9),
+              ),
+              const SizedBox(height: defaultPadding / 2),
+              TextFormField(
+                controller: controller.commissTelephone,
+                keyboardType: TextInputType.number,
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.digitsOnly,
+                  LengthLimitingTextInputFormatter(10),
+                ],
+                decoration: InputDecoration(
+                  fillColor: Colors.white.withOpacity(.8),
+                  filled: true,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(defaultPadding / 2),
+                    borderSide:
+                        const BorderSide(color: Colors.black54, width: 1),
+                  ),
+                  isCollapsed: true,
+                  contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                ),
+              ),
+              const SizedBox(height: defaultPadding),
+              AddressView(
+                showAmphure: true,
+                showTambol: true,
+                showPostCode: false,
+              ),
+              const SizedBox(height: defaultPadding),
+              Wrap(
+                direction: Axis.horizontal,
+                children: [
+                  CustomText(
+                    text: "ตำแหน่งใน ศส.ปชต.",
+                    color: Colors.black87.withOpacity(.9),
+                  ),
+                ],
+              ),
+              const SizedBox(height: defaultPadding / 2),
+              Obx(
+                () => DropdownButtonFormField<String>(
+                  isDense: true,
+                  isExpanded: true,
+                  decoration: InputDecoration(
+                    fillColor: Colors.white.withOpacity(.8),
+                    filled: true,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(defaultPadding / 2),
+                      borderSide:
+                          const BorderSide(color: Colors.black54, width: 1),
+                    ),
+                    isCollapsed: true,
+                    contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                  ),
+                  value: controller.selectedCommissPosition.value,
+                  onChanged: (newValue) {
+                    controller.selectedCommissPosition.value = newValue!;
+                  },
+                  items: controller.commissPositionList.obs.value.map((item) {
+                    return DropdownMenuItem<String>(
+                      value: item,
+                      child: Text(
+                        item,
+                        textScaleFactor: 0.9,
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ),
+              const SizedBox(height: defaultPadding),
+            ],
+          ),
         ),
       ),
       actions: [

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../responsive.dart';
-import '../../../data/models/lectuter_statistics_data.dart';
+import '../../../data/responses/lectuter_service_response.dart';
 import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
@@ -97,14 +97,17 @@ class LectuterLayoutSmall extends StatelessWidget {
                   ],
                 ),
                 accentDivider,
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: listLectuterStatisticsData.length,
-                  itemBuilder: (context, index) {
-                    return LectuterStatisticsSmallRow(
-                        index, listLectuterStatisticsData[index]);
-                  },
+                Obx(
+                  () => ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount:
+                        controller.listLectuterStatistics.obs.value.length,
+                    itemBuilder: (context, index) {
+                      return LectuterStatisticsSmallRow(
+                          index, controller.listLectuterStatistics[index]);
+                    },
+                  ),
                 ),
               ],
             ),
@@ -132,7 +135,7 @@ class LectuterLayoutSmall extends StatelessWidget {
 
 Widget LectuterStatisticsSmallRow(
   int index,
-  LectuterStatisticsData lectuterStatisticsData,
+  LectuterData lectuterData,
 ) {
   return Row(
     children: [
@@ -150,24 +153,24 @@ Widget LectuterStatisticsSmallRow(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomText(
-                text: "ชื่อ-นามสกุล : ${lectuterStatisticsData.name} ",
+                text: "ชื่อ-นามสกุล : ${lectuterData.name} ",
                 scale: 0.9,
               ),
               CustomText(
-                text: "เบอร์โทรศัพท์ : ${lectuterStatisticsData.telephone} ",
+                text: "เบอร์โทรศัพท์ : ${lectuterData.lectuterTelephone} ",
                 scale: 0.9,
               ),
               CustomText(
-                text: "หน่วยงาน : ${lectuterStatisticsData.agency}",
+                text: "หน่วยงาน : ${lectuterData.lectuterAgency}",
                 scale: 0.9,
               ),
               CustomText(
-                text: "สังกัดวิทยากร : ${lectuterStatisticsData.affiliate}",
+                text: "สังกัดวิทยากร : ${lectuterData.lectuterAffiliate}",
                 scale: 0.9,
                 maxLine: 2,
               ),
               CustomText(
-                text: "จังหวัด : ${lectuterStatisticsData.province}",
+                text: "จังหวัด : ${lectuterData.province}",
                 scale: 0.9,
               ),
               const SizedBox(height: defaultPadding / 4),

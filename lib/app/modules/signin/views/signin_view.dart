@@ -1,4 +1,5 @@
-import 'package:universal_html/html.dart' as html;
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -223,13 +224,13 @@ class SigninView extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               CustomText(
-                                text: "Version 0.0.5",
+                                text: "Version 0.0.7",
                                 color: Colors.white.withOpacity(.9),
                                 scale: 0.9,
                               ),
                               IconButton(
                                 onPressed: () {
-                                  html.window.location.reload();
+                                  window.location.reload();
                                 },
                                 icon: const Icon(
                                   Icons.refresh_sharp,

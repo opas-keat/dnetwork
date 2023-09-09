@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import '../../../../responsive.dart';
 import '../../../data/models/summary_chart.dart';
-import '../../../data/models/village_statistics_data.dart';
+import '../../../data/responses/village_service_response.dart';
 import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
@@ -11,11 +11,13 @@ import '../../../shared/info_card.dart';
 import '../../../shared/main_chart.dart';
 import '../../../shared/show_province.dart';
 import '../../../shared/utils.dart';
+import '../controllers/village_controller.dart';
 
 class VillageLayoutSmall extends StatelessWidget {
-  const VillageLayoutSmall({
+  VillageLayoutSmall({
     super.key,
   });
+  final VillageController controller = Get.find<VillageController>();
 
   @override
   Widget build(BuildContext context) {
@@ -97,14 +99,17 @@ class VillageLayoutSmall extends StatelessWidget {
                   ],
                 ),
                 accentDivider,
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: listVillageStatisticsData.length,
-                  itemBuilder: (context, index) {
-                    return VillageStatisticsSmallRow(
-                        index, listVillageStatisticsData[index]);
-                  },
+                Obx(
+                  () => ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount:
+                        controller.listVillageStatistics.obs.value.length,
+                    itemBuilder: (context, index) {
+                      return VillageStatisticsSmallRow(
+                          index, controller.listVillageStatistics[index]);
+                    },
+                  ),
                 ),
               ],
             ),
@@ -123,7 +128,7 @@ class VillageLayoutSmall extends StatelessWidget {
 
 Widget VillageStatisticsSmallRow(
   int index,
-  VillageStatisticsData villageStatisticsData,
+  VillageData villageData,
 ) {
   return Row(
     children: [
@@ -141,21 +146,22 @@ Widget VillageStatisticsSmallRow(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomText(
-                text: "ชื่อหมู่บ้าน : ${villageStatisticsData.name} ",
+                text: "ชื่อหมู่บ้าน : ${villageData.villageName} ",
                 scale: 0.9,
               ),
               CustomText(
-                text: "หมู่ที่/บ้านเลขที่ : ${villageStatisticsData.no}",
+                text: "หมู่ที่/บ้านเลขที่ : ${villageData.villageNo}",
                 scale: 0.9,
               ),
               CustomText(
-                text: "จังหวัด/อำเภอ/ตำบล : ${villageStatisticsData.address}",
+                text:
+                    "จังหวัด/อำเภอ/ตำบล : ${villageData.province!}/${villageData.amphure!}/${villageData.district!}",
                 scale: 0.9,
                 maxLine: 2,
               ),
               CustomText(
                 text:
-                    "จำนวนครัวเรือน : ${formatterItem.format(villageStatisticsData.total)}",
+                    "จำนวนครัวเรือน : ${formatterItem.format(villageData.villageTotal)}",
                 scale: 0.9,
               ),
               const SizedBox(height: defaultPadding / 4),

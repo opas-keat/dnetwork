@@ -23,129 +23,137 @@ class MemberSearch extends StatelessWidget {
         // color: Colors.amber,
         // padding: const EdgeInsets.symmetric(vertical: defaultPadding * 4),
         width: 480,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            CustomText(
-              text: "ชื่อ ศส.ปชต.",
-              color: Colors.black87.withOpacity(.9),
-            ),
-            const SizedBox(height: defaultPadding / 2),
-            TextFormField(
-              controller: controller.memberStationName,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                fillColor: Colors.white.withOpacity(.8),
-                filled: true,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(defaultPadding / 2),
-                  borderSide: const BorderSide(color: Colors.black54, width: 1),
-                ),
-                isCollapsed: true,
-                contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
+        height: 640,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              CustomText(
+                text: "ชื่อ ศส.ปชต.",
+                color: Colors.black87.withOpacity(.9),
               ),
-            ),
-            const SizedBox(height: defaultPadding),
-            CustomText(
-              text: "ชื่อ",
-              color: Colors.black87.withOpacity(.9),
-            ),
-            const SizedBox(height: defaultPadding / 2),
-            TextFormField(
-              controller: controller.memberFirstName,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                fillColor: Colors.white.withOpacity(.8),
-                filled: true,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(defaultPadding / 2),
-                  borderSide: const BorderSide(color: Colors.black54, width: 1),
+              const SizedBox(height: defaultPadding / 2),
+              TextFormField(
+                controller: controller.memberStationName,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  fillColor: Colors.white.withOpacity(.8),
+                  filled: true,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(defaultPadding / 2),
+                    borderSide:
+                        const BorderSide(color: Colors.black54, width: 1),
+                  ),
+                  isCollapsed: true,
+                  contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
                 ),
-                isCollapsed: true,
-                contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
               ),
-            ),
-            const SizedBox(height: defaultPadding),
-            CustomText(
-              text: "นามสกุล",
-              color: Colors.black87.withOpacity(.9),
-            ),
-            const SizedBox(height: defaultPadding / 2),
-            TextFormField(
-              controller: controller.memberSurName,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                fillColor: Colors.white.withOpacity(.8),
-                filled: true,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(defaultPadding / 2),
-                  borderSide: const BorderSide(color: Colors.black54, width: 1),
+              const SizedBox(height: defaultPadding),
+              CustomText(
+                text: "ชื่อ",
+                color: Colors.black87.withOpacity(.9),
+              ),
+              const SizedBox(height: defaultPadding / 2),
+              TextFormField(
+                controller: controller.memberFirstName,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  fillColor: Colors.white.withOpacity(.8),
+                  filled: true,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(defaultPadding / 2),
+                    borderSide:
+                        const BorderSide(color: Colors.black54, width: 1),
+                  ),
+                  isCollapsed: true,
+                  contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
                 ),
-                isCollapsed: true,
-                contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
               ),
-            ),
-            const SizedBox(height: defaultPadding),
-            CustomText(
-              text: "เลขที่บัตรประชาชน",
-              color: Colors.black87.withOpacity(.9),
-            ),
-            const SizedBox(height: defaultPadding / 2),
-            TextFormField(
-              controller: controller.memberIdCard,
-              keyboardType: TextInputType.number,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter.digitsOnly,
-                LengthLimitingTextInputFormatter(13),
-              ],
-              decoration: InputDecoration(
-                fillColor: Colors.white.withOpacity(.8),
-                filled: true,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(defaultPadding / 2),
-                  borderSide: const BorderSide(color: Colors.black54, width: 1),
+              const SizedBox(height: defaultPadding),
+              CustomText(
+                text: "นามสกุล",
+                color: Colors.black87.withOpacity(.9),
+              ),
+              const SizedBox(height: defaultPadding / 2),
+              TextFormField(
+                controller: controller.memberSurName,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  fillColor: Colors.white.withOpacity(.8),
+                  filled: true,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(defaultPadding / 2),
+                    borderSide:
+                        const BorderSide(color: Colors.black54, width: 1),
+                  ),
+                  isCollapsed: true,
+                  contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
                 ),
-                isCollapsed: true,
-                contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
               ),
-            ),
-            const SizedBox(height: defaultPadding),
-            CustomText(
-              text: "เบอร์โทร",
-              color: Colors.black87.withOpacity(.9),
-            ),
-            const SizedBox(height: defaultPadding / 2),
-            TextFormField(
-              controller: controller.memberTelephone,
-              keyboardType: TextInputType.number,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter.digitsOnly,
-                LengthLimitingTextInputFormatter(10),
-              ],
-              decoration: InputDecoration(
-                fillColor: Colors.white.withOpacity(.8),
-                filled: true,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(defaultPadding / 2),
-                  borderSide: const BorderSide(color: Colors.black54, width: 1),
+              const SizedBox(height: defaultPadding),
+              CustomText(
+                text: "เลขที่บัตรประชาชน",
+                color: Colors.black87.withOpacity(.9),
+              ),
+              const SizedBox(height: defaultPadding / 2),
+              TextFormField(
+                controller: controller.memberIdCard,
+                keyboardType: TextInputType.number,
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.digitsOnly,
+                  LengthLimitingTextInputFormatter(13),
+                ],
+                decoration: InputDecoration(
+                  fillColor: Colors.white.withOpacity(.8),
+                  filled: true,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(defaultPadding / 2),
+                    borderSide:
+                        const BorderSide(color: Colors.black54, width: 1),
+                  ),
+                  isCollapsed: true,
+                  contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
                 ),
-                isCollapsed: true,
-                contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
               ),
-            ),
-            const SizedBox(height: defaultPadding),
-            AddressView(
-              showAmphure: false,
-              showTambol: false,
-              showPostCode: false,
-            ),
-            const SizedBox(height: defaultPadding),
-            // const CustomText(
-            //   text: 'รายชื่อร้านค้า',
-            // ),
-            // const SizedBox(height: defaultPadding),
-          ],
+              const SizedBox(height: defaultPadding),
+              CustomText(
+                text: "เบอร์โทร",
+                color: Colors.black87.withOpacity(.9),
+              ),
+              const SizedBox(height: defaultPadding / 2),
+              TextFormField(
+                controller: controller.memberTelephone,
+                keyboardType: TextInputType.number,
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.digitsOnly,
+                  LengthLimitingTextInputFormatter(10),
+                ],
+                decoration: InputDecoration(
+                  fillColor: Colors.white.withOpacity(.8),
+                  filled: true,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(defaultPadding / 2),
+                    borderSide:
+                        const BorderSide(color: Colors.black54, width: 1),
+                  ),
+                  isCollapsed: true,
+                  contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                ),
+              ),
+              const SizedBox(height: defaultPadding),
+              AddressView(
+                showAmphure: false,
+                showTambol: false,
+                showPostCode: false,
+              ),
+              const SizedBox(height: defaultPadding),
+              // const CustomText(
+              //   text: 'รายชื่อร้านค้า',
+              // ),
+              // const SizedBox(height: defaultPadding),
+            ],
+          ),
         ),
       ),
       actions: [

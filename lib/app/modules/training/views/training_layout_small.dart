@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../responsive.dart';
-import '../../../data/models/training_statistics_data.dart';
+import '../../../data/responses/training_service_response.dart';
 import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
@@ -88,14 +88,17 @@ class TrainingLayoutSmall extends StatelessWidget {
                   ],
                 ),
                 accentDividerTop,
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: listTrainingStatisticsData.length,
-                  itemBuilder: (context, index) {
-                    return TrainingStatisticsSmallRow(
-                        index, listTrainingStatisticsData[index]);
-                  },
+                Obx(
+                  () => ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount:
+                        controller.listTrainingStatistics.obs.value.length,
+                    itemBuilder: (context, index) {
+                      return TrainingStatisticsSmallRow(
+                          index, controller.listTrainingStatistics[index]);
+                    },
+                  ),
                 ),
               ],
             ),
@@ -123,7 +126,7 @@ class TrainingLayoutSmall extends StatelessWidget {
 
 Widget TrainingStatisticsSmallRow(
   int index,
-  TrainingStatisticsData trainingStatisticsData,
+  TrainingData trainingData,
 ) {
   return Row(
     children: [
@@ -142,16 +145,17 @@ Widget TrainingStatisticsSmallRow(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomText(
-                text: "ชื่อโครงการฝึกอบรม : ${trainingStatisticsData.name} ",
+                text: "ชื่อโครงการฝึกอบรม : ${trainingData.trainingName} ",
                 scale: 0.9,
                 maxLine: 2,
               ),
               CustomText(
-                text: "ระหว่างวัน : ${trainingStatisticsData.date}",
+                text:
+                    "ระหว่างวัน : ${trainingData.trainingDateForm!} ถึง ${trainingData.trainingDateTo!}",
                 scale: 0.9,
               ),
               CustomText(
-                text: "ประเภทการฝีกอบรม : ${trainingStatisticsData.type}",
+                text: "ประเภทการฝีกอบรม : ${trainingData.trainingType}",
                 scale: 0.9,
               ),
               // CustomText(
@@ -161,12 +165,12 @@ Widget TrainingStatisticsSmallRow(
               //   maxLine: 2,
               // ),
               CustomText(
-                text: "จังหวัด : ${trainingStatisticsData.province}",
+                text: "จังหวัด : ${trainingData.province}",
                 scale: 0.9,
               ),
               CustomText(
                 text:
-                    "จำนวนผู้ฝึกอบรม : ${formatterItem.format(trainingStatisticsData.total)}",
+                    "จำนวนผู้ฝึกอบรม : ${formatterItem.format(trainingData.trainingTotal)}",
                 scale: 0.9,
               ),
               const SizedBox(height: defaultPadding / 4),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../data/models/station_statistics_data.dart';
+import '../../../data/responses/station_service_response.dart';
 import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
@@ -9,11 +9,13 @@ import '../../../shared/info_card.dart';
 import '../../../shared/main_chart.dart';
 import '../../../shared/show_province.dart';
 import '../../training/controllers/training_controller.dart';
+import '../controllers/station_controller.dart';
 
 class StationLayoutSmall extends StatelessWidget {
-  const StationLayoutSmall({
+  StationLayoutSmall({
     super.key,
   });
+  final StationController stationController = Get.find<StationController>();
 
   @override
   Widget build(BuildContext context) {
@@ -98,14 +100,17 @@ class StationLayoutSmall extends StatelessWidget {
                   ],
                 ),
                 accentDivider,
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: listStationStatisticsDataModel.length,
-                  itemBuilder: (context, index) {
-                    return DashboardStatisticsSmallRow(
-                        index, listStationStatisticsDataModel[index]);
-                  },
+                Obx(
+                  () => ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: stationController
+                        .listStationStatistics.obs.value.length,
+                    itemBuilder: (context, index) {
+                      return DashboardStatisticsSmallRow(index,
+                          stationController.listStationStatistics[index]);
+                    },
+                  ),
                 ),
               ],
             ),
@@ -132,7 +137,9 @@ class StationLayoutSmall extends StatelessWidget {
 }
 
 Widget DashboardStatisticsSmallRow(
-    int index, StationStatisticsData stationStatisticsData) {
+  int index,
+  StationData stationData,
+) {
   return Row(
     children: [
       // Image.network(
@@ -153,13 +160,13 @@ Widget DashboardStatisticsSmallRow(
               Wrap(
                 children: [
                   Text(
-                    "ชื่อ : ${stationStatisticsData.name} ",
+                    "ชื่อ : ${stationData.name} ",
                   ),
                   Text(
-                    "ที่อยู่ : ${stationStatisticsData.address}",
+                    "ที่อยู่ : ${stationData.province!}/${stationData.amphure!}/${stationData.district!}",
                   ),
                   Text(
-                    "จำนวนกรรมการ/สมาชิก : ${stationStatisticsData.totalCommiss}/${stationStatisticsData.totalMember}",
+                    "จำนวนกรรมการ/สมาชิก : ${stationData.totalCommiss}/${stationData.totalMember}",
                   ),
                 ],
               ),

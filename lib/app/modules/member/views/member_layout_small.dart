@@ -1,9 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../responsive.dart';
-import '../../../data/models/member_statistics_data.dart';
+import '../../../data/responses/member_service_response.dart';
 import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
@@ -13,7 +12,7 @@ import '../../../shared/show_province.dart';
 import '../controllers/member_controller.dart';
 
 class MemberLayoutSmall extends StatelessWidget {
-  const MemberLayoutSmall({
+  MemberLayoutSmall({
     super.key,
   });
   @override
@@ -97,14 +96,16 @@ class MemberLayoutSmall extends StatelessWidget {
                   ],
                 ),
                 accentDividerTop,
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: listMemberStatisticsData.length,
-                  itemBuilder: (context, index) {
-                    return CommissStatisticsSmallRow(
-                        index, listMemberStatisticsData[index]);
-                  },
+                Obx(
+                  () => ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: controller.listMemberStatistics.obs.value.length,
+                    itemBuilder: (context, index) {
+                      return CommissStatisticsSmallRow(
+                          index, controller.listMemberStatistics[index]);
+                    },
+                  ),
                 ),
               ],
             ),
@@ -132,7 +133,7 @@ class MemberLayoutSmall extends StatelessWidget {
 
 Widget CommissStatisticsSmallRow(
   int index,
-  MemberStatisticsData memberStatisticsData,
+  MemberData memberData,
 ) {
   return Row(
     children: [
@@ -151,28 +152,30 @@ Widget CommissStatisticsSmallRow(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomText(
-                text: "ชื่อ-นามสกุล : ${memberStatisticsData.name} ",
+                text:
+                    "ชื่อ-นามสกุล : ${memberData.memberFirstName!} ${memberData.memberSurName!}",
                 scale: 0.9,
               ),
               CustomText(
-                text: "เบอร์โทร : ${memberStatisticsData.telephone}",
+                text: "เบอร์โทร : ${memberData.memberTelephone}",
                 scale: 0.9,
               ),
               CustomText(
-                text: "ตำแหน่ง : ${memberStatisticsData.position}",
+                text: "ตำแหน่ง : ${memberData.memberPosition}",
                 scale: 0.9,
               ),
               CustomText(
-                text: "ว/ด/ป/ แต่งตั้ง : ${memberStatisticsData.memberDate}",
+                text: "ว/ด/ป/ แต่งตั้ง : ${memberData.memberDate}",
                 scale: 0.9,
               ),
               CustomText(
-                text: "สังกัด ศส.ปชต. : ${memberStatisticsData.memberLocation}",
+                text: "สังกัด ศส.ปชต. : ${memberData.memberLocation}",
                 scale: 0.9,
                 maxLine: 2,
               ),
               CustomText(
-                text: "จังหวัด/อำเภอ/ตำบล : ${memberStatisticsData.address}",
+                text:
+                    "จังหวัด/อำเภอ/ตำบล : ${memberData.province}/${memberData.amphure}/${memberData.district}",
                 scale: 0.9,
               ),
               const SizedBox(height: defaultPadding / 4),

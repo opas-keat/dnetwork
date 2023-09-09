@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../../responsive.dart';
 import '../../../data/models/province_summary.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/utils.dart';
+import '../controllers/dashboard_controller.dart';
 
 class DashboardStatisticsSmall extends StatelessWidget {
-  const DashboardStatisticsSmall({
+  DashboardStatisticsSmall({
     super.key,
   });
+  final DashboardController controller = Get.find<DashboardController>();
 
   @override
   Widget build(BuildContext context) {
@@ -33,17 +36,19 @@ class DashboardStatisticsSmall extends StatelessWidget {
               ],
             ),
             accentDivider,
-            ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: listProvinceSummaryData.length,
-              itemBuilder: (context, index) {
-                return DashboardStatisticsSmallRow(
-                  context,
-                  index,
-                  listProvinceSummaryData[index],
-                );
-              },
+            Obx(
+              () => ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: controller.listProvinceSummary.obs.value.length,
+                itemBuilder: (context, index) {
+                  return DashboardStatisticsSmallRow(
+                    context,
+                    index,
+                    controller.listProvinceSummary[index],
+                  );
+                },
+              ),
             ),
           ],
         ),

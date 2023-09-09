@@ -49,7 +49,7 @@ class DashboardLayoutSmall extends StatelessWidget {
           // listSummaryInfo: listDashboardSummaryInfo,
         ),
         const SizedBox(height: defaultPadding / 2),
-        const DashboardStatisticsSmall(),
+        DashboardStatisticsSmall(),
         const SizedBox(height: defaultPadding / 2),
         GetBuilder<TrainingController>(
           builder: (_) => controller.isLoadingChart.value

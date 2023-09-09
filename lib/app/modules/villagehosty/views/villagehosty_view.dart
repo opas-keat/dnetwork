@@ -48,7 +48,7 @@ class VillagehostyView extends StatelessWidget {
           smallScreen: Container(
             padding: const EdgeInsets.all(defaultPadding / 2),
             // color: Colors.amber,
-            child: const SingleChildScrollView(
+            child: SingleChildScrollView(
               primary: true,
               child: Column(
                 children: [
@@ -60,7 +60,7 @@ class VillagehostyView extends StatelessWidget {
           mediumScreen: Container(
             padding: const EdgeInsets.all(defaultPadding),
             // color: Colors.amber,
-            child: const SingleChildScrollView(
+            child: SingleChildScrollView(
               primary: true,
               child: Column(
                 children: [

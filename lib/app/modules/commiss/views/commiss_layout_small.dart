@@ -4,17 +4,20 @@ import 'package:get/get.dart';
 import '../../../../responsive.dart';
 import '../../../data/models/commiss_statistics_data.dart';
 import '../../../data/models/summary_chart.dart';
+import '../../../data/responses/commiss_service_response.dart';
 import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/info_card.dart';
 import '../../../shared/main_chart.dart';
 import '../../../shared/show_province.dart';
+import '../controllers/commiss_controller.dart';
 
 class CommissLayoutSmall extends StatelessWidget {
-  const CommissLayoutSmall({
+  CommissLayoutSmall({
     super.key,
   });
+  final CommissController controller = Get.find<CommissController>();
 
   @override
   Widget build(BuildContext context) {
@@ -96,14 +99,17 @@ class CommissLayoutSmall extends StatelessWidget {
                   ],
                 ),
                 accentDividerTop,
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: listCommissStatisticsData.length,
-                  itemBuilder: (context, index) {
-                    return CommissStatisticsSmallRow(
-                        index, listCommissStatisticsData[index]);
-                  },
+                Obx(
+                  () => ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount:
+                        controller.listCommissStatistics.obs.value.length,
+                    itemBuilder: (context, index) {
+                      return CommissStatisticsSmallRow(
+                          index, controller.listCommissStatistics[index]);
+                    },
+                  ),
                 ),
               ],
             ),
@@ -122,7 +128,7 @@ class CommissLayoutSmall extends StatelessWidget {
 
 Widget CommissStatisticsSmallRow(
   int index,
-  CommissStatisticsData commissStatisticsData,
+  CommissData commissData,
 ) {
   return Row(
     children: [
@@ -141,29 +147,30 @@ Widget CommissStatisticsSmallRow(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomText(
-                text: "ชื่อ-นามสกุล : ${commissStatisticsData.name} ",
-                scale: 0.9,
-              ),
-              CustomText(
-                text: "เบอร์โทร : ${commissStatisticsData.telephone}",
-                scale: 0.9,
-              ),
-              CustomText(
-                text: "ตำแหน่ง : ${commissStatisticsData.position}",
-                scale: 0.9,
-              ),
-              CustomText(
-                text: "ว/ด/ป/ แต่งตั้ง : ${commissStatisticsData.commissDate}",
-                scale: 0.9,
-              ),
-              CustomText(
                 text:
-                    "สังกัด ศส.ปชต. : ${commissStatisticsData.commissLocation}",
+                    "ชื่อ-นามสกุล : ${commissData.commissFirstName!} ${commissData.commissSurName!} ",
+                scale: 0.9,
+              ),
+              CustomText(
+                text: "เบอร์โทร : ${commissData.telephone}",
+                scale: 0.9,
+              ),
+              CustomText(
+                text: "ตำแหน่ง : ${commissData.position}",
+                scale: 0.9,
+              ),
+              CustomText(
+                text: "ว/ด/ป/ แต่งตั้ง : ${commissData.commissDate}",
+                scale: 0.9,
+              ),
+              CustomText(
+                text: "สังกัด ศส.ปชต. : ${commissData.commissLocation}",
                 scale: 0.9,
                 maxLine: 2,
               ),
               CustomText(
-                text: "จังหวัด/อำเภอ/ตำบล : ${commissStatisticsData.address}",
+                text:
+                    "จังหวัด/อำเภอ/ตำบล : ${commissData.province}/${commissData.amphure}/${commissData.district}",
                 scale: 0.9,
               ),
               const SizedBox(height: defaultPadding / 4),

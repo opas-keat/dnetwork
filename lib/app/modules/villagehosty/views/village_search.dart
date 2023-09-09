@@ -25,57 +25,62 @@ class VillageSearch extends StatelessWidget {
         // color: Colors.amber,
         // padding: const EdgeInsets.symmetric(vertical: defaultPadding * 4),
         width: 480,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            CustomText(
-              text: "ชื่อหมู่บ้าน",
-              color: Colors.black87.withOpacity(.9),
-            ),
-            const SizedBox(height: defaultPadding / 2),
-            TextFormField(
-              controller: controller.villageName,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                fillColor: Colors.white.withOpacity(.8),
-                filled: true,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(defaultPadding / 2),
-                  borderSide: const BorderSide(color: Colors.black54, width: 1),
-                ),
-                isCollapsed: true,
-                contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
+        height: 640,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              CustomText(
+                text: "ชื่อหมู่บ้าน",
+                color: Colors.black87.withOpacity(.9),
               ),
-            ),
-            const SizedBox(height: defaultPadding),
-            CustomText(
-              text: "หมู่ที่/บ้านเลขที่",
-              color: Colors.black87.withOpacity(.9),
-            ),
-            const SizedBox(height: defaultPadding / 2),
-            TextFormField(
-              controller: controller.villageNo,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                fillColor: Colors.white.withOpacity(.8),
-                filled: true,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(defaultPadding / 2),
-                  borderSide: const BorderSide(color: Colors.black54, width: 1),
+              const SizedBox(height: defaultPadding / 2),
+              TextFormField(
+                controller: controller.villageName,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  fillColor: Colors.white.withOpacity(.8),
+                  filled: true,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(defaultPadding / 2),
+                    borderSide:
+                        const BorderSide(color: Colors.black54, width: 1),
+                  ),
+                  isCollapsed: true,
+                  contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
                 ),
-                isCollapsed: true,
-                contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
               ),
-            ),
-            const SizedBox(height: defaultPadding),
-            AddressView(
-              showAmphure: true,
-              showTambol: true,
-              showPostCode: false,
-            ),
-            const SizedBox(height: defaultPadding),
-          ],
+              const SizedBox(height: defaultPadding),
+              CustomText(
+                text: "หมู่ที่/บ้านเลขที่",
+                color: Colors.black87.withOpacity(.9),
+              ),
+              const SizedBox(height: defaultPadding / 2),
+              TextFormField(
+                controller: controller.villageNo,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  fillColor: Colors.white.withOpacity(.8),
+                  filled: true,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(defaultPadding / 2),
+                    borderSide:
+                        const BorderSide(color: Colors.black54, width: 1),
+                  ),
+                  isCollapsed: true,
+                  contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                ),
+              ),
+              const SizedBox(height: defaultPadding),
+              AddressView(
+                showAmphure: true,
+                showTambol: true,
+                showPostCode: false,
+              ),
+              const SizedBox(height: defaultPadding),
+            ],
+          ),
         ),
       ),
       actions: [

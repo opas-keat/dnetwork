@@ -210,7 +210,7 @@ class ManageStationDetail extends StatelessWidget {
                                   ),
                                   barrierDismissible: false,
                                 );
-                                await controller.save();
+                                await controller.edit();
                                 Get.back();
                               } else {
                                 Get.dialog(

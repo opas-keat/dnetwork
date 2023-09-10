@@ -219,12 +219,12 @@ class SigninView extends StatelessWidget {
                               },
                             ),
                           ),
-                          const SizedBox(height: defaultPadding * 2),
+                          const SizedBox(height: defaultPadding),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               CustomText(
-                                text: "Version 0.0.7",
+                                text: "Version 0.0.9",
                                 color: Colors.white.withOpacity(.9),
                                 scale: 0.9,
                               ),
@@ -234,11 +234,27 @@ class SigninView extends StatelessWidget {
                                 },
                                 icon: const Icon(
                                   Icons.refresh_sharp,
+                                  color: Colors.white,
                                 ),
                                 color: primaryColor,
                                 iconSize: 14,
                               ),
                             ],
+                          ),
+                          const SizedBox(height: defaultPadding),
+                          Center(
+                            child: TextButton(
+                              onPressed: () {
+                                window.open(
+                                    'https://docs.google.com/forms/d/e/1FAIpQLSdGplojTJM17s3GoiKT_AYvRWXyGNrnbeLwZOfx_OoFKDQtog/viewform',
+                                    'แจ้งปัญหา');
+                              },
+                              child: CustomText(
+                                text: "แจ้งปัญหา",
+                                color: Colors.white.withOpacity(.9),
+                                scale: 0.9,
+                              ),
+                            ),
                           ),
                         ],
                       ),

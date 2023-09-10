@@ -18,6 +18,7 @@ class IncidentController extends GetxController {
   RxBool sortAscending = true.obs;
   RxInt sortColumnIndex = 0.obs;
 
+  final incidentCreatedBy = TextEditingController();
   final incidentModule = TextEditingController();
   final incidentTitle = TextEditingController();
   final incidentDetail = TextEditingController();
@@ -112,6 +113,7 @@ class IncidentController extends GetxController {
         listIncidentStatistics.add(
           IncidentData(
             id: item.id,
+            createdBy: item.createdBy,
             incidentDate: item.incidentDate,
             incidentModule: item.incidentModule,
             incidentTitle: item.incidentTitle,
@@ -175,7 +177,14 @@ class IncidentController extends GetxController {
               .sort((a, b) => a.resolvedDetail!.compareTo(b.resolvedDetail!))
           : listIncidentStatistics.obs.value
               .sort((a, b) => b.resolvedDetail!.compareTo(a.resolvedDetail!));
+    } else if (field == "createdBy") {
+      ascending
+          ? listIncidentStatistics.obs.value
+              .sort((a, b) => a.createdBy!.compareTo(b.createdBy!))
+          : listIncidentStatistics.obs.value
+              .sort((a, b) => b.createdBy!.compareTo(a.createdBy!));
     }
+
     sortColumnIndex.value = columnIndex;
     sortAscending.value = ascending;
     update();

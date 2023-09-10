@@ -96,6 +96,17 @@ class IncidentStatistics extends StatelessWidget {
                     ),
                     DataColumn2(
                       label: const CustomText(
+                        text: "ผู้แจ้ง",
+                        weight: FontWeight.bold,
+                        scale: 1.0,
+                      ),
+                      size: ColumnSize.S,
+                      onSort: (columnIndex, ascending) {
+                        controller.sort("createdBy", columnIndex, ascending);
+                      },
+                    ),
+                    DataColumn2(
+                      label: const CustomText(
                         text: "ระบบ",
                         weight: FontWeight.bold,
                         scale: 1.0,
@@ -181,6 +192,7 @@ class IncidentStatistics extends StatelessWidget {
         if (window.sessionStorage["roles"].toString() != "user") {
           if (incidentData.resolvedDate!.isEmpty) {
             controller.selectedId = incidentData.id!;
+            controller.incidentCreatedBy.text = incidentData.createdBy!;
             controller.incidentModule.text = incidentData.incidentModule!;
             controller.incidentTitle.text = incidentData.incidentTitle!;
             controller.incidentDetail.text = incidentData.incidentDetail!;
@@ -218,6 +230,23 @@ class IncidentStatistics extends StatelessWidget {
                   //     fontSize: 12,
                   //   ),
                   // ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        DataCell(
+          Wrap(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    incidentData.createdBy!,
+                    style: const TextStyle(
+                      fontSize: 12,
+                    ),
+                  ),
                 ],
               ),
             ],

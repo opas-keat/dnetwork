@@ -138,6 +138,7 @@ class ManageStationController extends GetxController {
         ),
       );
       final result = await StationService().update(stations.obs.value);
+      
       talker.debug('response message : ${result?.message}');
       if (result?.code == "000") {
         for (var item in result!.data!) {
@@ -235,6 +236,8 @@ class ManageStationController extends GetxController {
     talker.info('$logTitle:selectDataFromTable:$selectedIndexFromTable');
     talker.info('$logTitle:id:$id');
     isLoading.value = true;
+    processChips.clear();
+    trainingChips.clear();
     try {
       final result = await StationService().getById(id);
       for (final item in result!.data!) {

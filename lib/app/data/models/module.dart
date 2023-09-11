@@ -40,7 +40,7 @@ List<Module> listModule = [
   ),
   Module(
     id: 6,
-    nameTH: "หมู่บ้าน วิถี ประชาธิปไตย",
+    nameTH: "หมู่บ้านวิถีประชาธิปไตย",
     nameEn: "village",
     icon: Icons.holiday_village_sharp,
     url: Routes.VILLAGEHOSTY,
@@ -61,7 +61,7 @@ List<Module> listModule = [
   ),
   Module(
     id: 9,
-    nameTH: "งบประมาณ รายรับ-รายจ่าย",
+    nameTH: "งบประมาณรายปี",
     nameEn: "budget",
     icon: Icons.book_sharp,
     url: Routes.BUDGET,

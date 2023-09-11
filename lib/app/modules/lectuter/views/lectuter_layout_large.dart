@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -33,7 +35,48 @@ class LectuterLayoutLarge extends StatelessWidget {
                   const ShowProvince(),
                   const Spacer(flex: 2),
                   ElevatedButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      // list_lectuter_info_l pdf,xlsx,docx
+                      String reportName = 'list_info_l';
+                      String output = 'pdf'; //pdf xlsx docx
+                      String province = 'จันทบุรี';
+                      String tambol = 'เกาะขวาง';
+                      String wherePreName = "";
+                      // lectuterPreName.text.isNotEmpty
+                      //     ? wherePreName = "&PRENAME=" + lectuterPreName.text
+                      //     : wherePreName = "";
+                      String whereName = "";
+                      // lectuterFirstName.text.isNotEmpty
+                      //     ? whereName = "&NAME=" + lectuterFirstName.text
+                      //     : whereName = "";
+                      String whereSurName = "";
+                      // lectuterSurName.text.isNotEmpty
+                      //     ? whereSurName = "&SURNAME=" + lectuterSurName.text
+                      //     : whereSurName = "";
+                      String whereAgency = "";
+                      // lectuterAgency.text.isNotEmpty
+                      //     ? whereAgency = "&AGENCY=" + lectuterAgency.text
+                      //     : whereAgency = "";
+                      String whereAffiliate = "";
+                      // _affiliateName.isNotEmpty
+                      //     ? whereAffiliate = "&AFFILIATE=" + _affiliateName
+                      //     : whereAffiliate = "";
+                      String whereTel = "";
+                      // lectuterTelePhone.text.isNotEmpty
+                      //     ? whereTel = "&TEL=" + lectuterTelePhone.text
+                      //     : whereTel = "";
+                      String whereAmphure = "";
+                      // _amphure.isNotEmpty
+                      //     ? whereAmphure = "&AMPHURE=" + _amphure
+                      //     : whereAmphure = "";
+                      String whereTambol = "";
+                      // _tambol.isNotEmpty
+                      //     ? whereTambol = "&TAMBOL=" + _tambol
+                      //     : whereTambol = "";
+                      String reportUrl =
+                          "https://d-network.ect.go.th/report/flow.html?_flowId=viewReportFlow&_flowId=viewReportFlow&ParentFolderUri=%2Freports%2FECT&reportUnit=%2Freports%2FECT%2F$reportName&standAlone=true&j_username=jasperadmin&j_password=jasperadmin&decorate=no&output=$output&PROVINCE=$province$wherePreName$whereName$whereSurName$whereAgency$whereAffiliate$whereTel$whereAmphure$whereTambol";
+                      window.open(reportUrl, "report");
+                    },
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(
                           vertical: defaultPadding,

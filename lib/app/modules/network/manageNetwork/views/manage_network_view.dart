@@ -901,7 +901,7 @@ List<DataColumn> listColumn = [
     size: ColumnSize.M,
   ),
   const DataColumn2(
-    label: CustomText(text: "ตำแหน่งใน ศศ.ปชต.", scale: 0.9),
+    label: CustomText(text: "ตำแหน่งใน ศส.ปชต.", scale: 0.9),
     size: ColumnSize.S,
   ),
   const DataColumn2(

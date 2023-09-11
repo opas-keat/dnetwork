@@ -1,3 +1,4 @@
+import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -37,7 +38,31 @@ class StationLayoutLarge extends StatelessWidget {
                   const Spacer(flex: 2),
                   ElevatedButton.icon(
                     onPressed: () {
-                      // controller.listStation();
+                      // list_info_l pdf,xlsx,docx
+                      String reportName = 'list_info_l';
+                      String output = 'pdf'; //pdf xlsx docx
+                      String province = 'จันทบุรี';
+                      String tambol = 'เกาะขวาง';
+                      String whereName = "";
+                      // infoNameController.text.isNotEmpty
+                      //     ? whereName = "&NAME=" + infoNameController.text
+                      //     : whereName = "";
+                      String whereLocation = "";
+                      // infoLocationController.text.isNotEmpty
+                      //     ? whereLocation =
+                      //         "&LOCATION=" + infoLocationController.text
+                      //     : whereLocation = "";
+                      String whereAmphure = "";
+                      // _amphure.isNotEmpty
+                      //     ? whereAmphure = "&AMPHURE=" + _amphure
+                      //     : whereAmphure = "";
+                      String whereTambol = "";
+                      // _district.isNotEmpty
+                      //     ? whereTambol = "&TAMBOL=" + _district
+                      //     : whereTambol = "";
+                      String reportUrl =
+                          "https://d-network.ect.go.th/report/flow.html?_flowId=viewReportFlow&_flowId=viewReportFlow&ParentFolderUri=%2Freports%2FECT&reportUnit=%2Freports%2FECT%2F$reportName&standAlone=true&j_username=jasperadmin&j_password=jasperadmin&decorate=no&output=$output&PROVINCE=$province$whereName$whereLocation$whereAmphure$whereTambol";
+                      window.open(reportUrl, "report");
                     },
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(

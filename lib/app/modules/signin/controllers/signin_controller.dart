@@ -41,7 +41,12 @@ class SigninController extends GetxController {
           //   talker.debug(user!.data!.id);
           //   talker.debug(user.data!.firstName);
           // talker.debug(user!.data!.province);
-          window.sessionStorage["province"] = user!.data!.province!;
+          if (user!.data!.province! == "ส่วนกลาง" ||
+              user!.data!.province! == "") {
+            window.sessionStorage["province"] = "";
+          } else {
+            window.sessionStorage["province"] = user.data!.province!;
+          }
         }
         return true;
       }

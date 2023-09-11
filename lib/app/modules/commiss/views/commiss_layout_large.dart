@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -34,7 +36,51 @@ class CommissLayoutLarge extends StatelessWidget {
                   const ShowProvince(),
                   const Spacer(flex: 2),
                   ElevatedButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      // command pdf , docx
+                      // list_commiss_l_2 pdf,xlsx,docx
+                      String reportName = 'command'; //
+                      String output = 'pdf';
+                      String province = 'จันทบุรี';
+                      String tambol = 'เกาะขวาง';
+                      String whereTambol = "";
+                      // _tambol.isNotEmpty
+                      //     ? whereTambol = "&TAMBOL=" + _tambol
+                      //     : whereTambol = "";
+                      String whereName = "";
+                      // commissFirstName.text.isNotEmpty
+                      //     ? whereName = "&NAME=" + commissFirstName.text
+                      //     : whereName = "";
+                      String whereLastName = "";
+                      // commissSurName.text.isNotEmpty
+                      //     ? whereLastName = "&LASTNAME=" + commissSurName.text
+                      //     : whereLastName = "";
+                      String wherePosition = "";
+                      // _position.isNotEmpty
+                      //     ? wherePosition = "&POSITION=" + _position
+                      //     : wherePosition = "";
+                      String whereTel = "";
+                      // commissTelephone.text.isNotEmpty
+                      //     ? whereTel = "&TEL=" + commissTelephone.text
+                      //     : whereTel = "";
+                      // reportUrl =
+                      //     "https://d-network.ect.go.th/report/flow.html?_flowId=viewReportFlow&_flowId=viewReportFlow&ParentFolderUri=%2Freports%2FECT&reportUnit=%2Freports%2FECT%2F" +
+                      //         reportName +
+                      //         "&standAlone=true&j_username=jasperadmin&j_password=jasperadmin&decorate=no&output=" +
+                      //         output +
+                      //         "&PROVINCE=" +
+                      //         _province +
+                      //         whereTambol +
+                      //         whereName +
+                      //         whereLastName +
+                      //         wherePosition +
+                      //         whereTel +
+                      //         "&INFO_NAME=" +
+                      //         _infoName;
+                      String reportUrl =
+                          "https://d-network.ect.go.th/report/flow.html?_flowId=viewReportFlow&_flowId=viewReportFlow&ParentFolderUri=%2Freports%2FECT&reportUnit=%2Freports%2FECT%2Fcommand&standAlone=true&j_username=jasperadmin&j_password=jasperadmin&decorate=no&output=$output&PROVINCE=$province&TAMBOL=$tambol";
+                      window.open(reportUrl, "report");
+                    },
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(
                           vertical: defaultPadding,

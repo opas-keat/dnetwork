@@ -179,8 +179,8 @@ class ManageLectuterController extends GetxController {
   }
 
   delete() async {
-    talker.info('$logTitle:deleteDataFromTable:$selectedId');
-    talker.info('$logTitle:deleteDataFromTable:$selectedIndexFromTable');
+    talker.info('$logTitle:delete:$selectedId');
+    talker.info('$logTitle:delete:$selectedIndexFromTable');
     if (lectuterList.length > selectedIndexFromTable &&
         selectedIndexFromTable > -1) {
       final result = await LectuterService().delete(selectedId);
@@ -199,6 +199,7 @@ class ManageLectuterController extends GetxController {
     talker.info('$logTitle:selectDataFromTable:$selectedIndexFromTable');
     talker.info('$logTitle:id:$id');
     isLoading.value = true;
+    lectuterExpChips.clear();
     try {
       final result = await LectuterService().getById(id);
       for (final item in result!.data!) {

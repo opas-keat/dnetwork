@@ -39,6 +39,7 @@ class Networks {
   String? networkPositionCommu;
   String? networkExp;
   String? networkPreName;
+  String? networkAgency;
 
   Networks({
     this.id,
@@ -58,6 +59,7 @@ class Networks {
     this.networkPositionCommu,
     this.networkExp,
     this.networkPreName,
+    this.networkAgency,
   });
 
   Networks.fromJson(Map<String, dynamic> json) {
@@ -78,6 +80,7 @@ class Networks {
     networkPositionCommu = json['network_position_commu'];
     networkExp = json['network_exp'];
     networkPreName = json['network_pre_name'];
+    networkAgency = json['network_agency'];
   }
 
   Map<String, dynamic> toJson() {
@@ -99,6 +102,7 @@ class Networks {
     data['network_position_commu'] = networkPositionCommu;
     data['network_exp'] = networkExp;
     data['network_pre_name'] = networkPreName;
+    data['network_agency'] = networkAgency;
     return data;
   }
 }

@@ -45,6 +45,7 @@ class ManageNetworkController extends GetxController {
   final networkAmphure = TextEditingController();
   final networkTambol = TextEditingController();
   final networkPreName = TextEditingController();
+  final networkAgency = TextEditingController();
 
   RxString networkError = ''.obs;
 
@@ -104,6 +105,7 @@ class ManageNetworkController extends GetxController {
           district: networkTambol.text,
           province: networkProvince.text,
           networkPreName: networkPreName.text,
+          networkAgency: networkAgency.text,
         ),
       );
       final response = await NetworkService().create(networks.obs.value);
@@ -129,6 +131,7 @@ class ManageNetworkController extends GetxController {
               networkSurName: item.networkSurName,
               networkTelephone: item.networkTelephone,
               networkPreName: item.networkPreName,
+              networkAgency: item.networkAgency,
             ),
           );
         }
@@ -167,6 +170,7 @@ class ManageNetworkController extends GetxController {
           district: networkTambol.text,
           province: networkProvince.text,
           networkPreName: networkPreName.text,
+          networkAgency: networkAgency.text,
         ),
       );
       final result = await NetworkService().update(networks.obs.value);
@@ -199,6 +203,8 @@ class ManageNetworkController extends GetxController {
           networkList[selectedIndexFromTable].province = item.province;
           networkList[selectedIndexFromTable].networkPreName =
               item.networkPreName;
+          networkList[selectedIndexFromTable].networkAgency =
+              item.networkAgency;
         }
       }
       isLoading.value = false;
@@ -256,6 +262,7 @@ class ManageNetworkController extends GetxController {
         networkTambol.text = item.amphure!;
         networkProvince.text = item.province!;
         networkPreName.text = item.networkPreName!;
+        networkAgency.text = item.networkAgency!;
         if (item.networkPositionCommu!.isNotEmpty) {
           networkPositionCommuChips
               .addAll(item.networkPositionCommu!.split('|'));
@@ -454,6 +461,7 @@ class ManageNetworkController extends GetxController {
     networkSurName.text = "";
     networkTelephone.text = "";
     networkPreName.text = "";
+    networkAgency.text = "";
     networkPositionCommuChips.clear();
     networkExpChips.clear();
     // addressController.selectedProvince.value = '';

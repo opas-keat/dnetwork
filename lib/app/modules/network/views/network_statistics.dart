@@ -90,6 +90,13 @@ class NetworkStatistics extends StatelessWidget {
                         fixedWidth: 30,
                       ),
                       DataColumn2(
+                        label: const Text("หน่วยงานภาคีเครือข่าย"),
+                        size: ColumnSize.S,
+                        onSort: (columnIndex, ascending) {
+                          controller.sort("agency", columnIndex, ascending);
+                        },
+                      ),
+                      DataColumn2(
                         label: const Text("ชื่อ-นามสกุล"),
                         size: ColumnSize.S,
                         onSort: (columnIndex, ascending) {
@@ -192,6 +199,18 @@ DataRow networkDataRow(
           style: const TextStyle(
             fontSize: 12,
           ),
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              networkData.networkAgency!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
         ),
       ),
       DataCell(

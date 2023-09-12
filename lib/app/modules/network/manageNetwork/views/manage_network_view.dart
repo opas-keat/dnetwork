@@ -306,6 +306,43 @@ class ManageDataDetailNetwork extends StatelessWidget {
                     style: const TextStyle(color: Colors.black),
                   ),
                   const SizedBox(height: defaultPadding),
+                  Wrap(
+                    direction: Axis.horizontal,
+                    children: [
+                      CustomText(
+                        text: "หน่วยงานภาคีเครือข่าย",
+                        color: Colors.black87.withOpacity(.9),
+                      ),
+                      CustomText(
+                        text: "*",
+                        color: Colors.red.withOpacity(.9),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: defaultPadding / 2),
+                  TextFormField(
+                    controller: controller.networkAgency,
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                      fillColor: Colors.white.withOpacity(.8),
+                      filled: true,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(defaultPadding / 2),
+                        borderSide:
+                            const BorderSide(color: Colors.black54, width: 1),
+                      ),
+                      isCollapsed: true,
+                      contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                    ),
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'กรุณากรอก หน่วยงานภาคีเครือข่าย';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: defaultPadding),
                   CustomText(
                     text: "คำนำหน้า",
                     color: Colors.black87.withOpacity(.9),
@@ -889,8 +926,8 @@ List<DataColumn> listColumn = [
     fixedWidth: 50,
   ),
   const DataColumn2(
-    label: CustomText(text: "คำนำหน้า", scale: 0.9),
-    size: ColumnSize.S,
+    label: CustomText(text: "หน่วยงานภาคีเครือข่าย", scale: 0.9),
+    size: ColumnSize.M,
   ),
   const DataColumn2(
     label: CustomText(text: "ชื่อ", scale: 0.9),
@@ -949,7 +986,7 @@ DataRow networkDataRow(
         Wrap(
           children: [
             Text(
-              networkData.networkPreName!,
+              networkData.networkAgency!,
               style: const TextStyle(
                 fontSize: 12,
               ),

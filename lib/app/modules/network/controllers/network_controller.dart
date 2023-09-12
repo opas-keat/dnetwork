@@ -108,6 +108,7 @@ class NetworkController extends GetxController {
             networkLocation: item.networkLocation,
             networkPreName: item.networkPreName,
             networkStationName: item.networkStationName,
+            networkAgency: item.networkAgency,
           ),
         );
       }

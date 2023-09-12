@@ -26,6 +26,13 @@ class VillageController extends GetxController {
   int currentPage = 1;
   RxInt offset = 0.obs;
 
+  List<String> listReportType = <String>['PDF', 'XLSX', 'DOCX'];
+  RxString reportVillageName = ''.obs;
+  RxString reportVillageNo = ''.obs;
+  RxString reportProvince = ''.obs;
+  RxString reportAmphure = ''.obs;
+  RxString reportDistrict = ''.obs;
+
   @override
   void onInit() {
     super.onInit();

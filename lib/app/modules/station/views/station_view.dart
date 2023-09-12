@@ -71,16 +71,15 @@ class StationView extends StatelessWidget {
                 child: LayoutBuilder(
                   builder: (context, constraints) => Container(
                     color: Colors.white,
-                    child: Align(
+                    child: const Align(
                       alignment: Alignment.topCenter,
                       child: SingleChildScrollView(
-                        padding:
-                            const EdgeInsets.only(left: defaultPadding / 2),
+                        padding: EdgeInsets.only(left: defaultPadding / 2),
                         primary: true,
                         child: Column(
                           children: [
-                            const Header(moduleName: "station"),
-                            const SizedBox(height: defaultPadding / 2),
+                            Header(moduleName: "station"),
+                            SizedBox(height: defaultPadding / 2),
                             StationLayoutLarge(),
                           ],
                         ),

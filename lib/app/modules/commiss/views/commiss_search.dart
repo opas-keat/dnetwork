@@ -33,27 +33,27 @@ class CommissSearch extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              CustomText(
-                text: "ชื่อ ศส.ปชต.",
-                color: Colors.black87.withOpacity(.9),
-              ),
-              const SizedBox(height: defaultPadding / 2),
-              TextFormField(
-                controller: controller.commissStationName,
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  fillColor: Colors.white.withOpacity(.8),
-                  filled: true,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(defaultPadding / 2),
-                    borderSide:
-                        const BorderSide(color: Colors.black54, width: 1),
-                  ),
-                  isCollapsed: true,
-                  contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                ),
-              ),
-              const SizedBox(height: defaultPadding),
+              // CustomText(
+              //   text: "ชื่อ ศส.ปชต.",
+              //   color: Colors.black87.withOpacity(.9),
+              // ),
+              // const SizedBox(height: defaultPadding / 2),
+              // TextFormField(
+              //   controller: controller.commissStationName,
+              //   keyboardType: TextInputType.text,
+              //   decoration: InputDecoration(
+              //     fillColor: Colors.white.withOpacity(.8),
+              //     filled: true,
+              //     border: OutlineInputBorder(
+              //       borderRadius: BorderRadius.circular(defaultPadding / 2),
+              //       borderSide:
+              //           const BorderSide(color: Colors.black54, width: 1),
+              //     ),
+              //     isCollapsed: true,
+              //     contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
+              //   ),
+              // ),
+              // const SizedBox(height: defaultPadding),
               CustomText(
                 text: "ชื่อ",
                 color: Colors.black87.withOpacity(.9),
@@ -96,14 +96,39 @@ class CommissSearch extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: defaultPadding),
+              // CustomText(
+              //   text: "วันที่แต่งตั้ง",
+              //   color: Colors.black87.withOpacity(.9),
+              // ),
+              // const SizedBox(height: defaultPadding / 2),
+              // TextFormField(
+              //   controller: controller.commissDate,
+              //   keyboardType: TextInputType.text,
+              //   decoration: InputDecoration(
+              //     fillColor: Colors.white.withOpacity(.8),
+              //     filled: true,
+              //     border: OutlineInputBorder(
+              //       borderRadius: BorderRadius.circular(defaultPadding / 2),
+              //       borderSide:
+              //           const BorderSide(color: Colors.black54, width: 1),
+              //     ),
+              //     isCollapsed: true,
+              //     contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
+              //   ),
+              // ),
+              // const SizedBox(height: defaultPadding),
               CustomText(
-                text: "วันที่แต่งตั้ง",
+                text: "เบอร์โทร",
                 color: Colors.black87.withOpacity(.9),
               ),
               const SizedBox(height: defaultPadding / 2),
               TextFormField(
-                controller: controller.commissDate,
-                keyboardType: TextInputType.text,
+                controller: controller.commissTelephone,
+                keyboardType: TextInputType.number,
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.digitsOnly,
+                  LengthLimitingTextInputFormatter(10),
+                ],
                 decoration: InputDecoration(
                   fillColor: Colors.white.withOpacity(.8),
                   filled: true,
@@ -118,17 +143,13 @@ class CommissSearch extends StatelessWidget {
               ),
               const SizedBox(height: defaultPadding),
               CustomText(
-                text: "เบอร์โทร",
+                text: "สังกัด",
                 color: Colors.black87.withOpacity(.9),
               ),
               const SizedBox(height: defaultPadding / 2),
               TextFormField(
-                controller: controller.commissTelephone,
-                keyboardType: TextInputType.number,
-                inputFormatters: <TextInputFormatter>[
-                  FilteringTextInputFormatter.digitsOnly,
-                  LengthLimitingTextInputFormatter(10),
-                ],
+                controller: controller.commissAffiliateName,
+                keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   fillColor: Colors.white.withOpacity(.8),
                   filled: true,
@@ -197,6 +218,19 @@ class CommissSearch extends StatelessWidget {
         TextButton(
           child: const Text("ค้นหา"),
           onPressed: () {
+            controller.reportFirstName.value = controller.commissFirstName.text;
+            controller.reportSurName.value = controller.commissSurName.text;
+            controller.reportTel.value = controller.commissTelephone.text;
+            controller.reportPosition.value =
+                controller.selectedCommissPosition.value;
+            controller.reportCommissAffiliateName.value =
+                controller.commissAffiliateName.text;
+            controller.reportProvince.value =
+                controller.addressController.selectedProvince.value;
+            controller.reportAmphure.value =
+                controller.addressController.selectedAmphure.value;
+            controller.reportDistrict.value =
+                controller.addressController.selectedTambol.value;
             controller.offset.value = 0;
             controller.currentPage = 1;
             if (controller.selectedCommissPosition.value.isEmpty) {
@@ -204,13 +238,30 @@ class CommissSearch extends StatelessWidget {
             }
             controller.listCommissStatistics.clear();
             controller.listCommiss();
+            controller.commissFirstName.text = '';
+            controller.commissSurName.text = '';
+            controller.commissTelephone.text = '';
+            controller.selectedCommissPosition.value = '';
+            controller.commissAffiliateName.text = '';
+            controller.addressController.selectedProvince.value = '';
+            controller.addressController.selectedAmphure.value = '';
+            controller.addressController.selectedTambol.value = '';
             Get.back();
           },
         ),
         TextButton(
-          child: const Text("ปิด"),
-          onPressed: () => Get.back(),
-        ),
+            child: const Text("ปิด"),
+            onPressed: () {
+              controller.commissFirstName.text = '';
+              controller.commissSurName.text = '';
+              controller.commissTelephone.text = '';
+              controller.selectedCommissPosition.value = '';
+              controller.commissAffiliateName.text = '';
+              controller.addressController.selectedProvince.value = '';
+              controller.addressController.selectedAmphure.value = '';
+              controller.addressController.selectedTambol.value = '';
+              Get.back();
+            }),
       ],
     );
   }

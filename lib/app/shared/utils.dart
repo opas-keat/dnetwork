@@ -1,5 +1,6 @@
 library service;
 
+import 'dart:html';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
 
@@ -46,3 +47,61 @@ final talker = Talker(
 
   ///etc...
 );
+
+report(
+  String reportName,
+  String output,
+  String province,
+  String amphure,
+  String district,
+  String name,
+  String lastName,
+  String position,
+  String tel,
+  String stationName,
+  String moo,
+  String agency,
+  String affiliate,
+) {
+  // String output = 'pdf'; //pdf xlsx docx
+  // String province = 'จันทบุรี';
+  // String tambol = 'เกาะขวาง';
+  String whereName = "";
+  name.isNotEmpty ? whereName = "&NAME=$name" : whereName = "";
+  String whereLastName = "";
+  lastName.isNotEmpty
+      ? whereLastName = "&LASTNAME=$lastName"
+      : whereLastName = "";
+  String wherePosition = "";
+  position.isNotEmpty
+      ? wherePosition = "&POSITION=$position"
+      : wherePosition = "";
+  String whereTel = "";
+  tel.isNotEmpty ? whereTel = "&TEL=$tel" : whereTel = "";
+  String whereStationName = "";
+  stationName.isNotEmpty ? whereTel = "&INFO_NAME=$stationName" : whereTel = "";
+  String whereMoo = "";
+  moo.isNotEmpty ? whereMoo = "&MOO=$moo" : whereMoo = "";
+  String whereAgency = "";
+  agency.isNotEmpty ? whereAgency = "&AGENCY=$agency" : whereAgency = "";
+  String whereAffiliate = "";
+  agency.isNotEmpty
+      ? whereAffiliate = "&AFFILIATE=$affiliate"
+      : whereAffiliate = "";
+  String whereLocation = "";
+  // infoLocationController.text.isNotEmpty
+  //     ? whereLocation =
+  //         "&LOCATION=" + infoLocationController.text
+  //     : whereLocation = "";
+  String whereProvince = "";
+  province.isNotEmpty
+      ? whereProvince = "&PROVINCE=$province"
+      : whereProvince = "";
+  String whereAmphure = "";
+  amphure.isNotEmpty ? whereAmphure = "&AMPHURE=$amphure" : whereAmphure = "";
+  String whereTambol = "";
+  district.isNotEmpty ? whereTambol = "&TAMBOL=$district" : whereTambol = "";
+  String reportUrl =
+      "https://d-network.ect.go.th/report/flow.html?_flowId=viewReportFlow&_flowId=viewReportFlow&ParentFolderUri=%2Freports%2FECT&reportUnit=%2Freports%2FECT%2F$reportName&standAlone=true&j_username=jasperadmin&j_password=jasperadmin&decorate=no&output=$output$whereProvince$whereName$whereMoo$whereLastName$wherePosition$whereTel$whereStationName$whereAgency$whereAffiliate$whereLocation$whereAmphure$whereTambol";
+  window.open(reportUrl, "report");
+}

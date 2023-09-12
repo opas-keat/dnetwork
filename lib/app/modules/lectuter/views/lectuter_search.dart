@@ -156,17 +156,52 @@ class LectuterSearch extends StatelessWidget {
         TextButton(
           child: const Text("ค้นหา"),
           onPressed: () {
+            controller.reportLectuterName.value =
+                controller.lectuterFirstName.text;
+            controller.reportLectuterSurName.value =
+                controller.lectuterSurName.text;
+            controller.reportLectuterTel.value =
+                controller.lectuterTelephone.text;
+            controller.reportLectuterAgency.value =
+                controller.lectuterAgency.text;
+            controller.reportLectuterAffiliate.value =
+                controller.lectuterAffiliate.text;
+            controller.reportProvince.value =
+                controller.addressController.selectedProvince.value;
+            controller.reportAmphure.value =
+                controller.addressController.selectedAmphure.value;
+            controller.reportDistrict.value =
+                controller.addressController.selectedTambol.value;
             controller.offset.value = 0;
             controller.currentPage = 1;
             controller.listLectuterStatistics.clear();
             controller.listLectuter();
+            controller.lectuterFirstName.text = '';
+            controller.lectuterSurName.text = '';
+            controller.lectuterTelephone.text = '';
+            controller.lectuterAgency.text = '';
+            controller.lectuterAffiliate.text = '';
+            controller.lectuterAffiliate.text = '';
+            controller.addressController.selectedProvince.value = '';
+            controller.addressController.selectedAmphure.value = '';
+            controller.addressController.selectedTambol.value = '';
             Get.back();
           },
         ),
         TextButton(
-          child: const Text("ปิด"),
-          onPressed: () => Get.back(),
-        ),
+            child: const Text("ปิด"),
+            onPressed: () {
+              controller.lectuterFirstName.text = '';
+              controller.lectuterSurName.text = '';
+              controller.lectuterTelephone.text = '';
+              controller.lectuterAgency.text = '';
+              controller.lectuterAffiliate.text = '';
+              controller.lectuterAffiliate.text = '';
+              controller.addressController.selectedProvince.value = '';
+              controller.addressController.selectedAmphure.value = '';
+              controller.addressController.selectedTambol.value = '';
+              Get.back();
+            }),
       ],
     );
   }

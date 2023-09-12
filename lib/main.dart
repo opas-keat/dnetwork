@@ -66,10 +66,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
-// TextButton(
-//               onPressed: () => Get.toNamed('/new-home/add-data'),
-//               child: const Text("Go To Add"),
-//             )
-

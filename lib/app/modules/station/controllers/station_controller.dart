@@ -30,6 +30,12 @@ class StationController extends GetxController {
   int currentPage = 1;
   RxInt offset = 0.obs;
 
+  List<String> listReportType = <String>['PDF', 'XLSX', 'DOCX'];
+  RxString reportStationName = ''.obs;
+  RxString reportProvince = ''.obs;
+  RxString reportAmphure = ''.obs;
+  RxString reportDistrict = ''.obs;
+
   @override
   void onInit() {
     super.onInit();

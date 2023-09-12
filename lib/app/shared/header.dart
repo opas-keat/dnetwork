@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:frontend/app/shared/utils.dart';
 import 'package:get/get.dart';
@@ -35,7 +37,7 @@ class Header extends StatelessWidget {
         ),
         const Spacer(flex: 2),
         // const Expanded(child: SearchField()),
-        SearchButton(moduleName: moduleName),
+        // SearchButton(moduleName: moduleName),
         const ProfileCard(),
       ],
     );
@@ -153,9 +155,11 @@ class ProfileCard extends StatelessWidget {
             height: 38,
           ),
           if (!Responsive.isSmallScreen(context))
-            const Padding(
+            Padding(
               padding: EdgeInsets.symmetric(horizontal: defaultPadding / 2),
-              child: Text("ผู้ดูแลระบบ"),
+              child: CustomText(
+                text: window.sessionStorage["profile"].toString(),
+              ),
             ),
           // Icon(Icons.keyboard_arrow_down),
         ],

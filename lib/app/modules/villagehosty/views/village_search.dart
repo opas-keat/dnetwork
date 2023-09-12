@@ -87,17 +87,36 @@ class VillageSearch extends StatelessWidget {
         TextButton(
           child: const Text("ค้นหา"),
           onPressed: () {
+            controller.reportVillageName.value = controller.villageName.text;
+            controller.reportVillageNo.value = controller.villageNo.text;
+            controller.reportProvince.value =
+                controller.addressController.selectedProvince.value;
+            controller.reportAmphure.value =
+                controller.addressController.selectedAmphure.value;
+            controller.reportDistrict.value =
+                controller.addressController.selectedTambol.value;
             controller.offset.value = 0;
             controller.currentPage = 1;
             controller.listVillageStatistics.clear();
             controller.listVillage();
+            controller.villageName.text = '';
+            controller.villageNo.text = '';
+            controller.addressController.selectedProvince.value = '';
+            controller.addressController.selectedAmphure.value = '';
+            controller.addressController.selectedTambol.value = '';
             Get.back();
           },
         ),
         TextButton(
-          child: const Text("ปิด"),
-          onPressed: () => Get.back(),
-        ),
+            child: const Text("ปิด"),
+            onPressed: () {
+              controller.villageName.text = '';
+              controller.villageNo.text = '';
+              controller.addressController.selectedProvince.value = '';
+              controller.addressController.selectedAmphure.value = '';
+              controller.addressController.selectedTambol.value = '';
+              Get.back();
+            }),
       ],
     );
   }

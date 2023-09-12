@@ -37,6 +37,16 @@ class LectuterController extends GetxController {
   int currentPage = 1;
   RxInt offset = 0.obs;
 
+  List<String> listReportType = <String>['PDF', 'XLSX', 'DOCX'];
+  RxString reportLectuterName = ''.obs;
+  RxString reportLectuterSurName = ''.obs;
+  RxString reportLectuterTel = ''.obs;
+  RxString reportLectuterAgency = ''.obs;
+  RxString reportLectuterAffiliate = ''.obs;
+  RxString reportProvince = ''.obs;
+  RxString reportAmphure = ''.obs;
+  RxString reportDistrict = ''.obs;
+
   @override
   void onInit() {
     super.onInit();

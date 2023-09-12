@@ -1,6 +1,5 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
+import 'package:frontend/app/shared/utils.dart';
 import 'package:get/get.dart';
 
 import '../../../api/api_params.dart';
@@ -13,6 +12,7 @@ import '../../../shared/main_chart.dart';
 import '../../../shared/show_province.dart';
 import '../../training/controllers/training_controller.dart';
 import '../controllers/station_controller.dart';
+import 'station_search.dart';
 import 'station_statistics.dart';
 
 class StationLayoutLarge extends StatelessWidget {
@@ -36,48 +36,22 @@ class StationLayoutLarge extends StatelessWidget {
                 children: [
                   const ShowProvince(),
                   const Spacer(flex: 2),
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      // list_info_l pdf,xlsx,docx
-                      String reportName = 'list_info_l';
-                      String output = 'pdf'; //pdf xlsx docx
-                      String province = 'จันทบุรี';
-                      String tambol = 'เกาะขวาง';
-                      String whereName = "";
-                      // infoNameController.text.isNotEmpty
-                      //     ? whereName = "&NAME=" + infoNameController.text
-                      //     : whereName = "";
-                      String whereLocation = "";
-                      // infoLocationController.text.isNotEmpty
-                      //     ? whereLocation =
-                      //         "&LOCATION=" + infoLocationController.text
-                      //     : whereLocation = "";
-                      String whereAmphure = "";
-                      // _amphure.isNotEmpty
-                      //     ? whereAmphure = "&AMPHURE=" + _amphure
-                      //     : whereAmphure = "";
-                      String whereTambol = "";
-                      // _district.isNotEmpty
-                      //     ? whereTambol = "&TAMBOL=" + _district
-                      //     : whereTambol = "";
-                      String reportUrl =
-                          "https://d-network.ect.go.th/report/flow.html?_flowId=viewReportFlow&_flowId=viewReportFlow&ParentFolderUri=%2Freports%2FECT&reportUnit=%2Freports%2FECT%2F$reportName&standAlone=true&j_username=jasperadmin&j_password=jasperadmin&decorate=no&output=$output&PROVINCE=$province$whereName$whereLocation$whereAmphure$whereTambol";
-                      window.open(reportUrl, "report");
-                    },
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: defaultPadding,
-                          horizontal: defaultPadding / 2),
-                    ),
-                    icon: const Icon(
-                      Icons.insert_drive_file_sharp,
-                    ),
-                    label: const CustomText(
-                      text: "รายงาน",
-                      color: Colors.white,
-                    ),
-                  ),
-                  const SizedBox(width: defaultPadding / 2),
+                  // ElevatedButton.icon(
+                  //   onPressed: () {},
+                  //   style: ElevatedButton.styleFrom(
+                  //     padding: const EdgeInsets.symmetric(
+                  //         vertical: defaultPadding,
+                  //         horizontal: defaultPadding / 2),
+                  //   ),
+                  //   icon: const Icon(
+                  //     Icons.insert_drive_file_sharp,
+                  //   ),
+                  //   label: const CustomText(
+                  //     text: "รายงาน",
+                  //     color: Colors.white,
+                  //   ),
+                  // ),
+                  // const SizedBox(width: defaultPadding / 2),
                   ElevatedButton.icon(
                     icon: const Icon(
                       Icons.add_sharp,
@@ -93,6 +67,71 @@ class StationLayoutLarge extends StatelessWidget {
                     ),
                     onPressed: () {
                       Get.toNamed(Routes.MANAGE_STATION);
+                    },
+                  ),
+                  const SizedBox(width: defaultPadding / 2),
+                  ElevatedButton.icon(
+                    icon: const Icon(
+                      Icons.search_sharp,
+                    ),
+                    label: const CustomText(
+                      text: "ค้นหา",
+                      color: Colors.white,
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: defaultPadding,
+                          horizontal: defaultPadding / 2),
+                    ),
+                    onPressed: () {
+                      Get.dialog(
+                        StationSearch(),
+                        barrierDismissible: false,
+                      );
+                    },
+                  ),
+                  const SizedBox(width: defaultPadding / 2),
+                  DropdownButton(
+                    items: stationController.listReportType
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: CustomText(
+                          text: 'รายงาน $value',
+                        ),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      if (stationController.reportProvince.isEmpty) {
+                        Get.dialog(
+                          AlertDialog(
+                            content:
+                                const Text('กรุณาค้นหา จังหวัด/อำเภอ/ตำบล'),
+                            actions: [
+                              TextButton(
+                                child: const Text("ปิด"),
+                                onPressed: () => Get.back(),
+                              ),
+                            ],
+                          ),
+                        );
+                      } else {
+                        report(
+                          'list_info_l',
+                          value.toString().toLowerCase(),
+                          stationController.reportProvince.value,
+                          stationController.reportAmphure.value,
+                          stationController.reportDistrict.value,
+                          stationController.reportStationName.value,
+                          '',
+                          '',
+                          '',
+                          '',
+                          '',
+                          '',
+                          '',
+                        );
+                      }
                     },
                   ),
                 ],
@@ -121,14 +160,74 @@ class StationLayoutLarge extends StatelessWidget {
         Expanded(
           child: Padding(
             padding: const EdgeInsets.only(left: defaultPadding / 2),
-            child: GetBuilder<TrainingController>(
-              builder: (_) => controller.isLoadingChart.value
-                  ? const Center(child: CircularProgressIndicator())
-                  : MainChart(
-                      header: "สถิติข้อมูลการอบรมของ ศส.ปชต.",
-                      subHeader: "ประเภทการอบรม",
-                      listSummaryChart: controller.summaryChart.obs.value,
-                    ),
+            child: Column(
+              children: [
+                // ListTile(
+                //   title: const CustomText(
+                //     text: 'รายงาน',
+                //   ),
+                //   trailing: Row(
+                //     mainAxisSize: MainAxisSize.min,
+                //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //     children: [
+                //       InkWell(
+                //         onTap: () {},
+                //         child: Container(
+                //           width: 30,
+                //           height: 30,
+                //           decoration: BoxDecoration(
+                //             color: Colors.red,
+                //             borderRadius: BorderRadius.circular(20),
+                //           ),
+                //           child: const Icon(
+                //             CommunityMaterialIcons.pdf_box,
+                //             color: Colors.white,
+                //           ),
+                //         ),
+                //       ),
+                //       InkWell(
+                //         onTap: () {},
+                //         child: Container(
+                //           width: 30,
+                //           height: 30,
+                //           decoration: BoxDecoration(
+                //             color: Colors.green,
+                //             borderRadius: BorderRadius.circular(20),
+                //           ),
+                //           child: const Icon(
+                //             CommunityMaterialIcons.file_excel_box,
+                //             color: Colors.white,
+                //           ),
+                //         ),
+                //       ),
+                //       InkWell(
+                //         onTap: () {},
+                //         child: Container(
+                //           width: 30,
+                //           height: 30,
+                //           decoration: BoxDecoration(
+                //             color: Colors.blue,
+                //             borderRadius: BorderRadius.circular(20),
+                //           ),
+                //           child: const Icon(
+                //             CommunityMaterialIcons.file_word_box,
+                //             color: Colors.white,
+                //           ),
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
+                GetBuilder<TrainingController>(
+                  builder: (_) => controller.isLoadingChart.value
+                      ? const Center(child: CircularProgressIndicator())
+                      : MainChart(
+                          header: "สถิติข้อมูลการอบรมของ ศส.ปชต.",
+                          subHeader: "ประเภทการอบรม",
+                          listSummaryChart: controller.summaryChart.obs.value,
+                        ),
+                ),
+              ],
             ),
             // child: MainChart(
             //   header: "สถิติข้อมูลการอบรมของ ศส.ปชต.",

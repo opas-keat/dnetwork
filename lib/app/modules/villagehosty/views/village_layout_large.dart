@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,7 +10,9 @@ import '../../../shared/custom_text.dart';
 import '../../../shared/info_card.dart';
 import '../../../shared/main_chart.dart';
 import '../../../shared/show_province.dart';
+import '../../../shared/utils.dart';
 import '../controllers/village_controller.dart';
+import 'village_search.dart';
 import 'village_statistics.dart';
 
 class VillageLayoutLarge extends StatelessWidget {
@@ -36,47 +36,6 @@ class VillageLayoutLarge extends StatelessWidget {
                   const ShowProvince(),
                   const Spacer(flex: 2),
                   ElevatedButton.icon(
-                    onPressed: () {
-                      // list_village_hosty_l pdf,xlsx,docx
-                      String reportName = 'list_info_l';
-                      String output = 'pdf'; //pdf xlsx docx
-                      String province = 'จันทบุรี';
-                      String tambol = 'เกาะขวาง';
-                      String whereName = "";
-                      // villageHostyName.text.isNotEmpty
-                      //     ? whereName = "&NAME=" + villageHostyName.text
-                      //     : whereName = "";
-                      String whereMoo = "";
-                      // villageHostyNo.text.isNotEmpty
-                      //     ? whereMoo = "&MOO=" + villageHostyNo.text
-                      //     : whereMoo = "";
-                      String whereAmphure = "";
-                      // _amphure.isNotEmpty
-                      //     ? whereAmphure = "&AMPHURE=" + _amphure
-                      //     : whereAmphure = "";
-                      String whereTambol = "";
-                      // _district.isNotEmpty
-                      //     ? whereTambol = "&TAMBOL=" + _district
-                      //     : whereTambol = "";
-                      String reportUrl =
-                          "https://d-network.ect.go.th/report/flow.html?_flowId=viewReportFlow&_flowId=viewReportFlow&ParentFolderUri=%2Freports%2FECT&reportUnit=%2Freports%2FECT%2F$reportName&standAlone=true&j_username=jasperadmin&j_password=jasperadmin&decorate=no&output=$output&PROVINCE=$province$whereName$whereMoo$whereAmphure$whereTambol";
-                      window.open(reportUrl, "report");
-                    },
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: defaultPadding,
-                          horizontal: defaultPadding / 2),
-                    ),
-                    icon: const Icon(
-                      Icons.insert_drive_file_sharp,
-                    ),
-                    label: const CustomText(
-                      text: "รายงาน",
-                      color: Colors.white,
-                    ),
-                  ),
-                  const SizedBox(width: defaultPadding / 2),
-                  ElevatedButton.icon(
                     icon: const Icon(
                       Icons.add_sharp,
                     ),
@@ -91,6 +50,71 @@ class VillageLayoutLarge extends StatelessWidget {
                     ),
                     onPressed: () {
                       Get.toNamed(Routes.MANAGE_VILLAGE);
+                    },
+                  ),
+                  const SizedBox(width: defaultPadding / 2),
+                  ElevatedButton.icon(
+                    icon: const Icon(
+                      Icons.search_sharp,
+                    ),
+                    label: const CustomText(
+                      text: "ค้นหา",
+                      color: Colors.white,
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: defaultPadding,
+                          horizontal: defaultPadding / 2),
+                    ),
+                    onPressed: () {
+                      Get.dialog(
+                        VillageSearch(),
+                        barrierDismissible: false,
+                      );
+                    },
+                  ),
+                  const SizedBox(width: defaultPadding / 2),
+                  DropdownButton(
+                    items: controller.listReportType
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: CustomText(
+                          text: 'รายงาน $value',
+                        ),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      if (controller.reportProvince.isEmpty) {
+                        Get.dialog(
+                          AlertDialog(
+                            content:
+                                const Text('กรุณาค้นหา จังหวัด/อำเภอ/ตำบล'),
+                            actions: [
+                              TextButton(
+                                child: const Text("ปิด"),
+                                onPressed: () => Get.back(),
+                              ),
+                            ],
+                          ),
+                        );
+                      } else {
+                        report(
+                          'list_village_hosty_l',
+                          value.toString().toLowerCase(),
+                          controller.reportProvince.value,
+                          controller.reportAmphure.value,
+                          controller.reportDistrict.value,
+                          controller.reportVillageName.value,
+                          '',
+                          '',
+                          '',
+                          '',
+                          controller.reportVillageNo.value,
+                          '',
+                          '',
+                        );
+                      }
                     },
                   ),
                 ],

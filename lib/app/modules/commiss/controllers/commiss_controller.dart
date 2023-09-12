@@ -26,7 +26,7 @@ class CommissController extends GetxController {
   final commissSurName = TextEditingController(text: "");
   final commissTelephone = TextEditingController(text: "");
   final commissDate = TextEditingController(text: "");
-  final commissStationName = TextEditingController(text: "");
+  final commissAffiliateName = TextEditingController(text: "");
 
   final summaryChart = <SummaryChart>[].obs;
 
@@ -37,6 +37,22 @@ class CommissController extends GetxController {
 
   final commissPositionList = <String>[].obs;
   Rx<String> selectedCommissPosition = "".obs;
+
+  List<String> listReportType = <String>[
+    'คำสั่ง PDF',
+    'คำสัง XLSX',
+    'คำสั่ง DOCX',
+    'รายงาน PDF',
+    'รายงาน DOCX',
+  ];
+  RxString reportFirstName = ''.obs;
+  RxString reportSurName = ''.obs;
+  RxString reportPosition = ''.obs;
+  RxString reportTel = ''.obs;
+  RxString reportCommissAffiliateName = ''.obs;
+  RxString reportProvince = ''.obs;
+  RxString reportAmphure = ''.obs;
+  RxString reportDistrict = ''.obs;
 
   @override
   void onInit() {
@@ -113,7 +129,7 @@ class CommissController extends GetxController {
       "commiss_sur_name": commissSurName.text,
       "commiss_telephone": commissTelephone.text,
       "commiss_date": commissDate.text,
-      "commiss_station_name": commissStationName.text,
+      "commiss_station_name": commissAffiliateName.text,
       "commiss_position": selectedCommissPosition.value,
     };
     try {
@@ -158,7 +174,7 @@ class CommissController extends GetxController {
     commissSurName.text = "";
     commissTelephone.text = "";
     commissDate.text = "";
-    commissStationName.text = "";
+    commissAffiliateName.text = "";
     selectedCommissPosition.value = "";
     update();
   }

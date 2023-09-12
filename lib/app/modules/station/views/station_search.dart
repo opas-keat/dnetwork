@@ -66,17 +66,33 @@ class StationSearch extends StatelessWidget {
         TextButton(
           child: const Text("ค้นหา"),
           onPressed: () {
+            controller.reportStationName.value = controller.name.text;
+            controller.reportProvince.value =
+                controller.addressController.selectedProvince.value;
+            controller.reportAmphure.value =
+                controller.addressController.selectedAmphure.value;
+            controller.reportDistrict.value =
+                controller.addressController.selectedTambol.value;
             controller.offset.value = 0;
             controller.currentPage = 1;
             controller.listStationStatistics.clear();
             controller.listStation();
+            controller.name.text = '';
+            controller.addressController.selectedProvince.value = '';
+            controller.addressController.selectedAmphure.value = '';
+            controller.addressController.selectedTambol.value = '';
             Get.back();
           },
         ),
         TextButton(
-          child: const Text("ปิด"),
-          onPressed: () => Get.back(),
-        ),
+            child: const Text("ปิด"),
+            onPressed: () {
+              controller.name.text = '';
+              controller.addressController.selectedProvince.value = '';
+              controller.addressController.selectedAmphure.value = '';
+              controller.addressController.selectedTambol.value = '';
+              Get.back();
+            }),
       ],
     );
   }

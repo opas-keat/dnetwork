@@ -102,6 +102,20 @@ class BudgetStatistics extends StatelessWidget {
                       fixedWidth: 30,
                     ),
                     DataColumn2(
+                      label: const Text("งบประจำ"),
+                      size: ColumnSize.S,
+                      onSort: (columnIndex, ascending) {
+                        controller.sort("budgetYear", columnIndex, ascending);
+                      },
+                    ),
+                    DataColumn2(
+                      label: const Text("ชื่อโครงการ/กิจกรรม"),
+                      size: ColumnSize.S,
+                      onSort: (columnIndex, ascending) {
+                        controller.sort("budgetName", columnIndex, ascending);
+                      },
+                    ),
+                    DataColumn2(
                       label: const Text("วันที่รับงบประมาณ"),
                       size: ColumnSize.S,
                       onSort: (columnIndex, ascending) {
@@ -248,6 +262,30 @@ DataRow budgetDataRow(
           style: const TextStyle(
             fontSize: 12,
           ),
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              budgetData.budgetYear!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              budgetData.budgetName!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
         ),
       ),
       DataCell(

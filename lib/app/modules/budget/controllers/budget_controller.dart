@@ -1,4 +1,4 @@
-import 'dart:html';
+import 'dart:html' as html;
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -95,7 +95,7 @@ class BudgetController extends GetxController {
   listBudget() async {
     talker.info('$logTitle::listBudget');
     isLoading.value = true;
-    String province = window.sessionStorage["province"]!;
+    String province = html.window.sessionStorage["province"]!;
     if (province.isEmpty) {
       province = addressController.selectedProvince.value;
     }
@@ -119,6 +119,8 @@ class BudgetController extends GetxController {
             budgetUsed: item.budgetUsed,
             budgetRemain: item.budgetRemain,
             province: item.province,
+            budgetName: item.budgetName,
+            budgetYear: item.budgetYear,
           ),
         );
       }

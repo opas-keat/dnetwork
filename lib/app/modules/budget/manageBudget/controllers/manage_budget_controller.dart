@@ -38,6 +38,8 @@ class ManageBudgetController extends GetxController {
   final budgetBegin = TextEditingController();
   final budgetUsed = TextEditingController(text: '0');
   final budgetRemain = TextEditingController(text: '0');
+  final budgetYear = TextEditingController();
+  final budgetName = TextEditingController();
 
   @override
   void onInit() {
@@ -81,6 +83,8 @@ class ManageBudgetController extends GetxController {
           budgetType: selectedBudgetType.value,
           budgetUsed: int.parse(budgetUsed.text),
           province: addressController.selectedProvince.value,
+          budgetName: budgetName.text,
+          budgetYear: budgetYear.text,
         ),
       );
       talker.debug(budgets.toString());
@@ -97,6 +101,8 @@ class ManageBudgetController extends GetxController {
               budgetType: item.budgetType,
               budgetUsed: item.budgetUsed,
               province: item.province,
+              budgetName: item.budgetName,
+              budgetYear: item.budgetYear,
             ),
           );
         }
@@ -211,6 +217,8 @@ class ManageBudgetController extends GetxController {
           budgetType: selectedBudgetType.value,
           budgetUsed: int.parse(budgetUsed.text),
           province: addressController.selectedProvince.value,
+          budgetName: budgetName.text,
+          budgetYear: budgetYear.text,
         ),
       );
       final result = await BudgetService().updateBudget(budgets.obs.value);
@@ -224,6 +232,8 @@ class ManageBudgetController extends GetxController {
           budgetList[selectedIndexFromTable].budgetRemain = item.budgetRemain;
           budgetList[selectedIndexFromTable].budgetUsed = item.budgetUsed;
           budgetList[selectedIndexFromTable].province = item.province;
+          budgetList[selectedIndexFromTable].budgetName = item.budgetName;
+          budgetList[selectedIndexFromTable].budgetYear = item.budgetYear;
         }
       }
       isLoading.value = false;
@@ -272,6 +282,8 @@ class ManageBudgetController extends GetxController {
         budgetUsed.text = item.budgetUsed!.toString();
         budgetRemain.text = item.budgetRemain!.toString();
         addressController.selectedProvince.value = item.province!;
+        budgetName.text = item.budgetName!;
+        budgetYear.text = item.budgetYear!;
         update();
       }
       isLoading.value = false;
@@ -356,6 +368,8 @@ class ManageBudgetController extends GetxController {
     budgetUsed.text = "0";
     budgetRemain.text = "0";
     selectedBudgetType.value = '';
+    budgetName.text = '';
+    budgetYear.text = '';
     // addressController.selectedProvince.value = '';
     update();
   }

@@ -40,15 +40,20 @@ class BudgetData {
   int? budgetUsed;
   int? budgetRemain;
   String? province;
+  String? budgetYear;
+  String? budgetName;
 
-  BudgetData(
-      {this.id,
-      this.budgetDate,
-      this.budgetType,
-      this.budgetBegin,
-      this.budgetUsed,
-      this.budgetRemain,
-      this.province});
+  BudgetData({
+    this.id,
+    this.budgetDate,
+    this.budgetType,
+    this.budgetBegin,
+    this.budgetUsed,
+    this.budgetRemain,
+    this.province,
+    this.budgetYear,
+    this.budgetName,
+  });
 
   BudgetData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -58,6 +63,8 @@ class BudgetData {
     budgetUsed = json['budget_used'];
     budgetRemain = json['budget_remain'];
     province = json['province'];
+    budgetYear = json['budget_year'];
+    budgetName = json['budget_name'];
   }
 
   Map<String, dynamic> toJson() {
@@ -69,6 +76,8 @@ class BudgetData {
     data['budget_used'] = budgetUsed;
     data['budget_remain'] = budgetRemain;
     data['province'] = province;
+    data['budget_year'] = budgetYear;
+    data['budget_name'] = budgetName;
     return data;
   }
 }

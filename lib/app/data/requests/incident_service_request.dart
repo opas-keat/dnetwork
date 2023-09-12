@@ -23,6 +23,7 @@ class IncidentServiceRequest {
 
 class Incidents {
   int? id;
+  String? createdBy;
   String? incidentModule;
   String? incidentTitle;
   String? incidentDetail;
@@ -31,6 +32,7 @@ class Incidents {
 
   Incidents(
       {this.id,
+      this.createdBy,
       this.incidentModule,
       this.incidentTitle,
       this.incidentDetail,
@@ -39,6 +41,7 @@ class Incidents {
 
   Incidents.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    createdBy = json['created_by'];
     incidentModule = json['incident_module'];
     incidentTitle = json['incident_title'];
     incidentDetail = json['incident_detail'];
@@ -49,6 +52,7 @@ class Incidents {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
+    data['created_by'] = createdBy;
     data['incident_module'] = incidentModule;
     data['incident_title'] = incidentTitle;
     data['incident_detail'] = incidentDetail;

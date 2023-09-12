@@ -1,3 +1,5 @@
+import 'dart:html' as html;
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -52,11 +54,17 @@ class IncidentController extends GetxController {
     talker.info('$logTitle:save:');
     // isLoading.value = true;
     bool result = true;
+    String province = html.window.sessionStorage["province"]!;
+    if (province.isEmpty) {
+      province = addressController.selectedProvince.value;
+    }
     try {
       incidents.add(Incidents(
+        createdBy: html.window.sessionStorage["profile"].toString(),
         incidentModule: incidentModule.text,
         incidentTitle: incidentTitle.text,
         incidentDetail: incidentDetail.text,
+        province: province,
       ));
       final response = await IncidentService().create(incidents.obs.value);
       talker.debug('response message : ${response?.message}');
@@ -93,6 +101,10 @@ class IncidentController extends GetxController {
   list() async {
     talker.info('$logTitle:list:');
     isLoading.value = true;
+    String province = html.window.sessionStorage["province"]!;
+    if (province.isEmpty) {
+      province = addressController.selectedProvince.value;
+    }
     Map<String, String> qParams = {
       "offset": offset.value.toString(),
       "limit": queryParamLimit,
@@ -102,7 +114,7 @@ class IncidentController extends GetxController {
       // "incident_agency": incidentAgency.text,
       // "incident_affiliate": incidentAffiliate.text,
       // "incident_telephone": incidentTelephone.text,
-      "province": addressController.selectedProvince.value,
+      "province": province,
       // "amphure": addressController.selectedAmphure.value,
       // "district": addressController.selectedTambol.value,
     };

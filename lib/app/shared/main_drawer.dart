@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -28,30 +30,35 @@ class MainDrawer extends StatelessWidget {
                 shrinkWrap: true,
                 itemCount: listModule.length,
                 itemBuilder: (context, index) {
-                  return Material(
-                    type: MaterialType.transparency,
-                    child: ListTile(
-                      horizontalTitleGap: defaultPadding / 4,
-                      contentPadding: const EdgeInsets.symmetric(
-                        horizontal: defaultPadding / 2,
-                      ),
-                      hoverColor: primaryColor.withOpacity(0.2),
-                      leading: Icon(
-                        listModule[index].icon,
-                      ),
-                      title: CustomText(
-                        text: listModule[index].nameTH,
-                        scale: 0.8,
-                      ),
-                      onTap: () {
-                        talker.debug("drawer: ${listModule[index].nameEn}");
-                        addressController.selectedProvince.value = '';
-                        addressController.selectedAmphure.value = '';
-                        addressController.selectedTambol.value = '';
-                        Get.toNamed(listModule[index].url);
-                      },
-                    ),
-                  );
+                  return (window.sessionStorage["roles"]
+                              .toString()
+                              .contains('user') &&
+                          listModule[index].nameEn.contains('setting'))
+                      ? Container()
+                      : Material(
+                          type: MaterialType.transparency,
+                          child: ListTile(
+                            horizontalTitleGap: defaultPadding / 4,
+                            contentPadding: const EdgeInsets.symmetric(
+                              horizontal: defaultPadding / 2,
+                            ),
+                            hoverColor: primaryColor.withOpacity(0.2),
+                            leading: Icon(
+                              listModule[index].icon,
+                            ),
+                            title: CustomText(
+                              text: listModule[index].nameTH,
+                              scale: 0.8,
+                            ),
+                            onTap: () {
+                              // talker.debug("drawer: ${listModule[index].nameEn}");
+                              addressController.selectedProvince.value = '';
+                              addressController.selectedAmphure.value = '';
+                              addressController.selectedTambol.value = '';
+                              Get.toNamed(listModule[index].url);
+                            },
+                          ),
+                        );
                 },
               ),
             ),

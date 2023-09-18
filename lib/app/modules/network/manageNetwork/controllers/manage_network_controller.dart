@@ -240,6 +240,8 @@ class ManageNetworkController extends GetxController {
     talker.info('$logTitle:selectDataFromTable:$selectedIndexFromTable');
     talker.info('$logTitle:id:$id');
     isLoading.value = true;
+    networkPositionCommuChips.clear();
+    networkExpChips.clear();
     try {
       final result = await NetworkService().getById(id);
       for (final item in result!.data!) {

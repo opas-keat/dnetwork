@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'package:get/get.dart';
-
 import '../../../../responsive.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/header.dart';
 import '../../../shared/main_drawer.dart';
-import '../controllers/incident_controller.dart';
 import 'incident_layout_large.dart';
 
 class IncidentView extends StatelessWidget {
@@ -15,7 +12,6 @@ class IncidentView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final IncidentController controller = Get.put(IncidentController());
     return Scaffold(
       appBar: !Responsive.isLargeScreen(context)
           ? AppBar(

@@ -211,6 +211,7 @@ class ManageVillageController extends GetxController {
     talker.info('$logTitle:selectDataFromTable:$selectedIndexFromTable');
     talker.info('$logTitle:id:$id');
     isLoading.value = true;
+    typeActChips.clear();
     try {
       final result = await VillageService().getById(id);
       for (final item in result!.data!) {
@@ -221,7 +222,7 @@ class ManageVillageController extends GetxController {
         if (item.villageTypeAct!.isNotEmpty) {
           typeActChips.addAll(item.villageTypeAct!.split('|'));
         }
-        talker.info('$logTitle:id:$typeActChips');
+        // talker.info('$logTitle:id:$typeActChips');
 
         addressController.selectedProvince.value = item.province!;
         await addressController.listAmphure();

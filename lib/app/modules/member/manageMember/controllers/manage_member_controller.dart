@@ -232,6 +232,8 @@ class ManageMemberController extends GetxController {
     talker.info('$logTitle:selectDataFromTable:$selectedIndexFromTable');
     talker.info('$logTitle:id:$id');
     isLoading.value = true;
+    memberPositionCommuChips.clear();
+    memberExpChips.clear();
     try {
       final result = await MemberService().getById(id);
       for (final item in result!.data!) {

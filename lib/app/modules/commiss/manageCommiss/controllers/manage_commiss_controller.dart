@@ -238,6 +238,8 @@ class ManageCommissController extends GetxController {
     talker.info('$logTitle:selectDataFromTable:$selectedIndexFromTable');
     talker.info('$logTitle:id:$id');
     isLoading.value = true;
+    commissPositionCommuChips.clear();
+    commissExpChips.clear();
     try {
       final result = await CommissService().getById(id);
       for (final item in result!.data!) {

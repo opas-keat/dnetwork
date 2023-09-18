@@ -558,14 +558,42 @@ class ManageDataDetail extends StatelessWidget {
         IconButton(
           icon: const Icon(Icons.delete_sharp),
           onPressed: () async {
-            Get.dialog(
-              const Center(
-                child: CircularProgressIndicator(),
+            final result = await Get.dialog(
+              AlertDialog(
+                content: const CustomText(
+                  text: "ยืนยันการลบข้อมูล ?",
+                  scale: 1.2,
+                ),
+                actions: [
+                  TextButton(
+                    child: const CustomText(
+                      text: "ยืนยัน",
+                      scale: 1.2,
+                      color: Colors.red,
+                    ),
+                    onPressed: () => Get.back(result: 'Y'),
+                  ),
+                  TextButton(
+                    child: const CustomText(
+                      text: "ปิด",
+                      scale: 1.2,
+                      color: Colors.green,
+                    ),
+                    onPressed: () => Get.back(result: "N"),
+                  ),
+                ],
               ),
-              barrierDismissible: false,
             );
-            await controller.delete();
-            Get.back();
+            if (result == 'Y') {
+              Get.dialog(
+                const Center(
+                  child: CircularProgressIndicator(),
+                ),
+                barrierDismissible: false,
+              );
+              await controller.delete();
+              Get.back();
+            }
           },
         ),
         InkWell(

@@ -138,7 +138,7 @@ class ManageStationController extends GetxController {
         ),
       );
       final result = await StationService().update(stations.obs.value);
-      
+
       talker.debug('response message : ${result?.message}');
       if (result?.code == "000") {
         for (var item in result!.data!) {
@@ -205,7 +205,7 @@ class ManageStationController extends GetxController {
   //   }
   // }
 
-  deleteDataFromTable() async {
+  delete() async {
     talker.info('$logTitle:deleteDataFromTable:$selectedId');
     talker.info('$logTitle:deleteDataFromTable:$selectedIndexFromTable');
     if (stationList.length > selectedIndexFromTable &&

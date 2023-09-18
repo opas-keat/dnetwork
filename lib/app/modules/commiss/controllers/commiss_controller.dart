@@ -39,9 +39,9 @@ class CommissController extends GetxController {
   Rx<String> selectedCommissPosition = "".obs;
 
   List<String> listReportType = <String>[
-    'คำสั่ง PDF',
-    'คำสัง XLSX',
-    'คำสั่ง DOCX',
+    'ประกาศ PDF',
+    'ประกาศ XLSX',
+    'ประกาศ DOCX',
     'รายงาน PDF',
     'รายงาน DOCX',
   ];

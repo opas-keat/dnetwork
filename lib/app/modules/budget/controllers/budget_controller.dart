@@ -23,10 +23,12 @@ class BudgetController extends GetxController {
   RxInt sortColumnIndex = 0.obs;
 
   final budgetDate = TextEditingController(text: "");
-  final budgetType = TextEditingController(text: "");
   // final province = TextEditingController();
 
   final summaryBudgetChart = <SummaryChart>[].obs;
+
+  final budgetTypeList = <String>[].obs;
+  Rx<String> selectedBudgetType = "".obs;
 
   int currentPage = 1;
   RxInt offset = 0.obs;
@@ -73,6 +75,8 @@ class BudgetController extends GetxController {
     try {
       final result = await BudgetTypeService().list(qParams);
       summaryBudgetChart.clear();
+      budgetTypeList.clear();
+      budgetTypeList.add("");
       for (final item in result!.data!) {
         summaryBudgetChart.add(
           SummaryChart(
@@ -82,6 +86,7 @@ class BudgetController extends GetxController {
             value: item.totalData!,
           ),
         );
+        budgetTypeList.add(item.name!);
       }
       isLoadingChart.value = false;
       isLoadingChart.refresh();
@@ -104,7 +109,7 @@ class BudgetController extends GetxController {
       "limit": queryParamLimit,
       "order": queryParamOrderBy,
       "budget_date": budgetDate.text,
-      "budget_type": budgetType.text,
+      "budget_type": selectedBudgetType.value,
       "province": province,
     };
     try {
@@ -142,7 +147,6 @@ class BudgetController extends GetxController {
 
   resetSearch() {
     budgetDate.text = "";
-    budgetType.text = "";
     update();
   }
 

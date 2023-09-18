@@ -134,6 +134,7 @@ class TrainingSearch extends StatelessWidget {
             controller.currentPage = 1;
             controller.listTrainingStatistics.clear();
             controller.listTraining();
+            
             Get.back();
           },
         ),

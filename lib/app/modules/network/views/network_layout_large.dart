@@ -10,6 +10,7 @@ import '../../../shared/info_card.dart';
 import '../../../shared/main_chart.dart';
 import '../../../shared/show_province.dart';
 import '../controllers/network_controller.dart';
+import 'network_search.dart';
 import 'network_statistics.dart';
 
 class NetworkLayoutLarge extends StatelessWidget {
@@ -32,22 +33,6 @@ class NetworkLayoutLarge extends StatelessWidget {
                 children: [
                   const ShowProvince(),
                   const Spacer(flex: 2),
-                  // ElevatedButton.icon(
-                  //   onPressed: () {},
-                  //   style: ElevatedButton.styleFrom(
-                  //     padding: const EdgeInsets.symmetric(
-                  //         vertical: defaultPadding,
-                  //         horizontal: defaultPadding / 2),
-                  //   ),
-                  //   icon: const Icon(
-                  //     Icons.insert_drive_file_sharp,
-                  //   ),
-                  //   label: const CustomText(
-                  //     text: "รายงาน",
-                  //     color: Colors.white,
-                  //   ),
-                  // ),
-                  const SizedBox(width: defaultPadding / 2),
                   ElevatedButton.icon(
                     icon: const Icon(
                       Icons.add_sharp,
@@ -65,6 +50,28 @@ class NetworkLayoutLarge extends StatelessWidget {
                       Get.toNamed(Routes.MANAGE_NETWORK);
                     },
                   ),
+                  const SizedBox(width: defaultPadding / 2),
+                  ElevatedButton.icon(
+                    icon: const Icon(
+                      Icons.search_sharp,
+                    ),
+                    label: const CustomText(
+                      text: "ค้นหา",
+                      color: Colors.white,
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: defaultPadding,
+                          horizontal: defaultPadding / 2),
+                    ),
+                    onPressed: () {
+                      Get.dialog(
+                        NetworkSearch(),
+                        barrierDismissible: false,
+                      );
+                    },
+                  ),
+                  const SizedBox(width: defaultPadding / 2),
                 ],
               ),
               const SizedBox(height: defaultPadding / 2),

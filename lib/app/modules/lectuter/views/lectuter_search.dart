@@ -122,21 +122,51 @@ class LectuterSearch extends StatelessWidget {
                 color: Colors.black87.withOpacity(.9),
               ),
               const SizedBox(height: defaultPadding / 2),
-              TextFormField(
-                controller: controller.lectuterAffiliate,
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  fillColor: Colors.white.withOpacity(.8),
-                  filled: true,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(defaultPadding / 2),
-                    borderSide:
-                        const BorderSide(color: Colors.black54, width: 1),
+              Obx(
+                () => DropdownButtonFormField<String>(
+                  isDense: true,
+                  isExpanded: true,
+                  decoration: InputDecoration(
+                    fillColor: Colors.white.withOpacity(.8),
+                    filled: true,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(defaultPadding / 2),
+                      borderSide:
+                          const BorderSide(color: Colors.black54, width: 1),
+                    ),
+                    isCollapsed: true,
+                    contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
                   ),
-                  isCollapsed: true,
-                  contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                  value: controller.selectedLectuterAffiliate.value,
+                  onChanged: (newValue) {
+                    controller.selectedLectuterAffiliate.value = newValue!;
+                  },
+                  items: controller.lectuterAffiliateList.obs.value.map((item) {
+                    return DropdownMenuItem<String>(
+                      value: item,
+                      child: Text(
+                        item,
+                        textScaleFactor: 0.9,
+                      ),
+                    );
+                  }).toList(),
                 ),
               ),
+              // TextFormField(
+              //   controller: controller.lectuterAffiliate,
+              //   keyboardType: TextInputType.text,
+              //   decoration: InputDecoration(
+              //     fillColor: Colors.white.withOpacity(.8),
+              //     filled: true,
+              //     border: OutlineInputBorder(
+              //       borderRadius: BorderRadius.circular(defaultPadding / 2),
+              //       borderSide:
+              //           const BorderSide(color: Colors.black54, width: 1),
+              //     ),
+              //     isCollapsed: true,
+              //     contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
+              //   ),
+              // ),
               const SizedBox(height: defaultPadding),
               AddressView(
                 showAmphure: false,
@@ -164,8 +194,8 @@ class LectuterSearch extends StatelessWidget {
                 controller.lectuterTelephone.text;
             controller.reportLectuterAgency.value =
                 controller.lectuterAgency.text;
-            controller.reportLectuterAffiliate.value =
-                controller.lectuterAffiliate.text;
+            // controller.reportLectuterAffiliate.value =
+            //     controller.lectuterAffiliate.text;
             controller.reportProvince.value =
                 controller.addressController.selectedProvince.value;
             controller.reportAmphure.value =
@@ -180,8 +210,8 @@ class LectuterSearch extends StatelessWidget {
             controller.lectuterSurName.text = '';
             controller.lectuterTelephone.text = '';
             controller.lectuterAgency.text = '';
-            controller.lectuterAffiliate.text = '';
-            controller.lectuterAffiliate.text = '';
+            // controller.lectuterAffiliate.text = '';
+            controller.selectedLectuterAffiliate.value = '';
             controller.addressController.selectedProvince.value = '';
             controller.addressController.selectedAmphure.value = '';
             controller.addressController.selectedTambol.value = '';
@@ -195,8 +225,8 @@ class LectuterSearch extends StatelessWidget {
               controller.lectuterSurName.text = '';
               controller.lectuterTelephone.text = '';
               controller.lectuterAgency.text = '';
-              controller.lectuterAffiliate.text = '';
-              controller.lectuterAffiliate.text = '';
+              // controller.lectuterAffiliate.text = '';
+              controller.selectedLectuterAffiliate.value = '';
               controller.addressController.selectedProvince.value = '';
               controller.addressController.selectedAmphure.value = '';
               controller.addressController.selectedTambol.value = '';

@@ -29,7 +29,7 @@ class LectuterController extends GetxController {
   final lectuterLine = TextEditingController();
   final lectuterFacebook = TextEditingController();
   final lectuterAgency = TextEditingController();
-  final lectuterAffiliate = TextEditingController();
+  // final lectuterAffiliate = TextEditingController();
   final lectuterExp = TextEditingController();
 
   final summaryChart = <SummaryChart>[].obs;
@@ -46,6 +46,9 @@ class LectuterController extends GetxController {
   RxString reportProvince = ''.obs;
   RxString reportAmphure = ''.obs;
   RxString reportDistrict = ''.obs;
+
+  final lectuterAffiliateList = <String>[].obs;
+  Rx<String> selectedLectuterAffiliate = "".obs;
 
   @override
   void onInit() {
@@ -67,6 +70,8 @@ class LectuterController extends GetxController {
     try {
       final result = await LectuterAffiliateService().list(qParams);
       summaryChart.clear();
+      lectuterAffiliateList.clear();
+      lectuterAffiliateList.add("");
       for (final item in result!.data!) {
         summaryChart.add(
           SummaryChart(
@@ -76,6 +81,7 @@ class LectuterController extends GetxController {
             value: item.totalData!,
           ),
         );
+        lectuterAffiliateList.add(item.name!);
       }
       isLoadingChart.value = false;
       isLoadingChart.refresh();
@@ -99,7 +105,7 @@ class LectuterController extends GetxController {
       "lectuter_first_name": lectuterFirstName.text,
       "lectuter_sur_name": lectuterSurName.text,
       "lectuter_agency": lectuterAgency.text,
-      "lectuter_affiliate": lectuterAffiliate.text,
+      "lectuter_affiliate": selectedLectuterAffiliate.value,
       "lectuter_telephone": lectuterTelephone.text,
       "province": province,
       // "amphure": addressController.selectedAmphure.value,
@@ -143,7 +149,8 @@ class LectuterController extends GetxController {
     lectuterFirstName.text = "";
     lectuterSurName.text = "";
     lectuterAgency.text = "";
-    lectuterAffiliate.text = "";
+    // lectuterAffiliate.text = "";
+    selectedLectuterAffiliate.value = '';
     lectuterTelephone.text = "";
     update();
   }

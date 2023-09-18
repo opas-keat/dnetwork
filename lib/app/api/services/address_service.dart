@@ -56,7 +56,7 @@ class AddressService {
     try {
       final response = await apiUtils.get(
         url:
-            '${Api.ectApiContext}${Api.ectApiVersion}${ApiEndPoints.amphures}?pName=$pName',
+            '${Api.ectApiContext}${Api.ectApiVersion}${ApiEndPoints.amphures}?pName=$pName&order=a_name asc',
         options: Options(
           headers: apiUtils.secureHeaders,
         ),
@@ -97,7 +97,7 @@ class AddressService {
     try {
       final response = await apiUtils.get(
         url:
-            '${Api.ectApiContext}${Api.ectApiVersion}${ApiEndPoints.tambols}?pName=$pName&aName=$aName',
+            '${Api.ectApiContext}${Api.ectApiVersion}${ApiEndPoints.tambols}?pName=$pName&aName=$aName&order=t_name asc',
         options: Options(
           headers: apiUtils.secureHeaders,
         ),

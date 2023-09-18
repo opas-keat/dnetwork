@@ -169,14 +169,9 @@ class CommissSearch extends StatelessWidget {
                 showPostCode: false,
               ),
               const SizedBox(height: defaultPadding),
-              Wrap(
-                direction: Axis.horizontal,
-                children: [
-                  CustomText(
-                    text: "ตำแหน่งใน ศส.ปชต.",
-                    color: Colors.black87.withOpacity(.9),
-                  ),
-                ],
+              CustomText(
+                text: "ตำแหน่งใน ศส.ปชต.",
+                color: Colors.black87.withOpacity(.9),
               ),
               const SizedBox(height: defaultPadding / 2),
               Obx(

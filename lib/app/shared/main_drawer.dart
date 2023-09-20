@@ -1,4 +1,4 @@
-import 'dart:html';
+import 'dart:html' as html;
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,7 +7,6 @@ import '../data/models/module.dart';
 import '../modules/address/controllers/address_controller.dart';
 import 'constant.dart';
 import 'custom_text.dart';
-import 'utils.dart';
 
 class MainDrawer extends StatelessWidget {
   MainDrawer({super.key});
@@ -30,7 +29,7 @@ class MainDrawer extends StatelessWidget {
                 shrinkWrap: true,
                 itemCount: listModule.length,
                 itemBuilder: (context, index) {
-                  return (window.sessionStorage["roles"]
+                  return (html.window.sessionStorage["roles"]
                               .toString()
                               .contains('user') &&
                           listModule[index].nameEn.contains('setting'))

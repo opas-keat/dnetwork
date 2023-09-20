@@ -1,8 +1,10 @@
-import 'dart:html';
+import 'dart:html' as html;
 
 import 'package:flutter/material.dart';
+import 'package:frontend/app/api/api.dart';
 import 'package:frontend/app/shared/utils.dart';
 import 'package:get/get.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 import '../../responsive.dart';
 import '../data/models/module.dart';
@@ -150,15 +152,76 @@ class ProfileCard extends StatelessWidget {
       ),
       child: Row(
         children: [
+          TextButton(
+            child: const CustomText(
+              text: "คู่มือ",
+              color: Colors.blue,
+              scale: 1.2,
+              weight: FontWeight.bold,
+            ),
+            onPressed: () {
+              Get.dialog(
+                AlertDialog(
+                  title: CustomText(
+                    text: "คู่มือ",
+                    color: Colors.black87.withOpacity(.9),
+                  ),
+                  content: SizedBox(
+                    width: 320,
+                    // height: 480,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          QrImageView(
+                            data:
+                                '${Api.baseUrl + Api.ectApiContext + Api.ectApiVersion}/file_attach/manual',
+                            version: QrVersions.auto,
+                            size: 160,
+                            gapless: false,
+                          ),
+                          const SizedBox(height: defaultPadding),
+                          TextButton(
+                            child: const CustomText(
+                              text: "Download",
+                              color: Colors.blue,
+                              scale: 1.2,
+                              weight: FontWeight.bold,
+                            ),
+                            onPressed: () {
+                              html.window.open(
+                                  '${Api.baseUrl + Api.ectApiContext + Api.ectApiVersion}/file_attach/manual',
+                                  "คู่มือ");
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  actions: [
+                    TextButton(
+                      child: const Text("ปิด"),
+                      onPressed: () => Get.back(),
+                    ),
+                  ],
+                ),
+                barrierDismissible: false,
+              );
+            },
+          ),
+          const SizedBox(width: defaultPadding),
           Image.network(
             "assets/images/avatar.png",
             height: 38,
           ),
           if (!Responsive.isSmallScreen(context))
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: defaultPadding / 2),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
               child: CustomText(
-                text: window.sessionStorage["profile"].toString(),
+                text: html.window.sessionStorage["profile"].toString(),
               ),
             ),
           // Icon(Icons.keyboard_arrow_down),

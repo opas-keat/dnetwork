@@ -169,7 +169,17 @@ class NetworkSearch extends StatelessWidget {
         ),
         TextButton(
           child: const Text("ปิด"),
-          onPressed: () => Get.back(),
+          onPressed: () {
+            controller.networkStationName.text = '';
+            controller.networkFirstName.text = '';
+            controller.networkSurName.text = '';
+            controller.networkIdCard.text = '';
+            controller.networkTelephone.text = '';
+            controller.addressController.selectedProvince.value = '';
+            controller.addressController.selectedAmphure.value = '';
+            controller.addressController.selectedTambol.value = '';
+            Get.back();
+          },
         ),
       ],
     );

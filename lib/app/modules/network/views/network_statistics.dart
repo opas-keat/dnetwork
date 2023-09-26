@@ -50,6 +50,11 @@ class NetworkStatistics extends StatelessWidget {
                           controller.offset.value = 0;
                           controller.currentPage = 1;
                           controller.listNetworkStatistics.clear();
+                          controller.networkStationName.text = '';
+                          controller.networkFirstName.text = '';
+                          controller.networkSurName.text = '';
+                          controller.networkIdCard.text = '';
+                          controller.networkTelephone.text = '';
                           controller.addressController.selectedProvince.value =
                               '';
                           controller.addressController.selectedAmphure.value =

@@ -103,8 +103,8 @@ class BudgetSearch extends StatelessWidget {
             controller.currentPage = 1;
             controller.listBudgetStatistics.clear();
             controller.listBudget();
-            controller.selectedBudgetType.value = '';
-            controller.budgetDate.text = '';
+            // controller.selectedBudgetType.value = '';
+            // controller.budgetDate.text = '';
             Get.back();
           },
         ),

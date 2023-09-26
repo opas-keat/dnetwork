@@ -49,6 +49,11 @@ class MemberStatistics extends StatelessWidget {
                           controller.offset.value = 0;
                           controller.currentPage = 1;
                           controller.listMemberStatistics.clear();
+                          controller.memberStationName.text = '';
+                          controller.memberFirstName.text = '';
+                          controller.memberSurName.text = '';
+                          controller.memberIdCard.text = '';
+                          controller.memberTelephone.text = '';
                           controller.addressController.selectedProvince.value =
                               '';
                           controller.addressController.selectedAmphure.value =

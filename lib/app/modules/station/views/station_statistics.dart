@@ -49,6 +49,7 @@ class StationStatistics extends StatelessWidget {
                           controller.offset.value = 0;
                           controller.currentPage = 1;
                           controller.listStationStatistics.clear();
+                          controller.name.text = '';
                           controller.addressController.selectedProvince.value =
                               '';
                           controller.addressController.selectedAmphure.value =

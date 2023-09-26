@@ -168,9 +168,18 @@ class MemberSearch extends StatelessWidget {
           },
         ),
         TextButton(
-          child: const Text("ปิด"),
-          onPressed: () => Get.back(),
-        ),
+            child: const Text("ปิด"),
+            onPressed: () {
+              controller.memberStationName.text = '';
+              controller.memberFirstName.text = '';
+              controller.memberSurName.text = '';
+              controller.memberIdCard.text = '';
+              controller.memberTelephone.text = '';
+              controller.addressController.selectedProvince.value = '';
+              controller.addressController.selectedAmphure.value = '';
+              controller.addressController.selectedTambol.value = '';
+              Get.back();
+            }),
       ],
     );
   }

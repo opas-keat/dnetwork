@@ -134,14 +134,20 @@ class TrainingSearch extends StatelessWidget {
             controller.currentPage = 1;
             controller.listTrainingStatistics.clear();
             controller.listTraining();
-            
+
             Get.back();
           },
         ),
         TextButton(
-          child: const Text("ปิด"),
-          onPressed: () => Get.back(),
-        ),
+            child: const Text("ปิด"),
+            onPressed: () {
+              controller.trainingName.text = '';
+              controller.trainingDateForm.text = '';
+              controller.trainingDateTo.text = '';
+              controller.trainingType.text = '';
+              controller.addressController.selectedProvince.value = '';
+              Get.back();
+            }),
       ],
     );
   }

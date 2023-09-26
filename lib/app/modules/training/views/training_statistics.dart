@@ -50,11 +50,11 @@ class TrainingStatistics extends StatelessWidget {
                           controller.offset.value = 0;
                           controller.currentPage = 1;
                           controller.listTrainingStatistics.clear();
+                          controller.trainingName.text = '';
+                          controller.trainingDateForm.text = '';
+                          controller.trainingDateTo.text = '';
+                          controller.trainingType.text = '';
                           controller.addressController.selectedProvince.value =
-                              '';
-                          controller.addressController.selectedAmphure.value =
-                              '';
-                          controller.addressController.selectedTambol.value =
                               '';
                           controller.listTraining();
                         },

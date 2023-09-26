@@ -77,10 +77,10 @@ class StationSearch extends StatelessWidget {
             controller.currentPage = 1;
             controller.listStationStatistics.clear();
             controller.listStation();
-            controller.name.text = '';
-            controller.addressController.selectedProvince.value = '';
-            controller.addressController.selectedAmphure.value = '';
-            controller.addressController.selectedTambol.value = '';
+            // controller.name.text = '';
+            // controller.addressController.selectedProvince.value = '';
+            // controller.addressController.selectedAmphure.value = '';
+            // controller.addressController.selectedTambol.value = '';
             Get.back();
           },
         ),

@@ -36,22 +36,6 @@ class StationLayoutLarge extends StatelessWidget {
                 children: [
                   const ShowProvince(),
                   const Spacer(flex: 2),
-                  // ElevatedButton.icon(
-                  //   onPressed: () {},
-                  //   style: ElevatedButton.styleFrom(
-                  //     padding: const EdgeInsets.symmetric(
-                  //         vertical: defaultPadding,
-                  //         horizontal: defaultPadding / 2),
-                  //   ),
-                  //   icon: const Icon(
-                  //     Icons.insert_drive_file_sharp,
-                  //   ),
-                  //   label: const CustomText(
-                  //     text: "รายงาน",
-                  //     color: Colors.white,
-                  //   ),
-                  // ),
-                  // const SizedBox(width: defaultPadding / 2),
                   ElevatedButton.icon(
                     icon: const Icon(
                       Icons.add_sharp,
@@ -162,62 +146,6 @@ class StationLayoutLarge extends StatelessWidget {
             padding: const EdgeInsets.only(left: defaultPadding / 2),
             child: Column(
               children: [
-                // ListTile(
-                //   title: const CustomText(
-                //     text: 'รายงาน',
-                //   ),
-                //   trailing: Row(
-                //     mainAxisSize: MainAxisSize.min,
-                //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                //     children: [
-                //       InkWell(
-                //         onTap: () {},
-                //         child: Container(
-                //           width: 30,
-                //           height: 30,
-                //           decoration: BoxDecoration(
-                //             color: Colors.red,
-                //             borderRadius: BorderRadius.circular(20),
-                //           ),
-                //           child: const Icon(
-                //             CommunityMaterialIcons.pdf_box,
-                //             color: Colors.white,
-                //           ),
-                //         ),
-                //       ),
-                //       InkWell(
-                //         onTap: () {},
-                //         child: Container(
-                //           width: 30,
-                //           height: 30,
-                //           decoration: BoxDecoration(
-                //             color: Colors.green,
-                //             borderRadius: BorderRadius.circular(20),
-                //           ),
-                //           child: const Icon(
-                //             CommunityMaterialIcons.file_excel_box,
-                //             color: Colors.white,
-                //           ),
-                //         ),
-                //       ),
-                //       InkWell(
-                //         onTap: () {},
-                //         child: Container(
-                //           width: 30,
-                //           height: 30,
-                //           decoration: BoxDecoration(
-                //             color: Colors.blue,
-                //             borderRadius: BorderRadius.circular(20),
-                //           ),
-                //           child: const Icon(
-                //             CommunityMaterialIcons.file_word_box,
-                //             color: Colors.white,
-                //           ),
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                // ),
                 GetBuilder<TrainingController>(
                   builder: (_) => controller.isLoadingChart.value
                       ? const Center(child: CircularProgressIndicator())

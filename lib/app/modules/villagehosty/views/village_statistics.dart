@@ -49,6 +49,8 @@ class VillageStatistics extends StatelessWidget {
                           controller.offset.value = 0;
                           controller.currentPage = 1;
                           controller.listVillageStatistics.clear();
+                          controller.villageName.text = '';
+                          controller.villageNo.text = '';
                           controller.addressController.selectedProvince.value =
                               '';
                           controller.addressController.selectedAmphure.value =

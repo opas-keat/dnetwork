@@ -206,15 +206,15 @@ class LectuterSearch extends StatelessWidget {
             controller.currentPage = 1;
             controller.listLectuterStatistics.clear();
             controller.listLectuter();
-            controller.lectuterFirstName.text = '';
-            controller.lectuterSurName.text = '';
-            controller.lectuterTelephone.text = '';
-            controller.lectuterAgency.text = '';
-            // controller.lectuterAffiliate.text = '';
-            controller.selectedLectuterAffiliate.value = '';
-            controller.addressController.selectedProvince.value = '';
-            controller.addressController.selectedAmphure.value = '';
-            controller.addressController.selectedTambol.value = '';
+            // controller.lectuterFirstName.text = '';
+            // controller.lectuterSurName.text = '';
+            // controller.lectuterTelephone.text = '';
+            // controller.lectuterAgency.text = '';
+            // // controller.lectuterAffiliate.text = '';
+            // controller.selectedLectuterAffiliate.value = '';
+            // controller.addressController.selectedProvince.value = '';
+            // controller.addressController.selectedAmphure.value = '';
+            // controller.addressController.selectedTambol.value = '';
             Get.back();
           },
         ),

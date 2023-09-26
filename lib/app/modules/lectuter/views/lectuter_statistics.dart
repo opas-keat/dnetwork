@@ -50,6 +50,11 @@ class LectuterStatistics extends StatelessWidget {
                           controller.offset.value = 0;
                           controller.currentPage = 1;
                           controller.listLectuterStatistics.clear();
+                          controller.lectuterFirstName.text = '';
+                          controller.lectuterSurName.text = '';
+                          controller.lectuterTelephone.text = '';
+                          controller.lectuterAgency.text = '';
+                          controller.selectedLectuterAffiliate.value = '';
                           controller.addressController.selectedProvince.value =
                               '';
                           controller.addressController.selectedAmphure.value =

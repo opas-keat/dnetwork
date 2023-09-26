@@ -50,6 +50,17 @@ class CommissStatistics extends StatelessWidget {
                           controller.offset.value = 0;
                           controller.currentPage = 1;
                           controller.listCommissStatistics.clear();
+                          controller.commissFirstName.text = '';
+                          controller.commissSurName.text = '';
+                          controller.commissTelephone.text = '';
+                          controller.selectedCommissPosition.value = '';
+                          controller.commissAffiliateName.text = '';
+                          controller.addressController.selectedProvince.value =
+                              '';
+                          controller.addressController.selectedAmphure.value =
+                              '';
+                          controller.addressController.selectedTambol.value =
+                              '';
                           controller.defaultCommissOrder = queryParamOrderBy;
                           controller.listCommiss();
                         },

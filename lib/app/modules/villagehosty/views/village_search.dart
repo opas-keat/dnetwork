@@ -99,11 +99,11 @@ class VillageSearch extends StatelessWidget {
             controller.currentPage = 1;
             controller.listVillageStatistics.clear();
             controller.listVillage();
-            controller.villageName.text = '';
-            controller.villageNo.text = '';
-            controller.addressController.selectedProvince.value = '';
-            controller.addressController.selectedAmphure.value = '';
-            controller.addressController.selectedTambol.value = '';
+            // controller.villageName.text = '';
+            // controller.villageNo.text = '';
+            // controller.addressController.selectedProvince.value = '';
+            // controller.addressController.selectedAmphure.value = '';
+            // controller.addressController.selectedTambol.value = '';
             Get.back();
           },
         ),

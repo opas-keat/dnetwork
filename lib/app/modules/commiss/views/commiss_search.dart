@@ -233,14 +233,14 @@ class CommissSearch extends StatelessWidget {
             }
             controller.listCommissStatistics.clear();
             controller.listCommiss();
-            controller.commissFirstName.text = '';
-            controller.commissSurName.text = '';
-            controller.commissTelephone.text = '';
-            controller.selectedCommissPosition.value = '';
-            controller.commissAffiliateName.text = '';
-            controller.addressController.selectedProvince.value = '';
-            controller.addressController.selectedAmphure.value = '';
-            controller.addressController.selectedTambol.value = '';
+            // controller.commissFirstName.text = '';
+            // controller.commissSurName.text = '';
+            // controller.commissTelephone.text = '';
+            // controller.selectedCommissPosition.value = '';
+            // controller.commissAffiliateName.text = '';
+            // controller.addressController.selectedProvince.value = '';
+            // controller.addressController.selectedAmphure.value = '';
+            // controller.addressController.selectedTambol.value = '';
             Get.back();
           },
         ),

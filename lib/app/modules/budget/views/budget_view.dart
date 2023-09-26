@@ -20,7 +20,7 @@ class BudgetView extends StatelessWidget {
           ? AppBar(
               centerTitle: true,
               title: const CustomText(
-                text: "งบประมาณ รายรับ-รายจ่าย",
+                text: "งบประมาณรายปี",
                 color: Colors.white,
                 scale: 0.9,
               ),

@@ -15,7 +15,7 @@ class BudgetSearch extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: CustomText(
-        text: "ค้นหางบประมาณ",
+        text: "ค้นหางบประมาณรายปี",
         color: Colors.black87.withOpacity(.9),
       ),
       content: SizedBox(
@@ -29,7 +29,7 @@ class BudgetSearch extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               CustomText(
-                text: "ประเภทงบประมาณ",
+                text: "ประเภทงบประมาณรายปี",
                 color: Colors.black87.withOpacity(.9),
               ),
               const SizedBox(height: defaultPadding / 2),

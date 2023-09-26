@@ -67,7 +67,7 @@ class CommissController extends GetxController {
     Map<String, String> qParams = {
       "offset": queryParamOffset,
       "limit": queryParamLimit,
-      "order": queryParamOrderBy,
+      "order": "id asc",
       "province": addressController.selectedProvince.value,
     };
     try {

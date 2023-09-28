@@ -141,7 +141,7 @@ class BudgetLayoutSmall extends StatelessWidget {
           builder: (_) => controller.isLoadingChart.value
               ? const Center(child: CircularProgressIndicator())
               : MainChart(
-                  header: "สถิติข้อมูล งบประมาณรายปี",
+                  header: "สถิติข้อมูลงบประมาณรายปี",
                   subHeader: "ประเภทงบประมาณ",
                   listSummaryChart: controller.summaryBudgetChart.obs.value,
                 ),

@@ -1,9 +1,9 @@
-import 'dart:html';
+import 'dart:html' as html;
 
-import 'package:frontend/app/api/services/auth_service.dart';
-import 'package:frontend/app/api/services/user_service.dart';
 import 'package:get/get.dart';
 
+import '../../../api/services/auth_service.dart';
+import '../../../api/services/user_service.dart';
 import '../../../shared/utils.dart';
 
 class SigninController extends GetxController {
@@ -31,11 +31,11 @@ class SigninController extends GetxController {
       talker.debug('response message : ${result?.message}');
       if (result?.code == "000") {
         if (result!.data!.roles!.length > 1) {
-          window.sessionStorage["roles"] = "admin";
+          html.window.sessionStorage["roles"] = "admin";
         } else {
-          window.sessionStorage["roles"] = "user";
+          html.window.sessionStorage["roles"] = "user";
         }
-        window.sessionStorage["token"] = result.data!.token!;
+        html.window.sessionStorage["token"] = result.data!.token!;
         final user = await UserService().getByToken();
         if (user?.code == "000") {
           //   talker.debug(user!.data!.id);
@@ -43,11 +43,11 @@ class SigninController extends GetxController {
           // talker.debug(user!.data!.province);
           if (user!.data!.province! == "ส่วนกลาง" ||
               user.data!.province! == "") {
-            window.sessionStorage["province"] = "";
+            html.window.sessionStorage["province"] = "";
           } else {
-            window.sessionStorage["province"] = user.data!.province!;
+            html.window.sessionStorage["province"] = user.data!.province!;
           }
-          window.sessionStorage["profile"] =
+          html.window.sessionStorage["profile"] =
               '${user.data!.userName} ${user.data!.firstName}';
         }
         return true;

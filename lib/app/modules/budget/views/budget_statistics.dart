@@ -38,8 +38,7 @@ class BudgetStatistics extends StatelessWidget {
                   const Padding(
                     padding: EdgeInsets.only(left: defaultPadding / 2),
                     child: CustomText(
-                      text:
-                          "ข้อมูลงบประมาณรายปีของสำนักพัฒนาภาคีเครือข่ายการเลือกตั้ง",
+                      text: "ข้อมูลงบประมาณรายปี",
                       weight: FontWeight.bold,
                       size: 16,
                     ),

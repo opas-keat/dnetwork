@@ -62,6 +62,7 @@ report(
   String moo,
   String agency,
   String affiliate,
+  String mainInfoName,
 ) {
   // String output = 'pdf'; //pdf xlsx docx
   // String province = 'จันทบุรี';
@@ -89,6 +90,10 @@ report(
       ? whereAffiliate = "&AFFILIATE=$affiliate"
       : whereAffiliate = "";
   String whereLocation = "";
+  String whereMainInfoName = "";
+  mainInfoName.isNotEmpty
+      ? whereMainInfoName = "&MAIN_INFO_NAME=ศสร.ที่ $mainInfoName"
+      : whereMainInfoName = "";
   // infoLocationController.text.isNotEmpty
   //     ? whereLocation =
   //         "&LOCATION=" + infoLocationController.text
@@ -102,6 +107,6 @@ report(
   String whereTambol = "";
   district.isNotEmpty ? whereTambol = "&TAMBOL=$district" : whereTambol = "";
   String reportUrl =
-      "https://d-network.ect.go.th/report/flow.html?_flowId=viewReportFlow&_flowId=viewReportFlow&ParentFolderUri=%2Freports%2FECT&reportUnit=%2Freports%2FECT%2F$reportName&standAlone=true&j_username=jasperadmin&j_password=jasperadmin&decorate=no&output=$output$whereProvince$whereName$whereMoo$whereLastName$wherePosition$whereTel$whereStationName$whereAgency$whereAffiliate$whereLocation$whereAmphure$whereTambol";
+      "https://d-network.ect.go.th/report/flow.html?_flowId=viewReportFlow&_flowId=viewReportFlow&ParentFolderUri=%2Freports%2FECT&reportUnit=%2Freports%2FECT%2F$reportName&standAlone=true&j_username=jasperadmin&j_password=jasperadmin&decorate=no&output=$output$whereProvince$whereName$whereMoo$whereLastName$wherePosition$whereTel$whereStationName$whereAgency$whereAffiliate$whereLocation$whereAmphure$whereTambol$whereMainInfoName";
   window.open(reportUrl, "report");
 }

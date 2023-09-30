@@ -6,7 +6,10 @@ import '../../../shared/custom_text.dart';
 import '../../../shared/info_card.dart';
 import '../../../shared/main_chart.dart';
 import '../../../shared/show_province.dart';
+import '../../../shared/utils.dart';
 import '../../training/controllers/training_controller.dart';
+import '../controllers/dashboard_controller.dart';
+import 'dashboard_search.dart';
 import 'dashboard_statistics.dart';
 
 class DashboardLayoutLarge extends StatelessWidget {
@@ -14,6 +17,8 @@ class DashboardLayoutLarge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final DashboardController dashboardController =
+        Get.find<DashboardController>();
     final controller = Get.put(TrainingController());
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -22,26 +27,91 @@ class DashboardLayoutLarge extends StatelessWidget {
           flex: 4,
           child: Column(
             children: [
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  ShowProvince(),
-                  Spacer(flex: 2),
-                  // ElevatedButton.icon(
-                  //   onPressed: () {},
-                  //   style: ElevatedButton.styleFrom(
-                  //     padding: const EdgeInsets.symmetric(
-                  //         vertical: defaultPadding,
-                  //         horizontal: defaultPadding / 2),
-                  //   ),
-                  //   icon: const Icon(
-                  //     Icons.insert_drive_file_sharp,
-                  //   ),
-                  //   label: const CustomText(
-                  //     text: "รายงาน",
-                  //     color: Colors.white,
-                  //   ),
-                  // ),
+                  const ShowProvince(),
+                  const Spacer(flex: 2),
+                  ElevatedButton.icon(
+                    icon: const Icon(
+                      Icons.search_sharp,
+                    ),
+                    label: const CustomText(
+                      text: "ค้นหา",
+                      color: Colors.white,
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: defaultPadding,
+                          horizontal: defaultPadding / 2),
+                    ),
+                    onPressed: () {
+                      Get.dialog(
+                        DashboardSearch(),
+                        barrierDismissible: false,
+                      );
+                    },
+                  ),
+                  const SizedBox(width: defaultPadding / 2),
+                  DropdownButton(
+                    items: dashboardController.listReportType
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: CustomText(
+                          text: 'รายงาน $value',
+                        ),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      report(
+                        'main_info_l',
+                        value.toString().toLowerCase(),
+                        dashboardController.reportProvince.value,
+                        '',
+                        '',
+                        '',
+                        '',
+                        '',
+                        '',
+                        '',
+                        '',
+                        '',
+                        '',
+                        dashboardController.reportStationNo.value,
+                      );
+                      // if (dashboardController.reportProvince.isEmpty) {
+                      //   Get.dialog(
+                      //     AlertDialog(
+                      //       content: const Text('กรุณาค้นหา จังหวัด'),
+                      //       actions: [
+                      //         TextButton(
+                      //           child: const Text("ปิด"),
+                      //           onPressed: () => Get.back(),
+                      //         ),
+                      //       ],
+                      //     ),
+                      //   );
+                      // } else {
+                      //   report(
+                      //     'main_info_l',
+                      //     value.toString().toLowerCase(),
+                      //     dashboardController.reportProvince.value,
+                      //     '',
+                      //     '',
+                      //     '',
+                      //     '',
+                      //     '',
+                      //     '',
+                      //     '',
+                      //     '',
+                      //     '',
+                      //     '',
+                      //     dashboardController.reportStationNo.value,
+                      //   );
+                      // }
+                    },
+                  ),
                 ],
               ),
               const SizedBox(height: defaultPadding),

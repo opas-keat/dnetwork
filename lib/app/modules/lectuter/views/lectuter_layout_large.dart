@@ -112,6 +112,7 @@ class LectuterLayoutLarge extends StatelessWidget {
                           '',
                           controller.reportLectuterAgency.value,
                           controller.reportLectuterAffiliate.value,
+                          '',
                         );
                       }
                     },

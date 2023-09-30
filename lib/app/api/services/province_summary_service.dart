@@ -12,6 +12,7 @@ class ProvinceSummaryService {
 
   Future<ProvinceSummaryServiceResponse?> listProvinceSummary(
     String province,
+    String stationNo,
   ) async {
     // apiUtils.secureHeaders = {
     //   'Authorization': 'Bearer: ${window.sessionStorage["token"]}',
@@ -21,6 +22,7 @@ class ProvinceSummaryService {
       // "limit": "20",
       // "order": "created_at",
       "province": province,
+      "main_info_name": stationNo,
     };
     try {
       final response = await apiUtils.get(

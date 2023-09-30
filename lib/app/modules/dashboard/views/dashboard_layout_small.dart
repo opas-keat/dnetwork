@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 
 import '../../../../responsive.dart';
 import '../../../shared/constant.dart';
-import '../../../shared/custom_text.dart';
 import '../../../shared/info_card.dart';
 import '../../../shared/main_chart.dart';
 import '../../../shared/show_province.dart';

@@ -1,10 +1,12 @@
 import 'dart:html';
 
+import 'package:flutter/material.dart';
 import 'package:frontend/app/api/services/province_summary_service.dart';
 import 'package:get/get.dart';
 
 import '../../../data/models/province_summary.dart';
 import '../../../shared/utils.dart';
+import '../../address/controllers/address_controller.dart';
 
 class DashboardController extends GetxController {
   final logTitle = "DashboardController";
@@ -14,10 +16,17 @@ class DashboardController extends GetxController {
   RxBool isLoadingSummaryCommiss = true.obs;
   RxBool isLoadingSummaryLectuter = true.obs;
   RxBool isLoadingSummaryVillage = true.obs;
+  AddressController addressController = Get.put(AddressController());
 
   final listProvinceSummary = <ProvinceSummary>[].obs;
   RxBool sortAscending = true.obs;
   RxInt sortColumnIndex = 0.obs;
+
+  final stationNo = TextEditingController();
+
+  List<String> listReportType = <String>['PDF', 'XLSX', 'DOCX'];
+  RxString reportStationNo = ''.obs;
+  RxString reportProvince = ''.obs;
 
   @override
   void onInit() {
@@ -33,11 +42,16 @@ class DashboardController extends GetxController {
     talker.info('$logTitle:listProvinceSummaryDashboard:');
     isLoading.value = true;
     String province = window.sessionStorage["province"]!;
+    if (province.isEmpty) {
+      province = addressController.selectedProvince.value;
+    }
     talker.info('$logTitle:province:$province');
     try {
-      final result =
-          await ProvinceSummaryService().listProvinceSummary(province);
-      listProvinceSummary.clear();
+      final result = await ProvinceSummaryService().listProvinceSummary(
+        province,
+        stationNo.text,
+      );
+      // listProvinceSummary.clear();
       for (final item in result!.data!) {
         listProvinceSummary.add(
           ProvinceSummary(

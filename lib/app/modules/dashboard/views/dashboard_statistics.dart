@@ -43,6 +43,10 @@ class DashboardStatistics extends StatelessWidget {
                       )
                     : IconButton(
                         onPressed: () {
+                          controller.stationNo.text = '';
+                          controller.addressController.selectedProvince.value =
+                              '';
+                          controller.listProvinceSummary.clear();
                           controller.listProvinceSummaryDashboard();
                         },
                         icon: const Icon(

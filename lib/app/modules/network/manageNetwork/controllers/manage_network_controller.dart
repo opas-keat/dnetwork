@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../../api/api.dart';
+import '../../../../api/api_end_points.dart';
 import '../../../../api/api_params.dart';
 import '../../../../api/services/commiss_position_commu_service.dart';
+import '../../../../api/services/file_attach_service.dart';
 import '../../../../api/services/network_position_service.dart';
 import '../../../../api/services/network_service.dart';
 import '../../../../data/requests/network_service_request.dart';
@@ -134,6 +137,19 @@ class ManageNetworkController extends GetxController {
               networkAgency: item.networkAgency,
             ),
           );
+          //upload image profile
+          final bytesProfile = await fileUpload.value.readAsBytes();
+          final sizeProfile = await fileUpload.value.length();
+          if (fileUpload.value.name != '') {
+            await FileAttachService().create(
+              fileUpload.value.name,
+              sizeProfile,
+              bytesProfile,
+              "network",
+              "profiles",
+              item.id.toString(),
+            );
+          }
         }
         isLoading.value = false;
         networks.clear();
@@ -273,6 +289,27 @@ class ManageNetworkController extends GetxController {
         }
         if (item.networkExp!.isNotEmpty) {
           networkExpChips.addAll(item.networkExp!.split('|'));
+        }
+
+        // get profiles
+        Map<String, String> qParams = {
+          "module": "network",
+          "link_id": item.id!.toString(),
+        };
+        final profilesAttach = await FileAttachService().getProfiles(qParams);
+        talker.debug('$logTitle:profilesAttach : ${profilesAttach.toString()}');
+        for (final fileAttach in profilesAttach!.data!) {
+          // talker.info(Api.baseUrl +
+          //     Api.ectApiContext +
+          //     Api.ectApiVersion +
+          //     ApiEndPoints.fileAttach +
+          //     fileAttach.fileUrl!);
+          filePath.value = Api.baseUrl +
+              Api.ectApiContext +
+              Api.ectApiVersion +
+              ApiEndPoints.fileAttach +
+              fileAttach.fileUrl!;
+          // fileUpload.value.path = fileAttach.fileUrl!;
         }
         update();
       }

@@ -108,6 +108,19 @@ class ManageStationController extends GetxController {
               totalMember: item.totalMember,
             ),
           );
+          //upload image profile
+          final bytesProfile = await fileUpload.value.readAsBytes();
+          final sizeProfile = await fileUpload.value.length();
+          if (fileUpload.value.name != '') {
+            await FileAttachService().create(
+              fileUpload.value.name,
+              sizeProfile,
+              bytesProfile,
+              "info",
+              "profiles",
+              item.id.toString(),
+            );
+          }
         }
         isLoading.value = false;
         stations.clear();
@@ -269,17 +282,11 @@ class ManageStationController extends GetxController {
         final profilesAttach = await FileAttachService().getProfiles(qParams);
         talker.debug('$logTitle:profilesAttach : ${profilesAttach.toString()}');
         for (final fileAttach in profilesAttach!.data!) {
-          // talker.info(Api.baseUrl +
-          //     Api.ectApiContext +
-          //     Api.ectApiVersion +
-          //     ApiEndPoints.fileAttach +
-          //     fileAttach.fileUrl!);
           filePath.value = Api.baseUrl +
               Api.ectApiContext +
               Api.ectApiVersion +
               ApiEndPoints.fileAttach +
               fileAttach.fileUrl!;
-          // fileUpload.value.path = fileAttach.fileUrl!;
         }
       }
       isLoading.value = false;

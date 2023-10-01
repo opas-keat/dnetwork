@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../../api/api.dart';
+import '../../../../api/api_end_points.dart';
 import '../../../../api/api_params.dart';
 import '../../../../api/services/budget_service.dart';
 import '../../../../api/services/budget_type_service.dart';
+import '../../../../api/services/file_attach_service.dart';
 import '../../../../data/requests/budget_service_request.dart';
 import '../../../../data/responses/budget_service_response.dart';
 import '../../../../shared/controller/info_card_controller.dart';
@@ -105,6 +108,19 @@ class ManageBudgetController extends GetxController {
               budgetYear: item.budgetYear,
             ),
           );
+          //upload image profile
+          final bytesProfile = await fileUpload.value.readAsBytes();
+          final sizeProfile = await fileUpload.value.length();
+          if (fileUpload.value.name != '') {
+            await FileAttachService().create(
+              fileUpload.value.name,
+              sizeProfile,
+              bytesProfile,
+              "budget",
+              "profiles",
+              item.id.toString(),
+            );
+          }
         }
         isLoading.value = false;
         budgets.clear();
@@ -284,6 +300,20 @@ class ManageBudgetController extends GetxController {
         addressController.selectedProvince.value = item.province!;
         budgetName.text = item.budgetName!;
         budgetYear.text = item.budgetYear!;
+        // get profiles
+        Map<String, String> qParams = {
+          "module": "budget",
+          "link_id": item.id!.toString(),
+        };
+        final profilesAttach = await FileAttachService().getProfiles(qParams);
+        talker.debug('$logTitle:profilesAttach : ${profilesAttach.toString()}');
+        for (final fileAttach in profilesAttach!.data!) {
+          filePath.value = Api.baseUrl +
+              Api.ectApiContext +
+              Api.ectApiVersion +
+              ApiEndPoints.fileAttach +
+              fileAttach.fileUrl!;
+        }
         update();
       }
       isLoading.value = false;

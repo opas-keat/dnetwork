@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../../api/api.dart';
+import '../../../../api/api_end_points.dart';
 import '../../../../api/api_params.dart';
+import '../../../../api/services/file_attach_service.dart';
 import '../../../../api/services/training_service.dart';
 import '../../../../api/services/training_type_service.dart';
 import '../../../../data/requests/training_service_request.dart';
@@ -94,6 +97,19 @@ class ManageTrainingController extends GetxController {
               province: item.province,
             ),
           );
+          //upload image profile
+          final bytesProfile = await fileUpload.value.readAsBytes();
+          final sizeProfile = await fileUpload.value.length();
+          if (fileUpload.value.name != '') {
+            await FileAttachService().create(
+              fileUpload.value.name,
+              sizeProfile,
+              bytesProfile,
+              "training",
+              "profiles",
+              item.id.toString(),
+            );
+          }
         }
         isLoading.value = false;
         trainings.clear();
@@ -217,6 +233,20 @@ class ManageTrainingController extends GetxController {
         selectedTrainingType.value = trainingList[index].trainingType!;
         addressController.selectedProvince.value =
             trainingList[index].province!;
+        // get profiles
+        Map<String, String> qParams = {
+          "module": "training",
+          "link_id": item.id!.toString(),
+        };
+        final profilesAttach = await FileAttachService().getProfiles(qParams);
+        talker.debug('$logTitle:profilesAttach : ${profilesAttach.toString()}');
+        for (final fileAttach in profilesAttach!.data!) {
+          filePath.value = Api.baseUrl +
+              Api.ectApiContext +
+              Api.ectApiVersion +
+              ApiEndPoints.fileAttach +
+              fileAttach.fileUrl!;
+        }
         update();
       }
       isLoading.value = false;

@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../../api/api.dart';
+import '../../../../api/api_end_points.dart';
 import '../../../../api/api_params.dart';
 import '../../../../api/services/commiss_position_commu_service.dart';
+import '../../../../api/services/file_attach_service.dart';
 import '../../../../api/services/member_position_service.dart';
 import '../../../../api/services/member_service.dart';
 import '../../../../data/requests/member_service_request.dart';
@@ -132,6 +135,19 @@ class ManageMemberController extends GetxController {
               memberPreName: item.memberPreName,
             ),
           );
+          //upload image profile
+          final bytesProfile = await fileUpload.value.readAsBytes();
+          final sizeProfile = await fileUpload.value.length();
+          if (fileUpload.value.name != '') {
+            await FileAttachService().create(
+              fileUpload.value.name,
+              sizeProfile,
+              bytesProfile,
+              "member",
+              "profiles",
+              item.id.toString(),
+            );
+          }
         }
         isLoading.value = false;
         members.clear();
@@ -263,6 +279,20 @@ class ManageMemberController extends GetxController {
         }
         if (item.memberExp!.isNotEmpty) {
           memberExpChips.addAll(item.memberExp!.split('|'));
+        }
+        // get profiles
+        Map<String, String> qParams = {
+          "module": "member",
+          "link_id": item.id!.toString(),
+        };
+        final profilesAttach = await FileAttachService().getProfiles(qParams);
+        talker.debug('$logTitle:profilesAttach : ${profilesAttach.toString()}');
+        for (final fileAttach in profilesAttach!.data!) {
+          filePath.value = Api.baseUrl +
+              Api.ectApiContext +
+              Api.ectApiVersion +
+              ApiEndPoints.fileAttach +
+              fileAttach.fileUrl!;
         }
         update();
       }

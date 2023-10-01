@@ -761,6 +761,7 @@ class ManageDataDetail extends StatelessWidget {
                   controller.commissProvince.text = '';
                   controller.commissAmphure.text = '';
                   controller.commissTambol.text = '';
+                  controller.filePath.value = '';
                   controller.commissList.clear();
                   controller.commissController.offset.value = 0;
                   controller.commissController.currentPage = 1;
@@ -880,14 +881,15 @@ class ManageDataDetail extends StatelessWidget {
             );
             if (pickedFile != null) {
               controller.fileUpload.value = pickedFile;
+              controller.filePath.value = controller.fileUpload.value.path;
               controller.update();
             }
           },
           child: Obx(() => SizedBox(
                 height: 100,
-                child: (controller.fileUpload.value.path.isNotEmpty)
+                child: (controller.filePath.isNotEmpty)
                     ? Image.network(
-                        controller.fileUpload.value.path,
+                        controller.filePath.value,
                         height: 100,
                         fit: BoxFit.fitHeight,
                       )

@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../../api/api.dart';
+import '../../../../api/api_end_points.dart';
+import '../../../../api/services/file_attach_service.dart';
 import '../../../../api/services/village_service.dart';
 import '../../../../data/requests/village_service_request.dart';
 import '../../../../data/responses/village_service_response.dart';
@@ -115,6 +118,20 @@ class ManageVillageController extends GetxController {
               villageTypeAct: typeActChips.join('|'),
             ),
           );
+
+          //upload image profile
+          final bytesProfile = await fileUpload.value.readAsBytes();
+          final sizeProfile = await fileUpload.value.length();
+          if (fileUpload.value.name != '') {
+            await FileAttachService().create(
+              fileUpload.value.name,
+              sizeProfile,
+              bytesProfile,
+              "villagehosty",
+              "profiles",
+              item.id.toString(),
+            );
+          }
         }
         isLoading.value = false;
         villages.clear();
@@ -176,6 +193,22 @@ class ManageVillageController extends GetxController {
               item.villageTotalUsed;
           villageList[selectedIndexFromTable].villageTypeAct =
               item.villageTypeAct;
+
+          // get profiles
+          Map<String, String> qParams = {
+            "module": "info",
+            "link_id": item.id!.toString(),
+          };
+          final profilesAttach = await FileAttachService().getProfiles(qParams);
+          talker
+              .debug('$logTitle:profilesAttach : ${profilesAttach.toString()}');
+          for (final fileAttach in profilesAttach!.data!) {
+            filePath.value = Api.baseUrl +
+                Api.ectApiContext +
+                Api.ectApiVersion +
+                ApiEndPoints.fileAttach +
+                fileAttach.fileUrl!;
+          }
         }
       }
       isLoading.value = false;
@@ -229,6 +262,21 @@ class ManageVillageController extends GetxController {
         addressController.selectedAmphure.value = item.amphure!;
         await addressController.listTambol();
         addressController.selectedTambol.value = item.district!;
+
+        // get profiles
+        Map<String, String> qParams = {
+          "module": "villagehosty",
+          "link_id": item.id!.toString(),
+        };
+        final profilesAttach = await FileAttachService().getProfiles(qParams);
+        talker.debug('$logTitle:profilesAttach : ${profilesAttach.toString()}');
+        for (final fileAttach in profilesAttach!.data!) {
+          filePath.value = Api.baseUrl +
+              Api.ectApiContext +
+              Api.ectApiVersion +
+              ApiEndPoints.fileAttach +
+              fileAttach.fileUrl!;
+        }
         update();
       }
       isLoading.value = false;

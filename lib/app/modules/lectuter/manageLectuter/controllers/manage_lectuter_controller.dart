@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../../api/api.dart';
+import '../../../../api/api_end_points.dart';
 import '../../../../api/api_params.dart';
+import '../../../../api/services/file_attach_service.dart';
 import '../../../../api/services/lectuter_affiliate_service.dart';
 import '../../../../api/services/lectuter_service.dart';
 import '../../../../data/requests/lectuter_service_request.dart';
@@ -111,6 +114,19 @@ class ManageLectuterController extends GetxController {
               lectuterPreName: item.lectuterPreName,
             ),
           );
+          //upload image profile
+          final bytesProfile = await fileUpload.value.readAsBytes();
+          final sizeProfile = await fileUpload.value.length();
+          if (fileUpload.value.name != '') {
+            await FileAttachService().create(
+              fileUpload.value.name,
+              sizeProfile,
+              bytesProfile,
+              "lectuterinfo",
+              "profiles",
+              item.id.toString(),
+            );
+          }
         }
         isLoading.value = false;
         lectuters.clear();
@@ -206,7 +222,9 @@ class ManageLectuterController extends GetxController {
         selectedId = item.id!;
         selectedLectuterAffiliate.value = item.lectuterAffiliate!;
         lectuterAgency.text = item.lectuterAgency!;
-        lectuterExpChips.addAll(item.lectuterExp!.split('|'));
+        if (item.lectuterExp!.isNotEmpty) {
+          lectuterExpChips.addAll(item.lectuterExp!.split('|'));
+        }
         lectuterFacebook.text = item.lectuterFacebook!;
         lectuterFirstName.text = item.lectuterFirstName!;
         lectuterLine.text = item.lectuterLine!;
@@ -214,6 +232,20 @@ class ManageLectuterController extends GetxController {
         lectuterSurName.text = item.lectuterSurName!;
         lectuterTelephone.text = item.lectuterTelephone!;
         addressController.selectedProvince.value = item.province!;
+        // get profiles
+        Map<String, String> qParams = {
+          "module": "lectuterinfo",
+          "link_id": item.id!.toString(),
+        };
+        final profilesAttach = await FileAttachService().getProfiles(qParams);
+        talker.debug('$logTitle:profilesAttach : ${profilesAttach.toString()}');
+        for (final fileAttach in profilesAttach!.data!) {
+          filePath.value = Api.baseUrl +
+              Api.ectApiContext +
+              Api.ectApiVersion +
+              ApiEndPoints.fileAttach +
+              fileAttach.fileUrl!;
+        }
         update();
       }
       isLoading.value = false;

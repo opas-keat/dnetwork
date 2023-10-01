@@ -809,6 +809,7 @@ class ManageDataDetailNetwork extends StatelessWidget {
                   controller.networkProvince.text = '';
                   controller.networkAmphure.text = '';
                   controller.networkTambol.text = '';
+                  controller.filePath.value = '';
                   controller.networkList.clear();
                   controller.networkController.offset.value = 0;
                   controller.networkController.currentPage = 1;
@@ -926,14 +927,16 @@ class ManageDataDetailNetwork extends StatelessWidget {
             );
             if (pickedFile != null) {
               controller.fileUpload.value = pickedFile;
+              controller.filePath.value = controller.fileUpload.value.path;
               controller.update();
             }
           },
           child: Obx(() => SizedBox(
                 height: 100,
-                child: (controller.fileUpload.value.path.isNotEmpty)
+                width: 100,
+                child: (controller.filePath.isNotEmpty)
                     ? Image.network(
-                        controller.fileUpload.value.path,
+                        controller.filePath.value,
                         height: 100,
                         fit: BoxFit.fitHeight,
                       )

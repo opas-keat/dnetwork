@@ -319,9 +319,18 @@ class ManageDataDetail extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: defaultPadding),
-                  CustomText(
-                    text: "สังกัดวิทยากร",
-                    color: Colors.black87.withOpacity(.9),
+                  Wrap(
+                    direction: Axis.horizontal,
+                    children: [
+                      CustomText(
+                        text: "สังกัดวิทยากร",
+                        color: Colors.black87.withOpacity(.9),
+                      ),
+                      CustomText(
+                        text: "*",
+                        color: Colors.red.withOpacity(.9),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: defaultPadding / 2),
                   Obx(
@@ -475,6 +484,7 @@ class ManageDataDetail extends StatelessWidget {
                 onPressed: () async {
                   controller.selectedIndexFromTable = -1;
                   controller.addressController.selectedProvince.value = '';
+                  controller.filePath.value = '';
                   controller.lectuterList.clear();
                   controller.lectuterController.offset.value = 0;
                   controller.lectuterController.currentPage = 1;
@@ -605,14 +615,15 @@ class ManageDataDetail extends StatelessWidget {
             );
             if (pickedFile != null) {
               controller.fileUpload.value = pickedFile;
+              controller.filePath.value = controller.fileUpload.value.path;
               controller.update();
             }
           },
           child: Obx(() => SizedBox(
                 height: 100,
-                child: (controller.fileUpload.value.path.isNotEmpty)
+                child: (controller.filePath.isNotEmpty)
                     ? Image.network(
-                        controller.fileUpload.value.path,
+                        controller.filePath.value,
                         height: 100,
                         fit: BoxFit.fitHeight,
                       )

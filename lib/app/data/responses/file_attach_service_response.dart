@@ -5,6 +5,11 @@ class FileAttachServiceResponse {
 
   FileAttachServiceResponse({this.code, this.message, this.data});
 
+  FileAttachServiceResponse.withError({
+    code,
+    String? msg,
+  }) : message = msg;
+
   FileAttachServiceResponse.fromJson(Map<String, dynamic> json) {
     code = json['code'];
     message = json['message'];

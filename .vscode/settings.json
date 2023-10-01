@@ -4,12 +4,15 @@
     "amphures",
     "Autovalidate",
     "commiss",
+    "commissinfo",
     "commisss",
     "Getx",
     "lectuter",
+    "lectuterinfo",
     "Lectuters",
     "LTRB",
-    "Tambol"
+    "Tambol",
+    "villagehosty"
   ],
   "svn.ignoreMissingSvnWarning": true
 }

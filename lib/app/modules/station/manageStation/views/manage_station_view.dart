@@ -308,6 +308,7 @@ class ManageStationDetail extends StatelessWidget {
                 child: Obx(
                   () => SizedBox(
                     height: 100,
+                    width: 100,
                     child: (controller.filePath.isNotEmpty)
                         ? Image.network(
                             controller.filePath.value,

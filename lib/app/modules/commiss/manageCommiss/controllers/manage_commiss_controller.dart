@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../../api/api.dart';
+import '../../../../api/api_end_points.dart';
 import '../../../../api/api_params.dart';
 import '../../../../api/services/commis_exp_service.dart';
 import '../../../../api/services/commiss_position_commu_service.dart';
 import '../../../../api/services/commiss_position_service.dart';
 import '../../../../api/services/commiss_service.dart';
+import '../../../../api/services/file_attach_service.dart';
 import '../../../../data/requests/commiss_service_request.dart';
 import '../../../../data/responses/commiss_service_response.dart';
 import '../../../../shared/controller/info_card_controller.dart';
@@ -135,6 +138,19 @@ class ManageCommissController extends GetxController {
               commissPreName: item.commissPreName,
             ),
           );
+          //upload image profile
+          final bytesProfile = await fileUpload.value.readAsBytes();
+          final sizeProfile = await fileUpload.value.length();
+          if (fileUpload.value.name != '') {
+            await FileAttachService().create(
+              fileUpload.value.name,
+              sizeProfile,
+              bytesProfile,
+              "commissinfo",
+              "profiles",
+              item.id.toString(),
+            );
+          }
         }
         isLoading.value = false;
         commisss.clear();
@@ -267,6 +283,22 @@ class ManageCommissController extends GetxController {
         if (item.commissExp!.isNotEmpty) {
           commissExpChips.addAll(item.commissExp!.split('|'));
         }
+
+        // get profiles
+        Map<String, String> qParams = {
+          "module": "commissinfo",
+          "link_id": item.id!.toString(),
+        };
+        final profilesAttach = await FileAttachService().getProfiles(qParams);
+        talker.debug('$logTitle:profilesAttach : ${profilesAttach.toString()}');
+        for (final fileAttach in profilesAttach!.data!) {
+          filePath.value = Api.baseUrl +
+              Api.ectApiContext +
+              Api.ectApiVersion +
+              ApiEndPoints.fileAttach +
+              fileAttach.fileUrl!;
+        }
+
         update();
       }
       isLoading.value = false;

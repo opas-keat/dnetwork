@@ -37,6 +37,8 @@ class ApiEndPoints {
   static const incident = "/incident";
   // ---- user ----
   static const user = "/users";
+  // ---- file_attach ----
+  static const fileAttach = "/file_attach";
   // ---- logs ----
   // static const logs = "/logs";
 }

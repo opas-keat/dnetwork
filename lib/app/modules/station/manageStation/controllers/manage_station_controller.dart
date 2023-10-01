@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/app/api/api.dart';
+import 'package:frontend/app/api/api_end_points.dart';
 import 'package:frontend/app/modules/address/controllers/address_controller.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../../api/services/file_attach_service.dart';
 import '../../../../api/services/station_service.dart';
 import '../../../../data/requests/station_service_request.dart';
 import '../../../../data/responses/station_service_response.dart';
@@ -257,7 +260,27 @@ class ManageStationController extends GetxController {
         addressController.selectedAmphure.value = stationList[index].amphure!;
         await addressController.listTambol();
         addressController.selectedTambol.value = stationList[index].district!;
-        update();
+
+        // get profiles
+        Map<String, String> qParams = {
+          "module": "info",
+          "link_id": item.id!.toString(),
+        };
+        final profilesAttach = await FileAttachService().getProfiles(qParams);
+        talker.debug('$logTitle:profilesAttach : ${profilesAttach.toString()}');
+        for (final fileAttach in profilesAttach!.data!) {
+          // talker.info(Api.baseUrl +
+          //     Api.ectApiContext +
+          //     Api.ectApiVersion +
+          //     ApiEndPoints.fileAttach +
+          //     fileAttach.fileUrl!);
+          filePath.value = Api.baseUrl +
+              Api.ectApiContext +
+              Api.ectApiVersion +
+              ApiEndPoints.fileAttach +
+              fileAttach.fileUrl!;
+          // fileUpload.value.path = fileAttach.fileUrl!;
+        }
       }
       isLoading.value = false;
       stationList.refresh();

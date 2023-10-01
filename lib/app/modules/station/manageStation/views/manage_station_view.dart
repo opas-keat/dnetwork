@@ -140,12 +140,12 @@ class ManageStationDetail extends StatelessWidget {
                 // color: Colors.cyan,
                 // padding: EdgeInsets.all(defaultPadding),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: defaultPadding),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const Spacer(flex: 1),
                         IconButton(
@@ -188,7 +188,7 @@ class ManageStationDetail extends StatelessWidget {
                             }
                           },
                         ),
-                        // const Spacer(flex: 1),
+                        const Spacer(flex: 1),
                         IconButton(
                           icon: const Icon(Icons.edit_sharp),
                           onPressed: () async {
@@ -229,7 +229,7 @@ class ManageStationDetail extends StatelessWidget {
                             }
                           },
                         ),
-                        // const Spacer(flex: 1),
+                        const Spacer(flex: 1),
                         IconButton(
                           icon: const Icon(Icons.delete_sharp),
                           onPressed: () async {
@@ -300,15 +300,17 @@ class ManageStationDetail extends StatelessWidget {
                   );
                   if (pickedFile != null) {
                     controller.fileUpload.value = pickedFile;
+                    controller.filePath.value =
+                        controller.fileUpload.value.path;
                     controller.update();
                   }
                 },
                 child: Obx(
                   () => SizedBox(
                     height: 100,
-                    child: (controller.fileUpload.value.path.isNotEmpty)
+                    child: (controller.filePath.isNotEmpty)
                         ? Image.network(
-                            controller.fileUpload.value.path,
+                            controller.filePath.value,
                             height: 100,
                             fit: BoxFit.fitHeight,
                           )
@@ -627,6 +629,7 @@ class ManageStationDetail extends StatelessWidget {
                   controller.addressController.selectedProvince.value = '';
                   controller.addressController.selectedAmphure.value = '';
                   controller.addressController.selectedTambol.value = '';
+                  controller.filePath.value = '';
                   controller.stationList.clear();
                   controller.stationController.offset.value = 0;
                   controller.stationController.currentPage = 1;

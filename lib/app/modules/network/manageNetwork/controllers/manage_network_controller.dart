@@ -299,17 +299,15 @@ class ManageNetworkController extends GetxController {
         final profilesAttach = await FileAttachService().getProfiles(qParams);
         talker.debug('$logTitle:profilesAttach : ${profilesAttach.toString()}');
         for (final fileAttach in profilesAttach!.data!) {
-          // talker.info(Api.baseUrl +
-          //     Api.ectApiContext +
-          //     Api.ectApiVersion +
-          //     ApiEndPoints.fileAttach +
-          //     fileAttach.fileUrl!);
-          filePath.value = Api.baseUrl +
-              Api.ectApiContext +
-              Api.ectApiVersion +
-              ApiEndPoints.fileAttach +
-              fileAttach.fileUrl!;
-          // fileUpload.value.path = fileAttach.fileUrl!;
+          if (fileAttach.id != 0) {
+            filePath.value = Api.baseUrl +
+                Api.ectApiContext +
+                Api.ectApiVersion +
+                ApiEndPoints.fileAttach +
+                fileAttach.fileUrl!;
+          } else {
+            filePath.value = 'assets/images/undraw_Add_files_re_v09g.png';
+          }
         }
         update();
       }

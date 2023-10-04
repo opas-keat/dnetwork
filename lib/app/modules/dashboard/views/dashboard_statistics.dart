@@ -140,7 +140,7 @@ class DashboardStatistics extends StatelessWidget {
                       ),
                       DataColumn2(
                         label: const CustomText(
-                          text: "หมู่บ้าน วิถี ประชาธิปไตย",
+                          text: "หมู่บ้านพลเมืองดีวิถีประชาธิปไตย",
                           size: 14,
                         ),
                         size: ColumnSize.S,

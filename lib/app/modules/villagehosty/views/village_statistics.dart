@@ -32,7 +32,7 @@ class VillageStatistics extends StatelessWidget {
           Row(
             children: [
               const CustomText(
-                text: "ข้อมูลหมู่บ้าน วิถี ประชาธิปไตย",
+                text: "ข้อมูลหมู่บ้านพลเมืองดีวิถีประชาธิปไตย",
                 weight: FontWeight.bold,
                 size: 16,
               ),

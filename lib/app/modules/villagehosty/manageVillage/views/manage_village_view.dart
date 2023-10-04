@@ -25,7 +25,7 @@ class ManageVillageView extends StatelessWidget {
           ? AppBar(
               centerTitle: true,
               title: const CustomText(
-                text: "หมู่บ้าน วิถี ประชาธิปไตย",
+                text: "หมู่บ้านพลเมืองดีวิถีประชาธิปไตย",
                 color: Colors.white,
                 scale: 0.9,
               ),

@@ -18,7 +18,7 @@ class VillageSearch extends StatelessWidget {
     // addressController.update();
     return AlertDialog(
       title: CustomText(
-        text: "ค้นหาหมู่บ้าน วิถี ประชาธิปไตย",
+        text: "ค้นหาหมู่บ้านพลเมืองดีวิถีประชาธิปไตย",
         color: Colors.black87.withOpacity(.9),
       ),
       content: SizedBox(

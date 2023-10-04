@@ -40,7 +40,7 @@ List<Module> listModule = [
   ),
   Module(
     id: 6,
-    nameTH: "หมู่บ้านวิถีประชาธิปไตย",
+    nameTH: "หมู่บ้านพลเมืองดีวิถีประชาธิปไตย",
     nameEn: "village",
     icon: Icons.holiday_village_sharp,
     url: Routes.VILLAGEHOSTY,
@@ -109,7 +109,7 @@ final Map<String, String> optionModuleSelected = {
   '2': 'ศส.ปชต.',
   '3': 'กรรมการ',
   '4': 'วิทยากรประชาธิปไตย',
-  '5': 'หมู่บ้านไม่ขายเสียง',
+  '5': 'หมู่บ้านพลเมืองดีวิถีประชาธิปไตย',
 };
 
 class Module {

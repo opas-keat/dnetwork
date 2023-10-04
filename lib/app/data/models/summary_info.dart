@@ -15,7 +15,7 @@ List<SummaryInfo> listSummaryInfoModel = [
     value: 99999,
   ),
   SummaryInfo(
-    name: "หมู่บ้านไม่ขายเสียง",
+    name: "หมู่บ้านพลเมืองดีวิถีประชาธิปไตย",
     nameEn: "villagehosty",
     value: 99999,
   ),
@@ -38,7 +38,7 @@ List<SummaryInfo> listDashboardSummaryInfo = [
     value: 99999,
   ),
   SummaryInfo(
-    name: "หมู่บ้านไม่ขายเสียง",
+    name: "หมู่บ้านพลเมืองดีวิถีประชาธิปไตย",
     nameEn: "villagehosty",
     value: 99999,
   ),

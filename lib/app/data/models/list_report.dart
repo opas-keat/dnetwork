@@ -26,7 +26,7 @@ List<BugReport> listBugReport = [
   BugReport(
     id: 4,
     createdDate: "15/04/2566",
-    module: "หมู่บ้านไม่ขายเสียง",
+    module: "หมู่บ้านพลเมืองดีวิถีประชาธิปไตย",
     detail: "ไม่สามารถเพิ่มข้อมูล หมู่บ้านไม่ขายเสียง ได้",
     userName: "user01",
     status: "แก้ไขแล้ว",

@@ -38,7 +38,7 @@ class SummaryVillage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    DashboardHeader(header: "หมู่บ้านไม่ขายเสียง"),
+                    DashboardHeader(header: "หมู่บ้านพลเมืองดีวิถีประชาธิปไตย"),
                   ],
                 ),
                 const SizedBox(

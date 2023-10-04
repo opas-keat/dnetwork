@@ -270,8 +270,8 @@ class ManageCommissController extends GetxController {
         commissDate.text = item.commissDate!;
         commissTelephone.text = item.commissTelephone!;
         selectedCommissPosition.value = item.commissPosition!;
-        commissAmphure.text = item.district!;
-        commissTambol.text = item.amphure!;
+        commissAmphure.text = item.amphure!;
+        commissTambol.text = item.district!;
         commissProvince.text = item.province!;
         commissPreName.text = item.commissPreName!;
         if (item.commissPositionCommu!.isNotEmpty) {

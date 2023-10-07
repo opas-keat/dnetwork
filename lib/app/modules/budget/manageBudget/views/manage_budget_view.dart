@@ -475,6 +475,12 @@ class ManageDataDetail extends StatelessWidget {
               // ),
               ElevatedButton.icon(
                 onPressed: () async {
+                  Get.dialog(
+                    const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                    barrierDismissible: false,
+                  );
                   controller.selectedIndexFromTable = -1;
                   controller.addressController.selectedProvince.value = "";
                   controller.filePath.value = '';
@@ -486,6 +492,7 @@ class ManageDataDetail extends StatelessWidget {
                   await controller.infoCardController.getSummaryInfo();
                   await controller.budgetController.listBudgetType();
                   await controller.budgetController.listBudget();
+                  Get.back();
                   Get.toNamed(Routes.BUDGET);
                 },
                 style: ElevatedButton.styleFrom(

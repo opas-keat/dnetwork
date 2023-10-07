@@ -719,6 +719,12 @@ class ManageDataDetail extends StatelessWidget {
               // ),
               ElevatedButton.icon(
                 onPressed: () async {
+                  Get.dialog(
+                    const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                    barrierDismissible: false,
+                  );
                   controller.selectedIndexFromTable = -1;
                   controller.memberStationName.text = '';
                   controller.memberProvince.text = '';
@@ -730,9 +736,12 @@ class ManageDataDetail extends StatelessWidget {
                   controller.memberController.currentPage = 1;
                   controller.memberController.listMemberStatistics.clear();
                   controller.resetForm();
+                  controller.stationController.listStationStatistics.clear();
+                  await controller.stationController.listStation();
                   await controller.infoCardController.getSummaryInfo();
                   await controller.memberController.listMemberPosition();
                   await controller.memberController.listMember();
+                  Get.back();
                   Get.toNamed(Routes.MEMBER);
                 },
                 style: ElevatedButton.styleFrom(

@@ -757,6 +757,12 @@ class ManageDataDetail extends StatelessWidget {
               // ),
               ElevatedButton.icon(
                 onPressed: () async {
+                  Get.dialog(
+                    const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                    barrierDismissible: false,
+                  );
                   controller.selectedIndexFromTable = -1;
                   controller.commissStationName.text = '';
                   controller.commissProvince.text = '';
@@ -768,9 +774,12 @@ class ManageDataDetail extends StatelessWidget {
                   controller.commissController.currentPage = 1;
                   controller.commissController.listCommissStatistics.clear();
                   controller.resetForm();
+                  controller.stationController.listStationStatistics.clear();
                   await controller.infoCardController.getSummaryInfo();
+                  await controller.stationController.listStation();
                   await controller.commissController.listCommissPosition();
                   await controller.commissController.listCommiss();
+                  Get.back();
                   Get.toNamed(Routes.COMMISS);
                 },
                 style: ElevatedButton.styleFrom(

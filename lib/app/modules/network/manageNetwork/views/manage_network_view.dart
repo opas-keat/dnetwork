@@ -805,6 +805,12 @@ class ManageDataDetailNetwork extends StatelessWidget {
               // ),
               ElevatedButton.icon(
                 onPressed: () async {
+                  Get.dialog(
+                    const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                    barrierDismissible: false,
+                  );
                   controller.selectedIndexFromTable = -1;
                   controller.networkStationName.text = '';
                   controller.networkProvince.text = '';
@@ -819,6 +825,7 @@ class ManageDataDetailNetwork extends StatelessWidget {
                   await controller.infoCardController.getSummaryInfo();
                   await controller.networkController.listNetworkPosition();
                   await controller.networkController.listNetwork();
+                  Get.back();
                   Get.toNamed(Routes.NETWORK);
                 },
                 style: ElevatedButton.styleFrom(

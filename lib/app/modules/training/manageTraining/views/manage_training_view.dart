@@ -403,6 +403,12 @@ class ManageDataDetail extends StatelessWidget {
               // ),
               ElevatedButton.icon(
                 onPressed: () async {
+                  Get.dialog(
+                    const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                    barrierDismissible: false,
+                  );
                   controller.selectedIndexFromTable = -1;
                   controller.addressController.selectedProvince.value = '';
                   controller.filePath.value = '';
@@ -414,6 +420,7 @@ class ManageDataDetail extends StatelessWidget {
                   await controller.infoCardController.getSummaryInfo();
                   await controller.trainingController.listTrainingType();
                   await controller.trainingController.listTraining();
+                  Get.back();
                   Get.toNamed(Routes.TRAINING);
                 },
                 style: ElevatedButton.styleFrom(

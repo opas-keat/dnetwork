@@ -361,6 +361,12 @@ class ManageDataDetail extends StatelessWidget {
               // ),
               ElevatedButton.icon(
                 onPressed: () async {
+                  Get.dialog(
+                    const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                    barrierDismissible: false,
+                  );
                   controller.selectedIndexFromTable = -1;
                   controller.addressController.selectedProvince.value = '';
                   controller.addressController.selectedAmphure.value = '';
@@ -373,6 +379,7 @@ class ManageDataDetail extends StatelessWidget {
                   controller.resetForm();
                   await controller.infoCardController.getSummaryInfo();
                   await controller.villageController.listVillage();
+                  Get.back();
                   Get.toNamed(Routes.VILLAGEHOSTY);
                 },
                 style: ElevatedButton.styleFrom(

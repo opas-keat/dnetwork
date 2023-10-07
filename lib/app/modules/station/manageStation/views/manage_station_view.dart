@@ -628,6 +628,12 @@ class ManageStationDetail extends StatelessWidget {
               // ),
               ElevatedButton.icon(
                 onPressed: () async {
+                  Get.dialog(
+                    const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                    barrierDismissible: false,
+                  );
                   controller.selectedIndexFromTable = -1;
                   controller.addressController.selectedProvince.value = '';
                   controller.addressController.selectedAmphure.value = '';
@@ -642,6 +648,7 @@ class ManageStationDetail extends StatelessWidget {
                   await controller.stationController.listStation();
                   await controller.infoCardController.getSummaryInfo();
                   await controller.trainingController.listTrainingType();
+                  Get.back();
                   Get.toNamed(Routes.STATION);
                 },
                 style: ElevatedButton.styleFrom(

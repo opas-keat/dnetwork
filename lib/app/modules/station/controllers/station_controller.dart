@@ -1,4 +1,4 @@
-import 'dart:html';
+import 'dart:html' as html;
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -45,7 +45,7 @@ class StationController extends GetxController {
   listStation() async {
     talker.info('$logTitle:listStation:');
     isLoading.value = true;
-    String province = window.sessionStorage["province"]!;
+    String province = html.window.sessionStorage["province"]!;
     if (province.isEmpty) {
       province = addressController.selectedProvince.value;
     }
@@ -81,6 +81,7 @@ class StationController extends GetxController {
           ),
         );
       }
+      listStationStatistics.refresh();
       isLoading.value = false;
       resetSearch();
       // return false;

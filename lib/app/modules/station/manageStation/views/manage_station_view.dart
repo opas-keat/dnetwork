@@ -169,8 +169,31 @@ class ManageStationDetail extends StatelessWidget {
                                   ),
                                   barrierDismissible: false,
                                 );
-                                await controller.save();
+                                var checkDup =
+                                    await controller.checkDuplicate();
                                 Get.back();
+                                if (!checkDup) {
+                                  Get.dialog(
+                                    const Center(
+                                      child: CircularProgressIndicator(),
+                                    ),
+                                    barrierDismissible: false,
+                                  );
+                                  await controller.save();
+                                  Get.back();
+                                } else {
+                                  Get.dialog(
+                                    AlertDialog(
+                                      content: const Text('ชื่อ ศส.ปชต. ซ้ำ'),
+                                      actions: [
+                                        TextButton(
+                                          child: const Text("ปิด"),
+                                          onPressed: () => Get.back(),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                }
                               } else {
                                 Get.dialog(
                                   AlertDialog(

@@ -144,4 +144,26 @@ class StationService {
     }
     return null;
   }
+
+  Future<StationServiceResponse?> checkDuplicateName(
+    Map<String, String> qParams,
+  ) async {
+    try {
+      final response = await apiUtils.get(
+        url:
+            '${Api.ectApiContext}${Api.ectApiVersion}${ApiEndPoints.station}/check_duplicate',
+        queryParameters: qParams,
+        options: Options(
+          headers: apiUtils.secureHeaders,
+        ),
+      );
+      StationServiceResponse stationServiceResponse =
+          StationServiceResponse.fromJson(jsonDecode(response.toString()));
+      // talker.debug("stationServiceResponse $stationServiceResponse");
+      return stationServiceResponse;
+    } catch (e) {
+      talker.error(e);
+    }
+    return null;
+  }
 }

@@ -62,8 +62,27 @@ class ManageStationController extends GetxController {
     super.onClose();
   }
 
+  checkDuplicate() async {
+    talker.info('$logTitle:checkDuplicate:');
+    bool result = false;
+    try {
+      Map<String, String> qParams = {
+        "name": stationName.text,
+      };
+      final checkDuplicate = await StationService().checkDuplicateName(qParams);
+      if (checkDuplicate?.code == "000") {
+        if (checkDuplicate!.data!.isNotEmpty) {
+          result = true;
+        }
+      }
+    } catch (e) {
+      talker.error('$e');
+      result = false;
+    }
+    return result;
+  }
+
   save() async {
-    talker.info('$logTitle:save:');
     isLoading.value = true;
     bool result = true;
     try {

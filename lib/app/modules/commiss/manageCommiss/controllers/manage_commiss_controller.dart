@@ -88,11 +88,11 @@ class ManageCommissController extends GetxController {
     isLoading.value = true;
     bool result = true;
     try {
-      talker.debug(commissLocation.text);
-      talker.debug(addressController.selectedProvince.value);
-      talker.debug(addressController.selectedAmphure.value);
-      talker.debug(addressController.selectedTambol.value);
-      talker.debug(commissLocation.text);
+      // talker.debug(commissLocation.text);
+      // talker.debug(addressController.selectedProvince.value);
+      // talker.debug(addressController.selectedAmphure.value);
+      // talker.debug(addressController.selectedTambol.value);
+      // talker.debug(commissLocation.text);
       commisss.add(
         Commisss(
           commissStationId: int.parse(commissStationId.text),

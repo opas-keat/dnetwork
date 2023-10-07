@@ -80,16 +80,10 @@ class ManageMemberController extends GetxController {
   }
 
   save() async {
-    talker.info('$logTitle:saveBudget:');
+    talker.info('$logTitle:save:');
     isLoading.value = true;
     bool result = true;
     try {
-      talker.info('$logTitle:save:');
-      talker.debug(memberLocation.text);
-      talker.debug(addressController.selectedProvince.value);
-      talker.debug(addressController.selectedAmphure.value);
-      talker.debug(addressController.selectedTambol.value);
-      talker.debug(memberLocation.text);
       members.add(
         Members(
           memberStationId: int.parse(memberStationId.text),
@@ -110,6 +104,7 @@ class ManageMemberController extends GetxController {
           memberPreName: memberPreName.text,
         ),
       );
+      talker.debug('request message : ${members.toJson()}');
       final response = await MemberService().create(members.obs.value);
       talker.debug('response message : ${response?.message}');
       if (response?.code == "000") {

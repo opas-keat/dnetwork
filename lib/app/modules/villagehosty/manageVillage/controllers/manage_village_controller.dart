@@ -11,12 +11,14 @@ import '../../../../data/responses/village_service_response.dart';
 import '../../../../shared/controller/info_card_controller.dart';
 import '../../../../shared/utils.dart';
 import '../../../address/controllers/address_controller.dart';
+import '../../../dashboard/controllers/dashboard_controller.dart';
 import '../../controllers/village_controller.dart';
 
 class ManageVillageController extends GetxController {
   final logTitle = "ManageVillageController";
   RxBool isLoading = true.obs;
   InfoCardController infoCardController = Get.put(InfoCardController());
+  DashboardController dashboardController = Get.put(DashboardController());
   VillageController villageController = Get.put(VillageController());
   AddressController addressController = Get.put(AddressController());
 

@@ -736,6 +736,9 @@ class ManageDataDetail extends StatelessWidget {
                   controller.memberController.currentPage = 1;
                   controller.memberController.listMemberStatistics.clear();
                   controller.resetForm();
+                  controller.dashboardController.listProvinceSummary.clear();
+                  await controller.dashboardController
+                      .listProvinceSummaryDashboard();
                   controller.stationController.listStationStatistics.clear();
                   await controller.stationController.listStation();
                   await controller.infoCardController.getSummaryInfo();

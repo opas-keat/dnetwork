@@ -667,7 +667,9 @@ class ManageStationDetail extends StatelessWidget {
                   controller.stationController.currentPage = 1;
                   controller.stationController.listStationStatistics.clear();
                   controller.resetForm();
-
+                  controller.dashboardController.listProvinceSummary.clear();
+                  await controller.dashboardController
+                      .listProvinceSummaryDashboard();
                   await controller.stationController.listStation();
                   await controller.infoCardController.getSummaryInfo();
                   await controller.trainingController.listTrainingType();

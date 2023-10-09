@@ -15,6 +15,7 @@ import '../../../../data/responses/commiss_service_response.dart';
 import '../../../../shared/controller/info_card_controller.dart';
 import '../../../../shared/utils.dart';
 import '../../../address/controllers/address_controller.dart';
+import '../../../dashboard/controllers/dashboard_controller.dart';
 import '../../../station/controllers/station_controller.dart';
 import '../../controllers/commiss_controller.dart';
 
@@ -23,6 +24,7 @@ class ManageCommissController extends GetxController {
   RxBool isLoading = true.obs;
   InfoCardController infoCardController = Get.put(InfoCardController());
   StationController stationController = Get.put(StationController());
+  DashboardController dashboardController = Get.put(DashboardController());
   CommissController commissController = Get.put(CommissController());
   AddressController addressController = Get.put(AddressController());
 

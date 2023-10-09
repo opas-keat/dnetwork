@@ -822,6 +822,9 @@ class ManageDataDetailNetwork extends StatelessWidget {
                   controller.networkController.currentPage = 1;
                   controller.networkController.listNetworkStatistics.clear();
                   controller.resetForm();
+                  controller.dashboardController.listProvinceSummary.clear();
+                  await controller.dashboardController
+                      .listProvinceSummaryDashboard();
                   await controller.infoCardController.getSummaryInfo();
                   await controller.networkController.listNetworkPosition();
                   await controller.networkController.listNetwork();

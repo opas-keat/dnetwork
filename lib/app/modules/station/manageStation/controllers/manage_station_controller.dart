@@ -11,6 +11,7 @@ import '../../../../data/requests/station_service_request.dart';
 import '../../../../data/responses/station_service_response.dart';
 import '../../../../shared/controller/info_card_controller.dart';
 import '../../../../shared/utils.dart';
+import '../../../dashboard/controllers/dashboard_controller.dart';
 import '../../../training/controllers/training_controller.dart';
 import '../../controllers/station_controller.dart';
 
@@ -19,6 +20,7 @@ class ManageStationController extends GetxController {
   RxBool isLoading = true.obs;
   InfoCardController infoCardController = Get.put(InfoCardController());
   StationController stationController = Get.put(StationController());
+  DashboardController dashboardController = Get.put(DashboardController());
   TrainingController trainingController = Get.put(TrainingController());
   AddressController addressController = Get.put(AddressController());
 
@@ -68,6 +70,9 @@ class ManageStationController extends GetxController {
     try {
       Map<String, String> qParams = {
         "name": stationName.text,
+        "province": addressController.selectedProvince.value,
+        "amphure": addressController.selectedAmphure.value,
+        "district": addressController.selectedTambol.value,
       };
       final checkDuplicate = await StationService().checkDuplicateName(qParams);
       if (checkDuplicate?.code == "000") {

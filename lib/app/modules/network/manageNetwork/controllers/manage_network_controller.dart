@@ -14,12 +14,14 @@ import '../../../../data/responses/network_service_response.dart';
 import '../../../../shared/controller/info_card_controller.dart';
 import '../../../../shared/utils.dart';
 import '../../../address/controllers/address_controller.dart';
+import '../../../dashboard/controllers/dashboard_controller.dart';
 import '../../controllers/network_controller.dart';
 
 class ManageNetworkController extends GetxController {
   final logTitle = "ManageNetworkController";
   RxBool isLoading = true.obs;
   InfoCardController infoCardController = Get.put(InfoCardController());
+  DashboardController dashboardController = Get.put(DashboardController());
   NetworkController networkController = Get.put(NetworkController());
   AddressController addressController = Get.put(AddressController());
 

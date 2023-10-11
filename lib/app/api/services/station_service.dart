@@ -145,6 +145,31 @@ class StationService {
     return null;
   }
 
+  Future<StationServiceResponse?> search(
+    Map<String, String> qParams,
+  ) async {
+    // apiUtils.secureHeaders = {
+    //   'Authorization': 'Bearer: ${window.sessionStorage["token"]}',
+    // };
+    try {
+      final response = await apiUtils.get(
+        url:
+            '${Api.ectApiContext}${Api.ectApiVersion}${ApiEndPoints.station}/search',
+        queryParameters: qParams,
+        options: Options(
+          headers: apiUtils.secureHeaders,
+        ),
+      );
+      StationServiceResponse stationServiceResponse =
+          StationServiceResponse.fromJson(jsonDecode(response.toString()));
+      // talker.debug("stationServiceResponse $stationServiceResponse");
+      return stationServiceResponse;
+    } catch (e) {
+      talker.error(e);
+    }
+    return null;
+  }
+
   Future<StationServiceResponse?> checkDuplicateName(
     Map<String, String> qParams,
   ) async {

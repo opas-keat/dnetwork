@@ -7,9 +7,11 @@ import 'custom_text.dart';
 
 class SearchStation extends StatelessWidget {
   SearchStation({super.key});
-  final StationController controller = Get.put(StationController());
+
   @override
   Widget build(BuildContext context) {
+    final StationController controller = Get.put(StationController());
+    controller.searchStation();
     return AlertDialog(
       title: CustomText(
         text: "ค้นหาศส.ปชต.",
@@ -52,8 +54,8 @@ class SearchStation extends StatelessWidget {
                 IconButton(
                   icon: const Icon(Icons.search_sharp),
                   onPressed: () async {
-                    controller.listStationStatistics.clear();
-                    await controller.listStation();
+                    controller.listSearchStation.clear();
+                    await controller.searchStation();
                   },
                 ),
               ],
@@ -69,22 +71,22 @@ class SearchStation extends StatelessWidget {
                         shrinkWrap: true,
                         physics: const BouncingScrollPhysics(),
                         itemCount:
-                            controller.listStationStatistics.obs.value.length,
+                            controller.listSearchStation.obs.value.length,
                         itemBuilder: (context, index) {
                           return Material(
                             color: Colors.grey.shade200,
                             child: ListTile(
                               onTap: () {
                                 Get.back(
-                                    result: controller.listStationStatistics.obs
-                                        .value[index]);
+                                    result: controller
+                                        .listSearchStation.obs.value[index]);
                               },
                               selectedColor: primaryColor,
                               selectedTileColor: primaryColor,
                               title: CustomText(
                                 maxLine: 2,
                                 text:
-                                    '${controller.listStationStatistics.obs.value[index].name}',
+                                    '${controller.listSearchStation.obs.value[index].name}',
                               ),
                               subtitle: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -93,7 +95,7 @@ class SearchStation extends StatelessWidget {
                                     maxLine: 4,
                                     scale: 0.9,
                                     text:
-                                        '${controller.listStationStatistics.obs.value[index].province}/${controller.listStationStatistics.obs.value[index].amphure}/${controller.listStationStatistics.obs.value[index].district}',
+                                        '${controller.listSearchStation.obs.value[index].province}/${controller.listSearchStation.obs.value[index].amphure}/${controller.listSearchStation.obs.value[index].district}',
                                   ),
                                 ],
                               ),
@@ -103,6 +105,17 @@ class SearchStation extends StatelessWidget {
                       ),
               ),
             ),
+            // CustomFlatButton(
+            //   onPressed: () {
+            //     controller.currentPage++;
+            //     controller.offset.value =
+            //         ((controller.currentPage * int.parse(queryParamLimit)) -
+            //             int.parse(queryParamLimit));
+            //     controller.listStation();
+            //   },
+            //   label: "แสดงข้อมูลเพิ่ม",
+            //   labelStyle: const TextStyle(fontSize: 16),
+            // ),
           ],
         ),
       ),
@@ -115,9 +128,14 @@ class SearchStation extends StatelessWidget {
         //   },
         // ),
         TextButton(
-          child: const Text("ปิด"),
-          onPressed: () => Get.back(),
-        ),
+            child: const Text("ปิด"),
+            onPressed: () {
+              // controller.currentPage = 1;
+              // controller.offset.value = 0;
+              // controller.name.text = "";
+              controller.listSearchStation.clear();
+              Get.back(result: "");
+            }),
       ],
     );
   }

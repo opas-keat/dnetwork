@@ -145,11 +145,13 @@ class ManageDataDetail extends StatelessWidget {
                         SearchStation(),
                         barrierDismissible: false,
                       );
-                      controller.commissStationId.text = result.id.toString();
-                      controller.commissStationName.text = result.name;
-                      controller.commissProvince.text = result.province;
-                      controller.commissAmphure.text = result.amphure;
-                      controller.commissTambol.text = result.district;
+                      if (result != "") {
+                        controller.commissStationId.text = result.id.toString();
+                        controller.commissStationName.text = result.name;
+                        controller.commissProvince.text = result.province;
+                        controller.commissAmphure.text = result.amphure;
+                        controller.commissTambol.text = result.district;
+                      }
                     },
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (value) {

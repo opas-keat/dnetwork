@@ -17,6 +17,7 @@ class StationController extends GetxController {
   AddressController addressController = Get.put(AddressController());
 
   final listStationStatistics = <StationData>[].obs;
+  final listSearchStation = <StationData>[].obs;
   RxBool sortAscending = true.obs;
   RxInt sortColumnIndex = 0.obs;
 
@@ -82,6 +83,51 @@ class StationController extends GetxController {
         );
       }
       listStationStatistics.refresh();
+      isLoading.value = false;
+      resetSearch();
+      // return false;
+    } catch (e) {
+      talker.error('$e');
+      // return false;
+    }
+    // update();
+  }
+
+  searchStation() async {
+    talker.info('$logTitle:searchStation:');
+    isLoading.value = true;
+    String province = html.window.sessionStorage["province"]!;
+    if (province.isEmpty) {
+      province = addressController.selectedProvince.value;
+    }
+    Map<String, String> qParams = {
+      "offset": offset.value.toString(),
+      "limit": "200",
+      "order": queryParamOrderBy,
+      "name": name.text,
+      "province": province,
+    };
+    try {
+      final result = await StationService().search(qParams);
+      // listStationStatistics.clear();
+      for (final item in result!.data!) {
+        listSearchStation.add(
+          StationData(
+            id: item.id,
+            amphure: item.amphure,
+            district: item.district,
+            province: item.province,
+            facebook: item.facebook,
+            location: item.location,
+            name: item.name,
+            process: item.process,
+            training: item.training,
+            totalCommiss: item.totalCommiss,
+            totalMember: item.totalMember,
+          ),
+        );
+      }
+      listSearchStation.refresh();
       isLoading.value = false;
       resetSearch();
       // return false;

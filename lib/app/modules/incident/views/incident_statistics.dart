@@ -241,11 +241,9 @@ class IncidentStatistics extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    incidentData.createdBy!,
-                    style: const TextStyle(
-                      fontSize: 12,
-                    ),
+                  CustomText(
+                    text: incidentData.createdBy!,
+                    scale: 0.8,
                   ),
                 ],
               ),
@@ -255,11 +253,9 @@ class IncidentStatistics extends StatelessWidget {
         DataCell(
           Wrap(
             children: [
-              Text(
-                incidentData.incidentModule!,
-                style: const TextStyle(
-                  fontSize: 12,
-                ),
+              CustomText(
+                text: incidentData.incidentModule!,
+                scale: 0.8,
               ),
             ],
           ),
@@ -267,11 +263,9 @@ class IncidentStatistics extends StatelessWidget {
         DataCell(
           Wrap(
             children: [
-              Text(
-                incidentData.incidentTitle!,
-                style: const TextStyle(
-                  fontSize: 12,
-                ),
+              CustomText(
+                text: incidentData.incidentTitle!,
+                scale: 0.8,
               ),
             ],
           ),
@@ -279,11 +273,9 @@ class IncidentStatistics extends StatelessWidget {
         DataCell(
           Wrap(
             children: [
-              Text(
-                incidentData.incidentDetail!,
-                style: const TextStyle(
-                  fontSize: 12,
-                ),
+              CustomText(
+                text: incidentData.incidentDetail!,
+                scale: 0.8,
               ),
             ],
           ),
@@ -303,11 +295,9 @@ class IncidentStatistics extends StatelessWidget {
         DataCell(
           Wrap(
             children: [
-              Text(
-                incidentData.resolvedDetail!,
-                style: const TextStyle(
-                  fontSize: 12,
-                ),
+              CustomText(
+                text: incidentData.resolvedDetail!,
+                scale: 0.8,
               ),
             ],
           ),

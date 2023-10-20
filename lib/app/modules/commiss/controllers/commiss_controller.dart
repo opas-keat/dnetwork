@@ -26,7 +26,7 @@ class CommissController extends GetxController {
   final commissSurName = TextEditingController(text: "");
   final commissTelephone = TextEditingController(text: "");
   final commissDate = TextEditingController(text: "");
-  final commissAffiliateName = TextEditingController(text: "");
+  final commissStationName = TextEditingController(text: "");
 
   final summaryChart = <SummaryChart>[].obs;
 
@@ -129,7 +129,7 @@ class CommissController extends GetxController {
       "commiss_sur_name": commissSurName.text,
       "commiss_telephone": commissTelephone.text,
       "commiss_date": commissDate.text,
-      "commiss_station_name": commissAffiliateName.text,
+      "commiss_station_name": commissStationName.text,
       "commiss_position": selectedCommissPosition.value,
     };
     try {
@@ -174,7 +174,7 @@ class CommissController extends GetxController {
     commissSurName.text = "";
     commissTelephone.text = "";
     commissDate.text = "";
-    commissAffiliateName.text = "";
+    commissStationName.text = "";
     selectedCommissPosition.value = "";
     update();
   }

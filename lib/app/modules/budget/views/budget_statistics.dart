@@ -276,11 +276,9 @@ DataRow budgetDataRow(
       DataCell(
         Wrap(
           children: [
-            Text(
-              budgetData.budgetName!,
-              style: const TextStyle(
-                fontSize: 12,
-              ),
+            CustomText(
+              text: budgetData.budgetName!,
+              scale: 0.8,
             ),
           ],
         ),
@@ -300,11 +298,9 @@ DataRow budgetDataRow(
       DataCell(
         Wrap(
           children: [
-            Text(
-              budgetData.budgetType!,
-              style: const TextStyle(
-                fontSize: 12,
-              ),
+            CustomText(
+              text: budgetData.budgetType!,
+              scale: 0.8,
             ),
           ],
         ),

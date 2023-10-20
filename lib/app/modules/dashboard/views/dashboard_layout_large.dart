@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -64,6 +66,10 @@ class DashboardLayoutLarge extends StatelessWidget {
                       );
                     }).toList(),
                     onChanged: (value) {
+                      if (dashboardController.reportProvince.value == "") {
+                        dashboardController.reportProvince.value =
+                            window.sessionStorage["province"]!;
+                      }
                       report(
                         'main_info_l',
                         value.toString().toLowerCase(),

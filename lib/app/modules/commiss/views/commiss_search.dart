@@ -143,12 +143,12 @@ class CommissSearch extends StatelessWidget {
               ),
               const SizedBox(height: defaultPadding),
               CustomText(
-                text: "สังกัด",
+                text: "ศส.ปชต.",
                 color: Colors.black87.withOpacity(.9),
               ),
               const SizedBox(height: defaultPadding / 2),
               TextFormField(
-                controller: controller.commissAffiliateName,
+                controller: controller.commissStationName,
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   fillColor: Colors.white.withOpacity(.8),
@@ -219,7 +219,7 @@ class CommissSearch extends StatelessWidget {
             controller.reportPosition.value =
                 controller.selectedCommissPosition.value;
             controller.reportCommissAffiliateName.value =
-                controller.commissAffiliateName.text;
+                controller.commissStationName.text;
             controller.reportProvince.value =
                 controller.addressController.selectedProvince.value;
             controller.reportAmphure.value =
@@ -251,7 +251,7 @@ class CommissSearch extends StatelessWidget {
               controller.commissSurName.text = '';
               controller.commissTelephone.text = '';
               controller.selectedCommissPosition.value = '';
-              controller.commissAffiliateName.text = '';
+              controller.commissStationName.text = '';
               controller.addressController.selectedProvince.value = '';
               controller.addressController.selectedAmphure.value = '';
               controller.addressController.selectedTambol.value = '';

@@ -54,7 +54,7 @@ class CommissStatistics extends StatelessWidget {
                           controller.commissSurName.text = '';
                           controller.commissTelephone.text = '';
                           controller.selectedCommissPosition.value = '';
-                          controller.commissAffiliateName.text = '';
+                          controller.commissStationName.text = '';
                           controller.addressController.selectedProvince.value =
                               '';
                           controller.addressController.selectedAmphure.value =

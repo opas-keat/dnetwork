@@ -35,6 +35,7 @@ class DashboardController extends GetxController {
     // listProvinceSummary.value = listProvinceSummaryData;
     // update();
     // getSummaryData();
+    reportProvince.value = window.sessionStorage["province"]!;
     listProvinceSummaryDashboard();
   }
 

@@ -58,12 +58,12 @@ class StationController extends GetxController {
       "amphure": addressController.selectedAmphure.value,
       "district": addressController.selectedTambol.value,
       "name": name.text,
-      "process": process.text,
-      "location": location.text,
-      "facebook": facebook.text,
+      // "process": process.text,
+      // "location": location.text,
+      // "facebook": facebook.text,
     };
     try {
-      final result = await StationService().list(qParams);
+      final result = await StationService().search(qParams);
       // listStationStatistics.clear();
       for (final item in result!.data!) {
         listStationStatistics.add(

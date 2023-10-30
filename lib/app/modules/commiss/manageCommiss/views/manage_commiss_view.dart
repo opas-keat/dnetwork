@@ -815,6 +815,22 @@ class ManageDataDetail extends StatelessWidget {
       children: [
         IconButton(
           icon: const Icon(Icons.add_sharp),
+          // onPressed: null,
+          // onPressed: () => controller.isLoading.value
+          //     ? null
+          //     : () async {
+          //         final isValid = _formKeyCommiss.currentState!.validate();
+          //         if (isValid) {
+          //           Get.dialog(
+          //             const Center(
+          //               child: CircularProgressIndicator(),
+          //             ),
+          //             barrierDismissible: false,
+          //           );
+          //           await controller.save();
+          //           Get.back();
+          //         }
+          //       },
           onPressed: () async {
             final isValid = _formKeyCommiss.currentState!.validate();
             if (isValid) {

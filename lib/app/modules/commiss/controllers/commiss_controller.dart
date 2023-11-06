@@ -43,6 +43,7 @@ class CommissController extends GetxController {
     'ประกาศ XLSX',
     'ประกาศ DOCX',
     'รายงาน PDF',
+    'รายงาน XLSX',
     'รายงาน DOCX',
   ];
   RxString reportFirstName = ''.obs;

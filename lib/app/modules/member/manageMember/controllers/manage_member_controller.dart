@@ -150,6 +150,7 @@ class ManageMemberController extends GetxController {
         }
         isLoading.value = false;
         members.clear();
+        selectedIndexFromTable = -1;
         resetForm();
       }
       result = true;

@@ -137,6 +137,7 @@ class ManageVillageController extends GetxController {
         }
         isLoading.value = false;
         villages.clear();
+        selectedIndexFromTable = -1;
         resetForm();
       }
       result = true;

@@ -132,6 +132,7 @@ class ManageLectuterController extends GetxController {
         }
         isLoading.value = false;
         lectuters.clear();
+        selectedIndexFromTable = -1;
         resetForm();
       }
       result = true;

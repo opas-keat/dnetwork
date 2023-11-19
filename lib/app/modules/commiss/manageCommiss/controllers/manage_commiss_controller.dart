@@ -158,6 +158,7 @@ class ManageCommissController extends GetxController {
         }
         isLoading.value = false;
         commisss.clear();
+        selectedIndexFromTable = -1;
         resetForm();
       }
       result = true;

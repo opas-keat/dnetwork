@@ -148,6 +148,7 @@ class ManageStationController extends GetxController {
         }
         isLoading.value = false;
         stations.clear();
+        selectedIndexFromTable = -1;
         resetForm();
       }
       result = true;

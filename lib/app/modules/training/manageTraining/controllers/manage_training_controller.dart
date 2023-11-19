@@ -113,6 +113,7 @@ class ManageTrainingController extends GetxController {
         }
         isLoading.value = false;
         trainings.clear();
+        selectedIndexFromTable = -1;
         // addressController.selectedProvince.value = '';
         resetForm();
         // return true;

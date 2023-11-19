@@ -124,6 +124,7 @@ class ManageBudgetController extends GetxController {
         }
         isLoading.value = false;
         budgets.clear();
+        selectedIndexFromTable = -1;
         // addressController.selectedProvince.value = '';
         resetForm();
         result = true;

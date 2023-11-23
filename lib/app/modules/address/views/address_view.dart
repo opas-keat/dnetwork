@@ -95,7 +95,7 @@ class AddressView extends StatelessWidget {
             direction: Axis.horizontal,
             children: [
               CustomText(
-                text: "อำเภอ",
+                text: "อำเภอ/เขต",
                 color: Colors.black87.withOpacity(.9),
               ),
               CustomText(
@@ -159,7 +159,7 @@ class AddressView extends StatelessWidget {
             direction: Axis.horizontal,
             children: [
               CustomText(
-                text: "ตำบล",
+                text: "ตำบล/แขวง",
                 color: Colors.black87.withOpacity(.9),
               ),
               CustomText(

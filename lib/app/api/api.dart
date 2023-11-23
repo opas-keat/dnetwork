@@ -6,7 +6,7 @@ class Api {
   // connectTimeout
   static const int connectionTimeout = 15000;
 
-  static const baseUrl = "http://localhost:9999";
+  static const baseUrl = "https://d-network.ect.go.th";
 
   // ectApi
   static const ectApiContext = "/ectapi";

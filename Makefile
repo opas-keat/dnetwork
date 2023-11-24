@@ -1,11 +1,11 @@
 run:
-	flutter run -d chrome
+	fvm flutter run -d chrome
 
 run_web:
-	flutter run -d web-server --web-port 8888 --web-hostname 0.0.0.0
+	fvm flutter run -d web-server --web-port 8888 --web-hostname 0.0.0.0
 
 build_web:
-	flutter build web --pwa-strategy=none --release
+	fvm flutter build web --pwa-strategy=none --release
 
 deploy:
 	firebase deploy --only hosting

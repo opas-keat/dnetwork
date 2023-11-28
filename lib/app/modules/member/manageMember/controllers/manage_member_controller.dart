@@ -268,8 +268,8 @@ class ManageMemberController extends GetxController {
 
         // memberPositionCommu.text = memberList[index].memberPositionCommu!;
         // memberExp.text = memberList[index].memberExp!;
-        memberAmphure.text = item.district!;
-        memberTambol.text = item.amphure!;
+        memberAmphure.text = item.amphure!;
+        memberTambol.text = item.district!;
         memberProvince.text = item.province!;
         memberPreName.text = item.memberPreName!;
         if (item.memberPositionCommu!.isNotEmpty) {

@@ -279,8 +279,8 @@ class ManageNetworkController extends GetxController {
 
         // networkPositionCommu.text = networkList[index].networkPositionCommu!;
         // networkExp.text = networkList[index].networkExp!;
-        networkAmphure.text = item.district!;
-        networkTambol.text = item.amphure!;
+        networkAmphure.text = item.amphure!;
+        networkTambol.text = item.district!;
         networkProvince.text = item.province!;
         networkPreName.text = item.networkPreName!;
         networkAgency.text = item.networkAgency!;

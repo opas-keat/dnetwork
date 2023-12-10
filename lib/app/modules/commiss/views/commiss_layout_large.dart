@@ -99,15 +99,19 @@ class CommissLayoutLarge extends StatelessWidget {
                         );
                       } else {
                         String reportName = 'command';
+                        String district = controller.reportDistrict.value;
                         if (value!.split(' ').first == 'รายงาน') {
                           reportName = 'list_commiss_l_2';
+                        }else{
+                          district = 'ตำบล${controller.reportDistrict.value}';
                         }
+
                         report(
                           reportName,
                           value.split(' ').last.toString().toLowerCase(),
                           controller.reportProvince.value,
                           controller.reportAmphure.value,
-                          controller.reportDistrict.value,
+                          district,
                           controller.reportFirstName.value,
                           controller.reportSurName.value,
                           controller.reportPosition.value,

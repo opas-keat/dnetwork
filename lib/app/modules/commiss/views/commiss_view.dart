@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../responsive.dart';
+import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/header.dart';
@@ -10,6 +11,7 @@ import '../../../shared/main_drawer.dart';
 import '../controllers/commiss_controller.dart';
 import 'commiss_layout_large.dart';
 import 'commiss_layout_small.dart';
+import 'commiss_search.dart';
 
 class CommissView extends GetView<CommissController> {
   CommissView({Key? key}) : super(key: key);
@@ -28,7 +30,20 @@ class CommissView extends GetView<CommissController> {
               ),
               actions: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.toNamed(Routes.MANAGE_COMMISS);
+                  },
+                  icon: const Icon(
+                    Icons.add_sharp,
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {
+                    Get.dialog(
+                      CommissSearch(),
+                      barrierDismissible: false,
+                    );
+                  },
                   icon: const Icon(
                     Icons.search_sharp,
                   ),

@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 
 import '../../../../responsive.dart';
 import '../../../data/responses/budget_service_response.dart';
-import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/info_card.dart';
@@ -25,51 +24,8 @@ class BudgetLayoutSmall extends StatelessWidget {
         const Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Expanded(
-              child: ShowProvince(),
-            ),
-          ],
-        ),
-        const SizedBox(height: defaultPadding / 2),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Spacer(flex: 2),
-            // ElevatedButton.icon(
-            //   onPressed: () {},
-            //   style: ElevatedButton.styleFrom(
-            //     padding: const EdgeInsets.symmetric(
-            //         vertical: defaultPadding, horizontal: defaultPadding / 2),
-            //   ),
-            //   icon: const Icon(
-            //     Icons.insert_drive_file_sharp,
-            //     size: 16,
-            //   ),
-            //   label: const CustomText(
-            //     text: "รายงาน",
-            //     color: Colors.white,
-            //     scale: 0.9,
-            //   ),
-            // ),
-            const SizedBox(width: defaultPadding / 2),
-            ElevatedButton.icon(
-              icon: const Icon(
-                Icons.add_sharp,
-                size: 16,
-              ),
-              label: const CustomText(
-                text: "เพิ่ม/แก้ไข",
-                color: Colors.white,
-                scale: 0.9,
-              ),
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(
-                    vertical: defaultPadding, horizontal: defaultPadding / 2),
-              ),
-              onPressed: () {
-                Get.toNamed(Routes.MANAGE_BUDGET);
-              },
-            ),
+            ShowProvince(),
+            Spacer(flex: 2),
           ],
         ),
         const SizedBox(height: defaultPadding / 2),
@@ -91,9 +47,13 @@ class BudgetLayoutSmall extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    const CustomText(
-                      text: "ข้อมูลสถิติรายจังหวัด",
-                      weight: FontWeight.bold,
+                    const Padding(
+                      padding: EdgeInsets.only(left: defaultPadding / 2),
+                      child: CustomText(
+                        text: "ข้อมูลงบประมาณรายปี",
+                        weight: FontWeight.bold,
+                        size: 16,
+                      ),
                     ),
                     Obx(
                       () => controller.isLoading.value
@@ -105,6 +65,13 @@ class BudgetLayoutSmall extends StatelessWidget {
                             )
                           : IconButton(
                               onPressed: () {
+                                controller.offset.value = 0;
+                                controller.currentPage = 1;
+                                controller.listBudgetStatistics.clear();
+                                controller.selectedBudgetType.value = '';
+                                controller.addressController.selectedProvince
+                                    .value = '';
+                                controller.budgetDate.text = '';
                                 controller.listBudget();
                               },
                               icon: const Icon(

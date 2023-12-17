@@ -27,11 +27,33 @@ class DashboardStatisticsSmall extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           mainAxisSize: MainAxisSize.max,
           children: [
-            const Row(
+            Row(
               children: [
-                CustomText(
+                const CustomText(
                   text: "ข้อมูลสถิติรายจังหวัด",
                   weight: FontWeight.bold,
+                ),
+                Obx(
+                  () => controller.isLoading.value
+                      ? const IconButton(
+                          onPressed: null,
+                          icon: Icon(
+                            Icons.refresh_sharp,
+                          ),
+                        )
+                      : IconButton(
+                          onPressed: () {
+                            controller.stationNo.text = '';
+                            controller
+                                .addressController.selectedProvince.value = '';
+                            controller.listProvinceSummary.clear();
+                            controller.listProvinceSummaryDashboard();
+                          },
+                          icon: const Icon(
+                            Icons.refresh_sharp,
+                          ),
+                          color: primaryColor,
+                        ),
                 ),
               ],
             ),

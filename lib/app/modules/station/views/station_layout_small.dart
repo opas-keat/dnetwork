@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../data/responses/station_service_response.dart';
-import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/info_card.dart';
 import '../../../shared/main_chart.dart';
 import '../../../shared/show_province.dart';
+import '../../../shared/utils.dart';
 import '../../training/controllers/training_controller.dart';
 import '../controllers/station_controller.dart';
 
@@ -22,52 +22,52 @@ class StationLayoutSmall extends StatelessWidget {
     final controller = Get.put(TrainingController());
     return Column(
       children: [
-        const Row(
+        Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Expanded(
-              child: ShowProvince(),
-            ),
-          ],
-        ),
-        const SizedBox(height: defaultPadding / 2),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
+            const ShowProvince(),
             const Spacer(flex: 2),
-            ElevatedButton.icon(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(
-                    vertical: defaultPadding, horizontal: defaultPadding / 2),
-              ),
-              icon: const Icon(
-                Icons.insert_drive_file_sharp,
-                size: 16,
-              ),
-              label: const CustomText(
-                text: "รายงาน",
-                color: Colors.white,
-                scale: 0.9,
-              ),
-            ),
-            const SizedBox(width: defaultPadding / 2),
-            ElevatedButton.icon(
-              icon: const Icon(
-                Icons.add_sharp,
-                size: 16,
-              ),
-              label: const CustomText(
-                text: "เพิ่ม/แก้ไข",
-                color: Colors.white,
-                scale: 0.9,
-              ),
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(
-                    vertical: defaultPadding, horizontal: defaultPadding / 2),
-              ),
-              onPressed: () {
-                Get.toNamed(Routes.MANAGE_STATION);
+            DropdownButton(
+              items: stationController.listReportType
+                  .map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: CustomText(
+                    text: 'รายงาน $value',
+                  ),
+                );
+              }).toList(),
+              onChanged: (value) {
+                if (stationController.reportProvince.isEmpty) {
+                  Get.dialog(
+                    AlertDialog(
+                      content: const Text('กรุณาค้นหา จังหวัด/อำเภอ/ตำบล'),
+                      actions: [
+                        TextButton(
+                          child: const Text("ปิด"),
+                          onPressed: () => Get.back(),
+                        ),
+                      ],
+                    ),
+                  );
+                } else {
+                  report(
+                    'list_info_l',
+                    value.toString().toLowerCase(),
+                    stationController.reportProvince.value,
+                    stationController.reportAmphure.value,
+                    stationController.reportDistrict.value,
+                    stationController.reportStationName.value,
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                  );
+                }
               },
             ),
           ],
@@ -91,11 +91,39 @@ class StationLayoutSmall extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               mainAxisSize: MainAxisSize.max,
               children: [
-                const Row(
+                Row(
                   children: [
-                    CustomText(
-                      text: "ข้อมูลสถิติรายจังหวัด",
+                    const CustomText(
+                      text: "ข้อมูล ศส.ปชต.",
                       weight: FontWeight.bold,
+                    ),
+                    Obx(
+                      () => stationController.isLoading.value
+                          ? const IconButton(
+                              onPressed: null,
+                              icon: Icon(
+                                Icons.refresh_sharp,
+                              ),
+                            )
+                          : IconButton(
+                              onPressed: () {
+                                stationController.offset.value = 0;
+                                stationController.currentPage = 1;
+                                stationController.listStationStatistics.clear();
+                                stationController.name.text = '';
+                                stationController.addressController
+                                    .selectedProvince.value = '';
+                                stationController.addressController
+                                    .selectedAmphure.value = '';
+                                stationController.addressController
+                                    .selectedTambol.value = '';
+                                stationController.listStation();
+                              },
+                              icon: const Icon(
+                                Icons.refresh_sharp,
+                              ),
+                              color: primaryColor,
+                            ),
                     ),
                   ],
                 ),

@@ -148,7 +148,7 @@ class CommissLayoutLarge extends StatelessWidget {
               builder: (_) => controller.isLoadingChart.value
                   ? const Center(child: CircularProgressIndicator())
                   : MainChart(
-                      header: "สถิติข้อมูลกรรมกา ศส.ปชต.",
+                      header: "สถิติข้อมูลกรรมการ ศส.ปชต.",
                       subHeader: "ตำแหน่งกรรมการ ",
                       listSummaryChart: controller.summaryChart.obs.value,
                     ),

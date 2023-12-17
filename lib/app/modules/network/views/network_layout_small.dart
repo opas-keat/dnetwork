@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 
 import '../../../../responsive.dart';
 import '../../../data/responses/network_service_response.dart';
-import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/info_card.dart';
@@ -24,51 +23,8 @@ class NetworkLayoutSmall extends StatelessWidget {
         const Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Expanded(
-              child: ShowProvince(),
-            ),
-          ],
-        ),
-        const SizedBox(height: defaultPadding / 2),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Spacer(flex: 2),
-            // ElevatedButton.icon(
-            //   onPressed: () {},
-            //   style: ElevatedButton.styleFrom(
-            //     padding: const EdgeInsets.symmetric(
-            //         vertical: defaultPadding, horizontal: defaultPadding / 2),
-            //   ),
-            //   icon: const Icon(
-            //     Icons.insert_drive_file_sharp,
-            //     size: 16,
-            //   ),
-            //   label: const CustomText(
-            //     text: "รายงาน",
-            //     color: Colors.white,
-            //     scale: 0.9,
-            //   ),
-            // ),
-            const SizedBox(width: defaultPadding / 2),
-            ElevatedButton.icon(
-              icon: const Icon(
-                Icons.add_sharp,
-                size: 16,
-              ),
-              label: const CustomText(
-                text: "เพิ่ม/แก้ไข",
-                color: Colors.white,
-                scale: 0.9,
-              ),
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(
-                    vertical: defaultPadding, horizontal: defaultPadding / 2),
-              ),
-              onPressed: () {
-                Get.toNamed(Routes.MANAGE_NETWORK);
-              },
-            ),
+            ShowProvince(),
+            Spacer(flex: 2),
           ],
         ),
         const SizedBox(height: defaultPadding / 2),
@@ -88,11 +44,43 @@ class NetworkLayoutSmall extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                const Row(
+                Row(
                   children: [
-                    CustomText(
-                      text: "ข้อมูลสถิติรายจังหวัด",
+                    const CustomText(
+                      text: "ข้อมูลภาคีเครือข่าย ศส.ปชต.",
                       weight: FontWeight.bold,
+                    ),
+                    Obx(
+                      () => controller.isLoading.value
+                          ? const IconButton(
+                              onPressed: null,
+                              icon: Icon(
+                                Icons.refresh_sharp,
+                              ),
+                            )
+                          : IconButton(
+                              onPressed: () {
+                                controller.offset.value = 0;
+                                controller.currentPage = 1;
+                                controller.listNetworkStatistics.clear();
+                                controller.networkStationName.text = '';
+                                controller.networkFirstName.text = '';
+                                controller.networkSurName.text = '';
+                                controller.networkIdCard.text = '';
+                                controller.networkTelephone.text = '';
+                                controller.addressController.selectedProvince
+                                    .value = '';
+                                controller.addressController.selectedAmphure
+                                    .value = '';
+                                controller.addressController.selectedTambol
+                                    .value = '';
+                                controller.listNetwork();
+                              },
+                              icon: const Icon(
+                                Icons.refresh_sharp,
+                              ),
+                              color: primaryColor,
+                            ),
                     ),
                   ],
                 ),

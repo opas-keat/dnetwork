@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../responsive.dart';
+import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/header.dart';
@@ -10,6 +11,7 @@ import '../../../shared/main_drawer.dart';
 import '../controllers/member_controller.dart';
 import 'member_layout_large.dart';
 import 'member_layout_small.dart';
+import 'member_search.dart';
 
 class MemberView extends GetView<MemberController> {
   const MemberView({Key? key}) : super(key: key);
@@ -26,7 +28,20 @@ class MemberView extends GetView<MemberController> {
               ),
               actions: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.toNamed(Routes.MANAGE_MEMBER);
+                  },
+                  icon: const Icon(
+                    Icons.add_sharp,
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {
+                    Get.dialog(
+                      MemberSearch(),
+                      barrierDismissible: false,
+                    );
+                  },
                   icon: const Icon(
                     Icons.search_sharp,
                   ),

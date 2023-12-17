@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../responsive.dart';
+import '../../../api/api_params.dart';
+import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/header.dart';
 import '../../../shared/main_drawer.dart';
+import '../controllers/budget_controller.dart';
 import 'budget_layout_large.dart';
 import 'budget_layout_small.dart';
 import 'budget_search.dart';
@@ -15,6 +18,7 @@ class BudgetView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(BudgetController());
     return Scaffold(
       appBar: !Responsive.isLargeScreen(context)
           ? AppBar(
@@ -25,6 +29,17 @@ class BudgetView extends StatelessWidget {
                 scale: 0.9,
               ),
               actions: [
+                IconButton(
+                  onPressed: () {
+                    controller.currentPage = 1;
+                    controller.listBudgetStatistics.clear();
+                    controller.offset.value = int.parse(queryParamOffset);
+                    Get.toNamed(Routes.MANAGE_BUDGET);
+                  },
+                  icon: const Icon(
+                    Icons.add_sharp,
+                  ),
+                ),
                 IconButton(
                   onPressed: () {
                     // talker.debug("search.");

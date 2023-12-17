@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../../responsive.dart';
+import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/header.dart';
 import '../../../shared/main_drawer.dart';
 import 'training_layout_large.dart';
 import 'training_layout_small.dart';
+import 'training_search.dart';
 
 class TrainingView extends StatelessWidget {
   const TrainingView({Key? key}) : super(key: key);
@@ -23,7 +26,20 @@ class TrainingView extends StatelessWidget {
               ),
               actions: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.toNamed(Routes.MANAGE_TRAINING);
+                  },
+                  icon: const Icon(
+                    Icons.add_sharp,
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {
+                    Get.dialog(
+                      TrainingSearch(),
+                      barrierDismissible: false,
+                    );
+                  },
                   icon: const Icon(
                     Icons.search_sharp,
                   ),

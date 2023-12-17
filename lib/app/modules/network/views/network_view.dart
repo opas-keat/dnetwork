@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../responsive.dart';
+import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/header.dart';
@@ -10,6 +11,7 @@ import '../../../shared/main_drawer.dart';
 import '../controllers/network_controller.dart';
 import 'network_layout_large.dart';
 import 'network_layout_small.dart';
+import 'network_search.dart';
 
 class NetworkView extends GetView<NetworkController> {
   const NetworkView({Key? key}) : super(key: key);
@@ -21,12 +23,25 @@ class NetworkView extends GetView<NetworkController> {
           ? AppBar(
               centerTitle: true,
               title: const CustomText(
-                text: "เครือข่าย",
+                text: "ภาคีเครือข่าย",
                 color: Colors.white,
               ),
               actions: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.toNamed(Routes.MANAGE_NETWORK);
+                  },
+                  icon: const Icon(
+                    Icons.add_sharp,
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {
+                    Get.dialog(
+                      NetworkSearch(),
+                      barrierDismissible: false,
+                    );
+                  },
                   icon: const Icon(
                     Icons.search_sharp,
                   ),

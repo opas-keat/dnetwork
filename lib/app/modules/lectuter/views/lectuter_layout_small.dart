@@ -3,12 +3,12 @@ import 'package:get/get.dart';
 
 import '../../../../responsive.dart';
 import '../../../data/responses/lectuter_service_response.dart';
-import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/info_card.dart';
 import '../../../shared/main_chart.dart';
 import '../../../shared/show_province.dart';
+import '../../../shared/utils.dart';
 import '../controllers/lectuter_controller.dart';
 
 class LectuterLayoutSmall extends StatelessWidget {
@@ -21,52 +21,52 @@ class LectuterLayoutSmall extends StatelessWidget {
     final controller = Get.put(LectuterController());
     return Column(
       children: [
-        const Row(
+        Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Expanded(
-              child: ShowProvince(),
-            ),
-          ],
-        ),
-        const SizedBox(height: defaultPadding / 2),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
+            const ShowProvince(),
             const Spacer(flex: 2),
-            ElevatedButton.icon(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(
-                    vertical: defaultPadding, horizontal: defaultPadding / 2),
-              ),
-              icon: const Icon(
-                Icons.insert_drive_file_sharp,
-                size: 16,
-              ),
-              label: const CustomText(
-                text: "รายงาน",
-                color: Colors.white,
-                scale: 0.9,
-              ),
-            ),
-            const SizedBox(width: defaultPadding / 2),
-            ElevatedButton.icon(
-              icon: const Icon(
-                Icons.add_sharp,
-                size: 16,
-              ),
-              label: const CustomText(
-                text: "เพิ่ม/แก้ไข",
-                color: Colors.white,
-                scale: 0.9,
-              ),
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(
-                    vertical: defaultPadding, horizontal: defaultPadding / 2),
-              ),
-              onPressed: () {
-                Get.toNamed(Routes.MANAGE_LECTUTER);
+            DropdownButton(
+              items: controller.listReportType
+                  .map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: CustomText(
+                    text: 'รายงาน $value',
+                  ),
+                );
+              }).toList(),
+              onChanged: (value) {
+                if (controller.reportProvince.isEmpty) {
+                  Get.dialog(
+                    AlertDialog(
+                      content: const Text('กรุณาค้นหา จังหวัด/อำเภอ/ตำบล'),
+                      actions: [
+                        TextButton(
+                          child: const Text("ปิด"),
+                          onPressed: () => Get.back(),
+                        ),
+                      ],
+                    ),
+                  );
+                } else {
+                  report(
+                    'list_lectuter_info_l',
+                    value.toString().toLowerCase(),
+                    controller.reportProvince.value,
+                    controller.reportAmphure.value,
+                    controller.reportDistrict.value,
+                    controller.reportLectuterName.value,
+                    controller.reportLectuterSurName.value,
+                    '',
+                    controller.reportLectuterTel.value,
+                    '',
+                    '',
+                    controller.reportLectuterAgency.value,
+                    controller.reportLectuterAffiliate.value,
+                    '',
+                  );
+                }
               },
             ),
           ],
@@ -88,11 +88,44 @@ class LectuterLayoutSmall extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                const Row(
+                Row(
                   children: [
-                    CustomText(
+                    const CustomText(
                       text: "ข้อมูลวิทยากรประชาธิปไตย",
                       weight: FontWeight.bold,
+                      size: 16,
+                    ),
+                    Obx(
+                      () => controller.isLoading.value
+                          ? const IconButton(
+                              onPressed: null,
+                              icon: Icon(
+                                Icons.refresh_sharp,
+                              ),
+                            )
+                          : IconButton(
+                              onPressed: () {
+                                controller.offset.value = 0;
+                                controller.currentPage = 1;
+                                controller.listLectuterStatistics.clear();
+                                controller.lectuterFirstName.text = '';
+                                controller.lectuterSurName.text = '';
+                                controller.lectuterTelephone.text = '';
+                                controller.lectuterAgency.text = '';
+                                controller.selectedLectuterAffiliate.value = '';
+                                controller.addressController.selectedProvince
+                                    .value = '';
+                                controller.addressController.selectedAmphure
+                                    .value = '';
+                                controller.addressController.selectedTambol
+                                    .value = '';
+                                controller.listLectuter();
+                              },
+                              icon: const Icon(
+                                Icons.refresh_sharp,
+                              ),
+                              color: primaryColor,
+                            ),
                     ),
                   ],
                 ),

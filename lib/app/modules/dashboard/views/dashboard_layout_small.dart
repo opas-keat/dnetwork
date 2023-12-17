@@ -1,12 +1,17 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../responsive.dart';
 import '../../../shared/constant.dart';
+import '../../../shared/custom_text.dart';
 import '../../../shared/info_card.dart';
 import '../../../shared/main_chart.dart';
 import '../../../shared/show_province.dart';
+import '../../../shared/utils.dart';
 import '../../training/controllers/training_controller.dart';
+import '../controllers/dashboard_controller.dart';
 import 'dashboard_statistics_small.dart';
 
 class DashboardLayoutSmall extends StatelessWidget {
@@ -17,27 +22,48 @@ class DashboardLayoutSmall extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(TrainingController());
+    final DashboardController dashboardController =
+        Get.find<DashboardController>();
     return Column(
       children: [
-        const Row(
+        Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            ShowProvince(),
-            Spacer(flex: 2),
-            // ElevatedButton.icon(
-            //   onPressed: () {},
-            //   style: ElevatedButton.styleFrom(
-            //     padding: const EdgeInsets.symmetric(
-            //         vertical: defaultPadding, horizontal: defaultPadding / 2),
-            //   ),
-            //   icon: const Icon(
-            //     Icons.insert_drive_file_sharp,
-            //   ),
-            //   label: const CustomText(
-            //     text: "รายงาน",
-            //     color: Colors.white,
-            //   ),
-            // ),
+            const ShowProvince(),
+            const Spacer(flex: 2),
+            DropdownButton(
+              items: dashboardController.listReportType
+                  .map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: CustomText(
+                    text: 'รายงาน $value',
+                  ),
+                );
+              }).toList(),
+              onChanged: (value) {
+                if (dashboardController.reportProvince.value == "") {
+                  dashboardController.reportProvince.value =
+                      window.sessionStorage["province"]!;
+                }
+                report(
+                  'main_info_l',
+                  value.toString().toLowerCase(),
+                  dashboardController.reportProvince.value,
+                  '',
+                  '',
+                  '',
+                  '',
+                  '',
+                  '',
+                  '',
+                  '',
+                  '',
+                  '',
+                  dashboardController.reportStationNo.value,
+                );
+              },
+            ),
           ],
         ),
         const SizedBox(height: defaultPadding / 2),

@@ -8,6 +8,7 @@ import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/info_card.dart';
 import '../../../shared/main_chart.dart';
+import '../../../shared/show_province.dart';
 import '../../../shared/utils.dart';
 import '../controllers/training_controller.dart';
 
@@ -21,45 +22,11 @@ class TrainingLayoutSmall extends StatelessWidget {
     final controller = Get.put(TrainingController());
     return Column(
       children: [
-        Row(
+        const Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Spacer(flex: 2),
-            // ElevatedButton.icon(
-            //   onPressed: () {},
-            //   style: ElevatedButton.styleFrom(
-            //     padding: const EdgeInsets.symmetric(
-            //         vertical: defaultPadding, horizontal: defaultPadding / 2),
-            //   ),
-            //   icon: const Icon(
-            //     Icons.insert_drive_file_sharp,
-            //     size: 16,
-            //   ),
-            //   label: const CustomText(
-            //     text: "รายงาน",
-            //     color: Colors.white,
-            //     scale: 0.9,
-            //   ),
-            // ),
-            const SizedBox(width: defaultPadding / 2),
-            ElevatedButton.icon(
-              icon: const Icon(
-                Icons.add_sharp,
-                size: 16,
-              ),
-              label: const CustomText(
-                text: "เพิ่ม/แก้ไข",
-                color: Colors.white,
-                scale: 0.9,
-              ),
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(
-                    vertical: defaultPadding, horizontal: defaultPadding / 2),
-              ),
-              onPressed: () {
-                Get.toNamed(Routes.MANAGE_TRAINING);
-              },
-            ),
+            ShowProvince(),
+            Spacer(flex: 2),
           ],
         ),
         const SizedBox(height: defaultPadding / 2),
@@ -67,7 +34,6 @@ class TrainingLayoutSmall extends StatelessWidget {
           crossAxisCount: Responsive.isSmallScreen(context) ? 2 : 4,
           childAspectRatio: 2.0,
           textScale: 1.0,
-          // listSummaryInfo: listTrainingSummaryInfo,
         ),
         const SizedBox(height: defaultPadding / 2),
         Container(
@@ -79,11 +45,39 @@ class TrainingLayoutSmall extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                const Row(
+                Row(
                   children: [
-                    CustomText(
+                    const CustomText(
                       text: "ข้อมูลการฝึกอบรม",
                       weight: FontWeight.bold,
+                      size: 16,
+                    ),
+                    Obx(
+                      () => controller.isLoading.value
+                          ? const IconButton(
+                              onPressed: null,
+                              icon: Icon(
+                                Icons.refresh_sharp,
+                              ),
+                            )
+                          : IconButton(
+                              onPressed: () {
+                                controller.offset.value = 0;
+                                controller.currentPage = 1;
+                                controller.listTrainingStatistics.clear();
+                                controller.trainingName.text = '';
+                                controller.trainingDateForm.text = '';
+                                controller.trainingDateTo.text = '';
+                                controller.trainingType.text = '';
+                                controller.addressController.selectedProvince
+                                    .value = '';
+                                controller.listTraining();
+                              },
+                              icon: const Icon(
+                                Icons.refresh_sharp,
+                              ),
+                              color: primaryColor,
+                            ),
                     ),
                   ],
                 ),

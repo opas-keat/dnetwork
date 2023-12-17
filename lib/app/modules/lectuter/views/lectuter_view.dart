@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../responsive.dart';
+import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/header.dart';
@@ -10,6 +11,7 @@ import '../../../shared/main_drawer.dart';
 import '../controllers/lectuter_controller.dart';
 import 'lectuter_layout_large.dart';
 import 'lectuter_layout_small.dart';
+import 'lectuter_search.dart';
 
 class LectuterView extends StatelessWidget {
   LectuterView({Key? key}) : super(key: key);
@@ -28,7 +30,20 @@ class LectuterView extends StatelessWidget {
               ),
               actions: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.toNamed(Routes.MANAGE_LECTUTER);
+                  },
+                  icon: const Icon(
+                    Icons.add_sharp,
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {
+                    Get.dialog(
+                      LectuterSearch(),
+                      barrierDismissible: false,
+                    );
+                  },
                   icon: const Icon(
                     Icons.search_sharp,
                   ),

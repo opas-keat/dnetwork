@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../../responsive.dart';
 import '../../../shared/constant.dart';
@@ -7,6 +8,7 @@ import '../../../shared/header.dart';
 import '../../../shared/main_drawer.dart';
 import 'dashboard_layout_large.dart';
 import 'dashboard_layout_small.dart';
+import 'dashboard_search.dart';
 
 class DashboardView extends StatelessWidget {
   const DashboardView({Key? key}) : super(key: key);
@@ -25,7 +27,12 @@ class DashboardView extends StatelessWidget {
               ),
               actions: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.dialog(
+                      DashboardSearch(),
+                      barrierDismissible: false,
+                    );
+                  },
                   icon: const Icon(
                     Icons.search_sharp,
                   ),

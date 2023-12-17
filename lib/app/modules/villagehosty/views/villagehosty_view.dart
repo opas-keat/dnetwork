@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../responsive.dart';
+import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/header.dart';
@@ -10,6 +11,7 @@ import '../../../shared/main_drawer.dart';
 import '../controllers/village_controller.dart';
 import 'village_layout_large.dart';
 import 'village_layout_small.dart';
+import 'village_search.dart';
 
 class VillagehostyView extends StatelessWidget {
   VillagehostyView({Key? key}) : super(key: key);
@@ -28,7 +30,20 @@ class VillagehostyView extends StatelessWidget {
               ),
               actions: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.toNamed(Routes.MANAGE_VILLAGE);
+                  },
+                  icon: const Icon(
+                    Icons.add_sharp,
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {
+                    Get.dialog(
+                      VillageSearch(),
+                      barrierDismissible: false,
+                    );
+                  },
                   icon: const Icon(
                     Icons.search_sharp,
                   ),

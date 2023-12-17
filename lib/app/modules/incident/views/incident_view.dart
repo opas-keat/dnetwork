@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../../responsive.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/header.dart';
 import '../../../shared/main_drawer.dart';
+import 'incident_add.dart';
 import 'incident_layout_large.dart';
+import 'incident_layout_small.dart';
 
 class IncidentView extends StatelessWidget {
   const IncidentView({Key? key}) : super(key: key);
@@ -23,11 +26,24 @@ class IncidentView extends StatelessWidget {
               ),
               actions: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.dialog(
+                      IncidentAdd(
+                        editMode: false,
+                      ),
+                      barrierDismissible: false,
+                    );
+                  },
                   icon: const Icon(
-                    Icons.search_sharp,
+                    Icons.add_sharp,
                   ),
                 ),
+                // IconButton(
+                //   onPressed: () {},
+                //   icon: const Icon(
+                //     Icons.search_sharp,
+                //   ),
+                // ),
                 IconButton(
                   onPressed: () {},
                   icon: const Icon(
@@ -47,7 +63,7 @@ class IncidentView extends StatelessWidget {
               primary: true,
               child: Column(
                 children: [
-                  // LectuterLayoutSmall(),
+                  IncidentLayoutSmall(),
                 ],
               ),
             ),
@@ -59,7 +75,7 @@ class IncidentView extends StatelessWidget {
               primary: true,
               child: Column(
                 children: [
-                  // LectuterLayoutSmall(),
+                  IncidentLayoutSmall(),
                 ],
               ),
             ),

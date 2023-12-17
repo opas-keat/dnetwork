@@ -2,25 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../responsive.dart';
-import '../../../data/responses/member_service_response.dart';
+import '../../../data/responses/incident_service_response.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/info_card.dart';
-import '../../../shared/main_chart.dart';
 import '../../../shared/show_province.dart';
-import '../controllers/member_controller.dart';
+import '../controllers/incident_controller.dart';
 
-class MemberLayoutSmall extends StatelessWidget {
-  MemberLayoutSmall({
+class IncidentLayoutSmall extends StatelessWidget {
+  const IncidentLayoutSmall({
     super.key,
   });
+
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(MemberController());
+    final controller = Get.put(IncidentController());
     return Column(
       children: [
         const Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             ShowProvince(),
             Spacer(flex: 2),
@@ -31,7 +31,7 @@ class MemberLayoutSmall extends StatelessWidget {
           crossAxisCount: Responsive.isSmallScreen(context) ? 2 : 4,
           childAspectRatio: 2.0,
           textScale: 1.0,
-          // listSummaryInfo: listMemberSummaryInfo,
+          // listSummaryInfo: listIncidentSummaryInfo,
         ),
         const SizedBox(height: defaultPadding / 2),
         Container(
@@ -46,7 +46,7 @@ class MemberLayoutSmall extends StatelessWidget {
                 Row(
                   children: [
                     const CustomText(
-                      text: "ข้อมูลสมาชิก ศส.ปชต.",
+                      text: "แจ้งปัญหาการใช้งาน",
                       weight: FontWeight.bold,
                     ),
                     Obx(
@@ -61,19 +61,8 @@ class MemberLayoutSmall extends StatelessWidget {
                               onPressed: () {
                                 controller.offset.value = 0;
                                 controller.currentPage = 1;
-                                controller.listMemberStatistics.clear();
-                                controller.memberStationName.text = '';
-                                controller.memberFirstName.text = '';
-                                controller.memberSurName.text = '';
-                                controller.memberIdCard.text = '';
-                                controller.memberTelephone.text = '';
-                                controller.addressController.selectedProvince
-                                    .value = '';
-                                controller.addressController.selectedAmphure
-                                    .value = '';
-                                controller.addressController.selectedTambol
-                                    .value = '';
-                                controller.listMember();
+                                controller.listIncidentStatistics.clear();
+                                controller.list();
                               },
                               icon: const Icon(
                                 Icons.refresh_sharp,
@@ -88,10 +77,11 @@ class MemberLayoutSmall extends StatelessWidget {
                   () => ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: controller.listMemberStatistics.obs.value.length,
+                    itemCount:
+                        controller.listIncidentStatistics.obs.value.length,
                     itemBuilder: (context, index) {
-                      return CommissStatisticsSmallRow(
-                          index, controller.listMemberStatistics[index]);
+                      return IncidentStatisticsSmallRow(
+                          index, controller.listIncidentStatistics[index]);
                     },
                   ),
                 ),
@@ -100,28 +90,14 @@ class MemberLayoutSmall extends StatelessWidget {
           ),
         ),
         const SizedBox(height: defaultPadding / 2),
-        GetBuilder<MemberController>(
-          builder: (_) => controller.isLoadingChart.value
-              ? const Center(child: CircularProgressIndicator())
-              : MainChart(
-                  header: "สถิติข้อมูลสมาชิก ศส.ปชต.",
-                  subHeader: "ตำแหน่งสมาชิก",
-                  listSummaryChart: controller.summaryChart.obs.value,
-                ),
-        ),
-        // MainChart(
-        //   header: "สถิติข้อมูลสมาชิก ศส.ปชต.",
-        //   subHeader: "ตำแหน่งสมาชิก",
-        //   listSummaryChart: summaryMemberChart,
-        // ),
       ],
     );
   }
 }
 
-Widget CommissStatisticsSmallRow(
+Widget IncidentStatisticsSmallRow(
   int index,
-  MemberData memberData,
+  IncidentData incidentData,
 ) {
   return Row(
     children: [
@@ -140,30 +116,32 @@ Widget CommissStatisticsSmallRow(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomText(
-                text:
-                    "ชื่อ-นามสกุล : ${memberData.memberFirstName!} ${memberData.memberSurName!}",
-                scale: 0.9,
-              ),
-              CustomText(
-                text: "เบอร์โทร : ${memberData.memberTelephone}",
-                scale: 0.9,
-              ),
-              CustomText(
-                text: "ตำแหน่ง : ${memberData.memberPosition}",
-                scale: 0.9,
-              ),
-              CustomText(
-                text: "ว/ด/ป/ แต่งตั้ง : ${memberData.memberDate}",
-                scale: 0.9,
-              ),
-              CustomText(
-                text: "สังกัด ศส.ปชต. : ${memberData.memberLocation}",
+                text: "วันที่แจ้ง : ${incidentData.incidentDate} ",
                 scale: 0.9,
                 maxLine: 2,
               ),
               CustomText(
-                text:
-                    "จังหวัด/อำเภอ/ตำบล : ${memberData.province}/${memberData.amphure}/${memberData.district}",
+                text: "ผู้แจ้ง : ${incidentData.createdBy}",
+                scale: 0.9,
+              ),
+              CustomText(
+                text: "ระบบ : ${incidentData.incidentModule}",
+                scale: 0.9,
+              ),
+              CustomText(
+                text: "ปัญหา : ${incidentData.incidentTitle}",
+                scale: 0.9,
+              ),
+              CustomText(
+                text: "รายละเอียด : ${incidentData.incidentDetail}",
+                scale: 0.9,
+              ),
+              CustomText(
+                text: "วันที่แก้ไข : ${incidentData.resolvedDate}",
+                scale: 0.9,
+              ),
+              CustomText(
+                text: "รายละเอียดการแก้ไข : ${incidentData.resolvedDetail}",
                 scale: 0.9,
               ),
               const SizedBox(height: defaultPadding / 4),

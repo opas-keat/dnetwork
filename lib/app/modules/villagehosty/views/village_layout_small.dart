@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import '../../../../responsive.dart';
 import '../../../data/models/summary_chart.dart';
 import '../../../data/responses/village_service_response.dart';
-import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/info_card.dart';
@@ -23,52 +22,52 @@ class VillageLayoutSmall extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Row(
+        Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Expanded(
-              child: ShowProvince(),
-            ),
-          ],
-        ),
-        const SizedBox(height: defaultPadding / 2),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
+            const ShowProvince(),
             const Spacer(flex: 2),
-            ElevatedButton.icon(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(
-                    vertical: defaultPadding, horizontal: defaultPadding / 2),
-              ),
-              icon: const Icon(
-                Icons.insert_drive_file_sharp,
-                size: 16,
-              ),
-              label: const CustomText(
-                text: "รายงาน",
-                color: Colors.white,
-                scale: 0.9,
-              ),
-            ),
-            const SizedBox(width: defaultPadding / 2),
-            ElevatedButton.icon(
-              icon: const Icon(
-                Icons.add_sharp,
-                size: 16,
-              ),
-              label: const CustomText(
-                text: "เพิ่ม/แก้ไข",
-                color: Colors.white,
-                scale: 0.9,
-              ),
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(
-                    vertical: defaultPadding, horizontal: defaultPadding / 2),
-              ),
-              onPressed: () {
-                Get.toNamed(Routes.MANAGE_VILLAGE);
+            DropdownButton(
+              items: controller.listReportType
+                  .map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: CustomText(
+                    text: 'รายงาน $value',
+                  ),
+                );
+              }).toList(),
+              onChanged: (value) {
+                if (controller.reportProvince.isEmpty) {
+                  Get.dialog(
+                    AlertDialog(
+                      content: const Text('กรุณาค้นหา จังหวัด/อำเภอ/ตำบล'),
+                      actions: [
+                        TextButton(
+                          child: const Text("ปิด"),
+                          onPressed: () => Get.back(),
+                        ),
+                      ],
+                    ),
+                  );
+                } else {
+                  report(
+                    'list_village_hosty_l',
+                    value.toString().toLowerCase(),
+                    controller.reportProvince.value,
+                    controller.reportAmphure.value,
+                    controller.reportDistrict.value,
+                    controller.reportVillageName.value,
+                    '',
+                    '',
+                    '',
+                    '',
+                    controller.reportVillageNo.value,
+                    '',
+                    '',
+                    '',
+                  );
+                }
               },
             ),
           ],
@@ -90,11 +89,41 @@ class VillageLayoutSmall extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                const Row(
+                Row(
                   children: [
-                    CustomText(
-                      text: "ข้อมูลสถิติรายจังหวัด",
+                    const CustomText(
+                      text: "ข้อมูลหมู่บ้านพลเมืองดีวิถีประชาธิปไตย",
                       weight: FontWeight.bold,
+                      size: 16,
+                    ),
+                    Obx(
+                      () => controller.isLoading.value
+                          ? const IconButton(
+                              onPressed: null,
+                              icon: Icon(
+                                Icons.refresh_sharp,
+                              ),
+                            )
+                          : IconButton(
+                              onPressed: () {
+                                controller.offset.value = 0;
+                                controller.currentPage = 1;
+                                controller.listVillageStatistics.clear();
+                                controller.villageName.text = '';
+                                controller.villageNo.text = '';
+                                controller.addressController.selectedProvince
+                                    .value = '';
+                                controller.addressController.selectedAmphure
+                                    .value = '';
+                                controller.addressController.selectedTambol
+                                    .value = '';
+                                controller.listVillage();
+                              },
+                              icon: const Icon(
+                                Icons.refresh_sharp,
+                              ),
+                              color: primaryColor,
+                            ),
                     ),
                   ],
                 ),

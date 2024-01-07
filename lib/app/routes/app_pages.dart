@@ -229,7 +229,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.INCIDENT,
-      page: () => IncidentView(),
+      page: () => const IncidentView(),
       binding: IncidentBinding(),
     ),
   ];

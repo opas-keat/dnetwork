@@ -39,10 +39,6 @@ class IncidentController extends GetxController {
     list();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
   @override
   void onClose() {

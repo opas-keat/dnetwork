@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 
 import '../../../../responsive.dart';
 import '../../../data/responses/training_service_response.dart';
-import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/info_card.dart';

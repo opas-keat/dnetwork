@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import '../controllers/admin_controller.dart';
 
 class AdminView extends StatelessWidget {
-  AdminView({Key? key}) : super(key: key);
+  AdminView({super.key});
   // AdminController controller = Get.put(AdminController(), permanent: false);
   final AdminController controller = Get.find<AdminController>();
   @override

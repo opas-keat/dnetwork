@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class LargeScreen extends StatelessWidget {
-  const LargeScreen({Key? key}) : super(key: key);
+  const LargeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -12,7 +12,7 @@ import 'detail_station_layout_large.dart';
 import 'detail_station_layout_small.dart';
 
 class DetailStationView extends StatelessWidget {
-  DetailStationView({Key? key}) : super(key: key);
+  DetailStationView({super.key});
   final DetailStationController controller = Get.put(DetailStationController());
 
   @override

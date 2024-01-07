@@ -17,7 +17,7 @@ import '../../../address/views/address_view.dart';
 import '../controllers/manage_budget_controller.dart';
 
 class ManageBudgetView extends StatelessWidget {
-  ManageBudgetView({Key? key}) : super(key: key);
+  ManageBudgetView({super.key});
   final ManageBudgetController controller = Get.put(ManageBudgetController());
 
   @override

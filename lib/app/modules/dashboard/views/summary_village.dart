@@ -11,8 +11,8 @@ import 'dashboard_header.dart';
 
 class SummaryVillage extends StatelessWidget {
   SummaryVillage({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
   final DashboardController controller = Get.find<DashboardController>();
 
   final ScrollController _scrollController = ScrollController();

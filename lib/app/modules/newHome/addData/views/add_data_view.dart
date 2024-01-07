@@ -6,7 +6,7 @@ import '../../../../shared/main_drawer.dart';
 import '../controllers/add_data_controller.dart';
 
 class AddDataView extends GetView<AddDataController> {
-  const AddDataView({Key? key}) : super(key: key);
+  const AddDataView({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(

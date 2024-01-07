@@ -10,10 +10,10 @@ import '../controllers/dashboard_controller.dart';
 
 class SummaryInfoCard extends StatelessWidget {
   SummaryInfoCard({
-    Key? key,
+    super.key,
     this.crossAxisCount = 4,
     this.childAspectRatio = 1,
-  }) : super(key: key);
+  });
   final DashboardController controller = Get.find<DashboardController>();
 
   final int crossAxisCount;

@@ -4,7 +4,7 @@ import 'constant.dart';
 import 'custom_text.dart';
 
 class PageNotFound extends StatelessWidget {
-  const PageNotFound({Key? key}) : super(key: key);
+  const PageNotFound({super.key});
 
   @override
   Widget build(BuildContext context) {

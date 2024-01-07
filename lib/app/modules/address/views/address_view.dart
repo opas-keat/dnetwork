@@ -7,12 +7,12 @@ import '../controllers/address_controller.dart';
 
 class AddressView extends StatelessWidget {
   AddressView({
-    Key? key,
+    super.key,
     this.showProvince = true,
     this.showAmphure = true,
     this.showTambol = true,
     this.showPostCode = true,
-  }) : super(key: key);
+  });
   final AddressController controller = Get.put(AddressController());
 
   final bool showProvince;

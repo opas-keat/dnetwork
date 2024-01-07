@@ -14,7 +14,7 @@ import 'member_layout_small.dart';
 import 'member_search.dart';
 
 class MemberView extends GetView<MemberController> {
-  const MemberView({Key? key}) : super(key: key);
+  const MemberView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +61,7 @@ class MemberView extends GetView<MemberController> {
           smallScreen: Container(
             padding: const EdgeInsets.all(defaultPadding / 2),
             // color: Colors.amber,
-            child: SingleChildScrollView(
+            child: const SingleChildScrollView(
               primary: true,
               child: Column(
                 children: [
@@ -73,7 +73,7 @@ class MemberView extends GetView<MemberController> {
           mediumScreen: Container(
             padding: const EdgeInsets.all(defaultPadding),
             // color: Colors.amber,
-            child: SingleChildScrollView(
+            child: const SingleChildScrollView(
               primary: true,
               child: Column(
                 children: [

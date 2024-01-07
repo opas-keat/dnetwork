@@ -8,8 +8,8 @@ import '../controllers/village_controller.dart';
 
 class VillageSearch extends StatelessWidget {
   VillageSearch({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
   final VillageController controller = Get.find<VillageController>();
   @override
   Widget build(BuildContext context) {

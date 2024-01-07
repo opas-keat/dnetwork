@@ -16,15 +16,15 @@ class NetworkServiceResponse {
     if (json['data'] != null) {
       data = <NetworkData>[];
       json['data'].forEach((v) {
-        data!.add(new NetworkData.fromJson(v));
+        data!.add(NetworkData.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['code'] = this.code;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['code'] = code;
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
@@ -95,23 +95,23 @@ class NetworkData {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['network_station_id'] = this.networkStationId;
-    data['network_station_name'] = this.networkStationName;
-    data['province'] = this.province;
-    data['amphure'] = this.amphure;
-    data['district'] = this.district;
-    data['network_first_name'] = this.networkFirstName;
-    data['network_sur_name'] = this.networkSurName;
-    data['network_id_card'] = this.networkIdCard;
-    data['network_birth_year'] = this.networkBirthYear;
-    data['network_location'] = this.networkLocation;
-    data['network_date'] = this.networkDate;
-    data['network_telephone'] = this.networkTelephone;
-    data['network_position'] = this.networkPosition;
-    data['network_position_commu'] = this.networkPositionCommu;
-    data['network_exp'] = this.networkExp;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['network_station_id'] = networkStationId;
+    data['network_station_name'] = networkStationName;
+    data['province'] = province;
+    data['amphure'] = amphure;
+    data['district'] = district;
+    data['network_first_name'] = networkFirstName;
+    data['network_sur_name'] = networkSurName;
+    data['network_id_card'] = networkIdCard;
+    data['network_birth_year'] = networkBirthYear;
+    data['network_location'] = networkLocation;
+    data['network_date'] = networkDate;
+    data['network_telephone'] = networkTelephone;
+    data['network_position'] = networkPosition;
+    data['network_position_commu'] = networkPositionCommu;
+    data['network_exp'] = networkExp;
     data['network_pre_name'] = networkPreName;
     data['network_agency'] = networkAgency;
     return data;

@@ -14,7 +14,7 @@ import 'village_layout_small.dart';
 import 'village_search.dart';
 
 class VillagehostyView extends StatelessWidget {
-  VillagehostyView({Key? key}) : super(key: key);
+  VillagehostyView({super.key});
   final VillageController controller = Get.find<VillageController>();
 
   @override

@@ -9,8 +9,8 @@ import '../controllers/commiss_controller.dart';
 
 class CommissSearch extends StatelessWidget {
   CommissSearch({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
   final CommissController controller = Get.find<CommissController>();
   @override
   Widget build(BuildContext context) {

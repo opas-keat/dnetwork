@@ -17,7 +17,7 @@ import '../../../address/views/address_view.dart';
 import '../controllers/manage_training_controller.dart';
 
 class ManageTrainingView extends StatelessWidget {
-  ManageTrainingView({Key? key}) : super(key: key);
+  ManageTrainingView({super.key});
   final ManageTrainingController controller =
       Get.put(ManageTrainingController());
   @override

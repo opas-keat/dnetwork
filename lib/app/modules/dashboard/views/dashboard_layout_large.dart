@@ -15,7 +15,7 @@ import 'dashboard_search.dart';
 import 'dashboard_statistics.dart';
 
 class DashboardLayoutLarge extends StatelessWidget {
-  const DashboardLayoutLarge({Key? key}) : super(key: key);
+  const DashboardLayoutLarge({super.key});
 
   @override
   Widget build(BuildContext context) {

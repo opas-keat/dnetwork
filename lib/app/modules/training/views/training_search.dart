@@ -8,8 +8,8 @@ import '../controllers/training_controller.dart';
 
 class TrainingSearch extends StatelessWidget {
   TrainingSearch({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
   final TrainingController controller = Get.find<TrainingController>();
   @override
   Widget build(BuildContext context) {

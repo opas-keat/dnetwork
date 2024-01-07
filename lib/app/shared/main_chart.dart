@@ -97,9 +97,9 @@ class MainChart extends StatelessWidget {
 
 class Chart extends StatelessWidget {
   const Chart({
-    Key? key,
+    super.key,
     this.listSummaryChart = const [],
-  }) : super(key: key);
+  });
 
   final List<SummaryChart> listSummaryChart;
 

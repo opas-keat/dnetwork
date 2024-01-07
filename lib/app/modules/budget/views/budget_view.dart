@@ -14,7 +14,7 @@ import 'budget_layout_small.dart';
 import 'budget_search.dart';
 
 class BudgetView extends StatelessWidget {
-  const BudgetView({Key? key}) : super(key: key);
+  const BudgetView({super.key});
 
   @override
   Widget build(BuildContext context) {

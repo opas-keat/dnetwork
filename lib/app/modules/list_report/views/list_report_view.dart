@@ -8,7 +8,7 @@ import '../../../shared/main_drawer.dart';
 import '../controllers/list_report_controller.dart';
 
 class ListReportView extends StatelessWidget {
-  ListReportView({Key? key}) : super(key: key);
+  ListReportView({super.key});
 
   final ListReportController controller = Get.find<ListReportController>();
   @override

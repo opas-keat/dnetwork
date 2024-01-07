@@ -9,8 +9,8 @@ import '../controllers/lectuter_controller.dart';
 
 class LectuterSearch extends StatelessWidget {
   LectuterSearch({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
   final LectuterController controller = Get.find<LectuterController>();
   @override
   Widget build(BuildContext context) {

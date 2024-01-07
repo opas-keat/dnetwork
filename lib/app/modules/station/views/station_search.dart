@@ -8,8 +8,8 @@ import '../controllers/station_controller.dart';
 
 class StationSearch extends StatelessWidget {
   StationSearch({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
   final StationController controller = Get.find<StationController>();
   @override
   Widget build(BuildContext context) {

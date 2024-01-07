@@ -14,7 +14,7 @@ import 'network_layout_small.dart';
 import 'network_search.dart';
 
 class NetworkView extends GetView<NetworkController> {
-  const NetworkView({Key? key}) : super(key: key);
+  const NetworkView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +61,7 @@ class NetworkView extends GetView<NetworkController> {
           smallScreen: Container(
             padding: const EdgeInsets.all(defaultPadding / 2),
             // color: Colors.amber,
-            child: SingleChildScrollView(
+            child: const SingleChildScrollView(
               primary: true,
               child: Column(
                 children: [
@@ -73,7 +73,7 @@ class NetworkView extends GetView<NetworkController> {
           mediumScreen: Container(
             padding: const EdgeInsets.all(defaultPadding),
             // color: Colors.amber,
-            child: SingleChildScrollView(
+            child: const SingleChildScrollView(
               primary: true,
               child: Column(
                 children: [

@@ -9,8 +9,8 @@ import '../controllers/member_controller.dart';
 
 class MemberSearch extends StatelessWidget {
   MemberSearch({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
   final MemberController controller = Get.find<MemberController>();
   @override
   Widget build(BuildContext context) {

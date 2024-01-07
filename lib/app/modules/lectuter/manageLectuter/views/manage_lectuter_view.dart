@@ -16,7 +16,7 @@ import '../../../address/views/address_view.dart';
 import '../controllers/manage_lectuter_controller.dart';
 
 class ManageLectuterView extends StatelessWidget {
-  ManageLectuterView({Key? key}) : super(key: key);
+  ManageLectuterView({super.key});
   final ManageLectuterController controller =
       Get.put(ManageLectuterController());
   @override

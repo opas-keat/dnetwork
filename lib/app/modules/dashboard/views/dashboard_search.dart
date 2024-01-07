@@ -9,8 +9,8 @@ import '../../address/views/address_view.dart';
 
 class DashboardSearch extends StatelessWidget {
   DashboardSearch({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
   final DashboardController controller = Get.find<DashboardController>();
   @override
   Widget build(BuildContext context) {

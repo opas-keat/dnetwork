@@ -10,7 +10,7 @@ import '../../../shared/custom_text.dart';
 import '../controllers/signin_controller.dart';
 
 class SigninView extends StatelessWidget {
-  SigninView({Key? key}) : super(key: key);
+  SigninView({super.key});
   final SigninController controller = Get.put(SigninController());
 
   final usernameController = TextEditingController();

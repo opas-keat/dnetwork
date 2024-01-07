@@ -12,7 +12,7 @@ import 'training_layout_small.dart';
 import 'training_search.dart';
 
 class TrainingView extends StatelessWidget {
-  const TrainingView({Key? key}) : super(key: key);
+  const TrainingView({super.key});
 
   @override
   Widget build(BuildContext context) {

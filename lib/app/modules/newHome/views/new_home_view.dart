@@ -15,7 +15,7 @@ import 'statistics_chart.dart';
 import 'statistics_dashboard2.dart';
 
 class NewHomeView extends GetView<NewHomeController> {
-  const NewHomeView({Key? key}) : super(key: key);
+  const NewHomeView({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -13,7 +13,7 @@ import 'station_layout_small.dart';
 import 'station_search.dart';
 
 class StationView extends StatelessWidget {
-  StationView({Key? key}) : super(key: key);
+  StationView({super.key});
   final StationController controller = Get.find<StationController>();
 
   @override

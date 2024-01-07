@@ -6,7 +6,7 @@ import 'constant.dart';
 import 'custom_text.dart';
 
 class SearchStation extends StatelessWidget {
-  SearchStation({super.key});
+  const SearchStation({super.key});
 
   @override
   Widget build(BuildContext context) {

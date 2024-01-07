@@ -16,7 +16,7 @@ import '../../../../shared/utils.dart';
 import '../controllers/manage_commiss_controller.dart';
 
 class ManageCommissView extends StatelessWidget {
-  ManageCommissView({Key? key}) : super(key: key);
+  ManageCommissView({super.key});
   final ManageCommissController controller = Get.put(ManageCommissController());
   @override
   Widget build(BuildContext context) {
@@ -142,7 +142,7 @@ class ManageDataDetail extends StatelessWidget {
                     ),
                     onTap: () async {
                       final result = await Get.dialog(
-                        SearchStation(),
+                        const SearchStation(),
                         barrierDismissible: false,
                       );
                       if (result != "") {

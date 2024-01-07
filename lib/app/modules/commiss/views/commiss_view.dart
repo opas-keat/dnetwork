@@ -14,7 +14,7 @@ import 'commiss_layout_small.dart';
 import 'commiss_search.dart';
 
 class CommissView extends GetView<CommissController> {
-  CommissView({Key? key}) : super(key: key);
+  CommissView({super.key});
   @override
   final CommissController controller = Get.find<CommissController>();
 

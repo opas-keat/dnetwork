@@ -16,7 +16,7 @@ import '../../../../shared/utils.dart';
 import '../controllers/manage_network_controller.dart';
 
 class ManageNetworkView extends StatelessWidget {
-  ManageNetworkView({Key? key}) : super(key: key);
+  ManageNetworkView({super.key});
   final ManageNetworkController controller = Get.put(ManageNetworkController());
   @override
   Widget build(BuildContext context) {
@@ -190,7 +190,7 @@ class ManageDataDetailNetwork extends StatelessWidget {
                     ),
                     onTap: () async {
                       final result = await Get.dialog(
-                        SearchStation(),
+                        const SearchStation(),
                         barrierDismissible: false,
                       );
                       controller.networkStationId.text = result.id.toString();

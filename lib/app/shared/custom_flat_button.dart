@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class CustomFlatButton extends StatelessWidget {
   const CustomFlatButton({
-    Key? key,
+    super.key,
     required this.onPressed,
     required this.label,
     this.isLoading,
@@ -16,7 +16,7 @@ class CustomFlatButton extends StatelessWidget {
       vertical: 16,
     ),
     this.overlayColor,
-  }) : super(key: key);
+  });
   final VoidCallback? onPressed;
   final String label;
   final TextStyle? labelStyle;

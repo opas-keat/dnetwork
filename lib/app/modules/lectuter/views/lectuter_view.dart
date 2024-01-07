@@ -14,7 +14,7 @@ import 'lectuter_layout_small.dart';
 import 'lectuter_search.dart';
 
 class LectuterView extends StatelessWidget {
-  LectuterView({Key? key}) : super(key: key);
+  LectuterView({super.key});
   final LectuterController controller = Get.find<LectuterController>();
 
   @override

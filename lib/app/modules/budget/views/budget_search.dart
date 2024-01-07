@@ -8,8 +8,8 @@ import '../controllers/budget_controller.dart';
 
 class BudgetSearch extends StatelessWidget {
   BudgetSearch({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
   final BudgetController controller = Get.find<BudgetController>();
   @override
   Widget build(BuildContext context) {

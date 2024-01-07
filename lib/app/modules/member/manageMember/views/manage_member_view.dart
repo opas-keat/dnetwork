@@ -16,7 +16,7 @@ import '../../../../shared/utils.dart';
 import '../controllers/manage_member_controller.dart';
 
 class ManageMemberView extends StatelessWidget {
-  ManageMemberView({Key? key}) : super(key: key);
+  ManageMemberView({super.key});
   final ManageMemberController controller = Get.put(ManageMemberController());
 
   @override
@@ -144,7 +144,7 @@ class ManageDataDetail extends StatelessWidget {
                     ),
                     onTap: () async {
                       final result = await Get.dialog(
-                        SearchStation(),
+                        const SearchStation(),
                         barrierDismissible: false,
                       );
                       controller.memberStationId.text = result.id.toString();

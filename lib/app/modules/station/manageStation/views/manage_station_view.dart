@@ -14,7 +14,7 @@ import '../../../../shared/utils.dart';
 import '../controllers/manage_station_controller.dart';
 
 class ManageStationView extends StatelessWidget {
-  ManageStationView({Key? key}) : super(key: key);
+  ManageStationView({super.key});
   final ManageStationController controller = Get.put(ManageStationController());
   @override
   Widget build(BuildContext context) {

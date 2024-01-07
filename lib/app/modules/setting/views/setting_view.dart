@@ -7,7 +7,7 @@ import '../../../shared/main_drawer.dart';
 import '../controllers/setting_controller.dart';
 
 class SettingView extends StatelessWidget {
-  SettingView({Key? key}) : super(key: key);
+  SettingView({super.key});
   final SettingController controller = Get.put(SettingController());
   @override
   Widget build(BuildContext context) {

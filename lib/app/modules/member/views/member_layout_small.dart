@@ -11,7 +11,7 @@ import '../../../shared/show_province.dart';
 import '../controllers/member_controller.dart';
 
 class MemberLayoutSmall extends StatelessWidget {
-  MemberLayoutSmall({
+  const MemberLayoutSmall({
     super.key,
   });
   @override

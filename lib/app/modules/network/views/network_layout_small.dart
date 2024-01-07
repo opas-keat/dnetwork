@@ -11,7 +11,7 @@ import '../../../shared/show_province.dart';
 import '../controllers/network_controller.dart';
 
 class NetworkLayoutSmall extends StatelessWidget {
-  NetworkLayoutSmall({
+  const NetworkLayoutSmall({
     super.key,
   });
 

@@ -9,8 +9,8 @@ import '../controllers/network_controller.dart';
 
 class NetworkSearch extends StatelessWidget {
   NetworkSearch({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
   final NetworkController controller = Get.find<NetworkController>();
   @override
   Widget build(BuildContext context) {

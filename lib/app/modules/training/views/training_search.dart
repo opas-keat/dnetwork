@@ -36,17 +36,6 @@ class TrainingSearch extends StatelessWidget {
               TextFormField(
                 controller: controller.trainingName,
                 keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  fillColor: Colors.white.withOpacity(.8),
-                  filled: true,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(defaultPadding / 2),
-                    borderSide:
-                        const BorderSide(color: Colors.black54, width: 1),
-                  ),
-                  isCollapsed: true,
-                  contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                ),
               ),
               const SizedBox(height: defaultPadding),
               CustomText(
@@ -57,17 +46,6 @@ class TrainingSearch extends StatelessWidget {
               TextFormField(
                 controller: controller.trainingDateForm,
                 keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  fillColor: Colors.white.withOpacity(.8),
-                  filled: true,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(defaultPadding / 2),
-                    borderSide:
-                        const BorderSide(color: Colors.black54, width: 1),
-                  ),
-                  isCollapsed: true,
-                  contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                ),
               ),
               const SizedBox(height: defaultPadding),
               CustomText(
@@ -78,17 +56,6 @@ class TrainingSearch extends StatelessWidget {
               TextFormField(
                 controller: controller.trainingDateTo,
                 keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  fillColor: Colors.white.withOpacity(.8),
-                  filled: true,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(defaultPadding / 2),
-                    borderSide:
-                        const BorderSide(color: Colors.black54, width: 1),
-                  ),
-                  isCollapsed: true,
-                  contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                ),
               ),
               const SizedBox(height: defaultPadding),
               CustomText(
@@ -99,17 +66,6 @@ class TrainingSearch extends StatelessWidget {
               TextFormField(
                 controller: controller.trainingType,
                 keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  fillColor: Colors.white.withOpacity(.8),
-                  filled: true,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(defaultPadding / 2),
-                    borderSide:
-                        const BorderSide(color: Colors.black54, width: 1),
-                  ),
-                  isCollapsed: true,
-                  contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                ),
               ),
               const SizedBox(height: defaultPadding),
               AddressView(

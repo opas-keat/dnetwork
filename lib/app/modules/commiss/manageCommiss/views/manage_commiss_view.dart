@@ -129,17 +129,6 @@ class ManageDataDetail extends StatelessWidget {
                   TextFormField(
                     controller: controller.commissStationName,
                     keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white.withOpacity(.8),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(defaultPadding / 2),
-                        borderSide:
-                            const BorderSide(color: Colors.black54, width: 1),
-                      ),
-                      isCollapsed: true,
-                      contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                    ),
                     onTap: () async {
                       final result = await Get.dialog(
                         const SearchStation(),
@@ -181,17 +170,7 @@ class ManageDataDetail extends StatelessWidget {
                     keyboardType: TextInputType.text,
                     enabled: false,
                     readOnly: true,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white.withOpacity(.8),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(defaultPadding / 2),
-                        borderSide:
-                            const BorderSide(color: Colors.black54, width: 1),
-                      ),
-                      isCollapsed: true,
-                      contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                    ),
+
                     style: const TextStyle(color: Colors.black),
                     // autovalidateMode:
                     //     AutovalidateMode.onUserInteraction,
@@ -222,17 +201,6 @@ class ManageDataDetail extends StatelessWidget {
                     keyboardType: TextInputType.text,
                     enabled: false,
                     readOnly: true,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white.withOpacity(.8),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(defaultPadding / 2),
-                        borderSide:
-                            const BorderSide(color: Colors.black54, width: 1),
-                      ),
-                      isCollapsed: true,
-                      contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                    ),
                     style: const TextStyle(color: Colors.black),
                   ),
                   const SizedBox(height: defaultPadding),
@@ -255,17 +223,6 @@ class ManageDataDetail extends StatelessWidget {
                     keyboardType: TextInputType.text,
                     enabled: false,
                     readOnly: true,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white.withOpacity(.8),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(defaultPadding / 2),
-                        borderSide:
-                            const BorderSide(color: Colors.black54, width: 1),
-                      ),
-                      isCollapsed: true,
-                      contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                    ),
                     style: const TextStyle(color: Colors.black),
                   ),
                   const SizedBox(height: defaultPadding),
@@ -277,17 +234,6 @@ class ManageDataDetail extends StatelessWidget {
                   TextFormField(
                     controller: controller.commissPreName,
                     keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white.withOpacity(.8),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(defaultPadding / 2),
-                        borderSide:
-                            const BorderSide(color: Colors.black54, width: 1),
-                      ),
-                      isCollapsed: true,
-                      contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                    ),
                   ),
                   const SizedBox(height: defaultPadding),
                   Wrap(
@@ -307,17 +253,6 @@ class ManageDataDetail extends StatelessWidget {
                   TextFormField(
                     controller: controller.commissFirstName,
                     keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white.withOpacity(.8),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(defaultPadding / 2),
-                        borderSide:
-                            const BorderSide(color: Colors.black54, width: 1),
-                      ),
-                      isCollapsed: true,
-                      contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                    ),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -344,17 +279,6 @@ class ManageDataDetail extends StatelessWidget {
                   TextFormField(
                     controller: controller.commissSurName,
                     keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white.withOpacity(.8),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(defaultPadding / 2),
-                        borderSide:
-                            const BorderSide(color: Colors.black54, width: 1),
-                      ),
-                      isCollapsed: true,
-                      contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                    ),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -376,17 +300,6 @@ class ManageDataDetail extends StatelessWidget {
                       FilteringTextInputFormatter.digitsOnly,
                       LengthLimitingTextInputFormatter(13),
                     ],
-                    decoration: InputDecoration(
-                      fillColor: Colors.white.withOpacity(.8),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(defaultPadding / 2),
-                        borderSide:
-                            const BorderSide(color: Colors.black54, width: 1),
-                      ),
-                      isCollapsed: true,
-                      contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                    ),
                   ),
                   const SizedBox(height: defaultPadding),
                   CustomText(
@@ -397,17 +310,6 @@ class ManageDataDetail extends StatelessWidget {
                   TextFormField(
                     controller: controller.commissBirthYear,
                     keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white.withOpacity(.8),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(defaultPadding / 2),
-                        borderSide:
-                            const BorderSide(color: Colors.black54, width: 1),
-                      ),
-                      isCollapsed: true,
-                      contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                    ),
                   ),
                   const SizedBox(height: defaultPadding),
                   CustomText(
@@ -418,17 +320,6 @@ class ManageDataDetail extends StatelessWidget {
                   TextFormField(
                     controller: controller.commissLocation,
                     keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white.withOpacity(.8),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(defaultPadding / 2),
-                        borderSide:
-                            const BorderSide(color: Colors.black54, width: 1),
-                      ),
-                      isCollapsed: true,
-                      contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                    ),
                   ),
                   const SizedBox(height: defaultPadding),
                   Wrap(
@@ -452,17 +343,6 @@ class ManageDataDetail extends StatelessWidget {
                       FilteringTextInputFormatter.digitsOnly,
                       LengthLimitingTextInputFormatter(10),
                     ],
-                    decoration: InputDecoration(
-                      fillColor: Colors.white.withOpacity(.8),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(defaultPadding / 2),
-                        borderSide:
-                            const BorderSide(color: Colors.black54, width: 1),
-                      ),
-                      isCollapsed: true,
-                      contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                    ),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -489,17 +369,6 @@ class ManageDataDetail extends StatelessWidget {
                   TextFormField(
                     controller: controller.commissDate,
                     keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white.withOpacity(.8),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(defaultPadding / 2),
-                        borderSide:
-                            const BorderSide(color: Colors.black54, width: 1),
-                      ),
-                      isCollapsed: true,
-                      contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                    ),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -527,19 +396,6 @@ class ManageDataDetail extends StatelessWidget {
                     () => DropdownButtonFormField<String>(
                       isDense: true,
                       isExpanded: true,
-                      decoration: InputDecoration(
-                        fillColor: Colors.white.withOpacity(.8),
-                        filled: true,
-                        border: OutlineInputBorder(
-                          borderRadius:
-                              BorderRadius.circular(defaultPadding / 2),
-                          borderSide:
-                              const BorderSide(color: Colors.black54, width: 1),
-                        ),
-                        isCollapsed: true,
-                        contentPadding:
-                            const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                      ),
                       value: controller.selectedCommissPosition.value,
                       onChanged: (newValue) {
                         controller.selectedCommissPosition.value = newValue!;
@@ -557,7 +413,7 @@ class ManageDataDetail extends StatelessWidget {
                           value: item,
                           child: Text(
                             item,
-                            textScaleFactor: 0.9,
+                            textScaler: const TextScaler.linear(0.9),
                           ),
                         );
                       }).toList(),
@@ -577,19 +433,6 @@ class ManageDataDetail extends StatelessWidget {
                           () => DropdownButtonFormField<String>(
                             isDense: true,
                             isExpanded: true,
-                            decoration: InputDecoration(
-                              fillColor: Colors.white.withOpacity(.8),
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(defaultPadding / 2),
-                                borderSide: const BorderSide(
-                                    color: Colors.black54, width: 1),
-                              ),
-                              isCollapsed: true,
-                              contentPadding:
-                                  const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                            ),
                             value:
                                 controller.selectedCommissPositionCommu.value,
                             onChanged: (newValue) {
@@ -602,7 +445,7 @@ class ManageDataDetail extends StatelessWidget {
                                 value: item,
                                 child: Text(
                                   item,
-                                  textScaleFactor: 0.9,
+                                  textScaler: const TextScaler.linear(0.9),
                                 ),
                               );
                             }).toList(),
@@ -649,19 +492,6 @@ class ManageDataDetail extends StatelessWidget {
                           () => DropdownButtonFormField<String>(
                             isDense: true,
                             isExpanded: true,
-                            decoration: InputDecoration(
-                              fillColor: Colors.white.withOpacity(.8),
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(defaultPadding / 2),
-                                borderSide: const BorderSide(
-                                    color: Colors.black54, width: 1),
-                              ),
-                              isCollapsed: true,
-                              contentPadding:
-                                  const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                            ),
                             value: controller.selectedCommissExp.value,
                             onChanged: (newValue) {
                               controller.selectedCommissExp.value = newValue!;
@@ -672,7 +502,7 @@ class ManageDataDetail extends StatelessWidget {
                                 value: item,
                                 child: Text(
                                   item,
-                                  textScaleFactor: 0.9,
+                                  textScaler: const TextScaler.linear(0.9),
                                 ),
                               );
                             }).toList(),
@@ -681,19 +511,6 @@ class ManageDataDetail extends StatelessWidget {
                         // child: TextFormField(
                         //   controller: controller.commissExp,
                         //   keyboardType: TextInputType.text,
-                        //   decoration: InputDecoration(
-                        //     fillColor: Colors.white.withOpacity(.8),
-                        //     filled: true,
-                        //     border: OutlineInputBorder(
-                        //       borderRadius:
-                        //           BorderRadius.circular(defaultPadding / 2),
-                        //       borderSide: const BorderSide(
-                        //           color: Colors.black54, width: 1),
-                        //     ),
-                        //     isCollapsed: true,
-                        //     contentPadding:
-                        //         const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                        //   ),
                         // ),
                       ),
                       const SizedBox(width: defaultPadding / 2),

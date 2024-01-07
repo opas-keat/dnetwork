@@ -141,7 +141,7 @@ class CardInfo extends StatelessWidget {
                   const SizedBox(width: defaultPadding / 2),
                   Text(
                     listSummaryInfoModel[index].name,
-                    textScaleFactor: 1.3,
+                    textScaler: const TextScaler.linear(1.3),
                     style: const TextStyle(
                       color: primaryColor,
                       fontWeight: FontWeight.bold,
@@ -155,7 +155,7 @@ class CardInfo extends StatelessWidget {
                 children: [
                   Text(
                     formatterItem.format(listSummaryInfoModel[index].value),
-                    textScaleFactor: 1.8,
+                    textScaler: const TextScaler.linear(1.8),
                     style: TextStyle(
                       color: Colors.black87.withOpacity(0.7),
                       fontWeight: FontWeight.bold,

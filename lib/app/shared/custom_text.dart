@@ -25,7 +25,7 @@ class CustomText extends StatelessWidget {
       message: text!.tr,
       child: Text(
         text!.tr,
-        textScaleFactor: scale,
+        textScaler: TextScaler.linear(scale!),
         style: TextStyle(
           // fontSize: size,
           color: color,

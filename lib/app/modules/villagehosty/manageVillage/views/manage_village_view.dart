@@ -131,17 +131,6 @@ class ManageDataDetail extends StatelessWidget {
                   TextFormField(
                     controller: controller.villageName,
                     keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white.withOpacity(.8),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(defaultPadding / 2),
-                        borderSide:
-                            const BorderSide(color: Colors.black54, width: 1),
-                      ),
-                      isCollapsed: true,
-                      contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                    ),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -159,17 +148,6 @@ class ManageDataDetail extends StatelessWidget {
                   TextFormField(
                     controller: controller.villageNo,
                     keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white.withOpacity(.8),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(defaultPadding / 2),
-                        borderSide:
-                            const BorderSide(color: Colors.black54, width: 1),
-                      ),
-                      isCollapsed: true,
-                      contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                    ),
                   ),
                   const SizedBox(height: defaultPadding),
                   AddressView(showPostCode: false),
@@ -184,17 +162,6 @@ class ManageDataDetail extends StatelessWidget {
                     inputFormatters: <TextInputFormatter>[
                       FilteringTextInputFormatter.digitsOnly
                     ],
-                    decoration: InputDecoration(
-                      fillColor: Colors.white.withOpacity(.8),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(defaultPadding / 2),
-                        borderSide:
-                            const BorderSide(color: Colors.black54, width: 1),
-                      ),
-                      isCollapsed: true,
-                      contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                    ),
                   ),
                   const SizedBox(height: defaultPadding),
                   CustomText(
@@ -205,17 +172,6 @@ class ManageDataDetail extends StatelessWidget {
                   TextFormField(
                     controller: controller.villageLocation,
                     keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white.withOpacity(.8),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(defaultPadding / 2),
-                        borderSide:
-                            const BorderSide(color: Colors.black54, width: 1),
-                      ),
-                      isCollapsed: true,
-                      contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                    ),
                   ),
                   const SizedBox(height: defaultPadding),
                   Row(
@@ -233,19 +189,6 @@ class ManageDataDetail extends StatelessWidget {
                             TextFormField(
                               controller: controller.villageTypeAct,
                               keyboardType: TextInputType.text,
-                              decoration: InputDecoration(
-                                fillColor: Colors.white.withOpacity(.8),
-                                filled: true,
-                                border: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.circular(defaultPadding / 2),
-                                  borderSide: const BorderSide(
-                                      color: Colors.black54, width: 1),
-                                ),
-                                isCollapsed: true,
-                                contentPadding:
-                                    const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                              ),
                             ),
                             const SizedBox(height: defaultPadding),
                             CustomText(
@@ -257,19 +200,6 @@ class ManageDataDetail extends StatelessWidget {
                               controller: controller.villageGoalAct2,
                               keyboardType: TextInputType.text,
                               maxLines: 3,
-                              decoration: InputDecoration(
-                                fillColor: Colors.white.withOpacity(.8),
-                                filled: true,
-                                border: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.circular(defaultPadding / 2),
-                                  borderSide: const BorderSide(
-                                      color: Colors.black54, width: 1),
-                                ),
-                                isCollapsed: true,
-                                contentPadding:
-                                    const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                              ),
                             ),
                             const SizedBox(height: defaultPadding),
                           ],

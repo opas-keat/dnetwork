@@ -37,17 +37,6 @@ class LectuterSearch extends StatelessWidget {
               TextFormField(
                 controller: controller.lectuterFirstName,
                 keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  fillColor: Colors.white.withOpacity(.8),
-                  filled: true,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(defaultPadding / 2),
-                    borderSide:
-                        const BorderSide(color: Colors.black54, width: 1),
-                  ),
-                  isCollapsed: true,
-                  contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                ),
               ),
               const SizedBox(height: defaultPadding),
               CustomText(
@@ -58,17 +47,6 @@ class LectuterSearch extends StatelessWidget {
               TextFormField(
                 controller: controller.lectuterSurName,
                 keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  fillColor: Colors.white.withOpacity(.8),
-                  filled: true,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(defaultPadding / 2),
-                    borderSide:
-                        const BorderSide(color: Colors.black54, width: 1),
-                  ),
-                  isCollapsed: true,
-                  contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                ),
               ),
               const SizedBox(height: defaultPadding),
               CustomText(
@@ -83,17 +61,6 @@ class LectuterSearch extends StatelessWidget {
                   FilteringTextInputFormatter.digitsOnly,
                   LengthLimitingTextInputFormatter(10),
                 ],
-                decoration: InputDecoration(
-                  fillColor: Colors.white.withOpacity(.8),
-                  filled: true,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(defaultPadding / 2),
-                    borderSide:
-                        const BorderSide(color: Colors.black54, width: 1),
-                  ),
-                  isCollapsed: true,
-                  contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                ),
               ),
               const SizedBox(height: defaultPadding),
               CustomText(
@@ -104,17 +71,6 @@ class LectuterSearch extends StatelessWidget {
               TextFormField(
                 controller: controller.lectuterAgency,
                 keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  fillColor: Colors.white.withOpacity(.8),
-                  filled: true,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(defaultPadding / 2),
-                    borderSide:
-                        const BorderSide(color: Colors.black54, width: 1),
-                  ),
-                  isCollapsed: true,
-                  contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                ),
               ),
               const SizedBox(height: defaultPadding),
               CustomText(
@@ -126,17 +82,6 @@ class LectuterSearch extends StatelessWidget {
                 () => DropdownButtonFormField<String>(
                   isDense: true,
                   isExpanded: true,
-                  decoration: InputDecoration(
-                    fillColor: Colors.white.withOpacity(.8),
-                    filled: true,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(defaultPadding / 2),
-                      borderSide:
-                          const BorderSide(color: Colors.black54, width: 1),
-                    ),
-                    isCollapsed: true,
-                    contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                  ),
                   value: controller.selectedLectuterAffiliate.value,
                   onChanged: (newValue) {
                     controller.selectedLectuterAffiliate.value = newValue!;
@@ -146,7 +91,7 @@ class LectuterSearch extends StatelessWidget {
                       value: item,
                       child: Text(
                         item,
-                        textScaleFactor: 0.9,
+                        textScaler: const TextScaler.linear(0.9),
                       ),
                     );
                   }).toList(),
@@ -155,17 +100,6 @@ class LectuterSearch extends StatelessWidget {
               // TextFormField(
               //   controller: controller.lectuterAffiliate,
               //   keyboardType: TextInputType.text,
-              //   decoration: InputDecoration(
-              //     fillColor: Colors.white.withOpacity(.8),
-              //     filled: true,
-              //     border: OutlineInputBorder(
-              //       borderRadius: BorderRadius.circular(defaultPadding / 2),
-              //       borderSide:
-              //           const BorderSide(color: Colors.black54, width: 1),
-              //     ),
-              //     isCollapsed: true,
-              //     contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-              //   ),
               // ),
               const SizedBox(height: defaultPadding),
               AddressView(

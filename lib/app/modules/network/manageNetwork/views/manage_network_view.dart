@@ -177,17 +177,6 @@ class ManageDataDetailNetwork extends StatelessWidget {
                   TextFormField(
                     controller: controller.networkStationName,
                     keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white.withOpacity(.8),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(defaultPadding / 2),
-                        borderSide:
-                            const BorderSide(color: Colors.black54, width: 1),
-                      ),
-                      isCollapsed: true,
-                      contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                    ),
                     onTap: () async {
                       final result = await Get.dialog(
                         const SearchStation(),
@@ -227,17 +216,6 @@ class ManageDataDetailNetwork extends StatelessWidget {
                     keyboardType: TextInputType.text,
                     enabled: false,
                     readOnly: true,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white.withOpacity(.8),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(defaultPadding / 2),
-                        borderSide:
-                            const BorderSide(color: Colors.black54, width: 1),
-                      ),
-                      isCollapsed: true,
-                      contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                    ),
                     style: const TextStyle(color: Colors.black),
                   ),
                   const SizedBox(height: defaultPadding),
@@ -260,17 +238,6 @@ class ManageDataDetailNetwork extends StatelessWidget {
                     keyboardType: TextInputType.text,
                     enabled: false,
                     readOnly: true,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white.withOpacity(.8),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(defaultPadding / 2),
-                        borderSide:
-                            const BorderSide(color: Colors.black54, width: 1),
-                      ),
-                      isCollapsed: true,
-                      contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                    ),
                     style: const TextStyle(color: Colors.black),
                   ),
                   const SizedBox(height: defaultPadding),
@@ -293,17 +260,6 @@ class ManageDataDetailNetwork extends StatelessWidget {
                     keyboardType: TextInputType.text,
                     enabled: false,
                     readOnly: true,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white.withOpacity(.8),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(defaultPadding / 2),
-                        borderSide:
-                            const BorderSide(color: Colors.black54, width: 1),
-                      ),
-                      isCollapsed: true,
-                      contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                    ),
                     style: const TextStyle(color: Colors.black),
                   ),
                   const SizedBox(height: defaultPadding),
@@ -324,17 +280,6 @@ class ManageDataDetailNetwork extends StatelessWidget {
                   TextFormField(
                     controller: controller.networkAgency,
                     keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white.withOpacity(.8),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(defaultPadding / 2),
-                        borderSide:
-                            const BorderSide(color: Colors.black54, width: 1),
-                      ),
-                      isCollapsed: true,
-                      contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                    ),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -352,17 +297,6 @@ class ManageDataDetailNetwork extends StatelessWidget {
                   TextFormField(
                     controller: controller.networkPreName,
                     keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white.withOpacity(.8),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(defaultPadding / 2),
-                        borderSide:
-                            const BorderSide(color: Colors.black54, width: 1),
-                      ),
-                      isCollapsed: true,
-                      contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                    ),
                   ),
                   const SizedBox(height: defaultPadding),
                   Wrap(
@@ -382,17 +316,6 @@ class ManageDataDetailNetwork extends StatelessWidget {
                   TextFormField(
                     controller: controller.networkFirstName,
                     keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white.withOpacity(.8),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(defaultPadding / 2),
-                        borderSide:
-                            const BorderSide(color: Colors.black54, width: 1),
-                      ),
-                      isCollapsed: true,
-                      contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                    ),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -419,17 +342,6 @@ class ManageDataDetailNetwork extends StatelessWidget {
                   TextFormField(
                     controller: controller.networkSurName,
                     keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white.withOpacity(.8),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(defaultPadding / 2),
-                        borderSide:
-                            const BorderSide(color: Colors.black54, width: 1),
-                      ),
-                      isCollapsed: true,
-                      contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                    ),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -451,17 +363,6 @@ class ManageDataDetailNetwork extends StatelessWidget {
                       FilteringTextInputFormatter.digitsOnly,
                       LengthLimitingTextInputFormatter(13),
                     ],
-                    decoration: InputDecoration(
-                      fillColor: Colors.white.withOpacity(.8),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(defaultPadding / 2),
-                        borderSide:
-                            const BorderSide(color: Colors.black54, width: 1),
-                      ),
-                      isCollapsed: true,
-                      contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                    ),
                   ),
                   const SizedBox(height: defaultPadding),
                   CustomText(
@@ -472,17 +373,6 @@ class ManageDataDetailNetwork extends StatelessWidget {
                   TextFormField(
                     controller: controller.networkBirthYear,
                     keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white.withOpacity(.8),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(defaultPadding / 2),
-                        borderSide:
-                            const BorderSide(color: Colors.black54, width: 1),
-                      ),
-                      isCollapsed: true,
-                      contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                    ),
                   ),
                   const SizedBox(height: defaultPadding),
                   CustomText(
@@ -493,17 +383,6 @@ class ManageDataDetailNetwork extends StatelessWidget {
                   TextFormField(
                     controller: controller.networkLocation,
                     keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white.withOpacity(.8),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(defaultPadding / 2),
-                        borderSide:
-                            const BorderSide(color: Colors.black54, width: 1),
-                      ),
-                      isCollapsed: true,
-                      contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                    ),
                   ),
                   const SizedBox(height: defaultPadding),
                   Wrap(
@@ -527,17 +406,6 @@ class ManageDataDetailNetwork extends StatelessWidget {
                       FilteringTextInputFormatter.digitsOnly,
                       LengthLimitingTextInputFormatter(10),
                     ],
-                    decoration: InputDecoration(
-                      fillColor: Colors.white.withOpacity(.8),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(defaultPadding / 2),
-                        borderSide:
-                            const BorderSide(color: Colors.black54, width: 1),
-                      ),
-                      isCollapsed: true,
-                      contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                    ),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -564,17 +432,6 @@ class ManageDataDetailNetwork extends StatelessWidget {
                   TextFormField(
                     controller: controller.networkDate,
                     keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white.withOpacity(.8),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(defaultPadding / 2),
-                        borderSide:
-                            const BorderSide(color: Colors.black54, width: 1),
-                      ),
-                      isCollapsed: true,
-                      contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                    ),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -602,19 +459,6 @@ class ManageDataDetailNetwork extends StatelessWidget {
                     () => DropdownButtonFormField<String>(
                       isDense: true,
                       isExpanded: true,
-                      decoration: InputDecoration(
-                        fillColor: Colors.white.withOpacity(.8),
-                        filled: true,
-                        border: OutlineInputBorder(
-                          borderRadius:
-                              BorderRadius.circular(defaultPadding / 2),
-                          borderSide:
-                              const BorderSide(color: Colors.black54, width: 1),
-                        ),
-                        isCollapsed: true,
-                        contentPadding:
-                            const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                      ),
                       value: controller.selectedNetworkPosition.value,
                       onChanged: (newValue) {
                         controller.selectedNetworkPosition.value = newValue!;
@@ -632,7 +476,7 @@ class ManageDataDetailNetwork extends StatelessWidget {
                           value: item,
                           child: Text(
                             item,
-                            textScaleFactor: 0.9,
+                            textScaler: const TextScaler.linear(0.9),
                           ),
                         );
                       }).toList(),
@@ -652,19 +496,6 @@ class ManageDataDetailNetwork extends StatelessWidget {
                           () => DropdownButtonFormField<String>(
                             isDense: true,
                             isExpanded: true,
-                            decoration: InputDecoration(
-                              fillColor: Colors.white.withOpacity(.8),
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(defaultPadding / 2),
-                                borderSide: const BorderSide(
-                                    color: Colors.black54, width: 1),
-                              ),
-                              isCollapsed: true,
-                              contentPadding:
-                                  const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                            ),
                             value:
                                 controller.selectedNetworkPositionCommu.value,
                             onChanged: (newValue) {
@@ -677,7 +508,7 @@ class ManageDataDetailNetwork extends StatelessWidget {
                                 value: item,
                                 child: Text(
                                   item,
-                                  textScaleFactor: 0.9,
+                                  textScaler: const TextScaler.linear(0.9),
                                 ),
                               );
                             }).toList(),
@@ -723,19 +554,6 @@ class ManageDataDetailNetwork extends StatelessWidget {
                         child: TextFormField(
                           controller: controller.networkExp,
                           keyboardType: TextInputType.text,
-                          decoration: InputDecoration(
-                            fillColor: Colors.white.withOpacity(.8),
-                            filled: true,
-                            border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.circular(defaultPadding / 2),
-                              borderSide: const BorderSide(
-                                  color: Colors.black54, width: 1),
-                            ),
-                            isCollapsed: true,
-                            contentPadding:
-                                const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                          ),
                         ),
                       ),
                       const SizedBox(width: defaultPadding / 2),

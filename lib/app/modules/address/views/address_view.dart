@@ -42,28 +42,11 @@ class AddressView extends StatelessWidget {
           const SizedBox(height: defaultPadding / 2),
           // TextFormField(
           //   keyboardType: TextInputType.text,
-          //   decoration: InputDecoration(
-          //     fillColor: Colors.white.withOpacity(.2),
-          //     filled: true,
-          //     border: OutlineInputBorder(
-          //       borderRadius: BorderRadius.circular(defaultPadding / 2),
-          //       borderSide: const BorderSide(color: Colors.black87, width: 2),
-          //     ),
-          //     isCollapsed: true,
-          //     contentPadding: EdgeInsets.fromLTRB(12, 14, 12, 12),
-          //   ),
           // ),
           Obx(
             () => InputDecorator(
-              decoration: InputDecoration(
-                fillColor: Colors.white.withOpacity(.8),
-                filled: true,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(defaultPadding / 2),
-                  borderSide: const BorderSide(color: Colors.black54, width: 1),
-                ),
+              decoration: const InputDecoration(
                 isCollapsed: true,
-                contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
               ),
               child: DropdownButtonHideUnderline(
                 child: DropdownButton<String>(
@@ -80,7 +63,7 @@ class AddressView extends StatelessWidget {
                       value: item,
                       child: Text(
                         item,
-                        textScaleFactor: 0.9,
+                        textScaler: const TextScaler.linear(0.9),
                       ),
                     );
                   }).toList(),
@@ -107,15 +90,8 @@ class AddressView extends StatelessWidget {
           const SizedBox(height: defaultPadding / 2),
           Obx(
             () => InputDecorator(
-              decoration: InputDecoration(
-                fillColor: Colors.white.withOpacity(.8),
-                filled: true,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(defaultPadding / 2),
-                  borderSide: const BorderSide(color: Colors.black54, width: 1),
-                ),
+              decoration: const InputDecoration(
                 isCollapsed: true,
-                contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
               ),
               child: DropdownButtonHideUnderline(
                 child: DropdownButton<String>(
@@ -130,7 +106,7 @@ class AddressView extends StatelessWidget {
                       value: item,
                       child: Text(
                         item,
-                        textScaleFactor: 0.9,
+                        textScaler: const TextScaler.linear(0.9),
                       ),
                     );
                   }).toList(),
@@ -142,16 +118,6 @@ class AddressView extends StatelessWidget {
         // const SizedBox(height: defaultPadding / 2),
         // TextFormField(
         //   keyboardType: TextInputType.text,
-        //   decoration: InputDecoration(
-        //     fillColor: Colors.white.withOpacity(.2),
-        //     filled: true,
-        //     border: OutlineInputBorder(
-        //       borderRadius: BorderRadius.circular(defaultPadding / 2),
-        //       borderSide: const BorderSide(color: Colors.black87, width: 2),
-        //     ),
-        //     isCollapsed: true,
-        //     contentPadding: EdgeInsets.fromLTRB(12, 14, 12, 12),
-        //   ),
         // ),
         if (showTambol) ...[
           const SizedBox(height: defaultPadding),
@@ -171,28 +137,11 @@ class AddressView extends StatelessWidget {
           const SizedBox(height: defaultPadding / 2),
           // TextFormField(
           //   keyboardType: TextInputType.text,
-          //   decoration: InputDecoration(
-          //     fillColor: Colors.white.withOpacity(.2),
-          //     filled: true,
-          //     border: OutlineInputBorder(
-          //       borderRadius: BorderRadius.circular(defaultPadding / 2),
-          //       borderSide: const BorderSide(color: Colors.black87, width: 2),
-          //     ),
-          //     isCollapsed: true,
-          //     contentPadding: EdgeInsets.fromLTRB(12, 14, 12, 12),
-          //   ),
           // ),
           Obx(
             () => InputDecorator(
-              decoration: InputDecoration(
-                fillColor: Colors.white.withOpacity(.8),
-                filled: true,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(defaultPadding / 2),
-                  borderSide: const BorderSide(color: Colors.black54, width: 1),
-                ),
+              decoration: const InputDecoration(
                 isCollapsed: true,
-                contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
               ),
               child: DropdownButtonHideUnderline(
                 child: DropdownButton<String>(
@@ -207,7 +156,7 @@ class AddressView extends StatelessWidget {
                       value: item,
                       child: Text(
                         item,
-                        textScaleFactor: 0.9,
+                        textScaler: const TextScaler.linear(0.9),
                       ),
                     );
                   }).toList(),
@@ -224,17 +173,7 @@ class AddressView extends StatelessWidget {
           ),
           const SizedBox(height: defaultPadding / 2),
           TextFormField(
-            keyboardType: TextInputType.text,
-            decoration: InputDecoration(
-              fillColor: Colors.white.withOpacity(.2),
-              filled: true,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(defaultPadding / 2),
-                borderSide: const BorderSide(color: Colors.black87, width: 2),
-              ),
-              isCollapsed: true,
-              contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-            ),
+            keyboardType: TextInputType.number,
           ),
         ]
       ],

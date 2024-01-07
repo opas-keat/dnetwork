@@ -377,17 +377,6 @@ class ManageStationDetail extends StatelessWidget {
                   child: TextFormField(
                     controller: controller.stationName,
                     keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white.withOpacity(.8),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(defaultPadding / 2),
-                        borderSide:
-                            const BorderSide(color: Colors.black54, width: 1),
-                      ),
-                      isCollapsed: true,
-                      contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                    ),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     // validator: (value) {
                     //   if (GetUtils.isNull(value))
@@ -412,17 +401,6 @@ class ManageStationDetail extends StatelessWidget {
                 TextFormField(
                   controller: controller.stationLocation,
                   keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    fillColor: Colors.white.withOpacity(.8),
-                    filled: true,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(defaultPadding / 2),
-                      borderSide:
-                          const BorderSide(color: Colors.black54, width: 1),
-                    ),
-                    isCollapsed: true,
-                    contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                  ),
                 ),
                 const SizedBox(height: defaultPadding),
                 AddressView(showPostCode: false),
@@ -434,17 +412,6 @@ class ManageStationDetail extends StatelessWidget {
                 TextFormField(
                   controller: controller.stationFacebook,
                   keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    fillColor: Colors.white.withOpacity(.8),
-                    filled: true,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(defaultPadding / 2),
-                      borderSide:
-                          const BorderSide(color: Colors.black54, width: 1),
-                    ),
-                    isCollapsed: true,
-                    contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                  ),
                 ),
                 const SizedBox(height: defaultPadding),
                 CustomText(
@@ -459,19 +426,6 @@ class ManageStationDetail extends StatelessWidget {
                       child: TextFormField(
                         controller: controller.stationProcess,
                         keyboardType: TextInputType.text,
-                        decoration: InputDecoration(
-                          fillColor: Colors.white.withOpacity(.8),
-                          filled: true,
-                          border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.circular(defaultPadding / 2),
-                            borderSide: const BorderSide(
-                                color: Colors.black54, width: 1),
-                          ),
-                          isCollapsed: true,
-                          contentPadding:
-                              const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                        ),
                       ),
                     ),
                     const SizedBox(width: defaultPadding / 2),
@@ -514,19 +468,6 @@ class ManageStationDetail extends StatelessWidget {
                       child: TextFormField(
                         controller: controller.stationTraining,
                         keyboardType: TextInputType.text,
-                        decoration: InputDecoration(
-                          fillColor: Colors.white.withOpacity(.8),
-                          filled: true,
-                          border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.circular(defaultPadding / 2),
-                            borderSide: const BorderSide(
-                                color: Colors.black54, width: 1),
-                          ),
-                          isCollapsed: true,
-                          contentPadding:
-                              const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                        ),
                       ),
                     ),
                     const SizedBox(width: defaultPadding / 2),

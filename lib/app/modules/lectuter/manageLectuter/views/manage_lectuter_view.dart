@@ -128,17 +128,6 @@ class ManageDataDetail extends StatelessWidget {
                   TextFormField(
                     controller: controller.lectuterPreName,
                     keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white.withOpacity(.8),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(defaultPadding / 2),
-                        borderSide:
-                            const BorderSide(color: Colors.black54, width: 1),
-                      ),
-                      isCollapsed: true,
-                      contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                    ),
                   ),
                   const SizedBox(height: defaultPadding),
                   Wrap(
@@ -158,17 +147,6 @@ class ManageDataDetail extends StatelessWidget {
                   TextFormField(
                     controller: controller.lectuterFirstName,
                     keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white.withOpacity(.8),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(defaultPadding / 2),
-                        borderSide:
-                            const BorderSide(color: Colors.black54, width: 1),
-                      ),
-                      isCollapsed: true,
-                      contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                    ),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -195,17 +173,6 @@ class ManageDataDetail extends StatelessWidget {
                   TextFormField(
                     controller: controller.lectuterSurName,
                     keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white.withOpacity(.8),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(defaultPadding / 2),
-                        borderSide:
-                            const BorderSide(color: Colors.black54, width: 1),
-                      ),
-                      isCollapsed: true,
-                      contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                    ),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -236,17 +203,6 @@ class ManageDataDetail extends StatelessWidget {
                       FilteringTextInputFormatter.digitsOnly,
                       LengthLimitingTextInputFormatter(10),
                     ],
-                    decoration: InputDecoration(
-                      fillColor: Colors.white.withOpacity(.8),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(defaultPadding / 2),
-                        borderSide:
-                            const BorderSide(color: Colors.black54, width: 1),
-                      ),
-                      isCollapsed: true,
-                      contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                    ),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -264,17 +220,6 @@ class ManageDataDetail extends StatelessWidget {
                   TextFormField(
                     controller: controller.lectuterLine,
                     keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white.withOpacity(.8),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(defaultPadding / 2),
-                        borderSide:
-                            const BorderSide(color: Colors.black54, width: 1),
-                      ),
-                      isCollapsed: true,
-                      contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                    ),
                   ),
                   const SizedBox(height: defaultPadding),
                   CustomText(
@@ -285,17 +230,6 @@ class ManageDataDetail extends StatelessWidget {
                   TextFormField(
                     controller: controller.lectuterFacebook,
                     keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white.withOpacity(.8),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(defaultPadding / 2),
-                        borderSide:
-                            const BorderSide(color: Colors.black54, width: 1),
-                      ),
-                      isCollapsed: true,
-                      contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                    ),
                   ),
                   const SizedBox(height: defaultPadding),
                   CustomText(
@@ -306,17 +240,6 @@ class ManageDataDetail extends StatelessWidget {
                   TextFormField(
                     controller: controller.lectuterAgency,
                     keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white.withOpacity(.8),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(defaultPadding / 2),
-                        borderSide:
-                            const BorderSide(color: Colors.black54, width: 1),
-                      ),
-                      isCollapsed: true,
-                      contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                    ),
                   ),
                   const SizedBox(height: defaultPadding),
                   Wrap(
@@ -337,19 +260,6 @@ class ManageDataDetail extends StatelessWidget {
                     () => DropdownButtonFormField<String>(
                       isDense: true,
                       isExpanded: true,
-                      decoration: InputDecoration(
-                        fillColor: Colors.white.withOpacity(.8),
-                        filled: true,
-                        border: OutlineInputBorder(
-                          borderRadius:
-                              BorderRadius.circular(defaultPadding / 2),
-                          borderSide:
-                              const BorderSide(color: Colors.black54, width: 1),
-                        ),
-                        isCollapsed: true,
-                        contentPadding:
-                            const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                      ),
                       value: controller.selectedLectuterAffiliate.value,
                       onChanged: (newValue) {
                         controller.selectedLectuterAffiliate.value = newValue!;
@@ -367,7 +277,7 @@ class ManageDataDetail extends StatelessWidget {
                           value: item,
                           child: Text(
                             item,
-                            textScaleFactor: 0.9,
+                            textScaler: const TextScaler.linear(0.9),
                           ),
                         );
                       }).toList(),
@@ -386,19 +296,6 @@ class ManageDataDetail extends StatelessWidget {
                         child: TextFormField(
                           controller: controller.lectuterExp,
                           keyboardType: TextInputType.text,
-                          decoration: InputDecoration(
-                            fillColor: Colors.white.withOpacity(.8),
-                            filled: true,
-                            border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.circular(defaultPadding / 2),
-                              borderSide: const BorderSide(
-                                  color: Colors.black54, width: 1),
-                            ),
-                            isCollapsed: true,
-                            contentPadding:
-                                const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                          ),
                         ),
                       ),
                       const SizedBox(width: defaultPadding / 2),
@@ -496,7 +393,7 @@ class ManageDataDetail extends StatelessWidget {
                   controller.lectuterController.currentPage = 1;
                   controller.lectuterController.listLectuterStatistics.clear();
                   controller.resetForm();
-                   controller.dashboardController.listProvinceSummary.clear();
+                  controller.dashboardController.listProvinceSummary.clear();
                   await controller.dashboardController
                       .listProvinceSummaryDashboard();
                   await controller.infoCardController.getSummaryInfo();

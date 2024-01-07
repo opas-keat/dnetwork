@@ -91,19 +91,6 @@ class SigninView extends StatelessWidget {
                               prefixIcon: const Icon(Icons.person),
                               fillColor: Colors.white.withOpacity(.2),
                               filled: true,
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(defaultPadding / 2),
-                                borderSide: const BorderSide(
-                                    color: Colors.white, width: 0.5),
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(defaultPadding / 2),
-                                borderSide: const BorderSide(
-                                    color: Colors.white, width: 2),
-                              ),
-                              // hintText: 'Enter a search term',
                             ),
                           ),
                           const SizedBox(height: defaultPadding * 2),
@@ -116,64 +103,14 @@ class SigninView extends StatelessWidget {
                           TextFormField(
                             textInputAction: TextInputAction.done,
                             obscureText: true,
-                            cursorColor: primaryColor,
                             controller: passwordController,
+                            keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                               prefixIcon: const Icon(Icons.lock),
                               fillColor: Colors.white.withOpacity(.2),
                               filled: true,
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(defaultPadding / 2),
-                                borderSide: const BorderSide(
-                                    color: Colors.white, width: 0.5),
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(defaultPadding / 2),
-                                borderSide: const BorderSide(
-                                    color: Colors.white, width: 2),
-                              ),
                             ),
-                            // validator: (value) =>
-                            //     validateNotEmpty(value!, 'Your Password'),
                           ),
-                          // Obx(
-                          //   () => TextFormField(
-                          //     controller: passwordController,
-                          //     keyboardType: TextInputType.text,
-                          //     autofillHints: const <String>[
-                          //       AutofillHints.password
-                          //     ],
-                          //     obscureText: controller.isObscure.value,
-                          //     decoration: InputDecoration(
-                          //       fillColor: Colors.white.withOpacity(.2),
-                          //       filled: true,
-                          //       enabledBorder: OutlineInputBorder(
-                          //         borderRadius:
-                          //             BorderRadius.circular(defaultPadding / 2),
-                          //         borderSide: const BorderSide(
-                          //             color: Colors.white, width: 0.5),
-                          //       ),
-                          //       border: OutlineInputBorder(
-                          //         borderRadius:
-                          //             BorderRadius.circular(defaultPadding / 2),
-                          //         borderSide: const BorderSide(
-                          //             color: Colors.white, width: 2),
-                          //       ),
-                          //       suffixIcon: IconButton(
-                          //         icon: Icon(controller.isObscure.value
-                          //             ? Icons.visibility
-                          //             : Icons.visibility_off),
-                          //         onPressed: () {
-                          //           controller.isObscure.value =
-                          //               !controller.isObscure.value;
-                          //         },
-                          //       ),
-                          //       // hintText: 'Enter a search term',
-                          //     ),
-                          //   ),
-                          // ),
                           const SizedBox(height: defaultPadding * 2),
                           Center(
                             child: ElevatedButton.icon(
@@ -184,9 +121,8 @@ class SigninView extends StatelessWidget {
                               ),
                               icon: const Icon(Icons.key_outlined),
                               style: ElevatedButton.styleFrom(
-                                  elevation: 5,
-                                  padding:
-                                      const EdgeInsets.all(defaultPadding)),
+                                elevation: 5,
+                              ),
                               onPressed: () async {
                                 Get.dialog(
                                   const Center(

@@ -37,17 +37,6 @@ class IncidentAdd extends StatelessWidget {
                 controller: controller.incidentModule,
                 keyboardType: TextInputType.text,
                 readOnly: editMode,
-                decoration: InputDecoration(
-                  fillColor: Colors.white.withOpacity(.8),
-                  filled: true,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(defaultPadding / 2),
-                    borderSide:
-                        const BorderSide(color: Colors.black54, width: 1),
-                  ),
-                  isCollapsed: true,
-                  contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                ),
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -67,17 +56,6 @@ class IncidentAdd extends StatelessWidget {
                 keyboardType: TextInputType.text,
                 readOnly: editMode,
                 maxLength: 255,
-                decoration: InputDecoration(
-                  fillColor: Colors.white.withOpacity(.8),
-                  filled: true,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(defaultPadding / 2),
-                    borderSide:
-                        const BorderSide(color: Colors.black54, width: 1),
-                  ),
-                  isCollapsed: true,
-                  contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                ),
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -98,17 +76,6 @@ class IncidentAdd extends StatelessWidget {
                 readOnly: editMode,
                 maxLength: 1000,
                 maxLines: 3,
-                decoration: InputDecoration(
-                  fillColor: Colors.white.withOpacity(.8),
-                  filled: true,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(defaultPadding / 2),
-                    borderSide:
-                        const BorderSide(color: Colors.black54, width: 1),
-                  ),
-                  isCollapsed: true,
-                  contentPadding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                ),
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -131,19 +98,6 @@ class IncidentAdd extends StatelessWidget {
                       keyboardType: TextInputType.text,
                       maxLength: 1000,
                       maxLines: 3,
-                      decoration: InputDecoration(
-                        fillColor: Colors.white.withOpacity(.8),
-                        filled: true,
-                        border: OutlineInputBorder(
-                          borderRadius:
-                              BorderRadius.circular(defaultPadding / 2),
-                          borderSide:
-                              const BorderSide(color: Colors.black54, width: 1),
-                        ),
-                        isCollapsed: true,
-                        contentPadding:
-                            const EdgeInsets.fromLTRB(12, 14, 12, 12),
-                      ),
                       // autovalidateMode: AutovalidateMode.onUserInteraction,
                       // validator: (value) {
                       //   if (value == null || value.isEmpty) {

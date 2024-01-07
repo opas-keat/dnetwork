@@ -36,11 +36,12 @@ class CustomFlatButton extends StatelessWidget {
           return TextButton(
             style: ButtonStyle(
               padding: MaterialStateProperty.all(padding),
-              backgroundColor: MaterialStateProperty.all(
-                loading
-                    ? Theme.of(context).disabledColor
-                    : color ?? Theme.of(context).primaryColor,
-              ),
+              // backgroundColor: MaterialStateProperty.all(
+              //   loading
+              //       ? Theme.of(context).disabledColor
+              //       : color ?? Theme.of(context).primaryColor,
+              // ),
+              backgroundColor: MaterialStateProperty.all(Colors.blue),
               shape: MaterialStateProperty.all(
                 RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(borderRadius)),

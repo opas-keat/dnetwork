@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../api/api_params.dart';
+import '../../../api/services/commiss_position_commu_service.dart';
 import '../../../api/services/commiss_position_service.dart';
 import '../../../api/services/commiss_service.dart';
 import '../../../data/models/summary_chart.dart';
@@ -37,6 +38,8 @@ class CommissController extends GetxController {
 
   final commissPositionList = <String>[].obs;
   Rx<String> selectedCommissPosition = "".obs;
+  final commissPositionCommuList = <String>[].obs;
+  Rx<String> selectedCommissPositionCommu = "".obs;
 
   List<String> listReportType = <String>[
     'ประกาศ PDF',
@@ -112,6 +115,25 @@ class CommissController extends GetxController {
     }
   }
 
+  Future listCommissPositionCommuDD() async {
+    talker.info('$logTitle::listCommissPositionCommuDD');
+    Map<String, String> qParams = {
+      "offset": "0",
+      "limit": queryParamLimit,
+      "order": "id asc",
+    };
+    try {
+      final result = await CommissPositionCommuService().list(qParams);
+      commissPositionCommuList.clear();
+      commissPositionCommuList.add("");
+      for (var item in result!.data!) {
+        commissPositionCommuList.add(item.name!);
+      }
+    } catch (e) {
+      talker.error('$e');
+    }
+  }
+
   listCommiss() async {
     talker.info('$logTitle:listCommiss:');
     isLoading.value = true;
@@ -132,6 +154,7 @@ class CommissController extends GetxController {
       "commiss_date": commissDate.text,
       "commiss_station_name": commissStationName.text,
       "commiss_position": selectedCommissPosition.value,
+      "commiss_position_commu": selectedCommissPositionCommu.value,
     };
     try {
       final result = await CommissService().list(qParams);

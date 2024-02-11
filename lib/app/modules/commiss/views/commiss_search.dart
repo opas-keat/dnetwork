@@ -18,6 +18,7 @@ class CommissSearch extends StatelessWidget {
     // addressController.selectedProvince.value = "0|";
     // addressController.update();
     controller.listCommissPositionDD();
+    controller.listCommissPositionCommuDD();
     return AlertDialog(
       title: CustomText(
         text: "ค้นหากรรมการ",
@@ -117,6 +118,32 @@ class CommissSearch extends StatelessWidget {
                     controller.selectedCommissPosition.value = newValue!;
                   },
                   items: controller.commissPositionList.obs.value.map((item) {
+                    return DropdownMenuItem<String>(
+                      value: item,
+                      child: Text(
+                        item,
+                        textScaler: const TextScaler.linear(0.9),
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ),
+              const SizedBox(height: defaultPadding),
+              CustomText(
+                text: "ตำแหน่งอื่นในชุมชน",
+                color: Colors.black87.withOpacity(.9),
+              ),
+              const SizedBox(height: defaultPadding / 2),
+              Obx(
+                () => DropdownButtonFormField<String>(
+                  isDense: true,
+                  isExpanded: true,
+                  value: controller.selectedCommissPositionCommu.value,
+                  onChanged: (newValue) {
+                    controller.selectedCommissPositionCommu.value = newValue!;
+                  },
+                  items:
+                      controller.commissPositionCommuList.obs.value.map((item) {
                     return DropdownMenuItem<String>(
                       value: item,
                       child: Text(

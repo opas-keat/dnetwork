@@ -16,7 +16,6 @@ import 'dashboard_statistics.dart';
 
 class DashboardLayoutLarge extends StatelessWidget {
   const DashboardLayoutLarge({super.key});
-
   @override
   Widget build(BuildContext context) {
     final DashboardController dashboardController =

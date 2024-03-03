@@ -7,6 +7,7 @@ import '../../../../responsive.dart';
 import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
+import '../../../shared/pdpa_view.dart';
 import '../controllers/signin_controller.dart';
 
 class SigninView extends StatelessWidget {
@@ -136,7 +137,23 @@ class SigninView extends StatelessWidget {
                                 );
                                 Get.back();
                                 result
-                                    ? Get.offAllNamed(Routes.DASHBOARD)
+                                    ? {
+                                        // if (controller.isPdpaCheck.value
+                                        //         .toString() ==
+                                        //     "Y")
+                                        //   {
+                                        //     Get.dialog(
+                                        //       const Center(
+                                        //         child: PdpaView(),
+                                        //       ),
+                                        //       barrierDismissible: false,
+                                        //     ),
+                                        //     // Get.offAllNamed(Routes.DASHBOARD),
+                                        //   }
+                                        // else
+                                        //   {Get.offAllNamed(Routes.DASHBOARD)}
+                                        Get.offAllNamed(Routes.DASHBOARD)
+                                      }
                                     : Get.snackbar(
                                         'Error',
                                         controller.authenError.value,
@@ -160,7 +177,7 @@ class SigninView extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               CustomText(
-                                text: "Version 0.0.33",
+                                text: "Version 0.0.34",
                                 color: Colors.white.withOpacity(.9),
                                 scale: 0.9,
                               ),

@@ -153,4 +153,22 @@ class UserService {
     }
     return null;
   }
+
+  Future<bool> updatePdpa() async {
+    try {
+      final response = await apiUtils.put(
+        url:
+            "${Api.ectApiContext}${Api.ectApiVersion}${ApiEndPoints.user}/pdpa",
+        options: Options(
+          headers: apiUtils.secureHeaders,
+        ),
+      );
+      // UserServiceResponse userServiceResponse =
+      //     UserServiceResponse.fromJson(jsonDecode(response.toString()));
+      return true;
+    } catch (e) {
+      talker.error(e);
+      return true;
+    }
+  }
 }

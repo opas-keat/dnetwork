@@ -10,6 +10,7 @@ class SigninController extends GetxController {
   final logTitle = "SigninController";
   var isObscure = true.obs;
   var isLoading = true.obs;
+  // var isPdpaCheck = "Y".obs;
 
   RxString authenError = ''.obs;
 
@@ -28,7 +29,7 @@ class SigninController extends GetxController {
     // password = 'NPT#!123';
     try {
       final result = await AuthenService().login(userName, password);
-      talker.debug('response message : ${result?.message}');
+      // talker.debug('response message : ${result?.message}');
       if (result?.code == "000") {
         if (result!.data!.roles!.length > 1) {
           html.window.sessionStorage["roles"] = "admin";
@@ -49,6 +50,8 @@ class SigninController extends GetxController {
           }
           html.window.sessionStorage["profile"] =
               '${user.data!.userName} ${user.data!.firstName}';
+          // isPdpaCheck.value = user.data!.pdpaCheck!;
+          html.window.sessionStorage["pdpa_check"] = user.data!.pdpaCheck!;
         }
         return true;
       }

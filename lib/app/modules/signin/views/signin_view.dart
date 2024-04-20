@@ -7,7 +7,6 @@ import '../../../../responsive.dart';
 import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
-import '../../../shared/pdpa_view.dart';
 import '../controllers/signin_controller.dart';
 
 class SigninView extends StatelessWidget {

@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 
-import '../../api/services/user_service.dart';
 import '../utils.dart';
 
 class PdpaController extends GetxController {
@@ -27,7 +26,6 @@ class PdpaController extends GetxController {
   Future<bool> updatePdpa() async {
     talker.info('$logTitle:updatePdpa:');
     try {
-      final result = await UserService().updatePdpa();
       return true;
     } catch (e) {
       talker.error('$e');

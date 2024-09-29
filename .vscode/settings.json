@@ -21,5 +21,6 @@
   },
   "files.watcherExclude": {
     "**/.fvm": true
-  }
+  },
+  "makefile.configureOnOpen": true
 }

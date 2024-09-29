@@ -6,6 +6,10 @@ import '../../../api/services/auth_service.dart';
 import '../../../api/services/user_service.dart';
 import '../../../shared/utils.dart';
 
+import 'package:encrypt/encrypt.dart' as encrypt;
+import 'package:crypto/crypto.dart';
+import 'dart:convert';
+
 class SigninController extends GetxController {
   final logTitle = "SigninController";
   var isObscure = true.obs;
@@ -27,44 +31,89 @@ class SigninController extends GetxController {
     // talker.debug('password:$password');
     // userName = 'NPT001';
     // password = 'NPT#!123';
-    try {
-      final result = await AuthenService().login(userName, password);
-      // talker.debug('response message : ${result?.message}');
-      if (result?.code == "000") {
-        if (result!.data!.roles!.length > 1) {
-          html.window.sessionStorage["roles"] = "admin";
-        } else {
-          html.window.sessionStorage["roles"] = "user";
-        }
-        html.window.sessionStorage["token"] = result.data!.token!;
-        final user = await UserService().getByToken();
-        if (user?.code == "000") {
-          //   talker.debug(user!.data!.id);
-          //   talker.debug(user.data!.firstName);
-          // talker.debug(user!.data!.province);
-          if (user!.data!.province! == "ส่วนกลาง" ||
-              user.data!.province! == "") {
-            html.window.sessionStorage["province"] = "";
-          } else {
-            html.window.sessionStorage["province"] = user.data!.province!;
-          }
-          html.window.sessionStorage["profile"] =
-              '${user.data!.userName} ${user.data!.firstName}';
-          // isPdpaCheck.value = user.data!.pdpaCheck!;
-          html.window.sessionStorage["pdpa_check"] = user.data!.pdpaCheck!;
-        }
-        return true;
-      }
-      authenError.value = result!.message!;
+    // try {
+    //   final result = await AuthenService().login(userName, password);
+    //   // talker.debug('response message : ${result?.message}');
+    //   if (result?.code == "000") {
+    //     if (result!.data!.roles!.length > 1) {
+    //       html.window.sessionStorage["roles"] = "admin";
+    //     } else {
+    //       html.window.sessionStorage["roles"] = "user";
+    //     }
+    //     html.window.sessionStorage["token"] = result.data!.token!;
+    //     final user = await UserService().getByToken();
+    //     if (user?.code == "000") {
+    //       //   talker.debug(user!.data!.id);
+    //       //   talker.debug(user.data!.firstName);
+    //       // talker.debug(user!.data!.province);
+    //       if (user!.data!.province! == "ส่วนกลาง" ||
+    //           user.data!.province! == "") {
+    //         html.window.sessionStorage["province"] = "";
+    //       } else {
+    //         html.window.sessionStorage["province"] = user.data!.province!;
+    //       }
+    //       html.window.sessionStorage["profile"] =
+    //           '${user.data!.userName} ${user.data!.firstName}';
+    //       // isPdpaCheck.value = user.data!.pdpaCheck!;
+    //       html.window.sessionStorage["pdpa_check"] = user.data!.pdpaCheck!;
+    //     }
+    //     return true;
+    //   }
+    //   authenError.value = result!.message!;
+    //   return false;
+    // } catch (e) {
+    //   talker.error('$e');
+    //   // talker.error('${e.responseBody['message']}');
+    //   // signUpError.value = '${e.responseBody['message']}';
+    //   return false;
+    // }
+
+    // Map<String, String> login = {
+    //   "userName": userName,
+    //   "userPass": password,
+    // };
+    // // The plaintext message to be encrypted
+    // final plainText = jsonEncode(login);
+
+    // // Generate a 256-bit key (32 bytes) for AES
+    // final key = encrypt.Key.fromUtf8('32characterslongpassphraseneeded');
+
+    // // Generate a 128-bit initialization vector (IV) for AES (16 bytes)
+    // final iv = encrypt.IV.fromLength(16);
+
+    // // Create the AES encrypter
+    // final encrypter = encrypt.Encrypter(encrypt.AES(key));
+
+    // // Encrypt the plaintext
+    // final encrypted = encrypter.encrypt(plainText, iv: iv);
+
+    // // Decrypt the ciphertext
+    // final decrypted = encrypter.decrypt(encrypted, iv: iv);
+
+    // // Convert the decrypted string back to JSON
+    // final decryptedJson = jsonDecode(decrypted);
+
+    // // Output
+    // print('Original JSON: $login');
+    // print('Encrypted: ${encrypted.base64}');
+    // print('Decrypted JSON: $decryptedJson');
+    final jsonData = {
+      'name': 'John Doe',
+      'email': 'johndoe@example.com',
+      'age': 30,
+    };
+    final plainText = jsonEncode(jsonData);
+    final key = encrypt.Key.fromUtf8('32characterslongpassphraseneeded');
+    final iv = encrypt.IV.fromLength(16);
+    final encrypter = encrypt.Encrypter(
+        encrypt.AES(key, mode: encrypt.AESMode.cbc, padding: 'PKCS7'));
+
+    final encrypted = encrypter.encrypt(plainText, iv: iv);
+
+    print('Encrypted (Base64): ${encrypted.base64}');
+    print('IV (Base64): ${iv.base64}');
+    return Future.delayed(const Duration(seconds: 3), () {
       return false;
-    } catch (e) {
-      talker.error('$e');
-      // talker.error('${e.responseBody['message']}');
-      // signUpError.value = '${e.responseBody['message']}';
-      return false;
-    }
-    // return Future.delayed(const Duration(seconds: 3), () {
-    //   return true;
-    // });
+    });
   }
 }

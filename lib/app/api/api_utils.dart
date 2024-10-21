@@ -81,6 +81,7 @@ class ApiUtils {
     // options!.headers = secureHeaders;
     // options!.headers?['Authorization'] =
     //     'Bearer: ${window.sessionStorage["token"]}';
+
     var opts = Options(
       headers: {
         "Authorization": 'Bearer ${window.sessionStorage["token"]}',

@@ -29,3 +29,5 @@ const canvasColor = Color.fromARGB(255, 247, 247, 245);
 
 const commissOrder =
     "commiss_position = 'ประธานกรรมการ' DESC ,commiss_position = 'รองประธานกรรมการ' DESC ,commiss_position = 'กรรมการ' DESC ,commiss_position = 'กรรมการ/นายทะเบียน' DESC ,commiss_position = 'กรรมการ/เหรัญญิก' DESC ,commiss_position = 'กรรมการ/ประชาสัมพันธ์' DESC ,commiss_position = 'กรรมการ/เลขานุการ' DESC ";
+
+const PRIVATE_KEY = '32characterslongpassphraseneeded';

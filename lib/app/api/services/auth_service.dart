@@ -82,12 +82,6 @@ class AuthenService {
           headers: apiUtils.header,
         ),
       );
-      talker.debug('validateIDC:: ${result.statusCode}');
-      talker.debug('validateIDC:: ${result.toString()}');
-      // talker.info(title, 'login:: ${result.data['status_code']}');
-      // if (result.data['status_code'] == 200) {
-      //   return AuthenServiceResponse.fromJson(result.data);
-      // }
       String decryptData = "";
       final dynamic responseBody = jsonDecode(result.toString());
       if (responseBody is Map) {
@@ -96,23 +90,9 @@ class AuthenService {
         String value = data['value'];
         decryptData = decryptionKeyValue(key, value);
       }
-      result.data['data'] = jsonDecode(decryptData);
-      return result.data['result'];
-      // AuthenServiceResponse authenServiceResponse =
-      //     AuthenServiceResponse.fromJson(jsonDecode(result.toString()));
-      // if (authenServiceResponse.code == "000") {
-      //   return AuthenServiceResponse(
-      //     code: authenServiceResponse.code,
-      //     message: result.data["message"],
-      //     data: authenServiceResponse.data,
-      //   );
-      // }
-      // // talker.info(title, 'login:: ${result.data["message"]}');
-      // return AuthenServiceResponse.withError(
-      //     code: codeResponseNull, msg: result.data["message"]);
+      final dynamic resultCID = jsonDecode(decryptData);
+      return resultCID['result'];
     } catch (e) {
-      // return AuthenServiceResponse.withError(
-      //     code: codeError, msg: apiUtils.handleError(e));
       return false;
     }
   }

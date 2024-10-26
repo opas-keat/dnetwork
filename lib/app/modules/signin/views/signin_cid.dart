@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
+import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../controllers/signin_controller.dart';
@@ -18,10 +19,6 @@ class SignInCID extends StatelessWidget {
         color: Colors.black87.withOpacity(.9),
       ),
       content: SizedBox(
-        // color: Colors.amber,
-        // padding: const EdgeInsets.symmetric(vertical: defaultPadding * 4),
-        // width: 480,
-        // height: 640,
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,10 +40,12 @@ class SignInCID extends StatelessWidget {
       actions: [
         TextButton(
           child: const Text("ยืนยัน"),
-          onPressed: () {
-            // controller.resultCID.value = true;
-            // Get.back();
-            controller.validateIDC();
+          onPressed: () async {
+            final resultCID = await controller.validateIDC();
+            Get.back(result: resultCID);
+            // if (result.obs.value) {
+            //   Get.back();
+            // }
           },
         ),
       ],

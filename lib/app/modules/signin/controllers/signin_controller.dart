@@ -26,8 +26,10 @@ class SigninController extends GetxController {
     super.onInit();
   }
 
-  Future<bool> signIn(
-      {required String userName, required String password}) async {
+  Future<bool> signIn({
+    required String userName,
+    required String password,
+  }) async {
     talker.info('signIn');
     talker.debug('userName:$userName');
     talker.debug('password:$password');
@@ -42,8 +44,9 @@ class SigninController extends GetxController {
           SignInCID(),
           barrierDismissible: false,
         );
-        if (resultCID.value) {
-          if (result!.data!.roles!.length > 1) {
+        talker.debug('resultCID:$resultCID');
+        if (resultCID) {
+          if (result.data!.roles!.length > 1) {
             html.window.sessionStorage["roles"] = "admin";
           } else {
             html.window.sessionStorage["roles"] = "user";
@@ -66,6 +69,7 @@ class SigninController extends GetxController {
           }
           return true;
         }
+        authenError.value = 'เลขบัตรประจำตัวประชาชน ไม่ถูกต้อง';
         return false;
       }
       authenError.value = result!.message!;
@@ -122,15 +126,9 @@ class SigninController extends GetxController {
     talker.debug('idc:$cid.text');
     try {
       final result = await AuthenService().validateIDC(cid.text);
-      // talker.debug('response message : ${result?.message}');
-      // if (result?.code == "000") {
-      //   return true;
-      // }
       return result!;
     } catch (e) {
       talker.error('$e');
-      // talker.error('${e.responseBody['message']}');
-      // signUpError.value = '${e.responseBody['message']}';
       return false;
     }
   }

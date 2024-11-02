@@ -28,6 +28,13 @@ class DashboardController extends GetxController {
   RxString reportStationNo = ''.obs;
   RxString reportProvince = ''.obs;
 
+  List<String> listStatus = <String>[
+    'ยังไม่ดำเนินการ',
+    'อยู่ระหว่างดำเนินการ',
+    'ดำเนินการเสร็จแล้ว'
+  ];
+  RxString status = ''.obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -64,6 +71,7 @@ class DashboardController extends GetxController {
             totalNetwork: item.totalNetwork,
             totalStation: item.totalStation,
             totalVillage: item.totalVillage,
+            status: item.status,
           ),
         );
       }

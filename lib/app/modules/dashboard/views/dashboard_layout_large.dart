@@ -33,6 +33,30 @@ class DashboardLayoutLarge extends StatelessWidget {
                 children: [
                   const ShowProvince(),
                   const Spacer(flex: 2),
+                  window.sessionStorage["province"]! != ""
+                      ? Row(
+                          children: [
+                            const CustomText(
+                              text: 'สถานการณ์ดำเนินการ',
+                              weight: FontWeight.bold,
+                            ),
+                            DropdownButton(
+                              items: dashboardController.listStatus
+                                  .map<DropdownMenuItem<String>>(
+                                      (String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: CustomText(
+                                    text: ' $value',
+                                  ),
+                                );
+                              }).toList(),
+                              onChanged: (value) {},
+                            ),
+                            const SizedBox(width: defaultPadding / 2),
+                          ],
+                        )
+                      : const SizedBox(width: defaultPadding / 2),
                   ElevatedButton.icon(
                     icon: const Icon(
                       Icons.search_sharp,

@@ -772,7 +772,7 @@ List<ProvinceSummary> listProvinceSummaryData = [
 ];
 
 class ProvinceSummary {
-  String? seal, name;
+  String? seal, name, status;
   int? totalStation,
       totalCommiss,
       totalMember,
@@ -788,5 +788,6 @@ class ProvinceSummary {
     this.totalNetwork,
     this.totalVillage,
     this.totalLectuter,
+    this.status,
   });
 }

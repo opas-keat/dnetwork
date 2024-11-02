@@ -37,17 +37,20 @@ class ProvinceSummaryData {
   int? totalNetwork;
   int? totalLectuter;
   int? totalVillage;
+  String? status;
 
-  ProvinceSummaryData(
-      {this.id,
-      this.seal,
-      this.name,
-      this.totalStation,
-      this.totalCommiss,
-      this.totalMember,
-      this.totalNetwork,
-      this.totalLectuter,
-      this.totalVillage});
+  ProvinceSummaryData({
+    this.id,
+    this.seal,
+    this.name,
+    this.totalStation,
+    this.totalCommiss,
+    this.totalMember,
+    this.totalNetwork,
+    this.totalLectuter,
+    this.totalVillage,
+    this.status,
+  });
 
   ProvinceSummaryData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -59,6 +62,7 @@ class ProvinceSummaryData {
     totalNetwork = json['totalNetwork'];
     totalLectuter = json['totalLectuter'];
     totalVillage = json['totalVillage'];
+    status = json['status'];
   }
 
   Map<String, dynamic> toJson() {
@@ -72,6 +76,7 @@ class ProvinceSummaryData {
     data['totalNetwork'] = totalNetwork;
     data['totalLectuter'] = totalLectuter;
     data['totalVillage'] = totalVillage;
+    data['status'] = status;
     return data;
   }
 }

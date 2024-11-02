@@ -78,6 +78,10 @@ class DashboardStatistics extends StatelessWidget {
                     columns: [
                       const DataColumn2(
                         label: Text(""),
+                        fixedWidth: 20,
+                      ),
+                      const DataColumn2(
+                        label: Text(""),
                         fixedWidth: 40,
                       ),
                       DataColumn2(
@@ -251,10 +255,29 @@ DataRow DashboardDataRow(int index, ProvinceSummary provinceSummary) {
       //   formatterItem.format(index + 1),
       // )),
       DataCell(
+        Icon(
+          Icons.fiber_manual_record,
+          color: provinceSummary.status! == ""
+              ? Colors.red
+              : provinceSummary.status! == "1"
+                  ? Colors.yellow
+                  : Colors.green,
+        ),
+      ),
+      DataCell(
         Image.network(
           "assets/images/seal/${provinceSummary.seal!}",
           height: 38,
         ),
+        // Wrap(
+        //   children: [
+        //     Text(provinceSummary.status!),
+        //     Image.network(
+        //       "assets/images/seal/${provinceSummary.seal!}",
+        //       height: 38,
+        //     ),
+        //   ],
+        // ),
       ),
       DataCell(
         Wrap(

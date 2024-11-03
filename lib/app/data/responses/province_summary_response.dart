@@ -38,6 +38,7 @@ class ProvinceSummaryData {
   int? totalLectuter;
   int? totalVillage;
   String? status;
+  String? status_updated;
 
   ProvinceSummaryData({
     this.id,
@@ -50,6 +51,7 @@ class ProvinceSummaryData {
     this.totalLectuter,
     this.totalVillage,
     this.status,
+    this.status_updated,
   });
 
   ProvinceSummaryData.fromJson(Map<String, dynamic> json) {
@@ -63,6 +65,7 @@ class ProvinceSummaryData {
     totalLectuter = json['totalLectuter'];
     totalVillage = json['totalVillage'];
     status = json['status'];
+    status_updated = json['status_updated'];
   }
 
   Map<String, dynamic> toJson() {
@@ -77,6 +80,7 @@ class ProvinceSummaryData {
     data['totalLectuter'] = totalLectuter;
     data['totalVillage'] = totalVillage;
     data['status'] = status;
+    data['status_updated'] = status_updated;
     return data;
   }
 }

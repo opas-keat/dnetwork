@@ -2,6 +2,7 @@ import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:frontend/app/api/services/province_summary_service.dart';
+import 'package:frontend/app/data/requests/dashboard_service_request.dart';
 import 'package:get/get.dart';
 
 import '../../../data/models/province_summary.dart';
@@ -72,6 +73,7 @@ class DashboardController extends GetxController {
             totalStation: item.totalStation,
             totalVillage: item.totalVillage,
             status: item.status,
+            statusUpdated: item.status_updated,
           ),
         );
       }
@@ -79,6 +81,31 @@ class DashboardController extends GetxController {
       update();
     } catch (e) {
       talker.error('$e');
+    }
+  }
+
+  updateStatus(status) async {
+    talker.info('$logTitle:updateStatus:');
+    isLoading.value = true;
+    String province = window.sessionStorage["province"]!;
+    talker.info('$logTitle:province:$province');
+    talker.info('$logTitle:status:$status');
+    final dashboards = <Dashboards>[].obs;
+    try {
+      dashboards.add(Dashboards(
+        name: province,
+        status: status,
+      ));
+      final result =
+          await ProvinceSummaryService().update(dashboards.obs.value);
+      talker.debug('response message : ${result?.message}');
+      listProvinceSummary.clear();
+      listProvinceSummaryDashboard();
+      isLoading.value = false;
+      return true;
+    } catch (e) {
+      talker.error('$e');
+      return false;
     }
   }
 

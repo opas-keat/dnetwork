@@ -255,13 +255,16 @@ DataRow DashboardDataRow(int index, ProvinceSummary provinceSummary) {
       //   formatterItem.format(index + 1),
       // )),
       DataCell(
-        Icon(
-          Icons.fiber_manual_record,
-          color: provinceSummary.status! == ""
-              ? Colors.red
-              : provinceSummary.status! == "1"
-                  ? Colors.yellow
-                  : Colors.green,
+        Tooltip(
+          message: provinceSummary.statusUpdated,
+          child: Icon(
+            Icons.fiber_manual_record,
+            color: provinceSummary.status! == "ยังไม่ดำเนินการ"
+                ? Colors.red
+                : provinceSummary.status! == "อยู่ระหว่างดำเนินการ"
+                    ? Colors.yellow
+                    : Colors.green,
+          ),
         ),
       ),
       DataCell(

@@ -51,7 +51,9 @@ class DashboardLayoutLarge extends StatelessWidget {
                                   ),
                                 );
                               }).toList(),
-                              onChanged: (value) {},
+                              onChanged: (value) {
+                                dashboardController.updateStatus(value);
+                              },
                             ),
                             const SizedBox(width: defaultPadding / 2),
                           ],

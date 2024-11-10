@@ -210,6 +210,20 @@ class ManageStationController extends GetxController {
           stationList[selectedIndexFromTable].totalCommiss = item.totalCommiss;
           stationList[selectedIndexFromTable].totalMember = item.totalMember;
           stationList[selectedIndexFromTable].yearOfData = item.yearOfData;
+
+          //upload image profile
+          final bytesProfile = await fileUpload.value.readAsBytes();
+          final sizeProfile = await fileUpload.value.length();
+          if (fileUpload.value.name != '') {
+            await FileAttachService().create(
+              fileUpload.value.name,
+              sizeProfile,
+              bytesProfile,
+              "info",
+              "profiles",
+              item.id.toString(),
+            );
+          }
         }
       }
       isLoading.value = false;
@@ -336,6 +350,7 @@ class ManageStationController extends GetxController {
             filePath.value = 'assets/images/undraw_Add_files_re_v09g.png';
           }
         }
+        update();
       }
       isLoading.value = false;
       stationList.refresh();

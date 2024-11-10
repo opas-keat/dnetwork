@@ -1,16 +1,16 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend/app/modules/address/views/address_view.dart';
-import 'package:frontend/app/routes/app_pages.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../../responsive.dart';
 import '../../../../data/responses/station_service_response.dart';
+import '../../../../routes/app_pages.dart';
 import '../../../../shared/constant.dart';
 import '../../../../shared/custom_text.dart';
 import '../../../../shared/main_drawer.dart';
 import '../../../../shared/utils.dart';
+import '../../../address/views/address_view.dart';
 import '../controllers/manage_station_controller.dart';
 
 class ManageStationView extends StatelessWidget {
@@ -785,9 +785,16 @@ DataRow stationDataRow(
         }
       },
     ),
-    onSelectChanged: (value) {
+    onSelectChanged: (value) async {
       // controller.selectDataFromTable(index);
-      controller.selectDataFromTable(index, stationData.id!);
+      Get.dialog(
+        const Center(
+          child: CircularProgressIndicator(),
+        ),
+        barrierDismissible: false,
+      );
+      await controller.selectDataFromTable(index, stationData.id!);
+      Get.back();
     },
     cells: [
       DataCell(

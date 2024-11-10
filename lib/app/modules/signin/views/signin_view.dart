@@ -176,7 +176,7 @@ class SigninView extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               CustomText(
-                                text: "Version 0.0.34",
+                                text: "Version 0.1.0",
                                 color: Colors.white.withOpacity(.9),
                                 scale: 0.9,
                               ),

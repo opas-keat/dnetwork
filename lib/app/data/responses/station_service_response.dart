@@ -44,6 +44,7 @@ class StationData {
   int? totalCommiss;
   int? totalMember;
   String? training;
+  String? yearOfData;
 
   StationData(
       {this.id,
@@ -56,7 +57,8 @@ class StationData {
       this.facebook,
       this.totalCommiss,
       this.totalMember,
-      this.training});
+      this.training,
+      this.yearOfData});
 
   StationData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -70,6 +72,7 @@ class StationData {
     totalCommiss = json['total_commiss'];
     totalMember = json['total_member'];
     training = json['training'];
+    yearOfData = json['year_of_data'];
   }
 
   Map<String, dynamic> toJson() {
@@ -85,6 +88,7 @@ class StationData {
     data['total_commiss'] = totalCommiss;
     data['total_member'] = totalMember;
     data['training'] = training;
+    data['year_of_data'] = yearOfData;
     return data;
   }
 }

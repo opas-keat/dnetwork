@@ -7,5 +7,8 @@ run_web:
 build_web:
 	fvm flutter build web --pwa-strategy=none --release
 
+build_test_web:
+	fvm flutter build web --pwa-strategy=none --release --base-href "/test/v3/"
+
 deploy:
 	firebase deploy --only hosting

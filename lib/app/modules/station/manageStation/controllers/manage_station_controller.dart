@@ -4,6 +4,7 @@ import 'package:frontend/app/api/api_end_points.dart';
 import 'package:frontend/app/modules/address/controllers/address_controller.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../api/services/file_attach_service.dart';
 import '../../../../api/services/station_service.dart';
@@ -45,9 +46,20 @@ class ManageStationController extends GetxController {
   int selectedIndexFromTable = -1;
   int selectedId = -1;
 
+  int loopYear = 3;
+  final listYearOfData = <String>[""].obs;
+  RxString selectedYearOfData = ''.obs;
+
   @override
   void onInit() {
     talker.info('$logTitle:onInit:');
+    listYearOfData.clear();
+    for (var i = 0; i < loopYear; i++) {
+      DateTime now =
+          DateTime.utc(DateTime.now().year - i, DateTime.now().month, 1);
+      listYearOfData.add(DateFormat('y').format(now));
+    }
+    listYearOfData.add(selectedYearOfData.value);
     super.onInit();
   }
 
@@ -98,6 +110,7 @@ class ManageStationController extends GetxController {
       talker.debug(addressController.selectedAmphure.value);
       talker.debug(addressController.selectedTambol.value);
       talker.debug(stationFacebook.text);
+      talker.debug(selectedYearOfData.value);
       talker.debug(processChips.join('|'));
       stations.add(
         Stations(
@@ -111,6 +124,7 @@ class ManageStationController extends GetxController {
           training: trainingChips.join('|'),
           totalCommiss: 0,
           totalMember: 0,
+          yearOfData: selectedYearOfData.value,
         ),
       );
       final response = await StationService().create(stations.obs.value);
@@ -130,6 +144,7 @@ class ManageStationController extends GetxController {
               training: item.training,
               totalCommiss: item.totalCommiss,
               totalMember: item.totalMember,
+              yearOfData: item.yearOfData,
             ),
           );
           //upload image profile
@@ -176,6 +191,7 @@ class ManageStationController extends GetxController {
           training: trainingChips.join('|'),
           totalCommiss: 0,
           totalMember: 0,
+          yearOfData: selectedYearOfData.value,
         ),
       );
       final result = await StationService().update(stations.obs.value);
@@ -193,6 +209,7 @@ class ManageStationController extends GetxController {
           stationList[selectedIndexFromTable].training = item.training;
           stationList[selectedIndexFromTable].totalCommiss = item.totalCommiss;
           stationList[selectedIndexFromTable].totalMember = item.totalMember;
+          stationList[selectedIndexFromTable].yearOfData = item.yearOfData;
         }
       }
       isLoading.value = false;

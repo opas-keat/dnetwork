@@ -33,6 +33,7 @@ class Stations {
   String? location;
   String? facebook;
   String? training;
+  String? yearOfData;
 
   Stations(
       {this.id,
@@ -45,7 +46,8 @@ class Stations {
       this.district,
       this.location,
       this.facebook,
-      this.training});
+      this.training,
+      this.yearOfData});
 
   Stations.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -59,6 +61,7 @@ class Stations {
     location = json['location'];
     facebook = json['facebook'];
     training = json['training'];
+    yearOfData = json['year_of_data'];
   }
 
   Map<String, dynamic> toJson() {
@@ -74,6 +77,7 @@ class Stations {
     data['location'] = location;
     data['facebook'] = facebook;
     data['training'] = training;
+    data['year_of_data'] = yearOfData;
     return data;
   }
 }

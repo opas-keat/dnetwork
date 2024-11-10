@@ -79,6 +79,7 @@ class StationController extends GetxController {
             training: item.training,
             totalCommiss: item.totalCommiss,
             totalMember: item.totalMember,
+            yearOfData: item.yearOfData,
           ),
         );
       }
@@ -124,6 +125,7 @@ class StationController extends GetxController {
             training: item.training,
             totalCommiss: item.totalCommiss,
             totalMember: item.totalMember,
+            yearOfData: item.yearOfData,
           ),
         );
       }

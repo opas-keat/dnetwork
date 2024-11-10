@@ -316,6 +316,8 @@ class ManageStationController extends GetxController {
         await addressController.listTambol();
         addressController.selectedTambol.value = stationList[index].district!;
 
+        selectedYearOfData.value = stationList[index].yearOfData!;
+
         // get profiles
         Map<String, String> qParams = {
           "module": "info",

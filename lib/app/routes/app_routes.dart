@@ -30,6 +30,7 @@ abstract class Routes {
   static const MANAGE_BUDGET = _Paths.BUDGET + _Paths.MANAGE_BUDGET;
   static const DETAIL_STATION = _Paths.STATION + _Paths.DETAIL_STATION;
   static const INCIDENT = _Paths.INCIDENT;
+  static const DASHBOARD_DETAIL = _Paths.DASHBOARD + _Paths.DASHBOARD_DETAIL;
 }
 
 abstract class _Paths {
@@ -61,4 +62,5 @@ abstract class _Paths {
   static const MANAGE_BUDGET = '/manage-budget';
   static const DETAIL_STATION = '/detail-station';
   static const INCIDENT = '/incident';
+  static const DASHBOARD_DETAIL = '/dashboard-detail';
 }

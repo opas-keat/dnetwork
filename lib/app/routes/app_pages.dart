@@ -11,6 +11,8 @@ import '../modules/commiss/manageCommiss/bindings/manage_commiss_binding.dart';
 import '../modules/commiss/manageCommiss/views/manage_commiss_view.dart';
 import '../modules/commiss/views/commiss_view.dart';
 import '../modules/dashboard/bindings/dashboard_binding.dart';
+import '../modules/dashboard/dashboardDetail/bindings/dashboard_detail_binding.dart';
+import '../modules/dashboard/dashboardDetail/views/dashboard_detail_view.dart';
 import '../modules/dashboard/views/dashboard_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
@@ -82,6 +84,13 @@ class AppPages {
       page: () => const DashboardView(),
       binding: DashboardBinding(),
       middlewares: [RouteGuard()],
+      children: [
+        GetPage(
+          name: _Paths.DASHBOARD_DETAIL,
+          page: () => const DashboardDetailView(),
+          binding: DashboardDetailBinding(),
+        ),
+      ],
     ),
     GetPage(
       name: _Paths.STATION,

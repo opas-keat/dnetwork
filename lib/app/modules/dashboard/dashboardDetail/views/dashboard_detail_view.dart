@@ -10,6 +10,7 @@ import '../../../../shared/main_drawer.dart';
 import '../../../budget/views/budget_layout_large.dart';
 import '../../../budget/views/budget_layout_small.dart';
 import '../controllers/dashboard_detail_controller.dart';
+import 'dashboard_detail_layout_large.dart';
 
 class DashboardDetailView extends StatelessWidget {
   const DashboardDetailView({Key? key}) : super(key: key);
@@ -99,6 +100,35 @@ class DashboardDetailView extends StatelessWidget {
                     Header(moduleName: "dashboard"),
                     SizedBox(height: defaultPadding / 2),
                     // BudgetLayoutLarge(),
+                    DashboardDetailLayoutLarge(),
+                    // Row(
+                    //   children: [
+                    //     Expanded(
+                    //       child: Column(
+                    //         children: [
+                    //           Container(
+                    //             color: Colors.amber,
+                    //             child: const CustomText(
+                    //               text: "รายละเอียด ศส.ปชต.",
+                    //               color: Colors.white,
+                    //               scale: 0.9,
+                    //             ),
+                    //           ),
+                    //         ],
+                    //       ),
+                    //     ),
+                    //     const Expanded(
+                    //       child: Column(
+                    //         children: [],
+                    //       ),
+                    //     ),
+                    //     const Expanded(
+                    //       child: Column(
+                    //         children: [],
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
                     CustomText(
                       text: "รายละเอียด ศส.ปชต.",
                       color: Colors.white,

@@ -1,3 +1,4 @@
+import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -8,6 +9,7 @@ import '../../../../shared/constant.dart';
 import '../../../../shared/custom_text.dart';
 import '../../../../shared/main_chart.dart';
 import '../../../../shared/show_province.dart';
+import '../../../../shared/utils.dart';
 import '../../../member/controllers/member_controller.dart';
 import '../../../training/controllers/training_controller.dart';
 import '../controllers/dashboard_detail_controller.dart';
@@ -270,51 +272,156 @@ class DashboardDetailNetwork extends StatelessWidget {
           ),
           const SizedBox(height: defaultPadding / 2),
           Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  for (var member in listMember)
-                    Container(
-                      margin: const EdgeInsets.only(top: defaultPadding),
-                      padding: const EdgeInsets.all(defaultPadding),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          width: 1,
-                          color: primaryColor.withOpacity(0.2),
-                        ),
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(defaultPadding),
-                        ),
-                      ),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: defaultPadding),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  CustomText(
-                                    text: member.memberFirstName,
-                                    weight: FontWeight.bold,
-                                    scale: 0.8,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+            child: SizedBox(
+              width: double.infinity,
+              child: DataTable2(
+                showCheckboxColumn: false,
+                columnSpacing: defaultPadding,
+                sortArrowIcon: Icons.keyboard_arrow_up,
+                sortArrowAnimationDuration: const Duration(milliseconds: 500),
+                // sortColumnIndex: controller.sortColumnIndex.value,
+                // sortAscending: controller.sortAscending.value,
+                empty: Center(
+                    child: Container(
+                        padding: const EdgeInsets.all(20),
+                        color: Colors.grey[200],
+                        child: const Text('ไม่พบข้อมูล'))),
+                columns: [
+                  const DataColumn2(
+                    label: Text(""),
+                    fixedWidth: 30,
+                  ),
+                  DataColumn2(
+                    label: const Text("ชื่อ-นามสกุล"),
+                    size: ColumnSize.S,
+                    onSort: (columnIndex, ascending) {
+                      // controller.sort("name", columnIndex, ascending);
+                    },
+                  ),
+                  DataColumn2(
+                    label: const Text("ตำแหน่ง"),
+                    size: ColumnSize.S,
+                    onSort: (columnIndex, ascending) {
+                      // controller.sort("position", columnIndex, ascending);
+                    },
+                  ),
                 ],
+                // rows: [],
+                rows: List.generate(
+                  listMember.length,
+                  (index) => memberDataRow(
+                    index,
+                    listMember[index],
+                  ),
+                ),
               ),
             ),
           ),
+          const SizedBox(height: defaultPadding / 2),
+          Container(
+            color: Colors.amber,
+            height: 50,
+          ),
+          // Expanded(
+          //   child: SingleChildScrollView(
+          //     child: Column(
+          //       crossAxisAlignment: CrossAxisAlignment.start,
+          //       mainAxisSize: MainAxisSize.min,
+          //       children: [
+          //         for (var member in listMember)
+          //           Container(
+          //             margin: const EdgeInsets.only(top: defaultPadding),
+          //             padding: const EdgeInsets.all(defaultPadding),
+          //             decoration: BoxDecoration(
+          //               border: Border.all(
+          //                 width: 1,
+          //                 color: primaryColor.withOpacity(0.2),
+          //               ),
+          //               borderRadius: const BorderRadius.all(
+          //                 Radius.circular(defaultPadding),
+          //               ),
+          //             ),
+          //             child: Row(
+          //               children: [
+          //                 Expanded(
+          //                   child: Padding(
+          //                     padding: const EdgeInsets.symmetric(
+          //                         horizontal: defaultPadding),
+          //                     child: Column(
+          //                       crossAxisAlignment: CrossAxisAlignment.start,
+          //                       children: [
+          //                         CustomText(
+          //                           text: member.memberFirstName,
+          //                           weight: FontWeight.bold,
+          //                           scale: 0.8,
+          //                         ),
+          //                       ],
+          //                     ),
+          //                   ),
+          //                 ),
+          //               ],
+          //             ),
+          //           ),
+          //       ],
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );
   }
+}
+
+DataRow memberDataRow(
+  int index,
+  MemberData memberData,
+) {
+  return DataRow.byIndex(
+    index: index + 1,
+    cells: [
+      DataCell(
+        Text(
+          formatterItem.format(index + 1),
+          style: const TextStyle(
+            fontSize: 12,
+          ),
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "${memberData.memberPreName!}${memberData.memberFirstName!} ${memberData.memberSurName!}",
+                  style: const TextStyle(
+                    fontSize: 12,
+                  ),
+                ),
+                Text(
+                  memberData.memberTelephone!,
+                  style: const TextStyle(
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              memberData.memberPosition!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+    ],
+  );
 }

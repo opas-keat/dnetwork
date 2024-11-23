@@ -1,26 +1,25 @@
 import 'package:data_table_2/data_table_2.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
+import '../../../../data/responses/commiss_service_response.dart';
 import '../../../../data/responses/member_service_response.dart';
+import '../../../../routes/app_pages.dart';
 import '../../../../shared/constant.dart';
 import '../../../../shared/custom_text.dart';
 import '../../../../shared/main_chart.dart';
 import '../../../../shared/show_province.dart';
 import '../../../../shared/utils.dart';
+import '../../../commiss/controllers/commiss_controller.dart';
 import '../../../member/controllers/member_controller.dart';
 import '../../../training/controllers/training_controller.dart';
-import '../controllers/dashboard_detail_controller.dart';
 
 class DashboardDetailLayoutLarge extends StatelessWidget {
   const DashboardDetailLayoutLarge({super.key});
   @override
   Widget build(BuildContext context) {
-    final DashboardDetailController controller =
-        Get.find<DashboardDetailController>();
     final trainingController = Get.put(TrainingController());
+    final commissController = Get.put(CommissController());
     final memberController = Get.put(MemberController());
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,21 +36,7 @@ class DashboardDetailLayoutLarge extends StatelessWidget {
                   SizedBox(width: defaultPadding / 2),
                 ],
               ),
-              const SizedBox(height: defaultPadding),
-              // Responsive(
-              //   smallScreen: InfoCard(
-              //     crossAxisCount: 2,
-              //     childAspectRatio: 2.0,
-              //     listSummaryInfo: listDashboardSummaryInfo,
-              //   ),
-              //   largeScreen: InfoCard(
-              //     childAspectRatio: 2.2,
-              //     listSummaryInfo: listDashboardSummaryInfo,
-              //   ),
-              // ),
-              const SizedBox(height: defaultPadding),
-              // DashboardStatistics(),
-              // แถวบนสุด
+              const SizedBox(height: defaultPadding / 2),
               Row(
                 children: [
                   Image.network(
@@ -109,25 +94,27 @@ class DashboardDetailLayoutLarge extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: defaultPadding),
+              const SizedBox(height: defaultPadding / 2),
               Row(
                 children: [
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.only(left: defaultPadding / 2),
-                      child: GetBuilder<TrainingController>(
-                        builder: (_) => trainingController.isLoadingChart.value
+                      child: GetBuilder<CommissController>(
+                        builder: (_) => commissController.isLoadingChart.value
                             ? const Center(child: CircularProgressIndicator())
-                            : MainChart(
-                                header: "สถิติข้อมูลการอบรมของ ศส.ปชต.",
-                                subHeader: "ประเภทการอบรม",
-                                listSummaryChart:
-                                    trainingController.summaryChart.obs.value,
+                            : SizedBox(
+                                height: 600,
+                                child: DashboardDetailCommiss(
+                                  header: "ข้อมูลกรรมการ",
+                                  subHeader: "",
+                                  listCommiss: commissController
+                                      .listCommissStatistics.obs.value,
+                                ),
                               ),
                       ),
                     ),
                   ),
-                  const SizedBox(height: defaultPadding),
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.only(left: defaultPadding / 2),
@@ -135,7 +122,7 @@ class DashboardDetailLayoutLarge extends StatelessWidget {
                         builder: (_) => memberController.isLoadingChart.value
                             ? const Center(child: CircularProgressIndicator())
                             : SizedBox(
-                                height: 500,
+                                height: 600,
                                 child: DashboardDetailNetwork(
                                   header: "ข้อมูลสมาชิก",
                                   subHeader: "",
@@ -164,15 +151,18 @@ class DashboardDetailLayoutLarge extends StatelessWidget {
                           direction: Axis.vertical,
                           runAlignment: WrapAlignment.start,
                           children: [
-                            CustomText(
-                              text: "ผลการดำเนินงาน ศส.ปชต.",
-                              weight: FontWeight.bold,
-                              size: 20,
+                            Text(
+                              "ผลการดำเนินงาน ศส.ปชต.",
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                            CustomText(
-                              text: "หัวข้อดำเนินการ",
-                              weight: FontWeight.bold,
-                              size: 18,
+                            Text(
+                              "หัวข้อดำเนินการ",
+                              style: TextStyle(
+                                fontSize: 14,
+                              ),
                             ),
                             Text(
                               "1.",
@@ -211,7 +201,6 @@ class DashboardDetailLayoutLarge extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: defaultPadding),
             ],
           ),
         ),
@@ -228,14 +217,133 @@ class DashboardDetailLayoutLarge extends StatelessWidget {
                           trainingController.summaryChart.obs.value,
                     ),
             ),
-            // child: MainChart(
-            //   header: "สถิติข้อมูลการอบรมของ ศส.ปชต.",
-            //   subHeader: "ประเภทการอบรม",
-            //   listSummaryChart: summaryDashboardChart,
-            // ),
           ),
         ),
       ],
+    );
+  }
+}
+
+class DashboardDetailCommiss extends StatelessWidget {
+  const DashboardDetailCommiss({
+    super.key,
+    this.header = "",
+    this.subHeader = "",
+    this.listCommiss = const [],
+  });
+
+  final String header;
+  final String subHeader;
+  final List<CommissData> listCommiss;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+          vertical: defaultPadding, horizontal: defaultPadding / 2),
+      decoration: BoxDecoration(
+        color: canvasColor,
+        borderRadius: BorderRadius.circular(defaultPadding),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          CustomText(
+            text: header,
+            weight: FontWeight.bold,
+            size: 12,
+          ),
+          const SizedBox(height: defaultPadding / 2),
+          Expanded(
+            child: SizedBox(
+              width: double.infinity,
+              child: DataTable2(
+                showCheckboxColumn: false,
+                columnSpacing: defaultPadding,
+                sortArrowIcon: Icons.keyboard_arrow_up,
+                sortArrowAnimationDuration: const Duration(milliseconds: 500),
+                // sortColumnIndex: controller.sortColumnIndex.value,
+                // sortAscending: controller.sortAscending.value,
+                empty: Center(
+                    child: Container(
+                        padding: const EdgeInsets.all(20),
+                        color: Colors.grey[200],
+                        child: const Text('ไม่พบข้อมูล'))),
+                columns: [
+                  const DataColumn2(
+                    label: Text(""),
+                    fixedWidth: 30,
+                  ),
+                  DataColumn2(
+                    label: const Text("ชื่อ-นามสกุล"),
+                    size: ColumnSize.S,
+                    onSort: (columnIndex, ascending) {
+                      // controller.sort("name", columnIndex, ascending);
+                    },
+                  ),
+                  DataColumn2(
+                    label: const Text("ตำแหน่ง"),
+                    size: ColumnSize.S,
+                    onSort: (columnIndex, ascending) {
+                      // controller.sort("position", columnIndex, ascending);
+                    },
+                  ),
+                ],
+                // rows: [],
+                rows: List.generate(
+                  listCommiss.length,
+                  (index) => commissDataRow(
+                    index,
+                    listCommiss[index],
+                  ),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: defaultPadding / 2),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton.icon(
+                icon: const Icon(
+                  Icons.people_sharp,
+                ),
+                label: const CustomText(
+                  text: "ไปยังรายชื่อ",
+                  color: Colors.white,
+                ),
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: defaultPadding, horizontal: defaultPadding / 2),
+                ),
+                onPressed: () {
+                  Get.toNamed(Routes.COMMISS);
+                },
+              ),
+              const SizedBox(width: defaultPadding / 2),
+              ElevatedButton.icon(
+                icon: const Icon(
+                  Icons.add_sharp,
+                ),
+                label: const CustomText(
+                  text: "เพิ่มข้อมูล",
+                  color: Colors.white,
+                ),
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: defaultPadding, horizontal: defaultPadding / 2),
+                ),
+                onPressed: () {
+                  Get.toNamed(Routes.MANAGE_COMMISS);
+                },
+              ),
+              const SizedBox(width: defaultPadding / 2),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
@@ -318,58 +426,104 @@ class DashboardDetailNetwork extends StatelessWidget {
             ),
           ),
           const SizedBox(height: defaultPadding / 2),
-          Container(
-            color: Colors.amber,
-            height: 50,
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton.icon(
+                icon: const Icon(
+                  Icons.people_sharp,
+                ),
+                label: const CustomText(
+                  text: "ไปยังรายชื่อ",
+                  color: Colors.white,
+                ),
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: defaultPadding, horizontal: defaultPadding / 2),
+                ),
+                onPressed: () {
+                  Get.toNamed(Routes.MEMBER);
+                },
+              ),
+              const SizedBox(width: defaultPadding / 2),
+              ElevatedButton.icon(
+                icon: const Icon(
+                  Icons.add_sharp,
+                ),
+                label: const CustomText(
+                  text: "เพิ่มข้อมูล",
+                  color: Colors.white,
+                ),
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: defaultPadding, horizontal: defaultPadding / 2),
+                ),
+                onPressed: () {
+                  Get.toNamed(Routes.MANAGE_MEMBER);
+                },
+              ),
+              const SizedBox(width: defaultPadding / 2),
+            ],
           ),
-          // Expanded(
-          //   child: SingleChildScrollView(
-          //     child: Column(
-          //       crossAxisAlignment: CrossAxisAlignment.start,
-          //       mainAxisSize: MainAxisSize.min,
-          //       children: [
-          //         for (var member in listMember)
-          //           Container(
-          //             margin: const EdgeInsets.only(top: defaultPadding),
-          //             padding: const EdgeInsets.all(defaultPadding),
-          //             decoration: BoxDecoration(
-          //               border: Border.all(
-          //                 width: 1,
-          //                 color: primaryColor.withOpacity(0.2),
-          //               ),
-          //               borderRadius: const BorderRadius.all(
-          //                 Radius.circular(defaultPadding),
-          //               ),
-          //             ),
-          //             child: Row(
-          //               children: [
-          //                 Expanded(
-          //                   child: Padding(
-          //                     padding: const EdgeInsets.symmetric(
-          //                         horizontal: defaultPadding),
-          //                     child: Column(
-          //                       crossAxisAlignment: CrossAxisAlignment.start,
-          //                       children: [
-          //                         CustomText(
-          //                           text: member.memberFirstName,
-          //                           weight: FontWeight.bold,
-          //                           scale: 0.8,
-          //                         ),
-          //                       ],
-          //                     ),
-          //                   ),
-          //                 ),
-          //               ],
-          //             ),
-          //           ),
-          //       ],
-          //     ),
-          //   ),
-          // ),
         ],
       ),
     );
   }
+}
+
+DataRow commissDataRow(
+  int index,
+  CommissData commissData,
+) {
+  return DataRow.byIndex(
+    index: index + 1,
+    cells: [
+      DataCell(
+        Text(
+          formatterItem.format(index + 1),
+          style: const TextStyle(
+            fontSize: 12,
+          ),
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "${commissData.commissPreName!}${commissData.commissFirstName!} ${commissData.commissSurName!}",
+                  style: const TextStyle(
+                    fontSize: 12,
+                  ),
+                ),
+                Text(
+                  commissData.commissTelephone!,
+                  style: const TextStyle(
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              commissData.commissPosition!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+    ],
+  );
 }
 
 DataRow memberDataRow(

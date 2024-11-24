@@ -39,25 +39,28 @@ class Commisss {
   String? commissPositionCommu;
   String? commissExp;
   String? commissPreName;
+  String? yearOfData;
 
-  Commisss(
-      {this.id,
-      this.commissStationId,
-      this.commissStationName,
-      this.province,
-      this.amphure,
-      this.district,
-      this.commissFirstName,
-      this.commissSurName,
-      this.commissIdCard,
-      this.commissBirthYear,
-      this.commissLocation,
-      this.commissDate,
-      this.commissTelephone,
-      this.commissPosition,
-      this.commissPositionCommu,
-      this.commissExp,
-      this.commissPreName});
+  Commisss({
+    this.id,
+    this.commissStationId,
+    this.commissStationName,
+    this.province,
+    this.amphure,
+    this.district,
+    this.commissFirstName,
+    this.commissSurName,
+    this.commissIdCard,
+    this.commissBirthYear,
+    this.commissLocation,
+    this.commissDate,
+    this.commissTelephone,
+    this.commissPosition,
+    this.commissPositionCommu,
+    this.commissExp,
+    this.commissPreName,
+    this.yearOfData,
+  });
 
   Commisss.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -77,6 +80,7 @@ class Commisss {
     commissPositionCommu = json['commiss_position_commu'];
     commissExp = json['commiss_exp'];
     commissPreName = json['commiss_pre_name'];
+    yearOfData = json['year_of_data'];
   }
 
   Map<String, dynamic> toJson() {
@@ -98,6 +102,7 @@ class Commisss {
     data['commiss_position_commu'] = commissPositionCommu;
     data['commiss_exp'] = commissExp;
     data['commiss_pre_name'] = commissPreName;
+    data['year_of_data'] = yearOfData;
     return data;
   }
 }

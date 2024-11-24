@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../api/api.dart';
 import '../../../../api/api_end_points.dart';
@@ -11,6 +12,7 @@ import '../../../../api/services/member_position_service.dart';
 import '../../../../api/services/member_service.dart';
 import '../../../../data/requests/member_service_request.dart';
 import '../../../../data/responses/member_service_response.dart';
+import '../../../../shared/constant.dart';
 import '../../../../shared/controller/info_card_controller.dart';
 import '../../../../shared/utils.dart';
 import '../../../address/controllers/address_controller.dart';
@@ -61,10 +63,20 @@ class ManageMemberController extends GetxController {
   int selectedIndexFromTable = -1;
   int selectedId = -1;
 
+  final listYearOfData = <String>[""].obs;
+  RxString selectedYearOfData = ''.obs;
+
   @override
   void onInit() {
     super.onInit();
     talker.info('$logTitle onInit');
+    listYearOfData.clear();
+    for (var i = 0; i < loopYear; i++) {
+      DateTime now =
+          DateTime.utc(DateTime.now().year - i, DateTime.now().month, 1);
+      listYearOfData.add(DateFormat('y').format(now));
+    }
+    listYearOfData.add(selectedYearOfData.value);
     listMemberPosition();
     listMemberPositionCommu();
   }
@@ -106,6 +118,7 @@ class ManageMemberController extends GetxController {
           district: memberTambol.text,
           province: memberProvince.text,
           memberPreName: memberPreName.text,
+          yearOfData: selectedYearOfData.value,
         ),
       );
       talker.debug('request message : ${members.toJson()}');
@@ -132,6 +145,7 @@ class ManageMemberController extends GetxController {
               memberSurName: item.memberSurName,
               memberTelephone: item.memberTelephone,
               memberPreName: item.memberPreName,
+              yearOfData: item.yearOfData,
             ),
           );
           //upload image profile
@@ -184,6 +198,7 @@ class ManageMemberController extends GetxController {
           district: memberTambol.text,
           province: memberProvince.text,
           memberPreName: memberPreName.text,
+          yearOfData: selectedYearOfData.value,
         ),
       );
       final result = await MemberService().update(members.obs.value);
@@ -213,6 +228,7 @@ class ManageMemberController extends GetxController {
           memberList[selectedIndexFromTable].district = item.district;
           memberList[selectedIndexFromTable].province = item.province;
           memberList[selectedIndexFromTable].memberPreName = item.memberPreName;
+          memberList[selectedIndexFromTable].yearOfData = item.yearOfData;
         }
       }
       isLoading.value = false;
@@ -265,6 +281,8 @@ class ManageMemberController extends GetxController {
         memberTelephone.text = item.memberTelephone!;
         // memberPosition.text = memberList[index].memberPosition!;
         selectedMemberPosition.value = item.memberPosition!;
+
+        selectedYearOfData.value = item.yearOfData!;
 
         // memberPositionCommu.text = memberList[index].memberPositionCommu!;
         // memberExp.text = memberList[index].memberExp!;

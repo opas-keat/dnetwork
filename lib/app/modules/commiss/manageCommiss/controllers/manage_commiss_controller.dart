@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../api/api.dart';
 import '../../../../api/api_end_points.dart';
@@ -12,6 +13,7 @@ import '../../../../api/services/commiss_service.dart';
 import '../../../../api/services/file_attach_service.dart';
 import '../../../../data/requests/commiss_service_request.dart';
 import '../../../../data/responses/commiss_service_response.dart';
+import '../../../../shared/constant.dart';
 import '../../../../shared/controller/info_card_controller.dart';
 import '../../../../shared/utils.dart';
 import '../../../address/controllers/address_controller.dart';
@@ -64,10 +66,20 @@ class ManageCommissController extends GetxController {
   int selectedIndexFromTable = -1;
   int selectedId = -1;
 
+  final listYearOfData = <String>[""].obs;
+  RxString selectedYearOfData = ''.obs;
+
   @override
   void onInit() {
     super.onInit();
     talker.info('$logTitle onInit');
+    listYearOfData.clear();
+    for (var i = 0; i < loopYear; i++) {
+      DateTime now =
+          DateTime.utc(DateTime.now().year - i, DateTime.now().month, 1);
+      listYearOfData.add(DateFormat('y').format(now));
+    }
+    listYearOfData.add(selectedYearOfData.value);
     listCommissPosition();
     listCommissPositionCommu();
     listCommissExp();
@@ -115,6 +127,7 @@ class ManageCommissController extends GetxController {
           district: commissTambol.text,
           province: commissProvince.text,
           commissPreName: commissPreName.text,
+          yearOfData: selectedYearOfData.value,
         ),
       );
       final response = await CommissService().create(commisss.obs.value);
@@ -140,6 +153,7 @@ class ManageCommissController extends GetxController {
               commissSurName: item.commissSurName,
               commissTelephone: item.commissTelephone,
               commissPreName: item.commissPreName,
+              yearOfData: item.yearOfData,
             ),
           );
           //upload image profile
@@ -192,6 +206,7 @@ class ManageCommissController extends GetxController {
           district: commissTambol.text,
           province: commissProvince.text,
           commissPreName: commissPreName.text,
+          yearOfData: selectedYearOfData.value,
         ),
       );
       final result = await CommissService().update(commisss.obs.value);
@@ -224,6 +239,7 @@ class ManageCommissController extends GetxController {
           commissList[selectedIndexFromTable].province = item.province;
           commissList[selectedIndexFromTable].commissPreName =
               item.commissPreName;
+          commissList[selectedIndexFromTable].yearOfData = item.yearOfData;
         }
       }
       isLoading.value = false;
@@ -279,6 +295,9 @@ class ManageCommissController extends GetxController {
         commissTambol.text = item.district!;
         commissProvince.text = item.province!;
         commissPreName.text = item.commissPreName!;
+
+        selectedYearOfData.value = item.yearOfData!;
+
         if (item.commissPositionCommu!.isNotEmpty) {
           commissPositionCommuChips
               .addAll(item.commissPositionCommu!.split('|'));

@@ -31,3 +31,5 @@ const commissOrder =
     "commiss_position = 'ประธานกรรมการ' DESC ,commiss_position = 'รองประธานกรรมการ' DESC ,commiss_position = 'กรรมการ' DESC ,commiss_position = 'กรรมการ/นายทะเบียน' DESC ,commiss_position = 'กรรมการ/เหรัญญิก' DESC ,commiss_position = 'กรรมการ/ประชาสัมพันธ์' DESC ,commiss_position = 'กรรมการ/เลขานุการ' DESC ";
 
 const PRIVATE_KEY = '32characterslongpassphraseneeded';
+
+const int loopYear = 3;

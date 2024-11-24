@@ -118,6 +118,50 @@ class ManageDataDetail extends StatelessWidget {
                     direction: Axis.horizontal,
                     children: [
                       CustomText(
+                        text: "ข้อมูลปี",
+                        color: Colors.black87.withOpacity(.9),
+                      ),
+                      CustomText(
+                        text: "*",
+                        color: Colors.red.withOpacity(.9),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: defaultPadding / 2),
+                  Obx(
+                    () => InputDecorator(
+                      decoration: const InputDecoration(
+                        isCollapsed: true,
+                      ),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<String>(
+                          elevation: 0,
+                          // value: null,
+                          // value: controller.provinceList.obs.value[0],
+                          value: controller.selectedYearOfData.value,
+                          isDense: true,
+                          onChanged: (newValue) {
+                            controller.selectedYearOfData.value = newValue!;
+                          },
+                          items:
+                              controller.listYearOfData.obs.value.map((item) {
+                            return DropdownMenuItem<String>(
+                              value: item,
+                              child: Text(
+                                item,
+                                textScaler: const TextScaler.linear(0.9),
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: defaultPadding / 2),
+                  Wrap(
+                    direction: Axis.horizontal,
+                    children: [
+                      CustomText(
                         text: "ชื่อ ศส.ปชต.",
                         color: Colors.black87.withOpacity(.9),
                       ),

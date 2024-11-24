@@ -136,69 +136,51 @@ class ManageStationDetail extends StatelessWidget {
           children: [
             Expanded(
               // flex: 2,
-              child: Container(
-                // color: Colors.cyan,
-                // padding: EdgeInsets.all(defaultPadding),
-                child: Column(
-                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: defaultPadding),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Spacer(flex: 1),
-                        IconButton(
-                          icon: const Icon(Icons.add_sharp),
-                          onPressed: () async {
-                            final isValid =
-                                _formKeyStation.currentState!.validate();
-                            if (isValid) {
-                              if (controller.addressController.selectedProvince
-                                          .value !=
-                                      '' &&
-                                  controller.addressController.selectedAmphure
-                                          .value !=
-                                      '' &&
-                                  controller.addressController.selectedTambol
-                                          .value !=
-                                      '') {
+              child: Column(
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: defaultPadding),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Spacer(flex: 1),
+                      IconButton(
+                        icon: const Icon(Icons.add_sharp),
+                        onPressed: () async {
+                          final isValid =
+                              _formKeyStation.currentState!.validate();
+                          if (isValid) {
+                            if (controller.addressController.selectedProvince
+                                        .value !=
+                                    '' &&
+                                controller.addressController.selectedAmphure
+                                        .value !=
+                                    '' &&
+                                controller.addressController.selectedTambol
+                                        .value !=
+                                    '') {
+                              Get.dialog(
+                                const Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                                barrierDismissible: false,
+                              );
+                              var checkDup = await controller.checkDuplicate();
+                              Get.back();
+                              if (!checkDup) {
                                 Get.dialog(
                                   const Center(
                                     child: CircularProgressIndicator(),
                                   ),
                                   barrierDismissible: false,
                                 );
-                                var checkDup =
-                                    await controller.checkDuplicate();
+                                await controller.save();
                                 Get.back();
-                                if (!checkDup) {
-                                  Get.dialog(
-                                    const Center(
-                                      child: CircularProgressIndicator(),
-                                    ),
-                                    barrierDismissible: false,
-                                  );
-                                  await controller.save();
-                                  Get.back();
-                                } else {
-                                  Get.dialog(
-                                    AlertDialog(
-                                      content: const Text('ชื่อ ศส.ปชต. ซ้ำ'),
-                                      actions: [
-                                        TextButton(
-                                          child: const Text("ปิด"),
-                                          onPressed: () => Get.back(),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                }
                               } else {
                                 Get.dialog(
                                   AlertDialog(
-                                    content: const Text(
-                                        'กรุณาเลือก จังหวัด/อำเภอ/ตำบล'),
+                                    content: const Text('ชื่อ ศส.ปชต. ซ้ำ'),
                                     actions: [
                                       TextButton(
                                         child: const Text("ปิด"),
@@ -208,107 +190,120 @@ class ManageStationDetail extends StatelessWidget {
                                   ),
                                 );
                               }
-                            }
-                          },
-                        ),
-                        const Spacer(flex: 1),
-                        IconButton(
-                          icon: const Icon(Icons.edit_sharp),
-                          onPressed: () async {
-                            final isValid =
-                                _formKeyStation.currentState!.validate();
-                            if (isValid) {
-                              if (controller.addressController.selectedProvince
-                                          .value !=
-                                      '' &&
-                                  controller.addressController.selectedAmphure
-                                          .value !=
-                                      '' &&
-                                  controller.addressController.selectedTambol
-                                          .value !=
-                                      '') {
-                                Get.dialog(
-                                  const Center(
-                                    child: CircularProgressIndicator(),
-                                  ),
-                                  barrierDismissible: false,
-                                );
-                                await controller.edit();
-                                Get.back();
-                              } else {
-                                Get.dialog(
-                                  AlertDialog(
-                                    content: const Text(
-                                        'กรุณาเลือก จังหวัด/อำเภอ/ตำบล'),
-                                    actions: [
-                                      TextButton(
-                                        child: const Text("ปิด"),
-                                        onPressed: () => Get.back(),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              }
-                            }
-                          },
-                        ),
-                        const Spacer(flex: 1),
-                        IconButton(
-                          icon: const Icon(Icons.delete_sharp),
-                          onPressed: () async {
-                            if (controller.selectedId > 0) {
-                              final result = await Get.dialog(
+                            } else {
+                              Get.dialog(
                                 AlertDialog(
-                                  content: const CustomText(
-                                    text: "ยืนยันการลบข้อมูล ?",
-                                    scale: 1.2,
-                                  ),
+                                  content: const Text(
+                                      'กรุณาเลือก จังหวัด/อำเภอ/ตำบล'),
                                   actions: [
                                     TextButton(
-                                      child: const CustomText(
-                                        text: "ยืนยัน",
-                                        scale: 1.2,
-                                        color: Colors.red,
-                                      ),
-                                      onPressed: () => Get.back(result: 'Y'),
-                                    ),
-                                    TextButton(
-                                      child: const CustomText(
-                                        text: "ปิด",
-                                        scale: 1.2,
-                                        color: Colors.green,
-                                      ),
-                                      onPressed: () => Get.back(result: "N"),
+                                      child: const Text("ปิด"),
+                                      onPressed: () => Get.back(),
                                     ),
                                   ],
                                 ),
                               );
-                              if (result == 'Y') {
-                                Get.dialog(
-                                  const Center(
-                                    child: CircularProgressIndicator(),
-                                  ),
-                                  barrierDismissible: false,
-                                );
-                                await controller.delete();
-                                Get.back();
-                              }
                             }
-                          },
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: defaultPadding * 2),
-                    const Padding(
-                      padding: EdgeInsets.only(left: defaultPadding / 2),
-                      child: CustomText(
-                        text: "รายละเอียด",
-                        weight: FontWeight.bold,
-                        scale: 1.2,
+                          }
+                        },
                       ),
+                      const Spacer(flex: 1),
+                      IconButton(
+                        icon: const Icon(Icons.edit_sharp),
+                        onPressed: () async {
+                          final isValid =
+                              _formKeyStation.currentState!.validate();
+                          if (isValid) {
+                            if (controller.addressController.selectedProvince
+                                        .value !=
+                                    '' &&
+                                controller.addressController.selectedAmphure
+                                        .value !=
+                                    '' &&
+                                controller.addressController.selectedTambol
+                                        .value !=
+                                    '') {
+                              Get.dialog(
+                                const Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                                barrierDismissible: false,
+                              );
+                              await controller.edit();
+                              Get.back();
+                            } else {
+                              Get.dialog(
+                                AlertDialog(
+                                  content: const Text(
+                                      'กรุณาเลือก จังหวัด/อำเภอ/ตำบล'),
+                                  actions: [
+                                    TextButton(
+                                      child: const Text("ปิด"),
+                                      onPressed: () => Get.back(),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
+                          }
+                        },
+                      ),
+                      const Spacer(flex: 1),
+                      IconButton(
+                        icon: const Icon(Icons.delete_sharp),
+                        onPressed: () async {
+                          if (controller.selectedId > 0) {
+                            final result = await Get.dialog(
+                              AlertDialog(
+                                content: const CustomText(
+                                  text: "ยืนยันการลบข้อมูล ?",
+                                  scale: 1.2,
+                                ),
+                                actions: [
+                                  TextButton(
+                                    child: const CustomText(
+                                      text: "ยืนยัน",
+                                      scale: 1.2,
+                                      color: Colors.red,
+                                    ),
+                                    onPressed: () => Get.back(result: 'Y'),
+                                  ),
+                                  TextButton(
+                                    child: const CustomText(
+                                      text: "ปิด",
+                                      scale: 1.2,
+                                      color: Colors.green,
+                                    ),
+                                    onPressed: () => Get.back(result: "N"),
+                                  ),
+                                ],
+                              ),
+                            );
+                            if (result == 'Y') {
+                              Get.dialog(
+                                const Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                                barrierDismissible: false,
+                              );
+                              await controller.delete();
+                              Get.back();
+                            }
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: defaultPadding * 2),
+                  const Padding(
+                    padding: EdgeInsets.only(left: defaultPadding / 2),
+                    child: CustomText(
+                      text: "รายละเอียด",
+                      weight: FontWeight.bold,
+                      scale: 1.2,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
             // const Spacer(flex: 1),

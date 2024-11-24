@@ -95,6 +95,10 @@ class CommissStatistics extends StatelessWidget {
                         label: Text(""),
                         fixedWidth: 30,
                       ),
+                      const DataColumn2(
+                        label: Text("ข้อมูลปี"),
+                        fixedWidth: 60,
+                      ),
                       DataColumn2(
                         label: const Text("ชื่อ-นามสกุล"),
                         size: ColumnSize.S,
@@ -198,6 +202,18 @@ DataRow commissDataRow(
           style: const TextStyle(
             fontSize: 12,
           ),
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              commissData.yearOfData!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
         ),
       ),
       DataCell(

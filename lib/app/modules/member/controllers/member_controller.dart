@@ -106,6 +106,7 @@ class MemberController extends GetxController {
             memberLocation: item.memberLocation,
             memberPreName: item.memberPreName,
             memberStationName: item.memberStationName,
+            yearOfData: item.yearOfData,
           ),
         );
       }

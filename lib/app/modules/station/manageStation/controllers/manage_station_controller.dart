@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/app/api/api.dart';
-import 'package:frontend/app/api/api_end_points.dart';
-import 'package:frontend/app/modules/address/controllers/address_controller.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../api/api.dart';
+import '../../../../api/api_end_points.dart';
 import '../../../../api/services/file_attach_service.dart';
 import '../../../../api/services/station_service.dart';
 import '../../../../data/requests/station_service_request.dart';
 import '../../../../data/responses/station_service_response.dart';
+import '../../../../shared/constant.dart';
 import '../../../../shared/controller/info_card_controller.dart';
 import '../../../../shared/utils.dart';
+import '../../../address/controllers/address_controller.dart';
 import '../../../dashboard/controllers/dashboard_controller.dart';
 import '../../../training/controllers/training_controller.dart';
 import '../../controllers/station_controller.dart';
@@ -46,7 +47,6 @@ class ManageStationController extends GetxController {
   int selectedIndexFromTable = -1;
   int selectedId = -1;
 
-  int loopYear = 3;
   final listYearOfData = <String>[""].obs;
   RxString selectedYearOfData = ''.obs;
 

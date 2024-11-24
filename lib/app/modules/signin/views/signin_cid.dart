@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../controllers/signin_controller.dart';
@@ -15,8 +14,9 @@ class SignInCID extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: CustomText(
-        text: "เลขบัตรประจำตัวประชาชน",
-        color: Colors.black87.withOpacity(.9),
+        text: "ยืนยันตัวตน 2 ชั้น",
+        color: Colors.red.withOpacity(.9),
+        scale: 0.6,
       ),
       content: SizedBox(
         child: SingleChildScrollView(
@@ -24,6 +24,10 @@ class SignInCID extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
+              CustomText(
+                text: "เลขบัตรประจำตัวประชาชน",
+                color: Colors.black87.withOpacity(.9),
+              ),
               const SizedBox(height: defaultPadding),
               TextFormField(
                 controller: controller.cid,

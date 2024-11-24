@@ -1,5 +1,6 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 import '../../../../data/responses/commiss_service_response.dart';
@@ -123,7 +124,7 @@ class DashboardDetailLayoutLarge extends StatelessWidget {
                             ? const Center(child: CircularProgressIndicator())
                             : SizedBox(
                                 height: 600,
-                                child: DashboardDetailNetwork(
+                                child: DashboardDetailMember(
                                   header: "ข้อมูลสมาชิก",
                                   subHeader: "",
                                   listMember: memberController
@@ -249,10 +250,32 @@ class DashboardDetailCommiss extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          CustomText(
-            text: header,
-            weight: FontWeight.bold,
-            size: 12,
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              CustomText(
+                text: header,
+                weight: FontWeight.bold,
+                size: 12,
+              ),
+              const SizedBox(width: defaultPadding / 2),
+              ElevatedButton.icon(
+                icon: const FaIcon(FontAwesomeIcons.fileExcel),
+                label: const CustomText(
+                  text: "Excel",
+                  color: Colors.white,
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromARGB(255, 39, 144, 43),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: defaultPadding, horizontal: defaultPadding / 2),
+                ),
+                onPressed: () {
+                  // Get.toNamed(Routes.MANAGE_COMMISS);
+                },
+              ),
+            ],
           ),
           const SizedBox(height: defaultPadding / 2),
           Expanded(
@@ -274,6 +297,10 @@ class DashboardDetailCommiss extends StatelessWidget {
                   const DataColumn2(
                     label: Text(""),
                     fixedWidth: 30,
+                  ),
+                  const DataColumn2(
+                    label: Text("ข้อมูลปี"),
+                    fixedWidth: 60,
                   ),
                   DataColumn2(
                     label: const Text("ชื่อ-นามสกุล"),
@@ -348,8 +375,8 @@ class DashboardDetailCommiss extends StatelessWidget {
   }
 }
 
-class DashboardDetailNetwork extends StatelessWidget {
-  const DashboardDetailNetwork({
+class DashboardDetailMember extends StatelessWidget {
+  const DashboardDetailMember({
     super.key,
     this.header = "",
     this.subHeader = "",
@@ -373,10 +400,32 @@ class DashboardDetailNetwork extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          CustomText(
-            text: header,
-            weight: FontWeight.bold,
-            size: 12,
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              CustomText(
+                text: header,
+                weight: FontWeight.bold,
+                size: 12,
+              ),
+              const SizedBox(width: defaultPadding / 2),
+              ElevatedButton.icon(
+                icon: const FaIcon(FontAwesomeIcons.fileExcel),
+                label: const CustomText(
+                  text: "Excel",
+                  color: Colors.white,
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromARGB(255, 39, 144, 43),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: defaultPadding, horizontal: defaultPadding / 2),
+                ),
+                onPressed: () {
+                  // Get.toNamed(Routes.MANAGE_COMMISS);
+                },
+              ),
+            ],
           ),
           const SizedBox(height: defaultPadding / 2),
           Expanded(
@@ -398,6 +447,10 @@ class DashboardDetailNetwork extends StatelessWidget {
                   const DataColumn2(
                     label: Text(""),
                     fixedWidth: 30,
+                  ),
+                  const DataColumn2(
+                    label: Text("ข้อมูลปี"),
+                    fixedWidth: 60,
                   ),
                   DataColumn2(
                     label: const Text("ชื่อ-นามสกุล"),
@@ -490,6 +543,18 @@ DataRow commissDataRow(
       DataCell(
         Wrap(
           children: [
+            Text(
+              commissData.yearOfData!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -539,6 +604,18 @@ DataRow memberDataRow(
           style: const TextStyle(
             fontSize: 12,
           ),
+        ),
+      ),
+      DataCell(
+        Wrap(
+          children: [
+            Text(
+              memberData.yearOfData!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
         ),
       ),
       DataCell(

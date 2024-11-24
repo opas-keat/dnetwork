@@ -7,7 +7,6 @@ class Api {
   static const int connectionTimeout = 15000;
 
   // static const baseUrl = "https://d-network.ect.go.th";
-  // static const baseUrl = "https://d-network.ect.go.th/";
 
   static const baseUrl = "http://127.0.0.1:9999";
 

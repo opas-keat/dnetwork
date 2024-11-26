@@ -2,7 +2,6 @@ import 'dart:html' as html;
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:talker_flutter/talker_flutter.dart';
 
 import '../../../api/services/auth_service.dart';
 import '../../../api/services/user_service.dart';

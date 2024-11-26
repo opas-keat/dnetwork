@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 
-import '../../api/services/user_service.dart';
 import '../utils.dart';
 
 class PdpaController extends GetxController {

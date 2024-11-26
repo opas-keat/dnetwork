@@ -3,14 +3,11 @@ import 'dart:html' as html;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'controller/pdpa_controller.dart';
-
 class PdpaView extends StatelessWidget {
   const PdpaView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final PdpaController controller = Get.put(PdpaController());
     return AlertDialog(
       title: Container(
         alignment: Alignment.center,

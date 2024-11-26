@@ -11,8 +11,7 @@ import 'package:talker_flutter/talker_flutter.dart';
 
 import 'dart:convert'; // สำหรับการแปลง base64
 import 'dart:typed_data'; // สำหรับการจัดการ byte array
-import 'package:crypto/crypto.dart'; // สำหรับสร้าง HMAC (ไม่ใช้ในกรณีนี้)
-import 'package:crypto/crypto.dart' as crypto;
+// สำหรับสร้าง HMAC (ไม่ใช้ในกรณีนี้)
 import 'package:pointycastle/export.dart';
 
 import 'constant.dart'; // สำหรับ AES CBC

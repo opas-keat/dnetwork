@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'custom_text.dart';
 
 class ShowStation extends StatelessWidget {
-  ShowStation({
+  const ShowStation({
     super.key,
     required this.header,
   });
-  String header;
+  final String header;
 
   @override
   Widget build(BuildContext context) {

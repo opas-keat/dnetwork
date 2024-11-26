@@ -11,8 +11,6 @@ import '../../../../shared/custom_text.dart';
 import '../../../../shared/main_chart.dart';
 import '../../../../shared/show_station.dart';
 import '../../../../shared/utils.dart';
-import '../../../commiss/controllers/commiss_controller.dart';
-import '../../../member/controllers/member_controller.dart';
 import '../../../training/controllers/training_controller.dart';
 import '../controllers/dashboard_detail_controller.dart';
 
@@ -21,8 +19,6 @@ class DashboardDetailLayoutLarge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final trainingController = Get.put(TrainingController());
-    final commissController = Get.put(CommissController());
-    final memberController = Get.put(MemberController());
     final dashboardDetailController = Get.put(DashboardDetailController());
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,15 +96,16 @@ class DashboardDetailLayoutLarge extends StatelessWidget {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.only(left: defaultPadding / 2),
-                      child: GetBuilder<CommissController>(
-                        builder: (_) => commissController.isLoadingChart.value
+                      child: GetBuilder<DashboardDetailController>(
+                        builder: (_) => dashboardDetailController
+                                .isLoadingCommiss.value
                             ? const Center(child: CircularProgressIndicator())
                             : SizedBox(
                                 height: 600,
                                 child: DashboardDetailCommiss(
                                   header: "ข้อมูลกรรมการ",
                                   subHeader: "",
-                                  listCommiss: commissController
+                                  listCommiss: dashboardDetailController
                                       .listCommissStatistics.obs.value,
                                 ),
                               ),
@@ -118,15 +115,16 @@ class DashboardDetailLayoutLarge extends StatelessWidget {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.only(left: defaultPadding / 2),
-                      child: GetBuilder<MemberController>(
-                        builder: (_) => memberController.isLoadingChart.value
+                      child: GetBuilder<DashboardDetailController>(
+                        builder: (_) => dashboardDetailController
+                                .isLoadingMember.value
                             ? const Center(child: CircularProgressIndicator())
                             : SizedBox(
                                 height: 600,
                                 child: DashboardDetailMember(
                                   header: "ข้อมูลสมาชิก",
                                   subHeader: "",
-                                  listMember: memberController
+                                  listMember: dashboardDetailController
                                       .listMemberStatistics.obs.value,
                                 ),
                               ),

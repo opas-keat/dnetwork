@@ -1,5 +1,10 @@
 import 'package:get/get.dart';
 
+import '../../../../api/api_params.dart';
+import '../../../../api/services/commiss_service.dart';
+import '../../../../api/services/member_service.dart';
+import '../../../../data/responses/commiss_service_response.dart';
+import '../../../../data/responses/member_service_response.dart';
 import '../../../../data/responses/station_service_response.dart';
 import '../../../../shared/utils.dart';
 
@@ -8,10 +13,19 @@ class DashboardDetailController extends GetxController {
   RxBool isLoading = true.obs;
   RxBool isLoadingAdd = true.obs;
   RxBool isLoadingChart = true.obs;
+  RxBool isLoadingCommiss = true.obs;
+  RxBool isLoadingMember = true.obs;
+
+  final listCommissStatistics = <CommissData>[].obs;
+  final listMemberStatistics = <MemberData>[].obs;
 
   // RxString selectedProvince = ''.obs;
   final stationList = <StationData>[].obs;
   RxString stationName = ''.obs;
+
+  int currentPage = 1;
+  RxInt offset = 0.obs;
+  String defaultCommissOrder = queryParamOrderBy;
 
   @override
   void onInit() {
@@ -31,9 +45,87 @@ class DashboardDetailController extends GetxController {
     super.onClose();
   }
 
-  getById() {
-    talker.info('$logTitle:getById:');
+  getMember() async {
+    talker.info('$logTitle:getMember:');
+    talker.info(stationList[0].id!);
     talker.info(stationList[0].name);
     stationName.value = stationList[0].name!;
+    isLoadingMember.value = true;
+    Map<String, String> qParams = {
+      "offset": offset.value.toString(),
+      "limit": queryParamLimit,
+      "order": queryParamOrderBy,
+      "province": stationList[0].province!,
+      "amphure": stationList[0].amphure!,
+      "district": stationList[0].district!,
+    };
+    try {
+      final result = await MemberService().list(qParams);
+      for (final item in result!.data!) {
+        listMemberStatistics.add(
+          MemberData(
+            id: item.id,
+            memberFirstName: item.memberFirstName,
+            memberSurName: item.memberSurName,
+            province: item.province,
+            amphure: item.amphure,
+            district: item.district,
+            memberTelephone: item.memberTelephone,
+            memberPosition: item.memberPosition,
+            memberDate: item.memberDate,
+            memberLocation: item.memberLocation,
+            memberPreName: item.memberPreName,
+            memberStationName: item.memberStationName,
+            yearOfData: item.yearOfData,
+          ),
+        );
+      }
+      isLoadingMember.value = false;
+    } catch (e) {
+      talker.error('$e');
+    }
+  }
+
+  getCommiss() async {
+    talker.info('$logTitle:getCommiss:');
+    talker.info(stationList[0].id!);
+    talker.info(stationList[0].name);
+    stationName.value = stationList[0].name!;
+    isLoadingCommiss.value = true;
+    Map<String, String> qParams = {
+      "offset": offset.value.toString(),
+      "limit": queryParamLimit,
+      "order": defaultCommissOrder,
+      "province": stationList[0].province!,
+      "amphure": stationList[0].amphure!,
+      "district": stationList[0].district!,
+    };
+    try {
+      final result = await CommissService().list(qParams);
+      // listCommissStatistics.clear();
+      for (final item in result!.data!) {
+        listCommissStatistics.add(
+          CommissData(
+            id: item.id,
+            commissPreName: item.commissPreName,
+            commissFirstName: item.commissFirstName,
+            commissSurName: item.commissSurName,
+            province: item.province,
+            amphure: item.amphure,
+            district: item.district,
+            commissTelephone: item.commissTelephone,
+            commissPosition: item.commissPosition,
+            commissDate: item.commissDate,
+            commissLocation: item.commissLocation,
+            commissStationName: item.commissStationName,
+            yearOfData: item.yearOfData,
+          ),
+        );
+      }
+      update();
+      isLoadingCommiss.value = false;
+    } catch (e) {
+      talker.error('$e');
+    }
   }
 }

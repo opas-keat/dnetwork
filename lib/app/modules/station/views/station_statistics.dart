@@ -177,7 +177,8 @@ DataRow stationDataRow(
       // controller.stationList.add(stationData);
       dashboardDetailController.stationList.clear();
       dashboardDetailController.stationList.add(stationData);
-      dashboardDetailController.getById();
+      dashboardDetailController.getCommiss();
+      dashboardDetailController.getMember();
       Get.toNamed(Routes.DASHBOARD_DETAIL);
       // controller.selectDataFromTable(index, budgetData);
     },

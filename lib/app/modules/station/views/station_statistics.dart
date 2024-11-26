@@ -175,8 +175,10 @@ DataRow stationDataRow(
     onSelectChanged: (value) {
       // controller.stationList.clear();
       // controller.stationList.add(stationData);
-      dashboardDetailController.stationList.clear();
-      dashboardDetailController.stationList.add(stationData);
+
+      // dashboardDetailController.stationList.clear();
+      // dashboardDetailController.stationList.add(stationData);
+      dashboardDetailController.stationData.value = stationData;
       dashboardDetailController.getCommiss();
       dashboardDetailController.getMember();
       Get.toNamed(Routes.DASHBOARD_DETAIL);

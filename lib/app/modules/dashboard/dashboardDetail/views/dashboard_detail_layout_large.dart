@@ -11,6 +11,7 @@ import '../../../../shared/custom_text.dart';
 import '../../../../shared/main_chart.dart';
 import '../../../../shared/show_station.dart';
 import '../../../../shared/utils.dart';
+import '../../../station/manageStation/controllers/manage_station_controller.dart';
 import '../../../training/controllers/training_controller.dart';
 import '../controllers/dashboard_detail_controller.dart';
 
@@ -20,6 +21,7 @@ class DashboardDetailLayoutLarge extends StatelessWidget {
   Widget build(BuildContext context) {
     final trainingController = Get.put(TrainingController());
     final dashboardDetailController = Get.put(DashboardDetailController());
+    final manageStationController = Get.put(ManageStationController());
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -56,32 +58,56 @@ class DashboardDetailLayoutLarge extends StatelessWidget {
                       ),
                       child: Row(
                         children: [
-                          Container(
-                            padding:
-                                const EdgeInsets.only(left: defaultPadding / 2),
-                            child: Wrap(
-                              direction: Axis.vertical,
-                              runAlignment: WrapAlignment.start,
-                              children: [
-                                Text(
-                                  "ชื่อ ศส.ปชต. :${dashboardDetailController.stationList[0].name!}",
-                                  style: const TextStyle(
-                                    fontSize: 12,
+                          Expanded(
+                            child: Container(
+                              padding: const EdgeInsets.only(
+                                  left: defaultPadding / 2),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Wrap(
+                                    direction: Axis.vertical,
+                                    runAlignment: WrapAlignment.start,
+                                    children: [
+                                      Text(
+                                        "ชื่อ ศส.ปชต. :${dashboardDetailController.stationData.value.name!}",
+                                        style: const TextStyle(
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                      Text(
+                                        "ที่ตั้ง :${dashboardDetailController.stationData.value.province!}/${dashboardDetailController.stationData.value.amphure!}/${dashboardDetailController.stationData.value.district!}",
+                                        style: const TextStyle(
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                      Text(
+                                        "Facebook/Location: ${dashboardDetailController.stationData.value.facebook!}",
+                                        style: const TextStyle(
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ),
-                                Text(
-                                  "ที่ตั้ง :${dashboardDetailController.stationList[0].province!}/${dashboardDetailController.stationList[0].amphure!}/${dashboardDetailController.stationList[0].district!}",
-                                  style: const TextStyle(
-                                    fontSize: 12,
+                                  const SizedBox(width: defaultPadding / 2),
+                                  IconButton(
+                                    onPressed: () {
+                                      manageStationController.stationList
+                                          .clear();
+                                      manageStationController.stationList.add(
+                                          dashboardDetailController
+                                              .stationData.value);
+                                      Get.toNamed(Routes.MANAGE_STATION);
+                                    },
+                                    icon: const Icon(
+                                      Icons.edit_sharp,
+                                    ),
+                                    color: primaryColor,
                                   ),
-                                ),
-                                Text(
-                                  "Facebook/Location: ${dashboardDetailController.stationList[0].facebook!}",
-                                  style: const TextStyle(
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ],

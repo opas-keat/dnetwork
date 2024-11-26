@@ -20,7 +20,8 @@ class DashboardDetailController extends GetxController {
   final listMemberStatistics = <MemberData>[].obs;
 
   // RxString selectedProvince = ''.obs;
-  final stationList = <StationData>[].obs;
+  // final stationList = <StationData>[].obs;
+  final stationData = StationData().obs;
   RxString stationName = ''.obs;
 
   int currentPage = 1;
@@ -47,20 +48,21 @@ class DashboardDetailController extends GetxController {
 
   getMember() async {
     talker.info('$logTitle:getMember:');
-    talker.info(stationList[0].id!);
-    talker.info(stationList[0].name);
-    stationName.value = stationList[0].name!;
+    talker.info(stationData.value.id!);
+    talker.info(stationData.value.name);
+    stationName.value = stationData.value.name!;
     isLoadingMember.value = true;
     Map<String, String> qParams = {
       "offset": offset.value.toString(),
       "limit": queryParamLimit,
       "order": queryParamOrderBy,
-      "province": stationList[0].province!,
-      "amphure": stationList[0].amphure!,
-      "district": stationList[0].district!,
+      "province": stationData.value.province!,
+      "amphure": stationData.value.amphure!,
+      "district": stationData.value.district!,
     };
     try {
       final result = await MemberService().list(qParams);
+      listMemberStatistics.clear();
       for (final item in result!.data!) {
         listMemberStatistics.add(
           MemberData(
@@ -88,21 +90,21 @@ class DashboardDetailController extends GetxController {
 
   getCommiss() async {
     talker.info('$logTitle:getCommiss:');
-    talker.info(stationList[0].id!);
-    talker.info(stationList[0].name);
-    stationName.value = stationList[0].name!;
+    talker.info(stationData.value.id!);
+    talker.info(stationData.value.name);
+    stationName.value = stationData.value.name!;
     isLoadingCommiss.value = true;
     Map<String, String> qParams = {
       "offset": offset.value.toString(),
       "limit": queryParamLimit,
       "order": defaultCommissOrder,
-      "province": stationList[0].province!,
-      "amphure": stationList[0].amphure!,
-      "district": stationList[0].district!,
+      "province": stationData.value.province!,
+      "amphure": stationData.value.amphure!,
+      "district": stationData.value.district!,
     };
     try {
       final result = await CommissService().list(qParams);
-      // listCommissStatistics.clear();
+      listCommissStatistics.clear();
       for (final item in result!.data!) {
         listCommissStatistics.add(
           CommissData(

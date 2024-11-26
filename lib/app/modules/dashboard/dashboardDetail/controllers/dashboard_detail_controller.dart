@@ -1,19 +1,28 @@
 import 'package:get/get.dart';
 
+import '../../../../data/responses/station_service_response.dart';
+import '../../../../shared/utils.dart';
+
 class DashboardDetailController extends GetxController {
-  final logTitle = "BudgetController";
+  final logTitle = "DashboardDetailController";
   RxBool isLoading = true.obs;
   RxBool isLoadingAdd = true.obs;
   RxBool isLoadingChart = true.obs;
 
-  final count = 0.obs;
+  // RxString selectedProvince = ''.obs;
+  final stationList = <StationData>[].obs;
+  RxString stationName = ''.obs;
+
   @override
   void onInit() {
+    talker.info('$logTitle:onInit:');
     super.onInit();
   }
 
   @override
   void onReady() {
+    update();
+
     super.onReady();
   }
 
@@ -22,5 +31,9 @@ class DashboardDetailController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+  getById() {
+    talker.info('$logTitle:getById:');
+    talker.info(stationList[0].name);
+    stationName.value = stationList[0].name!;
+  }
 }

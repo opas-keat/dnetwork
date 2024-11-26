@@ -1,3 +1,5 @@
+import 'dart:html' as html;
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -166,10 +168,12 @@ class PdpaView extends StatelessWidget {
         TextButton(
             child: const Text("ตกลง"),
             onPressed: () async {
-              final result = await controller.updatePdpa();
-              if (result) {
-                Get.back();
-              }
+              // final result = await controller.updatePdpa();
+              html.window.sessionStorage["pdpa_check"] = "Y";
+              Get.back();
+              // if (result) {
+              //   Get.back();
+              // }
             }),
       ],
     );

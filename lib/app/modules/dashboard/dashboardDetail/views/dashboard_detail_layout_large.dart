@@ -9,11 +9,12 @@ import '../../../../routes/app_pages.dart';
 import '../../../../shared/constant.dart';
 import '../../../../shared/custom_text.dart';
 import '../../../../shared/main_chart.dart';
-import '../../../../shared/show_province.dart';
+import '../../../../shared/show_station.dart';
 import '../../../../shared/utils.dart';
 import '../../../commiss/controllers/commiss_controller.dart';
 import '../../../member/controllers/member_controller.dart';
 import '../../../training/controllers/training_controller.dart';
+import '../controllers/dashboard_detail_controller.dart';
 
 class DashboardDetailLayoutLarge extends StatelessWidget {
   const DashboardDetailLayoutLarge({super.key});
@@ -22,6 +23,7 @@ class DashboardDetailLayoutLarge extends StatelessWidget {
     final trainingController = Get.put(TrainingController());
     final commissController = Get.put(CommissController());
     final memberController = Get.put(MemberController());
+    final dashboardDetailController = Get.put(DashboardDetailController());
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -29,12 +31,15 @@ class DashboardDetailLayoutLarge extends StatelessWidget {
           flex: 4,
           child: Column(
             children: [
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  ShowProvince(),
-                  Spacer(flex: 2),
-                  SizedBox(width: defaultPadding / 2),
+                  // ShowProvince(),
+                  ShowStation(
+                    header: dashboardDetailController.stationName.value,
+                  ),
+                  const Spacer(flex: 2),
+                  const SizedBox(width: defaultPadding / 2),
                 ],
               ),
               const SizedBox(height: defaultPadding / 2),
@@ -58,31 +63,25 @@ class DashboardDetailLayoutLarge extends StatelessWidget {
                           Container(
                             padding:
                                 const EdgeInsets.only(left: defaultPadding / 2),
-                            child: const Wrap(
+                            child: Wrap(
                               direction: Axis.vertical,
                               runAlignment: WrapAlignment.start,
                               children: [
                                 Text(
-                                  "ชื่อ ศส.ปชต. :กรุงเทพมหานตร",
-                                  style: TextStyle(
+                                  "ชื่อ ศส.ปชต. :${dashboardDetailController.stationList[0].name!}",
+                                  style: const TextStyle(
                                     fontSize: 12,
                                   ),
                                 ),
                                 Text(
-                                  "ที่ตั้ง :กรุงเทพมหานตร",
-                                  style: TextStyle(
+                                  "ที่ตั้ง :${dashboardDetailController.stationList[0].province!}/${dashboardDetailController.stationList[0].amphure!}/${dashboardDetailController.stationList[0].district!}",
+                                  style: const TextStyle(
                                     fontSize: 12,
                                   ),
                                 ),
                                 Text(
-                                  "ชื่อ ศส.ปชต. : กรุงเทพมหานตร",
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                  ),
-                                ),
-                                Text(
-                                  "Facebook/Location: กรุงเทพมหานตร",
-                                  style: TextStyle(
+                                  "Facebook/Location: ${dashboardDetailController.stationList[0].facebook!}",
+                                  style: const TextStyle(
                                     fontSize: 12,
                                   ),
                                 ),

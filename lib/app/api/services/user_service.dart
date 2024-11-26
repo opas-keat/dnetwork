@@ -158,6 +158,14 @@ class UserService {
     try {
       // UserServiceResponse userServiceResponse =
       //     UserServiceResponse.fromJson(jsonDecode(response.toString()));
+      await apiUtils.put(
+        url:
+            "${Api.ectApiContext}${Api.ectApiVersion}${ApiEndPoints.user}/pdpa",
+        // data: UserServiceRequest(users: listUsers),
+        options: Options(
+          headers: apiUtils.secureHeaders,
+        ),
+      );
       return true;
     } catch (e) {
       talker.error(e);

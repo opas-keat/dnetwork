@@ -248,8 +248,8 @@ DataRow DashboardDataRow(int index, ProvinceSummary provinceSummary) {
   return DataRow(
     onSelectChanged: (value) {
       talker.info("row selected: ${provinceSummary.name}");
-      // Get.toNamed(Routes.STATION);
-      Get.toNamed(Routes.DASHBOARD_DETAIL);
+      Get.toNamed(Routes.STATION);
+      // Get.toNamed(Routes.DETAIL_STATION);
     },
     cells: [
       // DataCell(Text(

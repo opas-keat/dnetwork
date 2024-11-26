@@ -1,22 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import '../../../../../responsive.dart';
-import '../../../../routes/app_pages.dart';
 import '../../../../shared/constant.dart';
 import '../../../../shared/custom_text.dart';
 import '../../../../shared/header.dart';
 import '../../../../shared/main_drawer.dart';
-import '../../../budget/views/budget_layout_large.dart';
-import '../../../budget/views/budget_layout_small.dart';
-import '../controllers/dashboard_detail_controller.dart';
 import 'dashboard_detail_layout_large.dart';
 
 class DashboardDetailView extends StatelessWidget {
   const DashboardDetailView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(DashboardDetailController());
     return Scaffold(
       appBar: !Responsive.isLargeScreen(context)
           ? AppBar(
@@ -32,7 +26,7 @@ class DashboardDetailView extends StatelessWidget {
                     // controller.currentPage = 1;
                     // controller.listBudgetStatistics.clear();
                     // controller.offset.value = int.parse(queryParamOffset);
-                    Get.toNamed(Routes.DASHBOARD);
+                    // Get.toNamed(Routes.DASHBOARD);
                   },
                   icon: const Icon(
                     Icons.add_sharp,
@@ -97,9 +91,8 @@ class DashboardDetailView extends StatelessWidget {
                 flex: Responsive.isLargeScreen(context) ? 6 : 1,
                 child: const Column(
                   children: [
-                    Header(moduleName: "dashboard"),
+                    Header(moduleName: "station"),
                     SizedBox(height: defaultPadding / 2),
-                    // BudgetLayoutLarge(),
                     DashboardDetailLayoutLarge(),
                     // Row(
                     //   children: [

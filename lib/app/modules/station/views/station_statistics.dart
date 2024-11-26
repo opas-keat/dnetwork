@@ -7,6 +7,7 @@ import '../../../data/responses/station_service_response.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_text.dart';
 import '../../../shared/utils.dart';
+import '../../dashboard/dashboardDetail/controllers/dashboard_detail_controller.dart';
 import '../controllers/station_controller.dart';
 import '../manageStation/controllers/manage_station_controller.dart';
 
@@ -17,6 +18,8 @@ class StationStatistics extends StatelessWidget {
   final StationController controller = Get.find<StationController>();
   final ManageStationController manageStationController =
       Get.put(ManageStationController());
+  final DashboardDetailController dashboardDetailController =
+      Get.put(DashboardDetailController());
 
   @override
   Widget build(BuildContext context) {
@@ -128,6 +131,7 @@ class StationStatistics extends StatelessWidget {
                             index,
                             controller.listStationStatistics.obs.value[index],
                             manageStationController,
+                            dashboardDetailController,
                           ),
                         ),
                       ),
@@ -164,13 +168,17 @@ DataRow stationDataRow(
   int index,
   StationData stationData,
   ManageStationController controller,
+  DashboardDetailController dashboardDetailController,
 ) {
   return DataRow.byIndex(
     index: index + 1,
     onSelectChanged: (value) {
-      controller.stationList.clear();
-      controller.stationList.add(stationData);
-      Get.toNamed(Routes.MANAGE_STATION);
+      // controller.stationList.clear();
+      // controller.stationList.add(stationData);
+      dashboardDetailController.stationList.clear();
+      dashboardDetailController.stationList.add(stationData);
+      dashboardDetailController.getById();
+      Get.toNamed(Routes.DASHBOARD_DETAIL);
       // controller.selectDataFromTable(index, budgetData);
     },
     cells: [

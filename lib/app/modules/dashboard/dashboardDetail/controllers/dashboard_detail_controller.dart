@@ -59,6 +59,7 @@ class DashboardDetailController extends GetxController {
       "province": stationData.value.province!,
       "amphure": stationData.value.amphure!,
       "district": stationData.value.district!,
+      "year_of_data": nowYearForSearch,
     };
     try {
       final result = await MemberService().list(qParams);
@@ -101,6 +102,7 @@ class DashboardDetailController extends GetxController {
       "province": stationData.value.province!,
       "amphure": stationData.value.amphure!,
       "district": stationData.value.district!,
+      "year_of_data": nowYearForSearch,
     };
     try {
       final result = await CommissService().list(qParams);

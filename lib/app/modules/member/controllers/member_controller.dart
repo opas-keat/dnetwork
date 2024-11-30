@@ -87,6 +87,7 @@ class MemberController extends GetxController {
       "member_station_name": memberStationName.text,
       "member_first_name": memberFirstName.text,
       "member_sur_name": memberSurName.text,
+      "year_of_data": nowYearForSearch,
     };
     try {
       final result = await MemberService().list(qParams);

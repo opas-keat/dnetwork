@@ -155,6 +155,7 @@ class CommissController extends GetxController {
       "commiss_station_name": commissStationName.text,
       "commiss_position": selectedCommissPosition.value,
       "commiss_position_commu": selectedCommissPositionCommu.value,
+      "year_of_data": nowYearForSearch,
     };
     try {
       final result = await CommissService().list(qParams);

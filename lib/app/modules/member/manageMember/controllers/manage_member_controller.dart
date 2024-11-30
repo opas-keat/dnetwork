@@ -325,6 +325,24 @@ class ManageMemberController extends GetxController {
     }
   }
 
+  setByStation(
+    String stationId,
+    String stationName,
+    String stationAmphure,
+    String stationDistrict,
+    String stationProvince,
+  ) {
+    try {
+      memberStationId.text = stationId;
+      memberStationName.text = stationName;
+      memberAmphure.text = stationAmphure;
+      memberTambol.text = stationDistrict;
+      memberProvince.text = stationProvince;
+    } catch (e) {
+      talker.error('$e');
+    }
+  }
+
   // Future<bool> saveMember() async {
   //   talker.info('$logTitle:saveMember:');
   //   isLoading.value = true;

@@ -336,6 +336,24 @@ class ManageCommissController extends GetxController {
     }
   }
 
+  setByStation(
+    String stationId,
+    String stationName,
+    String stationAmphure,
+    String stationDistrict,
+    String stationProvince,
+  ) {
+    try {
+      commissStationId.text = stationId;
+      commissStationName.text = stationName;
+      commissAmphure.text = stationAmphure;
+      commissTambol.text = stationDistrict;
+      commissProvince.text = stationProvince;
+    } catch (e) {
+      talker.error('$e');
+    }
+  }
+
   resetForm() {
     commissBirthYear.text = "";
     commissDate.text = "";

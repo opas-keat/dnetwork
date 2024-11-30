@@ -11,6 +11,10 @@ import '../../../../shared/custom_text.dart';
 import '../../../../shared/main_chart.dart';
 import '../../../../shared/show_station.dart';
 import '../../../../shared/utils.dart';
+import '../../../commiss/controllers/commiss_controller.dart';
+import '../../../commiss/manageCommiss/controllers/manage_commiss_controller.dart';
+import '../../../member/controllers/member_controller.dart';
+import '../../../member/manageMember/controllers/manage_member_controller.dart';
 import '../../../station/manageStation/controllers/manage_station_controller.dart';
 import '../../../training/controllers/training_controller.dart';
 import '../controllers/dashboard_detail_controller.dart';
@@ -268,6 +272,10 @@ class DashboardDetailCommiss extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final commissController = Get.put(CommissController());
+    final manageCommissController = Get.put(ManageCommissController());
+    final dashboardDetailController = Get.put(DashboardDetailController());
+
     return Container(
       padding: const EdgeInsets.symmetric(
           vertical: defaultPadding, horizontal: defaultPadding / 2),
@@ -374,7 +382,11 @@ class DashboardDetailCommiss extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                       vertical: defaultPadding, horizontal: defaultPadding / 2),
                 ),
-                onPressed: () {
+                onPressed: () async {
+                  commissController.commissStationName.text =
+                      dashboardDetailController.stationName.value;
+                  commissController.listCommissStatistics.clear();
+                  await commissController.listCommiss();
                   Get.toNamed(Routes.COMMISS);
                 },
               ),
@@ -392,6 +404,13 @@ class DashboardDetailCommiss extends StatelessWidget {
                       vertical: defaultPadding, horizontal: defaultPadding / 2),
                 ),
                 onPressed: () {
+                  manageCommissController.setByStation(
+                    dashboardDetailController.stationData.value.id.toString(),
+                    dashboardDetailController.stationData.value.name!,
+                    dashboardDetailController.stationData.value.amphure!,
+                    dashboardDetailController.stationData.value.district!,
+                    dashboardDetailController.stationData.value.province!,
+                  );
                   Get.toNamed(Routes.MANAGE_COMMISS);
                 },
               ),
@@ -418,6 +437,9 @@ class DashboardDetailMember extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final memberController = Get.put(MemberController());
+    final manageMemberController = Get.put(ManageMemberController());
+    final dashboardDetailController = Get.put(DashboardDetailController());
     return Container(
       padding: const EdgeInsets.symmetric(
           vertical: defaultPadding, horizontal: defaultPadding / 2),
@@ -524,7 +546,11 @@ class DashboardDetailMember extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                       vertical: defaultPadding, horizontal: defaultPadding / 2),
                 ),
-                onPressed: () {
+                onPressed: () async {
+                  memberController.memberStationName.text =
+                      dashboardDetailController.stationName.value;
+                  memberController.listMemberStatistics.clear();
+                  await memberController.listMember();
                   Get.toNamed(Routes.MEMBER);
                 },
               ),
@@ -542,6 +568,13 @@ class DashboardDetailMember extends StatelessWidget {
                       vertical: defaultPadding, horizontal: defaultPadding / 2),
                 ),
                 onPressed: () {
+                  manageMemberController.setByStation(
+                    dashboardDetailController.stationData.value.id.toString(),
+                    dashboardDetailController.stationData.value.name!,
+                    dashboardDetailController.stationData.value.amphure!,
+                    dashboardDetailController.stationData.value.district!,
+                    dashboardDetailController.stationData.value.province!,
+                  );
                   Get.toNamed(Routes.MANAGE_MEMBER);
                 },
               ),

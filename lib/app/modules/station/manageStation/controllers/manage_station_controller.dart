@@ -44,6 +44,9 @@ class ManageStationController extends GetxController {
   final processChips = <String>[].obs;
   final trainingChips = <String>[].obs;
 
+  int totalCommiss = 0;
+  int totalMember = 0;
+
   int selectedIndexFromTable = -1;
   int selectedId = -1;
 
@@ -178,6 +181,8 @@ class ManageStationController extends GetxController {
     talker.info('$logTitle:editData:$selectedIndexFromTable');
     isLoading.value = true;
     try {
+      talker.info('$logTitle:editData:totalCommiss:$totalCommiss');
+      talker.info('$logTitle:editData:totalMember:$totalMember');
       stations.add(
         Stations(
           id: selectedId,
@@ -189,8 +194,8 @@ class ManageStationController extends GetxController {
           facebook: stationFacebook.text,
           process: processChips.join('|'),
           training: trainingChips.join('|'),
-          totalCommiss: 0,
-          totalMember: 0,
+          totalCommiss: totalCommiss,
+          totalMember: totalMember,
           yearOfData: selectedYearOfData.value,
         ),
       );
@@ -332,6 +337,10 @@ class ManageStationController extends GetxController {
 
         selectedYearOfData.value = stationList[index].yearOfData!;
 
+        totalCommiss = item.totalCommiss!;
+        totalMember = item.totalMember!;
+        talker.info('$logTitle:totalCommiss:$totalCommiss');
+        talker.info('$logTitle:totalMember:$totalMember');
         // get profiles
         Map<String, String> qParams = {
           "module": "info",

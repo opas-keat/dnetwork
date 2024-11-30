@@ -99,6 +99,12 @@ class DashboardDetailLayoutLarge extends StatelessWidget {
                                       manageStationController.stationList.add(
                                           dashboardDetailController
                                               .stationData.value);
+                                      manageStationController
+                                          .selectDataFromTable(
+                                        0,
+                                        dashboardDetailController
+                                            .stationData.value.id!,
+                                      );
                                       Get.toNamed(Routes.MANAGE_STATION);
                                     },
                                     icon: const Icon(

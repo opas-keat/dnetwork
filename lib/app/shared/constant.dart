@@ -32,4 +32,4 @@ const commissOrder =
 
 const PRIVATE_KEY = '32characterslongpassphraseneeded';
 
-const int loopYear = 3;
+const int loopYear = 2;

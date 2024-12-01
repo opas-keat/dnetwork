@@ -40,20 +40,29 @@ class DashboardLayoutLarge extends StatelessWidget {
                               text: 'สถานการณ์ดำเนินการ',
                               weight: FontWeight.bold,
                             ),
-                            DropdownButton(
-                              items: dashboardController.listStatus
-                                  .map<DropdownMenuItem<String>>(
-                                      (String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: CustomText(
-                                    text: ' $value',
-                                  ),
-                                );
-                              }).toList(),
-                              onChanged: (value) {
-                                dashboardController.updateStatus(value);
-                              },
+                            const SizedBox(width: defaultPadding),
+                            Obx(
+                              () => DropdownButton<String>(
+                                elevation: 0,
+                                value: dashboardController.status.value,
+                                isDense: true,
+                                onChanged: (newValue) {
+                                  dashboardController.status.value = newValue!;
+                                  if (newValue != '') {
+                                    dashboardController.updateStatus(newValue);
+                                  }
+                                },
+                                items:
+                                    dashboardController.listStatus.map((item) {
+                                  return DropdownMenuItem<String>(
+                                    value: item,
+                                    child: CustomText(
+                                      text: item,
+                                      scale: 0.9,
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
                             ),
                             const SizedBox(width: defaultPadding / 2),
                           ],

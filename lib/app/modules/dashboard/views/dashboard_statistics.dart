@@ -77,12 +77,12 @@ class DashboardStatistics extends StatelessWidget {
                             child: const Text('ไม่พบข้อมูล'))),
                     columns: [
                       const DataColumn2(
-                        label: Text(""),
-                        fixedWidth: 20,
+                        label: Text("สถานะ"),
+                        fixedWidth: 60,
                       ),
                       const DataColumn2(
                         label: Text(""),
-                        fixedWidth: 40,
+                        fixedWidth: 60,
                       ),
                       DataColumn2(
                         label: const CustomText(

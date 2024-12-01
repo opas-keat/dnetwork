@@ -30,6 +30,7 @@ class DashboardController extends GetxController {
   RxString reportProvince = ''.obs;
 
   List<String> listStatus = <String>[
+    '',
     'ยังไม่ดำเนินการ',
     'อยู่ระหว่างดำเนินการ',
     'ดำเนินการเสร็จแล้ว'

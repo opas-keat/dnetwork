@@ -2,6 +2,7 @@ import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../../api/api_params.dart';
 import '../../../api/services/commiss_position_commu_service.dart';
@@ -9,6 +10,7 @@ import '../../../api/services/commiss_position_service.dart';
 import '../../../api/services/commiss_service.dart';
 import '../../../data/models/summary_chart.dart';
 import '../../../data/responses/commiss_service_response.dart';
+import '../../../shared/constant.dart';
 import '../../../shared/utils.dart';
 import '../../address/controllers/address_controller.dart';
 
@@ -58,9 +60,17 @@ class CommissController extends GetxController {
   RxString reportAmphure = ''.obs;
   RxString reportDistrict = ''.obs;
 
+  final listYearOfData = <String>[""].obs;
+  RxString selectedYearOfData = ''.obs;
+
   @override
   void onInit() {
     super.onInit();
+    listYearOfData.clear();
+    for (var i = 0; i < loopYear; i++) {
+      listYearOfData.add((int.parse(nowYearForSearch) - i).toString());
+    }
+    selectedYearOfData.value = nowYearForSearch;
     listCommiss();
     listCommissPosition();
   }
@@ -155,7 +165,7 @@ class CommissController extends GetxController {
       "commiss_station_name": commissStationName.text,
       "commiss_position": selectedCommissPosition.value,
       "commiss_position_commu": selectedCommissPositionCommu.value,
-      "year_of_data": nowYearForSearch,
+      "year_of_data": selectedYearOfData.value,
     };
     try {
       final result = await CommissService().list(qParams);

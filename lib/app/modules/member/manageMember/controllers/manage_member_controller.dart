@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
 
 import '../../../../api/api.dart';
 import '../../../../api/api_end_points.dart';
@@ -72,11 +71,9 @@ class ManageMemberController extends GetxController {
     talker.info('$logTitle onInit');
     listYearOfData.clear();
     for (var i = 0; i < loopYear; i++) {
-      DateTime now =
-          DateTime.utc(DateTime.now().year - i, DateTime.now().month, 1);
-      listYearOfData.add(DateFormat('y').format(now));
+      listYearOfData.add((int.parse(nowYearForSearch) - i).toString());
     }
-    listYearOfData.add(selectedYearOfData.value);
+    selectedYearOfData.value = nowYearForSearch;
     listMemberPosition();
     listMemberPositionCommu();
   }

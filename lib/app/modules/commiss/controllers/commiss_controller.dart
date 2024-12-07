@@ -59,6 +59,8 @@ class CommissController extends GetxController {
   RxString reportProvince = ''.obs;
   RxString reportAmphure = ''.obs;
   RxString reportDistrict = ''.obs;
+  RxString reportStationName = ''.obs;
+  List<String> listReportStationName = <String>[];
 
   final listYearOfData = <String>[""].obs;
   RxString selectedYearOfData = ''.obs;
@@ -170,6 +172,7 @@ class CommissController extends GetxController {
     try {
       final result = await CommissService().list(qParams);
       // listCommissStatistics.clear();
+      listReportStationName.clear();
       for (final item in result!.data!) {
         listCommissStatistics.add(
           CommissData(
@@ -188,6 +191,14 @@ class CommissController extends GetxController {
             yearOfData: item.yearOfData,
           ),
         );
+        listReportStationName.add(item.commissStationName!);
+      }
+      talker.info(
+          '$logTitle:listMember:listReportStationName.size:${listReportStationName.toSet().toList().length}');
+      if (listReportStationName.toSet().toList().length == 1) {
+        reportStationName.value = listReportStationName.toSet().toList().first;
+      } else {
+        reportStationName.value = "";
       }
       isLoading.value = false;
       resetSearch();

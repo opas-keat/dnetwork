@@ -34,6 +34,22 @@ class MemberController extends GetxController {
   int currentPage = 1;
   RxInt offset = 0.obs;
 
+  List<String> listReportType = <String>[
+    'รายงาน PDF',
+    'รายงาน XLSX',
+    'รายงาน DOCX',
+  ];
+  RxString reportFirstName = ''.obs;
+  RxString reportSurName = ''.obs;
+  RxString reportPosition = ''.obs;
+  RxString reportTel = ''.obs;
+  RxString reportCommissAffiliateName = ''.obs;
+  RxString reportProvince = ''.obs;
+  RxString reportAmphure = ''.obs;
+  RxString reportDistrict = ''.obs;
+  RxString reportStationName = ''.obs;
+  List<String> listReportStationName = <String>[];
+
   final listYearOfData = <String>[""].obs;
   RxString selectedYearOfData = ''.obs;
 
@@ -101,6 +117,7 @@ class MemberController extends GetxController {
     try {
       final result = await MemberService().list(qParams);
       // listMemberStatistics.clear();
+      listReportStationName.clear();
       for (final item in result!.data!) {
         listMemberStatistics.add(
           MemberData(
@@ -119,6 +136,14 @@ class MemberController extends GetxController {
             yearOfData: item.yearOfData,
           ),
         );
+        listReportStationName.add(item.memberStationName!);
+      }
+      talker.info(
+          '$logTitle:listMember:listReportStationName.size:${listReportStationName.toSet().toList().length}');
+      if (listReportStationName.toSet().toList().length == 1) {
+        reportStationName.value = listReportStationName.toSet().toList().first;
+      } else {
+        reportStationName.value = "";
       }
       isLoading.value = false;
       resetSearch();

@@ -209,8 +209,10 @@ class CommissSearch extends StatelessWidget {
             controller.reportTel.value = controller.commissTelephone.text;
             controller.reportPosition.value =
                 controller.selectedCommissPosition.value;
-            controller.reportCommissAffiliateName.value =
-                controller.commissStationName.text;
+            // controller.reportCommissAffiliateName.value =
+            //     controller.commissStationName.text;
+            // controller.reportStationName.value =
+            //     controller.commissStationName.text;
             controller.reportProvince.value =
                 controller.addressController.selectedProvince.value;
             controller.reportAmphure.value =

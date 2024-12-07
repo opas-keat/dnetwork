@@ -84,11 +84,27 @@ class CommissLayoutLarge extends StatelessWidget {
                       );
                     }).toList(),
                     onChanged: (value) {
-                      if (controller.reportProvince.isEmpty) {
+                      // if (controller.reportProvince.isEmpty) {
+                      //   Get.dialog(
+                      //     AlertDialog(
+                      //       content:
+                      //           const Text('กรุณาค้นหา จังหวัด/อำเภอ/ตำบล'),
+                      //       actions: [
+                      //         TextButton(
+                      //           child: const Text("ปิด"),
+                      //           onPressed: () => Get.back(),
+                      //         ),
+                      //       ],
+                      //     ),
+                      //   );
+                      if (controller.reportStationName.isEmpty &&
+                          controller.reportProvince.isEmpty &&
+                          controller.reportAmphure.isEmpty &&
+                          controller.reportDistrict.isEmpty) {
                         Get.dialog(
                           AlertDialog(
-                            content:
-                                const Text('กรุณาค้นหา จังหวัด/อำเภอ/ตำบล'),
+                            content: const Text(
+                                'กรุณาค้นหา ศส.ปชต. และ จังหวัด/อำเภอ/ตำบล'),
                             actions: [
                               TextButton(
                                 child: const Text("ปิด"),
@@ -112,7 +128,7 @@ class CommissLayoutLarge extends StatelessWidget {
                           controller.reportSurName.value,
                           controller.reportPosition.value,
                           controller.reportTel.value,
-                          controller.reportCommissAffiliateName.value,
+                          controller.reportStationName.value,
                           '',
                           '',
                           '',

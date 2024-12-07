@@ -9,6 +9,7 @@ import '../../../shared/custom_text.dart';
 import '../../../shared/info_card.dart';
 import '../../../shared/main_chart.dart';
 import '../../../shared/show_province.dart';
+import '../../../shared/utils.dart';
 import '../controllers/member_controller.dart';
 import 'member_search.dart';
 import 'member_statistics.dart';
@@ -72,6 +73,57 @@ class MemberLayoutLarge extends StatelessWidget {
                     },
                   ),
                   const SizedBox(width: defaultPadding / 2),
+                  DropdownButton(
+                    items: controller.listReportType
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: CustomText(
+                          text: value,
+                        ),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      if (controller.reportStationName.isEmpty &&
+                          controller.reportProvince.isEmpty &&
+                          controller.reportAmphure.isEmpty &&
+                          controller.reportDistrict.isEmpty) {
+                        Get.dialog(
+                          AlertDialog(
+                            content: const Text(
+                                'กรุณาค้นหา ศส.ปชต. และ จังหวัด/อำเภอ/ตำบล'),
+                            actions: [
+                              TextButton(
+                                child: const Text("ปิด"),
+                                onPressed: () => Get.back(),
+                              ),
+                            ],
+                          ),
+                        );
+                      } else {
+                        String reportName = 'list_member_l';
+                        if (value!.split(' ').first == 'รายงาน') {
+                          reportName = 'list_member_l';
+                        }
+                        report(
+                          reportName,
+                          value.split(' ').last.toString().toLowerCase(),
+                          controller.reportProvince.value,
+                          controller.reportAmphure.value,
+                          controller.reportDistrict.value,
+                          controller.reportFirstName.value,
+                          controller.reportSurName.value,
+                          controller.reportPosition.value,
+                          controller.reportTel.value,
+                          controller.reportStationName.value,
+                          '',
+                          '',
+                          '',
+                          '',
+                        );
+                      }
+                    },
+                  ),
                 ],
               ),
               const SizedBox(height: defaultPadding / 2),

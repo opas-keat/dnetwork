@@ -129,8 +129,8 @@ class MemberSearch extends StatelessWidget {
               ),
               const SizedBox(height: defaultPadding),
               AddressView(
-                showAmphure: false,
-                showTambol: false,
+                showAmphure: true,
+                showTambol: true,
                 showPostCode: false,
               ),
               const SizedBox(height: defaultPadding),
@@ -146,6 +146,21 @@ class MemberSearch extends StatelessWidget {
         TextButton(
           child: const Text("ค้นหา"),
           onPressed: () {
+            controller.reportFirstName.value = controller.memberFirstName.text;
+            controller.reportSurName.value = controller.memberSurName.text;
+            controller.reportTel.value = controller.memberTelephone.text;
+            // controller.reportStationName.value =
+            //     controller.memberStationName.text;
+            // controller.reportPosition.value =
+            //     controller.selectedMemberPosition.value;
+            // controller.reportCommissAffiliateName.value =
+            //     controller.commissStationName.text;
+            controller.reportProvince.value =
+                controller.addressController.selectedProvince.value;
+            controller.reportAmphure.value =
+                controller.addressController.selectedAmphure.value;
+            controller.reportDistrict.value =
+                controller.addressController.selectedTambol.value;
             controller.offset.value = 0;
             controller.currentPage = 1;
             controller.listMemberStatistics.clear();

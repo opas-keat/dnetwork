@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import '../../../api/api_params.dart';
 import '../../../api/services/village_service.dart';
+import '../../../data/models/summary_chart.dart';
 import '../../../data/responses/village_service_response.dart';
 import '../../../shared/utils.dart';
 import '../../address/controllers/address_controller.dart';
@@ -22,6 +23,8 @@ class VillageController extends GetxController {
 
   final villageName = TextEditingController(text: "");
   final villageNo = TextEditingController(text: "");
+
+  final summaryChart = <SummaryChart>[].obs;
 
   int currentPage = 1;
   RxInt offset = 0.obs;

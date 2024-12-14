@@ -47,8 +47,14 @@ class DashboardDetailLayoutLarge extends StatelessWidget {
               const SizedBox(height: defaultPadding / 2),
               Row(
                 children: [
+                  // Obx(
+                  //   () => Image.network(
+                  //     "assets/images/seal/${dashboardDetailController.provinceSummary.value.seal}",
+                  //     height: 60,
+                  //   ),
+                  // ),
                   Image.network(
-                    "assets/images/seal/Seal_Bangkok.png",
+                    "assets/images/seal/${dashboardDetailController.provinceSummary.value.seal}",
                     height: 60,
                   ),
                   const SizedBox(width: defaultPadding / 2),

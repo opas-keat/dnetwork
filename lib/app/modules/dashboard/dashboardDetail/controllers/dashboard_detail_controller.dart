@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import '../../../../api/api_params.dart';
 import '../../../../api/services/commiss_service.dart';
 import '../../../../api/services/member_service.dart';
+import '../../../../api/services/province_summary_service.dart';
+import '../../../../data/models/province_summary.dart';
 import '../../../../data/responses/commiss_service_response.dart';
 import '../../../../data/responses/member_service_response.dart';
 import '../../../../data/responses/station_service_response.dart';
@@ -21,8 +23,11 @@ class DashboardDetailController extends GetxController {
 
   // RxString selectedProvince = ''.obs;
   // final stationList = <StationData>[].obs;
+  final provinceSummary = ProvinceSummary().obs;
   final stationData = StationData().obs;
   RxString stationName = ''.obs;
+
+  RxString province = ''.obs;
 
   int currentPage = 1;
   RxInt offset = 0.obs;
@@ -36,8 +41,10 @@ class DashboardDetailController extends GetxController {
 
   @override
   void onReady() {
+    listProvinceSummaryDashboard(province.value);
+    getCommiss();
+    getMember();
     update();
-
     super.onReady();
   }
 
@@ -83,6 +90,7 @@ class DashboardDetailController extends GetxController {
           ),
         );
       }
+      update();
       isLoadingMember.value = false;
     } catch (e) {
       talker.error('$e');
@@ -128,6 +136,24 @@ class DashboardDetailController extends GetxController {
       }
       update();
       isLoadingCommiss.value = false;
+    } catch (e) {
+      talker.error('$e');
+    }
+  }
+
+  listProvinceSummaryDashboard(String province) async {
+    talker.info('$logTitle:listProvinceSummaryDashboard:');
+    // isLoading.value = true;
+    talker.info('$logTitle:province:$province');
+    try {
+      final result = await ProvinceSummaryService().listProvinceSummary(
+        province,
+        "",
+      );
+      for (final item in result!.data!) {
+        provinceSummary.value.seal = item.seal;
+      }
+      update();
     } catch (e) {
       talker.error('$e');
     }

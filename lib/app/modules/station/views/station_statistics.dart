@@ -178,9 +178,14 @@ DataRow stationDataRow(
 
       // dashboardDetailController.stationList.clear();
       // dashboardDetailController.stationList.add(stationData);
+
       dashboardDetailController.stationData.value = stationData;
-      dashboardDetailController.getCommiss();
-      dashboardDetailController.getMember();
+      dashboardDetailController.province.value = stationData.province!;
+      dashboardDetailController.onReady();
+      // dashboardDetailController
+      //     .listProvinceSummaryDashboard(stationData.province!);
+      // dashboardDetailController.getCommiss();
+      // dashboardDetailController.getMember();
       Get.toNamed(Routes.DASHBOARD_DETAIL);
       // controller.selectDataFromTable(index, budgetData);
     },

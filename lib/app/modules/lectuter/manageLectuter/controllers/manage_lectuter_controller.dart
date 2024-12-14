@@ -133,6 +133,7 @@ class ManageLectuterController extends GetxController {
         isLoading.value = false;
         lectuters.clear();
         selectedIndexFromTable = -1;
+        filePath.value = "";
         resetForm();
       }
       result = true;
@@ -189,6 +190,7 @@ class ManageLectuterController extends GetxController {
       lectuterList.refresh();
       lectuters.clear();
       selectedIndexFromTable = -1;
+      filePath.value = "";
       resetForm();
       return true;
     } catch (e) {

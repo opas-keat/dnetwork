@@ -138,6 +138,7 @@ class ManageVillageController extends GetxController {
         isLoading.value = false;
         villages.clear();
         selectedIndexFromTable = -1;
+        filePath.value = "";
         resetForm();
       }
       result = true;
@@ -218,6 +219,7 @@ class ManageVillageController extends GetxController {
       villageList.refresh();
       villages.clear();
       selectedIndexFromTable = -1;
+      filePath.value = "";
       resetForm();
       return true;
     } catch (e) {

@@ -126,6 +126,7 @@ class ManageBudgetController extends GetxController {
         budgets.clear();
         selectedIndexFromTable = -1;
         // addressController.selectedProvince.value = '';
+        filePath.value = "";
         resetForm();
         result = true;
       }
@@ -258,6 +259,7 @@ class ManageBudgetController extends GetxController {
       budgets.clear();
       // addressController.selectedProvince.value = '';
       selectedIndexFromTable = -1;
+      filePath.value = "";
       resetForm();
       return true;
     } catch (e) {

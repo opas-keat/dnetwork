@@ -162,6 +162,7 @@ class ManageMemberController extends GetxController {
         isLoading.value = false;
         members.clear();
         selectedIndexFromTable = -1;
+        filePath.value = "";
         resetForm();
       }
       result = true;
@@ -232,6 +233,7 @@ class ManageMemberController extends GetxController {
       memberList.refresh();
       members.clear();
       selectedIndexFromTable = -1;
+      filePath.value = "";
       resetForm();
       return true;
     } catch (e) {

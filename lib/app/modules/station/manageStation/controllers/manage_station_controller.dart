@@ -167,6 +167,7 @@ class ManageStationController extends GetxController {
         isLoading.value = false;
         stations.clear();
         selectedIndexFromTable = -1;
+        filePath.value = "";
         resetForm();
       }
       result = true;
@@ -235,6 +236,7 @@ class ManageStationController extends GetxController {
       stationList.refresh();
       stations.clear();
       selectedIndexFromTable = -1;
+      filePath.value = "";
       resetForm();
       return true;
     } catch (e) {

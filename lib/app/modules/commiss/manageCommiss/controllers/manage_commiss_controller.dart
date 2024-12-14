@@ -170,6 +170,7 @@ class ManageCommissController extends GetxController {
         isLoading.value = false;
         commisss.clear();
         selectedIndexFromTable = -1;
+        filePath.value = "";
         resetForm();
       }
       result = true;
@@ -243,6 +244,7 @@ class ManageCommissController extends GetxController {
       commissList.refresh();
       commisss.clear();
       selectedIndexFromTable = -1;
+      filePath.value = "";
       resetForm();
       return true;
     } catch (e) {

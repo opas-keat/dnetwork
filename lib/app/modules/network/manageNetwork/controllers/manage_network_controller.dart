@@ -156,6 +156,7 @@ class ManageNetworkController extends GetxController {
         isLoading.value = false;
         networks.clear();
         selectedIndexFromTable = -1;
+        filePath.value = "";
         resetForm();
       }
       result = true;
@@ -230,6 +231,7 @@ class ManageNetworkController extends GetxController {
       networkList.refresh();
       networks.clear();
       selectedIndexFromTable = -1;
+      filePath.value = "";
       resetForm();
       return true;
     } catch (e) {

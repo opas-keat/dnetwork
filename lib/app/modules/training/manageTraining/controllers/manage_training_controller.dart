@@ -115,6 +115,7 @@ class ManageTrainingController extends GetxController {
         trainings.clear();
         selectedIndexFromTable = -1;
         // addressController.selectedProvince.value = '';
+        filePath.value = "";
         resetForm();
         // return true;
       }
@@ -194,6 +195,7 @@ class ManageTrainingController extends GetxController {
       trainingList.refresh();
       trainings.clear();
       selectedIndexFromTable = -1;
+      filePath.value = "";
       resetForm();
       return true;
     } catch (e) {

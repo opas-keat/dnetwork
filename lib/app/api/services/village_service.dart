@@ -144,4 +144,25 @@ class VillageService {
     }
     return null;
   }
+
+  Future<SumTotalVillageResponse?> sumTotalVillage(
+    Map<String, String> qParams,
+  ) async {
+    try {
+      final response = await apiUtils.get(
+        url:
+            "${Api.ectApiContext}${Api.ectApiVersion}${ApiEndPoints.village}/sum-total-village",
+        queryParameters: qParams,
+        options: Options(
+          headers: apiUtils.secureHeaders,
+        ),
+      );
+      SumTotalVillageResponse sumTotalVillageResponse =
+          SumTotalVillageResponse.fromJson(jsonDecode(response.toString()));
+      return sumTotalVillageResponse;
+    } catch (e) {
+      talker.error(e);
+    }
+    return null;
+  }
 }

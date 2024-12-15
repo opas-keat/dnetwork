@@ -44,6 +44,42 @@ class VillageController extends GetxController {
     // update();
     // getVillage();
     listVillage();
+    sumTotalVillage();
+  }
+
+  sumTotalVillage() async {
+    talker.info('$logTitle:sumTotalVillage:');
+    isLoadingChart.value = true;
+    String province = window.sessionStorage["province"]!;
+    if (province.isEmpty) {
+      province = addressController.selectedProvince.value;
+    }
+    Map<String, String> qParams = {
+      "offset": offset.value.toString(),
+      "limit": queryParamLimit,
+      "order": queryParamOrderBy,
+      "province": province,
+    };
+    try {
+      final result = await VillageService().sumTotalVillage(qParams);
+      // summaryChart.clear();
+      for (final item in result!.data!) {
+        // talker.info('${item.name!}:${item.total!}');
+        summaryChart.add(
+          SummaryChart(
+            icon: Icons.edit_document,
+            color: randomColor(),
+            name: item.name!,
+            value: item.total!,
+          ),
+        );
+      }
+      isLoadingChart.value = false;
+      isLoadingChart.refresh();
+      summaryChart.refresh();
+    } catch (e) {
+      talker.error('$e');
+    }
   }
 
   listVillage() async {

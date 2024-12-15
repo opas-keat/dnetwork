@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../api/api_params.dart';
-import '../../../data/models/summary_chart.dart';
 import '../../../routes/app_pages.dart';
 import '../../../shared/constant.dart';
 import '../../../shared/custom_flat_button.dart';
@@ -143,11 +142,20 @@ class VillageLayoutLarge extends StatelessWidget {
         Expanded(
           child: Padding(
             padding: const EdgeInsets.only(left: defaultPadding / 2),
-            child: MainChart(
-              header: "สถิติข้อมูลหมู่บ้านพลเมืองดีวิถีประชาธิปไตย",
-              subHeader: "ระดับจังหวัด",
-              listSummaryChart: summaryVillageChart,
+            child: GetBuilder<VillageController>(
+              builder: (_) => controller.isLoadingChart.value
+                  ? const Center(child: CircularProgressIndicator())
+                  : MainChart(
+                      header: "สถิติข้อมูลหมู่บ้านพลเมืองดีวิถีประชาธิปไตย",
+                      subHeader: "",
+                      listSummaryChart: controller.summaryChart.obs.value,
+                    ),
             ),
+            // child: MainChart(
+            //   header: "สถิติข้อมูลหมู่บ้านพลเมืองดีวิถีประชาธิปไตย",
+            //   subHeader: "",
+            //   listSummaryChart: controller.summaryChart.obs.value,
+            // ),
           ),
         ),
       ],

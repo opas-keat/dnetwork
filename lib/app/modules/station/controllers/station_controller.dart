@@ -85,6 +85,7 @@ class StationController extends GetxController {
       }
       listStationStatistics.refresh();
       isLoading.value = false;
+      update();
       resetSearch();
       // return false;
     } catch (e) {
@@ -131,6 +132,7 @@ class StationController extends GetxController {
       }
       listSearchStation.refresh();
       isLoading.value = false;
+      // update();
       resetSearch();
       // return false;
     } catch (e) {

@@ -47,12 +47,6 @@ class DashboardDetailLayoutLarge extends StatelessWidget {
               const SizedBox(height: defaultPadding / 2),
               Row(
                 children: [
-                  // Obx(
-                  //   () => Image.network(
-                  //     "assets/images/seal/${dashboardDetailController.provinceSummary.value.seal}",
-                  //     height: 60,
-                  //   ),
-                  // ),
                   Image.network(
                     "assets/images/seal/${dashboardDetailController.provinceSummary.value.seal}",
                     height: 60,
@@ -316,6 +310,7 @@ class DashboardDetailCommiss extends StatelessWidget {
                 ),
                 onPressed: () {
                   // Get.toNamed(Routes.MANAGE_COMMISS);
+                  dashboardDetailController.pickExcelFileCommiss("commiss");
                 },
               ),
             ],
@@ -480,6 +475,7 @@ class DashboardDetailMember extends StatelessWidget {
                 ),
                 onPressed: () {
                   // Get.toNamed(Routes.MANAGE_COMMISS);
+                  dashboardDetailController.pickExcelFileCommiss("member");
                 },
               ),
             ],

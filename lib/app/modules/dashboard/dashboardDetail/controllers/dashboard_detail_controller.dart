@@ -1,7 +1,9 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:get/get.dart';
 
 import '../../../../api/api_params.dart';
 import '../../../../api/services/commiss_service.dart';
+import '../../../../api/services/file_attach_service.dart';
 import '../../../../api/services/member_service.dart';
 import '../../../../api/services/province_summary_service.dart';
 import '../../../../data/models/province_summary.dart';
@@ -52,6 +54,68 @@ class DashboardDetailController extends GetxController {
   void onClose() {
     super.onClose();
   }
+
+  Future<void> pickExcelFileCommiss(String uploadType) async {
+    final result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['xlsx'],
+    );
+
+    if (result != null) {
+      // final filePath = result.files.single.path!;
+      final fileName = result.files.single.name;
+      final bytesProfile = result.files.single.bytes!;
+      final sizeProfile = result.files.single.size;
+      if (uploadType == "commiss") {
+        isLoadingCommiss.value = true;
+      } else if (uploadType == "member") {
+        isLoadingMember.value = true;
+      }
+      await FileAttachService().createExcel(
+        fileName,
+        sizeProfile,
+        bytesProfile,
+        uploadType,
+        "excels",
+        nowYearForSearch,
+        stationData.value.id!,
+        stationData.value.name!,
+        nowYearForSearch,
+        stationData.value.province!,
+        stationData.value.amphure!,
+        stationData.value.district!,
+      );
+      // print("File uploaded successfully!");
+      if (uploadType == "commiss") {
+        isLoadingCommiss.value = false;
+        getCommiss();
+      } else if (uploadType == "member") {
+        isLoadingMember.value = false;
+        getMember();
+      }
+    }
+  }
+
+  // Future<void> uploadFile(String filePath, String uploadType) async {
+  //   final response = await FileAttachService().create(
+  //     fileUpload.value.name,
+  //     sizeProfile,
+  //     bytesProfile,
+  //     uploadType,
+  //     "excel",
+  //     "111",
+  //   );
+  //   // final uri = Uri.parse("https://yourserver.com/upload");
+  //   // final request = http.MultipartRequest('POST', uri);
+  //   // request.files.add(await http.MultipartFile.fromPath('file', filePath));
+  //   // final response = await request.send();
+
+  //   if (response.statusCode == 200) {
+  //     print("File uploaded successfully!");
+  //   } else {
+  //     print("Failed to upload file: ${response.statusCode}");
+  //   }
+  // }
 
   getMember() async {
     talker.info('$logTitle:getMember:');

@@ -60,6 +60,66 @@ class FileAttachService {
     }
   }
 
+  Future<FileAttachServiceResponse?> createExcel(
+    String fileName,
+    int fileSize,
+    Uint8List bytes,
+    String module,
+    String linkType,
+    String? linkId,
+    int stationId,
+    String stationName,
+    String yearOfData,
+    String province,
+    String amphure,
+    String district,
+  ) async {
+    try {
+      var formData = FormData.fromMap({
+        'id': 0,
+        'file_name': fileName,
+        'file_size': fileSize,
+        'module': module,
+        'link_type': linkType,
+        'link_id': linkId,
+        'station_id': stationId,
+        'station_name': stationName,
+        'year_of_data': yearOfData,
+        'province': province,
+        'amphure': amphure,
+        'district': district,
+        'file': MultipartFile.fromBytes(
+          bytes,
+          filename: fileName,
+        ),
+      });
+      final response = await apiUtils.post(
+        url:
+            "${Api.ectApiContext}${Api.ectApiVersion}${ApiEndPoints.fileAttach}/import/excel",
+        data: formData,
+        options: Options(
+          headers: apiUtils.secureHeaders,
+        ),
+      );
+      FileAttachServiceResponse fileServiceResponse =
+          FileAttachServiceResponse.fromJson(jsonDecode(response.toString()));
+      talker.debug('code:: ${fileServiceResponse.code}');
+      if (fileServiceResponse.code == "000") {
+        return FileAttachServiceResponse(
+          code: fileServiceResponse.code,
+          message: response.data["message"],
+          data: fileServiceResponse.data,
+        );
+      }
+      return FileAttachServiceResponse.withError(
+          code: codeResponseNull, msg: response.data["message"]);
+    } catch (e) {
+      talker.error(e);
+      return FileAttachServiceResponse.withError(
+          code: codeError, msg: apiUtils.handleError(e));
+    }
+  }
+
   Future<FileAttachServiceResponse?> getProfiles(
     Map<String, String> qParams,
   ) async {

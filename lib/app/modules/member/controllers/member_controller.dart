@@ -107,6 +107,8 @@ class MemberController extends GetxController {
       "limit": queryParamLimit,
       "order": queryParamOrderBy,
       "province": province,
+      "amphure": addressController.selectedAmphure.value,
+      "district": addressController.selectedTambol.value,
       "member_id_card": memberIdCard.text,
       "member_telephone": memberTelephone.text,
       "member_station_name": memberStationName.text,

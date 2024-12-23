@@ -1,3 +1,4 @@
+import 'package:file_picker/_internal/file_picker_web.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:get/get.dart';
 
@@ -55,17 +56,20 @@ class DashboardDetailController extends GetxController {
     super.onClose();
   }
 
-  Future<void> pickExcelFileCommiss(String uploadType) async {
-    final result = await FilePicker.platform.pickFiles(
+  void pickExcelFile(String uploadType) async {
+    talker.info('$logTitle:in funcion:pickExcelFile');
+    FilePickerResult? result = await FilePickerWeb.platform.pickFiles(
+      allowMultiple: false,
       type: FileType.custom,
       allowedExtensions: ['xlsx'],
     );
-
+    talker.info('$logTitle:in funcion:pickExcelFile111');
     if (result != null) {
       // final filePath = result.files.single.path!;
-      final fileName = result.files.single.name;
-      final bytesProfile = result.files.single.bytes!;
-      final sizeProfile = result.files.single.size;
+      PlatformFile file = result.files.first;
+      final fileName = file.name;
+      final bytesProfile = file.bytes!;
+      final sizeProfile = file.size;
       if (uploadType == "commiss") {
         isLoadingCommiss.value = true;
       } else if (uploadType == "member") {

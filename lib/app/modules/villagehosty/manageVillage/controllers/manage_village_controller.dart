@@ -255,6 +255,7 @@ class ManageVillageController extends GetxController {
       for (final item in result!.data!) {
         selectedId = item.id!;
         villageName.text = item.villageName!;
+        villageNo.text = item.villageNo!;
         villageLocation.text = item.villageLocation!;
         // villageFacebook.text = villageList[index].!;
         if (item.villageTypeAct!.isNotEmpty) {

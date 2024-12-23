@@ -310,7 +310,8 @@ class DashboardDetailCommiss extends StatelessWidget {
                 ),
                 onPressed: () {
                   // Get.toNamed(Routes.MANAGE_COMMISS);
-                  dashboardDetailController.pickExcelFileCommiss("commiss");
+                  print("click commiss");
+                  dashboardDetailController.pickExcelFile("commiss");
                 },
               ),
             ],
@@ -475,7 +476,7 @@ class DashboardDetailMember extends StatelessWidget {
                 ),
                 onPressed: () {
                   // Get.toNamed(Routes.MANAGE_COMMISS);
-                  dashboardDetailController.pickExcelFileCommiss("member");
+                  dashboardDetailController.pickExcelFile("member");
                 },
               ),
             ],

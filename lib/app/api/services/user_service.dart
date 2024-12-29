@@ -44,56 +44,40 @@ class UserService {
   //   }
   // }
 
-  // Future<UserServiceResponse?> update(
-  //   List<Users> listUsers,
-  // ) async {
-  //   talker.debug(UserServiceRequest(users: listUsers).toJson());
-  //   try {
-  //     final response = await apiUtils.put(
-  //       url: Api.ectApiContext + Api.ectApiVersion + ApiEndPoints.user,
-  //       data: UserServiceRequest(users: listUsers),
-  //       options: Options(
-  //         headers: apiUtils.secureHeaders,
-  //       ),
-  //     );
-  //     UserServiceResponse userServiceResponse =
-  //         UserServiceResponse.fromJson(jsonDecode(response.toString()));
-  //     talker.debug('code:: ${userServiceResponse.code}');
-  //     if (userServiceResponse.code == "000") {
-  //       return UserServiceResponse(
-  //         code: userServiceResponse.code,
-  //         message: response.data["message"],
-  //         data: userServiceResponse.data,
-  //       );
-  //     }
-  //     return UserServiceResponse.withError(
-  //         code: codeResponseNull, msg: response.data["message"]);
-  //   } catch (e) {
-  //     talker.error(e);
-  //     return UserServiceResponse.withError(
-  //         code: codeError, msg: apiUtils.handleError(e));
-  //   }
-  // }
-
-  // Future<DeleteServiceResponse?> delete(
-  //   int id,
-  // ) async {
-  //   try {
-  //     final response = await apiUtils.delete(
-  //       url:
-  //           "${Api.ectApiContext}${Api.ectApiVersion}${ApiEndPoints.user}/$id",
-  //       options: Options(
-  //         headers: apiUtils.secureHeaders,
-  //       ),
-  //     );
-  //     DeleteServiceResponse deleteServiceResponse =
-  //         DeleteServiceResponse.fromJson(jsonDecode(response.toString()));
-  //     return deleteServiceResponse;
-  //   } catch (e) {
-  //     talker.error(e);
-  //   }
-  //   return null;
-  // }
+  Future<UserServiceResponse?> update(
+    List<Users> users,
+  ) async {
+    //   talker.debug(UserServiceRequest(users: listUsers).toJson());
+    try {
+      final response = await apiUtils.put(
+        url: Api.ectApiContext + Api.ectApiVersion + ApiEndPoints.user,
+        data: UserServiceRequest(users: users),
+        options: Options(
+          headers: apiUtils.secureHeaders,
+        ),
+      );
+      UserServiceResponse userServiceResponse =
+          UserServiceResponse.fromJson(jsonDecode(response.toString()));
+      return userServiceResponse;
+      //     UserServiceResponse userServiceResponse =
+      //         UserServiceResponse.fromJson(jsonDecode(response.toString()));
+      //     talker.debug('code:: ${userServiceResponse.code}');
+      //     if (userServiceResponse.code == "000") {
+      //       return UserServiceResponse(
+      //         code: userServiceResponse.code,
+      //         message: response.data["message"],
+      //         data: userServiceResponse.data,
+      //       );
+      //     }
+      //     return UserServiceResponse.withError(
+      //         code: codeResponseNull, msg: response.data["message"]);
+    } catch (e) {
+      talker.error(e);
+      return null;
+      // return UserServiceResponse.withError(
+      //     code: codeError, msg: apiUtils.handleError(e));
+    }
+  }
 
   // Future<UserServiceResponse?> getById(
   //   int id,

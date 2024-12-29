@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../../../shared/constant.dart';
@@ -29,26 +32,33 @@ class SettingUserDetail extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                CustomText(
-                  text: "ชื่อเข้าใช้งาน",
-                  color: Colors.black87.withOpacity(.9),
-                ),
-                const SizedBox(height: defaultPadding / 2),
-                TextFormField(
-                  controller: controller.userName,
-                  keyboardType: TextInputType.text,
-                ),
-                const SizedBox(height: defaultPadding),
-                CustomText(
-                  text: "รหัสผ่าน",
-                  color: Colors.black87.withOpacity(.9),
-                ),
-                const SizedBox(height: defaultPadding / 2),
-                TextFormField(
-                  controller: controller.password,
-                  keyboardType: TextInputType.text,
-                ),
-                const SizedBox(height: defaultPadding),
+                controller.selectedProvince.value == ""
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CustomText(
+                            text: "ชื่อเข้าใช้งาน",
+                            color: Colors.black87.withOpacity(.9),
+                          ),
+                          const SizedBox(height: defaultPadding / 2),
+                          TextFormField(
+                            controller: controller.userName,
+                            keyboardType: TextInputType.text,
+                          ),
+                          const SizedBox(height: defaultPadding),
+                          CustomText(
+                            text: "รหัสผ่าน",
+                            color: Colors.black87.withOpacity(.9),
+                          ),
+                          const SizedBox(height: defaultPadding / 2),
+                          TextFormField(
+                            controller: controller.password,
+                            keyboardType: TextInputType.text,
+                          ),
+                          const SizedBox(height: defaultPadding),
+                        ],
+                      )
+                    : const SizedBox(height: 1),
                 CustomText(
                   text: "ชื่อ",
                   color: Colors.black87.withOpacity(.9),
@@ -76,7 +86,11 @@ class SettingUserDetail extends StatelessWidget {
                 const SizedBox(height: defaultPadding / 2),
                 TextFormField(
                   controller: controller.idCard,
-                  keyboardType: TextInputType.text,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly,
+                    LengthLimitingTextInputFormatter(13),
+                  ],
                 ),
                 const SizedBox(height: defaultPadding),
                 CustomText(
@@ -172,7 +186,18 @@ class SettingUserDetail extends StatelessWidget {
             const Spacer(flex: 2),
             TextButton(
               onPressed: () async {
-                final result = await controller.save();
+                var result = false;
+                if (controller.userIdForDelete.value == "") {
+                  // Get.snackbar(
+                  //   "กรุณากรอกชื่อ",
+                  //   "กรุณากรอกชื่อ",
+                  //   snackPosition: SnackPosition.BOTTOM,
+                  // );
+                  // return;
+                  result = await controller.save();
+                } else {
+                  result = await controller.edit();
+                }
                 if (result) {
                   controller.sampleTree
                       .elementAt(controller.selectedProvince.value)

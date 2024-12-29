@@ -55,6 +55,35 @@ class SettingController extends GetxController {
     listProvince();
   }
 
+  edit() async {
+    talker.info('$logTitle:edit:${userIdForDelete.value}');
+    bool result = false;
+    try {
+      talker.debug('response message : ${userIdForDelete.value}');
+      users.add(Users(
+        id: int.tryParse(userIdForDelete.value),
+        userName: userName.text,
+        passwords: password.text,
+        firstName: firstName.text,
+        lastName: lastName.text,
+        province: selectedProvince.value,
+        userType: selectedUserType.value == "ผู้ใช้งานทั่วไป" ? "2" : "1",
+        idCard: idCard.text,
+      ));
+      final response = await UserService().update(users);
+      if (response?.code == "000") {
+        userIdForDelete.value = "";
+        result = true;
+      } else {
+        result = false;
+      }
+    } catch (e) {
+      talker.error('$e');
+      result = false;
+    }
+    return result;
+  }
+
   delete() async {
     bool result = false;
     try {
@@ -90,6 +119,7 @@ class SettingController extends GetxController {
       ));
       final response = await UserService().create(users.obs.value);
       if (response?.code == "000") {
+        users.clear();
         result = true;
       } else {
         result = false;

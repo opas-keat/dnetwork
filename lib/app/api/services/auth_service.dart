@@ -32,8 +32,8 @@ class AuthenService {
           headers: apiUtils.header,
         ),
       );
-      talker.debug('login:: ${result.statusCode}');
-      talker.debug('login:: ${result.toString()}');
+      // talker.debug('login:: ${result.statusCode}');
+      // talker.debug('login:: ${result.toString()}');
       // talker.info(title, 'login:: ${result.data['status_code']}');
       // if (result.data['status_code'] == 200) {
       //   return AuthenServiceResponse.fromJson(result.data);
@@ -44,7 +44,10 @@ class AuthenService {
         Map<String, dynamic> data = responseBody['data'];
         String key = data['key'];
         String value = data['value'];
+        // talker.debug('key:: $key');
+        // talker.debug('value:: $value');
         decryptData = decryptionKeyValue(key, value);
+        // talker.debug('decryptData:: $decryptData');
       }
       result.data['data'] = jsonDecode(decryptData);
       AuthenServiceResponse authenServiceResponse =
@@ -57,8 +60,7 @@ class AuthenService {
         );
       }
       // talker.info(title, 'login:: ${result.data["message"]}');
-      return AuthenServiceResponse.withError(
-          code: codeResponseNull, msg: result.data["message"]);
+      return AuthenServiceResponse.withError(code: 200, msg: 'fail');
     } catch (e) {
       return AuthenServiceResponse.withError(
           code: codeError, msg: apiUtils.handleError(e));
@@ -89,6 +91,7 @@ class AuthenService {
         String key = data['key'];
         String value = data['value'];
         decryptData = decryptionKeyValue(key, value);
+        talker.debug('decryptData:: $decryptData');
       }
       final dynamic resultCID = jsonDecode(decryptData);
       return resultCID['result'];

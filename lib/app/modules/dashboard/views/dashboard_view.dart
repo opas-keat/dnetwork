@@ -9,7 +9,6 @@ import '../../../shared/custom_text.dart';
 import '../../../shared/header.dart';
 import '../../../shared/main_drawer.dart';
 import '../../../shared/pdpa_view.dart';
-import '../../../shared/utils.dart';
 import 'dashboard_layout_large.dart';
 import 'dashboard_layout_small.dart';
 import 'dashboard_search.dart';
@@ -20,7 +19,7 @@ class DashboardView extends StatelessWidget {
   Future<void> _showDialog(BuildContext context) async {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       String userPdpa = html.window.sessionStorage["pdpa_check"].toString();
-      talker.info("pdpa_check: ${userPdpa}");
+      // talker.info("pdpa_check: ${userPdpa}");
       if (userPdpa != "Y") {
         Get.dialog(
           const PdpaView(),

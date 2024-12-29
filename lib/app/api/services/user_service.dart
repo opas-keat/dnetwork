@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import '../../data/requests/user_service_request.dart';
+import '../../data/responses/user_search_response.dart';
 import '../../data/responses/user_service_response.dart';
 import '../../shared/utils.dart';
 import '../api.dart';
@@ -112,30 +114,50 @@ class UserService {
   //   }
   //   return null;
   // }
+  Future<UserServiceResponse?> create(
+    List<Users> users,
+  ) async {
+    try {
+      final response = await apiUtils.post(
+        url: "${Api.ectApiContext}${Api.ectApiVersion}${ApiEndPoints.user}",
+        data: UserServiceRequest(users: users),
+        options: Options(
+          headers: apiUtils.secureHeaders,
+        ),
+      );
+      UserServiceResponse userServiceResponse =
+          UserServiceResponse.fromJson(jsonDecode(response.toString()));
+      return userServiceResponse;
+    } catch (e) {
+      talker.error(e);
+    }
+    return null;
+  }
 
-  // Future<UserServiceResponse?> list(
-  //   Map<String, String> qParams,
-  // ) async {
-  //   // apiUtils.secureHeaders = {
-  //   //   'Authorization': 'Bearer: ${window.sessionStorage["token"]}',
-  //   // };
-  //   try {
-  //     final response = await apiUtils.get(
-  //       url: Api.ectApiContext + Api.ectApiVersion + ApiEndPoints.user,
-  //       queryParameters: qParams,
-  //       options: Options(
-  //         headers: apiUtils.secureHeaders,
-  //       ),
-  //     );
-  //     UserServiceResponse userServiceResponse =
-  //         UserServiceResponse.fromJson(jsonDecode(response.toString()));
-  //     // talker.debug("userServiceResponse $userServiceResponse");
-  //     return userServiceResponse;
-  //   } catch (e) {
-  //     talker.error(e);
-  //   }
-  //   return null;
-  // }
+  Future<UserSearchResponse?> search(
+    Map<String, String> qParams,
+  ) async {
+    // apiUtils.secureHeaders = {
+    //   'Authorization': 'Bearer: ${window.sessionStorage["token"]}',
+    // };
+    try {
+      final response = await apiUtils.get(
+        url:
+            "${Api.ectApiContext}${Api.ectApiVersion}${ApiEndPoints.user}/search",
+        queryParameters: qParams,
+        options: Options(
+          headers: apiUtils.secureHeaders,
+        ),
+      );
+      UserSearchResponse userServiceResponse =
+          UserSearchResponse.fromJson(jsonDecode(response.toString()));
+      // talker.debug("userServiceResponse $userServiceResponse");
+      return userServiceResponse;
+    } catch (e) {
+      talker.error(e);
+    }
+    return null;
+  }
 
   Future<UserServiceResponse?> getByToken() async {
     try {

@@ -21,7 +21,7 @@ class SigninController extends GetxController {
 
   @override
   void onInit() {
-    talker.info('SigninController is started');
+    // talker.info('SigninController is started');
     super.onInit();
   }
 
@@ -29,9 +29,9 @@ class SigninController extends GetxController {
     required String userName,
     required String password,
   }) async {
-    talker.info('signIn');
-    talker.debug('userName:$userName');
-    talker.debug('password:$password');
+    // talker.info('signIn');
+    // talker.debug('userName:$userName');
+    // talker.debug('password:$password');
     // userName = 'NPT001';
     // password = 'NPT#!123';
     try {
@@ -43,7 +43,7 @@ class SigninController extends GetxController {
           SignInCID(),
           barrierDismissible: false,
         );
-        talker.debug('resultCID:$resultCID');
+        // talker.debug('resultCID:$resultCID');
         if (resultCID) {
           if (result.data!.roles!.length > 1) {
             html.window.sessionStorage["roles"] = "admin";
@@ -68,10 +68,10 @@ class SigninController extends GetxController {
           }
           return true;
         }
-        authenError.value = 'เลขบัตรประจำตัวประชาชน ไม่ถูกต้อง';
+        authenError.value = 'รหัสยืนยันตัวตน ไม่ถูกต้อง';
         return false;
       }
-      authenError.value = result!.message!;
+      authenError.value = 'ชื่อผู้ใช้ หรือ รหัสผ่าน ไม่ถูกต้อง';
       return false;
     } catch (e) {
       talker.error('$e');

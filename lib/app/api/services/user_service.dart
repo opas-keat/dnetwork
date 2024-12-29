@@ -13,37 +13,6 @@ import '../api_utils.dart';
 class UserService {
   final title = "UserService";
 
-  // Future<UserServiceResponse?> create(
-  //   List<Users> listUsers,
-  // ) async {
-  //   talker.debug(UserServiceRequest(users: listUsers).toJson());
-  //   try {
-  //     final response = await apiUtils.post(
-  //       url: Api.ectApiContext + Api.ectApiVersion + ApiEndPoints.user,
-  //       data: UserServiceRequest(users: listUsers),
-  //       options: Options(
-  //         headers: apiUtils.secureHeaders,
-  //       ),
-  //     );
-  //     UserServiceResponse userServiceResponse =
-  //         UserServiceResponse.fromJson(jsonDecode(response.toString()));
-  //     talker.debug('code:: ${userServiceResponse.code}');
-  //     if (userServiceResponse.code == "000") {
-  //       return UserServiceResponse(
-  //         code: userServiceResponse.code,
-  //         message: response.data["message"],
-  //         data: userServiceResponse.data,
-  //       );
-  //     }
-  //     return UserServiceResponse.withError(
-  //         code: codeResponseNull, msg: response.data["message"]);
-  //   } catch (e) {
-  //     talker.error(e);
-  //     return UserServiceResponse.withError(
-  //         code: codeError, msg: apiUtils.handleError(e));
-  //   }
-  // }
-
   Future<UserServiceResponse?> update(
     List<Users> users,
   ) async {
@@ -59,18 +28,6 @@ class UserService {
       UserServiceResponse userServiceResponse =
           UserServiceResponse.fromJson(jsonDecode(response.toString()));
       return userServiceResponse;
-      //     UserServiceResponse userServiceResponse =
-      //         UserServiceResponse.fromJson(jsonDecode(response.toString()));
-      //     talker.debug('code:: ${userServiceResponse.code}');
-      //     if (userServiceResponse.code == "000") {
-      //       return UserServiceResponse(
-      //         code: userServiceResponse.code,
-      //         message: response.data["message"],
-      //         data: userServiceResponse.data,
-      //       );
-      //     }
-      //     return UserServiceResponse.withError(
-      //         code: codeResponseNull, msg: response.data["message"]);
     } catch (e) {
       talker.error(e);
       return null;

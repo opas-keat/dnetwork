@@ -51,15 +51,15 @@ class SettingController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    talker.info('$logTitle onInit');
+    // talker.info('$logTitle onInit');
     listProvince();
   }
 
   edit() async {
-    talker.info('$logTitle:edit:${userIdForDelete.value}');
+    // talker.info('$logTitle:edit:${userIdForDelete.value}');
     bool result = false;
     try {
-      talker.debug('response message : ${userIdForDelete.value}');
+      // talker.debug('response message : ${userIdForDelete.value}');
       users.add(Users(
         id: int.tryParse(userIdForDelete.value),
         userName: userName.text,
@@ -88,7 +88,7 @@ class SettingController extends GetxController {
     bool result = false;
     try {
       final response = await UserService().delete(userIdForDelete.value);
-      talker.debug('response message : ${response?.message}');
+      // talker.debug('response message : ${response?.message}');
       if (response?.code == "000") {
         userIdForDelete.value = "";
         result = true;
@@ -103,7 +103,7 @@ class SettingController extends GetxController {
   }
 
   save() async {
-    talker.info('$logTitle:save:');
+    // talker.info('$logTitle:save:');
     isLoading.value = true;
     bool result = false;
     try {
@@ -132,7 +132,7 @@ class SettingController extends GetxController {
   }
 
   Future listUsers(String province) async {
-    talker.info('$logTitle:listUsers');
+    // talker.info('$logTitle:listUsers');
     Map<String, String> qParams = {
       "offset": "0",
       "limit": "100",
@@ -166,7 +166,7 @@ class SettingController extends GetxController {
   }
 
   Future listProvince() async {
-    talker.info('$logTitle listProvince');
+    // talker.info('$logTitle listProvince');
     // if (province.isEmpty) {
     //   province = addressController.selectedProvince.value;
     // }
@@ -231,50 +231,3 @@ class UserDetail {
     this.userType,
   });
 }
-
-// extension on ExplorableNode {
-//   Icon get icon {
-//     if (isRoot) return const Icon(Icons.data_object);
-
-//     if (this is FolderNode) {
-//       if (isExpanded) return const Icon(Icons.folder_open);
-//       return const Icon(Icons.folder);
-//     }
-
-//     if (this is FileNode) {
-//       final file = data as File;
-//       if (file.mimeType.startsWith("image")) return const Icon(Icons.image);
-//       if (file.mimeType.startsWith("video")) {
-//         return const Icon(Icons.video_file);
-//       }
-//     }
-
-//     return const Icon(Icons.insert_drive_file);
-//   }
-// }
-
-// abstract class Explorable {
-//   final String name;
-//   final DateTime createdAt;
-
-//   Explorable(this.name) : createdAt = DateTime.now();
-
-//   @override
-//   String toString() => name;
-// }
-
-// class File extends Explorable {
-//   final String mimeType;
-
-//   File(super.name, {required this.mimeType});
-// }
-
-// class Folder extends Explorable {
-//   Folder(super.name);
-// }
-
-// typedef ExplorableNode = TreeNode<Explorable>;
-
-// typedef FileNode = TreeNode<File>;
-
-// typedef FolderNode = TreeNode<Folder>;

@@ -91,92 +91,96 @@ class SettingView extends StatelessWidget {
                                     borderRadius:
                                         BorderRadius.circular(defaultPadding),
                                   ),
-                                  child: TreeView.simple(
-                                    tree: controller.sampleTree,
-                                    showRootNode: true,
-                                    expansionBehavior: ExpansionBehavior.none,
-                                    shrinkWrap: true,
-                                    // scrollController: AutoScrollController(),
-                                    // expansionBehavior:
-                                    //     ExpansionBehavior.snapToTop,
-                                    expansionIndicatorBuilder: (context, node) {
-                                      if (node.isRoot) {
-                                        return PlusMinusIndicator(
-                                          tree: node,
-                                          alignment: Alignment.centerLeft,
-                                          color: Colors.grey[700],
-                                        );
-                                      }
-                                      return ChevronIndicator.rightDown(
-                                        tree: node,
-                                        alignment: Alignment.centerLeft,
-                                        color: Colors.grey[700],
-                                      );
-                                    },
-                                    indentation: const Indentation(),
-                                    builder: (context, node) => Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: defaultPadding),
-                                      child: ListTile(
-                                        title: Text(
-                                          node.data!.firstName! +
-                                              node.data!.lastName!,
-                                        ),
-                                        // subtitle: Text(
-                                        //     node.data?.createdAt.toString() ??
-                                        //         "N/A"),
-                                        leading: Padding(
+                                  child: CustomScrollView(
+                                    slivers: [
+                                      SliverTreeView.simple(
+                                        tree: controller.sampleTree,
+                                        showRootNode: true,
+                                        expansionBehavior:
+                                            ExpansionBehavior.none,
+                                        // shrinkWrap: true,
+                                        expansionIndicatorBuilder:
+                                            (context, node) {
+                                          if (node.isRoot) {
+                                            return PlusMinusIndicator(
+                                              tree: node,
+                                              alignment: Alignment.centerLeft,
+                                              color: Colors.grey[700],
+                                            );
+                                          }
+                                          return ChevronIndicator.rightDown(
+                                            tree: node,
+                                            alignment: Alignment.centerLeft,
+                                            color: Colors.grey[700],
+                                          );
+                                        },
+                                        indentation: const Indentation(),
+                                        builder: (context, node) => Padding(
                                           padding: const EdgeInsets.only(
-                                            top: defaultPadding / 2,
+                                              left: defaultPadding),
+                                          child: ListTile(
+                                            title: Text(
+                                              node.data!.firstName! +
+                                                  node.data!.lastName!,
+                                            ),
+                                            // subtitle: Text(
+                                            //     node.data?.createdAt.toString() ??
+                                            //         "N/A"),
+                                            leading: Padding(
+                                              padding: const EdgeInsets.only(
+                                                top: defaultPadding / 2,
+                                              ),
+                                              child: Icon(node.data?.icon),
+                                            ),
                                           ),
-                                          child: Icon(node.data?.icon),
                                         ),
+                                        onItemTap: (item) {
+                                          // print("Item tapped: ${item.key}");
+                                          if (item.data?.type == "root") {
+                                            if (item.childrenAsList.isEmpty) {
+                                              controller.listProvince();
+                                            }
+                                            // controller.listUsers(item.key);
+                                          } else if (item.data?.type ==
+                                              "province") {
+                                            if (item.childrenAsList.isEmpty) {
+                                              controller.listUsers(item.key);
+                                            }
+                                            // controller.listUsers(item.key);
+                                          } else if (item.data?.type ==
+                                              "user") {
+                                            controller.userIdForDelete.value =
+                                                item.key;
+                                            controller.firstName.text =
+                                                item.data!.firstName!;
+                                            controller.lastName.text =
+                                                item.data!.lastName!;
+                                            controller.userName.text =
+                                                item.data!.userName!;
+                                            controller.password.text =
+                                                item.data!.userPassword!;
+                                            controller.selectedProvince.value =
+                                                item.data!.province!;
+                                            controller.idCard.text =
+                                                item.data!.idCard!;
+                                            controller.selectedUserType.value =
+                                                item.data!.userType!;
+                                            Get.dialog(
+                                              SettingUserDetail(),
+                                              barrierDismissible: false,
+                                            );
+                                            // controller.listUsers(item.key);
+                                          }
+                                        },
+                                        onTreeReady: (c) {
+                                          // _controller = c;
+                                          // if (expandChildrenOnReady) {
+                                          //   _controller?.expandAllChildren(
+                                          //       controller.sampleTree);
+                                          // }
+                                        },
                                       ),
-                                    ),
-                                    onItemTap: (item) {
-                                      // print("Item tapped: ${item.key}");
-                                      if (item.data?.type == "root") {
-                                        if (item.childrenAsList.isEmpty) {
-                                          controller.listProvince();
-                                        }
-                                        // controller.listUsers(item.key);
-                                      } else if (item.data?.type ==
-                                          "province") {
-                                        if (item.childrenAsList.isEmpty) {
-                                          controller.listUsers(item.key);
-                                        }
-                                        // controller.listUsers(item.key);
-                                      } else if (item.data?.type == "user") {
-                                        controller.userIdForDelete.value =
-                                            item.key;
-                                        controller.firstName.text =
-                                            item.data!.firstName!;
-                                        controller.lastName.text =
-                                            item.data!.lastName!;
-                                        controller.userName.text =
-                                            item.data!.userName!;
-                                        controller.password.text =
-                                            item.data!.userPassword!;
-                                        controller.selectedProvince.value =
-                                            item.data!.province!;
-                                        controller.idCard.text =
-                                            item.data!.idCard!;
-                                        controller.selectedUserType.value =
-                                            item.data!.userType!;
-                                        Get.dialog(
-                                          SettingUserDetail(),
-                                          barrierDismissible: false,
-                                        );
-                                        // controller.listUsers(item.key);
-                                      }
-                                    },
-                                    onTreeReady: (c) {
-                                      // _controller = c;
-                                      // if (expandChildrenOnReady) {
-                                      //   _controller?.expandAllChildren(
-                                      //       controller.sampleTree);
-                                      // }
-                                    },
+                                    ],
                                   ),
                                 ),
 

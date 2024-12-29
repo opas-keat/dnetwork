@@ -29,33 +29,33 @@ class CustomLogInterceptor extends Interceptor {
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    logPrint("************************* Request ************************");
-    printKV("uri", options.uri);
+    // logPrint("************************* Request ************************");
+    // printKV("uri", options.uri);
 
     if (request) {
-      printKV("method", options.method);
+      // printKV("method", options.method);
       // printKV("path", options.path);
-      printKV("responseType", options.responseType.toString());
-      printKV("extra", options.extra);
+      // printKV("responseType", options.responseType.toString());
+      // printKV("extra", options.extra);
     }
     if (requestHeader) {
-      logPrint("headers:");
+      // logPrint("headers:");
       options.headers.forEach((key, v) => printKV(" $key", v));
     }
     if (requestBody) {
-      logPrint("requestBodyData:");
-      printAll(options.data);
+      // logPrint("requestBodyData:");
+      // printAll(options.data);
     }
-    logPrint("*************************************************");
+    // logPrint("*************************************************");
     return super.onRequest(options, handler);
   }
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
-    logPrint("************************ Response ************************");
-    printKV("uri", response.requestOptions.uri);
-    _printResponse(response);
-    logPrint("*************************************************");
+    // logPrint("************************ Response ************************");
+    // printKV("uri", response.requestOptions.uri);
+    // _printResponse(response);
+    // logPrint("*************************************************");
     return handler.next(response);
     // return super.onResponse(response, handler);
   }
@@ -63,30 +63,30 @@ class CustomLogInterceptor extends Interceptor {
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
     if (error) {
-      logPrint(
-          "************************ DioException ************************");
-      logPrint("uri: ${err.requestOptions.uri}");
+      // logPrint(
+      //     "************************ DioException ************************");
+      // logPrint("uri: ${err.requestOptions.uri}");
       // logPrint("path: ${err.requestOptions.path}");
-      logPrint("$err");
+      // logPrint("$err");
       if (err.response != null) {
         _printResponse(err.response!);
       }
-      logPrint("*************************************************");
+      // logPrint("*************************************************");
     }
     return super.onError(err, handler);
   }
 
   void _printResponse(Response response) {
-    printKV("statusCode", response.statusCode!);
+    // printKV("statusCode", response.statusCode!);
     if (responseHeader) {
       if (response.isRedirect == true) {
-        printKV("redirect", response.realUri);
+        // printKV("redirect", response.realUri);
       }
-      logPrint("headers:");
+      // logPrint("headers:");
       response.headers.forEach((key, v) => printKV(" $key", v.join(",")));
     }
     if (responseBody) {
-      logPrint("Response Text:");
+      // logPrint("Response Text:");
       final pattern = RegExp(".{1,800}"); // 800 is the size of each chunk
       pattern
           .allMatches(response.toString())
@@ -95,7 +95,7 @@ class CustomLogInterceptor extends Interceptor {
   }
 
   void printKV(String key, Object v) {
-    logPrint("$key: $v");
+    // logPrint("$key: $v");
   }
 
   void printAll(msg) {

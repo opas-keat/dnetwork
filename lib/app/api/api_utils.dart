@@ -143,14 +143,14 @@ class ApiUtils {
   String handleError(dynamic error) {
     String errorDescription = "";
 
-    talker.error(title, "handleError:: error >> $error");
+    // talker.error(title, "handleError:: error >> $error");
 
     if (error is DioException) {
-      talker.error(title,
-          '************************ DioException ************************');
+      // talker.error(title,
+      // '************************ DioException ************************');
 
       DioException dioError = error;
-      talker.error(title, 'dioException:: $dioError');
+      // talker.error(title, 'dioException:: $dioError');
       if (dioError.response != null) {
         talker.error(title, "dioException:: response >> ${dioError.response}");
       }
@@ -186,7 +186,7 @@ class ApiUtils {
     } else {
       errorDescription = "Unexpected error occured";
     }
-    talker.error(title, "handleError:: errorDescription >> $errorDescription");
+    // talker.error(title, "handleError:: errorDescription >> $errorDescription");
     return errorDescription;
   }
 

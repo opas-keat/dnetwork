@@ -153,7 +153,14 @@ class SettingUserDetail extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             TextButton(
-              onPressed: () {
+              onPressed: () async {
+                final result = await controller.delete();
+                if (result) {
+                  controller.sampleTree
+                      .elementAt(controller.selectedProvince.value)
+                      .clear();
+                  controller.listUsers(controller.selectedProvince.value);
+                }
                 Get.back();
               },
               child: const CustomText(

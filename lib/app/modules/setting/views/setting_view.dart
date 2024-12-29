@@ -147,6 +147,8 @@ class SettingView extends StatelessWidget {
                                         }
                                         // controller.listUsers(item.key);
                                       } else if (item.data?.type == "user") {
+                                        controller.userIdForDelete.value =
+                                            item.key;
                                         controller.firstName.text =
                                             item.data!.firstName!;
                                         controller.lastName.text =

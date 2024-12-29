@@ -46,12 +46,31 @@ class SettingController extends GetxController {
   final provinceList = <String>[""].obs;
 
   final users = <Users>[].obs;
+  final userIdForDelete = "".obs;
 
   @override
   void onInit() {
     super.onInit();
     talker.info('$logTitle onInit');
     listProvince();
+  }
+
+  delete() async {
+    bool result = false;
+    try {
+      final response = await UserService().delete(userIdForDelete.value);
+      talker.debug('response message : ${response?.message}');
+      if (response?.code == "000") {
+        userIdForDelete.value = "";
+        result = true;
+      } else {
+        result = false;
+      }
+    } catch (e) {
+      talker.error('$e');
+      result = false;
+    }
+    return result;
   }
 
   save() async {

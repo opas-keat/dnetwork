@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import '../../data/requests/user_service_request.dart';
+import '../../data/responses/delete_service_response.dart';
 import '../../data/responses/user_search_response.dart';
 import '../../data/responses/user_service_response.dart';
 import '../../shared/utils.dart';
@@ -128,6 +129,25 @@ class UserService {
       UserServiceResponse userServiceResponse =
           UserServiceResponse.fromJson(jsonDecode(response.toString()));
       return userServiceResponse;
+    } catch (e) {
+      talker.error(e);
+    }
+    return null;
+  }
+
+  Future<DeleteServiceResponse?> delete(
+    String id,
+  ) async {
+    try {
+      final response = await apiUtils.delete(
+        url: "${Api.ectApiContext}${Api.ectApiVersion}${ApiEndPoints.user}/$id",
+        options: Options(
+          headers: apiUtils.secureHeaders,
+        ),
+      );
+      DeleteServiceResponse deleteServiceResponse =
+          DeleteServiceResponse.fromJson(jsonDecode(response.toString()));
+      return deleteServiceResponse;
     } catch (e) {
       talker.error(e);
     }

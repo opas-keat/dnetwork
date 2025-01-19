@@ -135,6 +135,7 @@ class DashboardDetailController extends GetxController {
       "amphure": stationData.value.amphure!,
       "district": stationData.value.district!,
       "year_of_data": nowYearForSearch,
+      "station_id": stationData.value.id!.toString(),
     };
     try {
       final result = await MemberService().list(qParams);
@@ -179,6 +180,7 @@ class DashboardDetailController extends GetxController {
       "amphure": stationData.value.amphure!,
       "district": stationData.value.district!,
       "year_of_data": nowYearForSearch,
+      "station_id": stationData.value.id!.toString(),
     };
     try {
       final result = await CommissService().list(qParams);

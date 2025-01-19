@@ -652,6 +652,8 @@ class ManageStationDetail extends StatelessWidget {
                   await controller.stationController.listStation();
                   await controller.infoCardController.getSummaryInfo();
                   await controller.trainingController.listTrainingType();
+                  await controller.commissController.listCommiss();
+                  await controller.memberController.listMember();
                   Get.back();
                   Get.toNamed(Routes.STATION);
                 },

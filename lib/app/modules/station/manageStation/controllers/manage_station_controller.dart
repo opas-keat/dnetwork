@@ -13,7 +13,9 @@ import '../../../../shared/constant.dart';
 import '../../../../shared/controller/info_card_controller.dart';
 import '../../../../shared/utils.dart';
 import '../../../address/controllers/address_controller.dart';
+import '../../../commiss/controllers/commiss_controller.dart';
 import '../../../dashboard/controllers/dashboard_controller.dart';
+import '../../../member/controllers/member_controller.dart';
 import '../../../training/controllers/training_controller.dart';
 import '../../controllers/station_controller.dart';
 
@@ -25,6 +27,8 @@ class ManageStationController extends GetxController {
   DashboardController dashboardController = Get.put(DashboardController());
   TrainingController trainingController = Get.put(TrainingController());
   AddressController addressController = Get.put(AddressController());
+  CommissController commissController = Get.put(CommissController());
+  MemberController memberController = Get.put(MemberController());
 
   Rx<String> filePath = ''.obs;
   Rx<XFile> fileUpload = XFile('').obs;

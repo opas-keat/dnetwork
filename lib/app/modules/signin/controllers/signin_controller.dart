@@ -121,8 +121,8 @@ class SigninController extends GetxController {
   }
 
   Future<bool> validateIDC() async {
-    talker.info('validateIDC');
-    talker.debug('idc:$cid.text');
+    // talker.info('validateIDC');
+    // talker.debug('idc:$cid.text');
     try {
       final result = await AuthenService().validateIDC(cid.text);
       return result!;
